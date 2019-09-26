@@ -5,65 +5,141 @@
         <title>Responsify</title>
         <style>
             body {
-                margin: 100px 0 0;
-                text-align: center;
+                margin: 0;
             }
-            div {
+            h2 {
+                display: inline;
+            }
+            ol {
+                padding: 0;
+                list-style-position: inside;
+            }
+            .code-block {
+                display: block;
+                white-space: pre;
+            }
+            .example-div {
                 background-color: red;
                 height: 100px;
-                margin: auto;
-                width: 30%;
             }
-            @media (min-width: 600px) {
-                div {
-                    width: calc(-600px + 130%);
+            @media (max-width: 600px) {
+                #first-requirement,
+                #second-requirement,
+                #third-requirement {
+                    width: 50%;
+                    width: 300px;
                 }
             }
-            @media (min-width: 1200px) {
-                div {
+            @media (min-width: 601px) and (max-width: 800px) {
+                #third-requirement {
+                    width: calc(-720px + 170%);
+                }
+            }
+            @media (min-width: 801px) {
+                #second-requirement,
+                #third-requirement {
                     width: 80%;
                 }
+            }
+            #preview-div {
+                background-color: red;
+                height: 100px;
             }
         </style>
     </head>
     <body>
         <h1>Responsify</h1>
-        <form onSubmit="calculateLinearFunction(event)">
-            <!-- TODO: allow entering percent values, not neccesarily pixel dimensions -->
-            <label for="element-starting-dimension">Element starting dimension in pixels</label>
-            <input name="element-starting-dimension" id="element-starting-dimension" type="number" required autofocus>
-            <br>
-            <label for="element-ending-dimension">Element ending dimension in pixels</label>
-            <input name="element-ending-dimension" id="element-ending-dimension" type="number" required>
-            <br>
-            <label name="viewport-starting-dimension">Viewport starting dimension in pixels</label>
-            <input name="viewport-starting-dimension" id="viewport-starting-dimension" type="number" required>
-            <br>
-            <label for="viewport-ending-dimension">Viewport ending dimension in pixels</label>
-            <input name="viewport-ending-dimension" id="viewport-ending-dimension" type="number" required>
-            <br>
-            <button>Calculate linear function</button>
-            <!-- TODO: calculate quadratic and polynomial functions as well -->
-        </form>
-        <p>
-            Your function should look like this:
-            <br>
-            <!-- TODO: allow user to choose between container width and viewport width -->
-            <code></code>
-        </p>
-        <div></div>
+        <section>
+            <!-- TODO: collapse the Explainer section if it's not your first visit -->
+            <details open>
+                <summary>
+                    <h2>Explainer</h2>
+                </summary>
+                <p>Responsify is a small tool that helps you write responsive CSS code. Responsify generates <code>calc()</code> values that adapt to different resolutions. Consider the use case below that consists of three requirement.</p>
+                <ol>
+                    <li>
+                        You're dealing with a <code>div</code> element that needs to be 50% of the parent element's width but only on resolutions below 600px (including 600px). CSS rule for the first requirement might looks like this:
+<code class="code-block">
+@media (max-width: 600px) {
+    div {
+        width: 85%;
+    }
+}
+</code>
+                        Below is such a div. Resize the browser to see how it responds to different resolutions.
+                        <div id="first-requirement" class="example-div"></div>
+                        <p>Note how once resolution increases above 600px the element's width "jumps" from 50% to the default width of 100%.</p>
+                    </li>
+                    <li>
+                        However, on resolutions above 800px (excluding 800px), the <code>div</code> element should be 80% of the parent element's width. CSS rule for the second requirement might look like this:
+<code class="code-block">
+@media (min-width: 801px) {
+    div {
+        width: 80%;
+    }
+}
+</code>
+                        Below is such a div. Resize the browser to see how it responds to different resolutions.
+                        <div id="second-requirement" class="example-div"></div>
+                        <p>Note how once resolution increases above 800px the element's width "jumps" from 100% to 80%.</p>
+                    </li>
+                    <li>
+                        On resolutions between 600px (excluding) and 800px (including) the <code>div</code> element should <em>gradually</em> transition from 50% to 80% of the parent width. CSS rule for the third requirement might look like this:
+<code  class="code-block">
+@media (min-width: 601px) and (max-width: 800px) {
+    div {
+        width: calc(-720px + 170%);
+    }
+}
+</code>
+                        Below is such a div. Resize the browser to see how it responds to different resolutions.
+                        <div id="third-requirement" class="example-div"></div>
+                        <p>Note how there are no "jumps" when we resize the browser. The <code>div</code> element smoothly transitions from 50% to 80% of the parent's width. The trick is in the <code>calc()</code> value which was generated by Responsify.</p>
+                    </li>
+                </ol>
+            </details>
+        </section>
+        <section>
+            <h2>Generator</h2>
+            <form onSubmit="calculateLinearFunction(event)">
+                <!-- TODO: allow entering percent values, not neccesarily pixel dimensions -->
+                <label for="element-starting-dimension">Element starting dimension in pixels</label>
+                <input name="element-starting-dimension" id="element-starting-dimension" type="number" required autofocus>
+                <br>
+                <label for="element-ending-dimension">Element ending dimension in pixels</label>
+                <input name="element-ending-dimension" id="element-ending-dimension" type="number" required>
+                <br>
+                <label name="viewport-starting-dimension">Viewport starting dimension in pixels</label>
+                <input name="viewport-starting-dimension" id="viewport-starting-dimension" type="number" required>
+                <br>
+                <label for="viewport-ending-dimension">Viewport ending dimension in pixels</label>
+                <input name="viewport-ending-dimension" id="viewport-ending-dimension" type="number" required>
+                <br>
+                <button>Calculate linear function</button>
+                <!-- TODO: calculate quadratic and polynomial functions as well -->
+            </form>
+            <p>
+                Your function should look like this:
+                <!-- TODO: allow user to choose between container width and viewport width -->
+                <output></output>
+            </p>
+            <div id="preview-div"></div>
+        </section>
+        
         <script>
             const calculateLinearFunction = event => {
                 event.preventDefault();
 
                 const elementDiff = window['element-ending-dimension'].valueAsNumber - window['element-starting-dimension'].valueAsNumber;
-                const containerDiff = window['container-ending-dimension'].valueAsNumber - window['container-starting-dimension'].valueAsNumber;
+                const containerDiff = window['viewport-ending-dimension'].valueAsNumber - window['viewport-starting-dimension'].valueAsNumber;
                 // TODO: round to 3 decimals
                 const rate = elementDiff / containerDiff;
-                const initial = window['element-starting-dimension'].valueAsNumber - (window['container-starting-dimension'].valueAsNumber * rate);
+                const initial = window['element-starting-dimension'].valueAsNumber - (window['viewport-starting-dimension'].valueAsNumber * rate);
                 
                 // TODO: fix + -: `calc(366.66666666666663px + -34.72222222222222%);`
-                document.querySelector('code').textContent = `calc(${initial}px + ${rate * 100}%);`;
+                const calc = `calc(${initial}px + ${rate * 100}%)`
+                document.querySelector('output').textContent = `${calc};`;
+                document.getElementById('preview-div').style.width = calc;
             };
         </script>
     </body>
