@@ -3,144 +3,125 @@
     <head>
         <meta charset="UTF-8">
         <title>Responsify</title>
-        <style>
-            body {
-                margin: 0;
-            }
-            h2 {
-                display: inline;
-            }
-            ol {
-                padding: 0;
-                list-style-position: inside;
-            }
-            .code-block {
-                display: block;
-                white-space: pre;
-            }
-            .example-div {
-                background-color: red;
-                height: 100px;
-            }
-            @media (max-width: 600px) {
-                #first-requirement,
-                #second-requirement,
-                #third-requirement {
-                    width: 50%;
-                    width: 300px;
-                }
-            }
-            @media (min-width: 601px) and (max-width: 800px) {
-                #third-requirement {
-                    width: calc(-720px + 170%);
-                }
-            }
-            @media (min-width: 801px) {
-                #second-requirement,
-                #third-requirement {
-                    width: 80%;
-                }
-            }
-            #preview-div {
-                background-color: red;
-                height: 100px;
-            }
-        </style>
+        <link rel="stylesheet" href="index.css">
+        <script src="index.js" defer></script>
     </head>
     <body>
-        <h1>Responsify</h1>
-        <section>
-            <!-- TODO: collapse the Explainer section if it's not your first visit -->
-            <details open>
-                <summary>
-                    <h2>Explainer</h2>
-                </summary>
-                <p>Responsify is a small tool that helps you write responsive CSS code. Responsify generates <code>calc()</code> values that adapt to different resolutions. Consider the use case below that consists of three requirement.</p>
-                <ol>
-                    <li>
-                        You're dealing with a <code>div</code> element that needs to be 50% of the parent element's width but only on resolutions below 600px (including 600px). CSS rule for the first requirement might looks like this:
-<code class="code-block">
-@media (max-width: 600px) {
+        <header>
+            <h1>Responsify</h1>
+            <p>Responsify generates CSS <code>calc()</code> values that use <code>%</code> or <code>vw</code> to smoothen the change in element's size on different resolutions.</p>
+        </header>
+        <main>
+            <section>
+                <details>
+                    <summary>
+                        <h2>Example</h2>
+                    </summary>
+                    <div>
+                        <div>
+                            <p>By default <code>&lt;div&gt;</code> elements expand to fit the width of their container.</p>
+<pre><code>div {
+    width: auto; /* default */
+}</code></pre>
+                        </div>
+                        <div>
+                            <p>Suppose the <code>&lt;div&gt;</code> element needs to be 30% of its parent on resolutions below and equal to 1000px.</p>
+<pre><code>@media (max-width: 1000px) {
     div {
-        width: 85%;
+        width: 30%;
     }
-}
-</code>
-                        Below is such a div. Resize the browser to see how it responds to different resolutions.
-                        <div id="first-requirement" class="example-div"></div>
-                        <p>Note how once resolution increases above 600px the element's width "jumps" from 50% to the default width of 100%.</p>
-                    </li>
-                    <li>
-                        However, on resolutions above 800px (excluding 800px), the <code>div</code> element should be 80% of the parent element's width. CSS rule for the second requirement might look like this:
-<code class="code-block">
-@media (min-width: 801px) {
+}</code></pre>
+                        </div>
+                        <div>
+                            <p>The @media query causes the <code>&lt;div&gt;</code> to "jump" at 1000px. To smoothen the transition we add another @media query.</p>
+<pre><code>@media (min-width: 1001px) and (max-width: 1200px) {
     div {
-        width: 80%;
+        width: calc(-4200px + 450%);
     }
-}
-</code>
-                        Below is such a div. Resize the browser to see how it responds to different resolutions.
-                        <div id="second-requirement" class="example-div"></div>
-                        <p>Note how once resolution increases above 800px the element's width "jumps" from 100% to 80%.</p>
-                    </li>
-                    <li>
-                        On resolutions between 600px (excluding) and 800px (including) the <code>div</code> element should <em>gradually</em> transition from 50% to 80% of the parent width. CSS rule for the third requirement might look like this:
-<code  class="code-block">
-@media (min-width: 601px) and (max-width: 800px) {
-    div {
-        width: calc(-720px + 170%);
-    }
-}
-</code>
-                        Below is such a div. Resize the browser to see how it responds to different resolutions.
-                        <div id="third-requirement" class="example-div"></div>
-                        <p>Note how there are no "jumps" when we resize the browser. The <code>div</code> element smoothly transitions from 50% to 80% of the parent's width. The trick is in the <code>calc()</code> value which was generated by Responsify.</p>
-                    </li>
-                </ol>
-            </details>
-        </section>
-        <section>
-            <h2>Generator</h2>
-            <form onSubmit="calculateLinearFunction(event)">
-                <!-- TODO: allow entering percent values, not neccesarily pixel dimensions -->
-                <label for="element-starting-dimension">Element starting dimension in pixels</label>
-                <input name="element-starting-dimension" id="element-starting-dimension" type="number" required autofocus>
-                <br>
-                <label for="element-ending-dimension">Element ending dimension in pixels</label>
-                <input name="element-ending-dimension" id="element-ending-dimension" type="number" required>
-                <br>
-                <label name="viewport-starting-dimension">Viewport starting dimension in pixels</label>
-                <input name="viewport-starting-dimension" id="viewport-starting-dimension" type="number" required>
-                <br>
-                <label for="viewport-ending-dimension">Viewport ending dimension in pixels</label>
-                <input name="viewport-ending-dimension" id="viewport-ending-dimension" type="number" required>
-                <br>
-                <button>Calculate linear function</button>
-                <!-- TODO: calculate quadratic and polynomial functions as well -->
-            </form>
-            <p>
-                Your function should look like this:
-                <!-- TODO: allow user to choose between container width and viewport width -->
-                <output></output>
-            </p>
-            <div id="preview-div"></div>
-        </section>
-        
-        <script>
-            const calculateLinearFunction = event => {
-                event.preventDefault();
-
-                const elementDiff = window['element-ending-dimension'].valueAsNumber - window['element-starting-dimension'].valueAsNumber;
-                const containerDiff = window['viewport-ending-dimension'].valueAsNumber - window['viewport-starting-dimension'].valueAsNumber;
-                // TODO: round to 3 decimals
-                const rate = elementDiff / containerDiff;
-                const initial = window['element-starting-dimension'].valueAsNumber - (window['viewport-starting-dimension'].valueAsNumber * rate);
-                
-                // TODO: fix + -: `calc(366.66666666666663px + -34.72222222222222%);`
-                const calc = `calc(${initial}px + ${rate * 100}%)`
-                document.querySelector('output').textContent = `${calc};`;
-                document.getElementById('preview-div').style.width = calc;
-            };
-        </script>
+}</code></pre>
+                            <p>Value for the CSS width property comes from a simple but annoying-to-calculate equation. Responsify simplifies and automates the calculation.</p>
+                        </div>
+                    </div>
+                    <video autoplay muted loop playsinline>
+                        <source src="example.webm" type="video/webm">
+                        <source src="example.mov" type="video/quicktime">
+                    </video>
+                </details>
+            </section>
+            <section>
+                <h2>Generate <code>calc()</code> values</h2>
+                <form>
+                    <div>
+                        <span id="row-heading-element" aria-hidden="true">Target element</span>
+                        <div id="cell-element-start">
+                            <label class="visually-hidden" for="element-starting-size">Target element starting size</label>
+                            <input id="element-starting-size" type="number" min="0" step="0.01" value="300" required>
+                            <fieldset>
+                                <legend>
+                                    <span class="visually-hidden">CSS unit for the target element starting size</span>
+                                </legend>
+                                <label for="starting-size-unit-fixed">
+                                    <input type="radio" name="starting-size-unit" id="starting-size-unit-fixed" value="fixed" checked>
+                                    px
+                                </label>
+                                <label for="starting-size-unit-relative">
+                                    <input type="radio" name="starting-size-unit" id="starting-size-unit-relative" value="relative">
+                                    <span>%</span>
+                                    <span hidden>vw</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                        <div id="cell-element-end">
+                            <label class="visually-hidden" for="element-ending-size">Target element ending size</label>
+                            <input id="element-ending-size" type="number" min="0" step="0.01" value="1200" required>
+                            <fieldset>
+                                <legend>
+                                    <span class="visually-hidden">CSS unit for the target element ending size</span>
+                                </legend>
+                                <label for="ending-size-unit-fixed">
+                                    <input type="radio" name="ending-size-unit" id="ending-size-unit-fixed" value="fixed" checked>
+                                    px
+                                </label>
+                                <label for="ending-size-unit-relative">
+                                    <input type="radio" name="ending-size-unit" id="ending-size-unit-relative" value="relative">
+                                    <span>%</span>
+                                    <span hidden>vw</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                        <span id="column-heading-start" aria-hidden="true">Starting size</span>
+                        <span id="column-heading-end" aria-hidden="true">Ending size</span>
+                        <div id="row-heading-container">
+                            <fieldset>
+                                <legend class="visually-hidden">Target element size relative to</legend>
+                                <label for="parent">
+                                    <input type="radio" name="relative-to" value="parent" id="parent" checked>
+                                    Parent
+                                </label>
+                                <label for="viewport">
+                                    <input type="radio" name="relative-to" value="viewport" id="viewport">
+                                    Viewport
+                                </label>
+                            </fieldset>
+                        </div>
+                        <div id="cell-container-start">
+                            <label class="visually-hidden" for="container-starting-size">Container starting size in pixels</label>
+                            <input id="container-starting-size" type="number" min="0" step="0.01" value="1000" required autofocus>
+                            <span aria-hidden="true">px</span>
+                        </div>
+                        <div id="cell-container-end">
+                            <label class="visually-hidden" for="container-ending-size">Container ending size in pixels</label>
+                            <input id="container-ending-size" type="number" min="0" step="0.01" value="1200" required>
+                            <span aria-hidden="true">px</span>
+                        </div>
+                    </div>
+                    <div>
+                        <output><code>width: calc(-4200px + 450%);</code></output>
+                        <button type="button">Copy</button>
+                    </div>
+                </form>
+                <p>Values are rounded to 3 decimal places. I remember reading that this strikes the optimal balance between precision and the number of digits but I can't find the source now.</p>
+            </section>
+        </main>
     </body>
 </html>
