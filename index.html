@@ -1,127 +1,687 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
     <head>
         <meta charset="UTF-8">
         <title>Responsify</title>
-        <link rel="stylesheet" href="index.css">
-        <script src="index.js" defer></script>
+        <meta name="description" content="Responsify generates CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./index.css">
+        <script src="./src/index.js" defer></script>
     </head>
     <body>
-        <header>
-            <h1>Responsify</h1>
-            <p>Responsify generates CSS <code>calc()</code> values that use <code>%</code> or <code>vw</code> to smoothen the change in element's size on different resolutions.</p>
+        <header aria-labelledby="responsify">
+            <h1 id="responsify">Responsify</h1>
+            <p class="description">Responsify generates CSS <code>calc()</code> value that smoothens the "jump" in element's <code>width</code>, <code>height</code>, <code>padding</code>, <code>top</code> etc. caused by a @media query.</p>
         </header>
-        <main>
-            <section>
-                <details>
-                    <summary>
-                        <h2>Example</h2>
+        <main class="main">
+            <section aria-labelledby="example">
+                <details class="details">
+                    <summary class="summary">
+                        <h2 class="example-heading" id="example">Example</h2>
                     </summary>
-                    <div>
-                        <div>
-                            <p>By default <code>&lt;div&gt;</code> elements expand to fit the width of their container.</p>
-<pre><code>div {
+                    <ol class="example-list">
+                        <li class="example-item">
+                            <p>By default <code>&lt;div&gt;</code> element expands to fill the width of its container.</p>
+<pre class="code-block"><code class="code-block-code">div {
     width: auto; /* default */
 }</code></pre>
-                        </div>
-                        <div>
-                            <p>Suppose the <code>&lt;div&gt;</code> element needs to be 30% of its parent on resolutions below and equal to 1000px.</p>
-<pre><code>@media (max-width: 1000px) {
+                        </li>
+                        <li class="example-item">
+                            <p>Suppose the <code>&lt;div&gt;</code> element needs to be 30% of its parent width on resolutions ≤ 1000px.</p>
+<pre class="code-block"><code class="code-block-code">div {
+    width: auto; /* default */
+}
+
+<mark class="code-block-mark">@media (max-width: 1000px) {
     div {
         width: 30%;
     }
-}</code></pre>
-                        </div>
-                        <div>
-                            <p>The @media query causes the <code>&lt;div&gt;</code> to "jump" at 1000px. To smoothen the transition we add another @media query.</p>
-<pre><code>@media (min-width: 1001px) and (max-width: 1200px) {
+}</mark></code></pre>
+                            <p>The @media query causes <code>&lt;div&gt;</code> size to "jump" at 1000px.</p>
+                        </li>
+                        <li class="example-item">
+                            <p>To smoothen the transition we add another @media query that gradually changes the <code>&lt;div&gt;</code> width from 100% to 30%.</p>
+<pre class="code-block"><code class="code-block-code">div {
+    width: auto; /* default */
+}
+
+@media (max-width: 1000px) {
+    div {
+        width: 30%;
+    }
+}
+
+<mark class="code-block-mark">@media (min-width: 1001px) and (max-width: 1200px) {
     div {
         width: calc(-4200px + 450%);
     }
-}</code></pre>
-                            <p>Value for the CSS width property comes from a simple but annoying-to-calculate equation. Responsify simplifies and automates the calculation.</p>
-                        </div>
-                    </div>
-                    <video autoplay muted loop playsinline>
-                        <source src="example.webm" type="video/webm">
-                        <source src="example.mov" type="video/quicktime">
+}</mark></code></pre>
+                            <p>The <code>width</code> value comes from a simple but annoying-to-calculate equation. Responsify simplifies and automates the calculation.</p>
+                        </li>
+                    </ol>
+                    <video class="video" autoplay muted loop playsinline controls aria-hidden="true" tabindex="-1">
+                        <source src="./assets/example.webm" type="video/webm">
+                        <source src="./assets/example.mov" type="video/quicktime">
                     </video>
                 </details>
             </section>
-            <section>
-                <h2>Generate <code>calc()</code> values</h2>
+            <section class="generate-section" aria-labelledby="generate">
+                <div class="generate-section-heading-container">
+                    <h2 class="screen-reader-heading">Generate calc() value in 5 steps</h2>
+                    <h2 id="generate" aria-hidden="true">Generate <code>calc()</code> value in 5 steps</h2>
+                </div>
+                <noscript>
+                    <p class="noscript-note">☹️ JavaScript needs to be enabled in order to generate <code>calc()</code> value ☹️</p>
+                </noscript>
                 <form>
-                    <div>
-                        <span id="row-heading-element" aria-hidden="true">Target element</span>
-                        <div id="cell-element-start">
-                            <label class="visually-hidden" for="element-starting-size">Target element starting size</label>
-                            <input id="element-starting-size" type="number" min="0" step="0.01" value="300" required>
-                            <fieldset>
-                                <legend>
-                                    <span class="visually-hidden">CSS unit for the target element starting size</span>
-                                </legend>
-                                <label for="starting-size-unit-fixed">
-                                    <input type="radio" name="starting-size-unit" id="starting-size-unit-fixed" value="fixed" checked>
-                                    px
-                                </label>
-                                <label for="starting-size-unit-relative">
-                                    <input type="radio" name="starting-size-unit" id="starting-size-unit-relative" value="relative">
-                                    <span>%</span>
-                                    <span hidden>vw</span>
-                                </label>
-                            </fieldset>
-                        </div>
-                        <div id="cell-element-end">
-                            <label class="visually-hidden" for="element-ending-size">Target element ending size</label>
-                            <input id="element-ending-size" type="number" min="0" step="0.01" value="1200" required>
-                            <fieldset>
-                                <legend>
-                                    <span class="visually-hidden">CSS unit for the target element ending size</span>
-                                </legend>
-                                <label for="ending-size-unit-fixed">
-                                    <input type="radio" name="ending-size-unit" id="ending-size-unit-fixed" value="fixed" checked>
-                                    px
-                                </label>
-                                <label for="ending-size-unit-relative">
-                                    <input type="radio" name="ending-size-unit" id="ending-size-unit-relative" value="relative">
-                                    <span>%</span>
-                                    <span hidden>vw</span>
-                                </label>
-                            </fieldset>
-                        </div>
-                        <span id="column-heading-start" aria-hidden="true">Starting size</span>
-                        <span id="column-heading-end" aria-hidden="true">Ending size</span>
-                        <div id="row-heading-container">
-                            <fieldset>
-                                <legend class="visually-hidden">Target element size relative to</legend>
-                                <label for="parent">
-                                    <input type="radio" name="relative-to" value="parent" id="parent" checked>
-                                    Parent
-                                </label>
-                                <label for="viewport">
-                                    <input type="radio" name="relative-to" value="viewport" id="viewport">
-                                    Viewport
-                                </label>
-                            </fieldset>
-                        </div>
-                        <div id="cell-container-start">
-                            <label class="visually-hidden" for="container-starting-size">Container starting size in pixels</label>
-                            <input id="container-starting-size" type="number" min="0" step="0.01" value="1000" required autofocus>
-                            <span aria-hidden="true">px</span>
-                        </div>
-                        <div id="cell-container-end">
-                            <label class="visually-hidden" for="container-ending-size">Container ending size in pixels</label>
-                            <input id="container-ending-size" type="number" min="0" step="0.01" value="1200" required>
-                            <span aria-hidden="true">px</span>
-                        </div>
-                    </div>
-                    <div>
-                        <output><code>width: calc(-4200px + 450%);</code></output>
-                        <button type="button">Copy</button>
-                    </div>
+                    <ol class="generate-list">
+                        <li class="generate-item">
+                            <div class="step-container">
+                                <label class="label" for="css-property">CSS property</label>
+                                <input disabled id="css-property" list="css-properties" type="text" placeholder="width" required>
+                                <datalist id="css-properties">
+                                    <option value="align-content">
+                                    <option value="align-items">
+                                    <option value="align-self">
+                                    <option value="alignment-baseline">
+                                    <option value="all">
+                                    <option value="animation">
+                                    <option value="animation-delay">
+                                    <option value="animation-direction">
+                                    <option value="animation-duration">
+                                    <option value="animation-fill-mode">
+                                    <option value="animation-iteration-count">
+                                    <option value="animation-name">
+                                    <option value="animation-play-state">
+                                    <option value="animation-timing-function">
+                                    <option value="appearance">
+                                    <option value="aspect-ratio">
+                                    <option value="azimuth">
+                                    <option value="backface-visibility">
+                                    <option value="background">
+                                    <option value="background-attachment">
+                                    <option value="background-blend-mode">
+                                    <option value="background-clip">
+                                    <option value="background-color">
+                                    <option value="background-image">
+                                    <option value="background-origin">
+                                    <option value="background-position">
+                                    <option value="background-repeat">
+                                    <option value="background-size">
+                                    <option value="baseline-shift">
+                                    <option value="baseline-source">
+                                    <option value="block-ellipsis">
+                                    <option value="block-size">
+                                    <option value="block-step">
+                                    <option value="block-step-align">
+                                    <option value="block-step-insert">
+                                    <option value="block-step-round">
+                                    <option value="block-step-size">
+                                    <option value="bookmark-label">
+                                    <option value="bookmark-level">
+                                    <option value="bookmark-state">
+                                    <option value="border">
+                                    <option value="border-block">
+                                    <option value="border-block-color">
+                                    <option value="border-block-end">
+                                    <option value="border-block-end-color">
+                                    <option value="border-block-end-style">
+                                    <option value="border-block-end-width">
+                                    <option value="border-block-start">
+                                    <option value="border-block-start-color">
+                                    <option value="border-block-start-style">
+                                    <option value="border-block-start-width">
+                                    <option value="border-block-style">
+                                    <option value="border-block-width">
+                                    <option value="border-bottom">
+                                    <option value="border-bottom-color">
+                                    <option value="border-bottom-left-radius">
+                                    <option value="border-bottom-right-radius">
+                                    <option value="border-bottom-style">
+                                    <option value="border-bottom-width">
+                                    <option value="border-boundary">
+                                    <option value="border-collapse">
+                                    <option value="border-color">
+                                    <option value="border-end-end-radius">
+                                    <option value="border-end-start-radius">
+                                    <option value="border-image">
+                                    <option value="border-image-outset">
+                                    <option value="border-image-repeat">
+                                    <option value="border-image-slice">
+                                    <option value="border-image-source">
+                                    <option value="border-image-width">
+                                    <option value="border-inline">
+                                    <option value="border-inline-color">
+                                    <option value="border-inline-end">
+                                    <option value="border-inline-end-color">
+                                    <option value="border-inline-end-style">
+                                    <option value="border-inline-end-width">
+                                    <option value="border-inline-start">
+                                    <option value="border-inline-start-color">
+                                    <option value="border-inline-start-style">
+                                    <option value="border-inline-start-width">
+                                    <option value="border-inline-style">
+                                    <option value="border-inline-width">
+                                    <option value="border-left">
+                                    <option value="border-left-color">
+                                    <option value="border-left-style">
+                                    <option value="border-left-width">
+                                    <option value="border-radius">
+                                    <option value="border-right">
+                                    <option value="border-right-color">
+                                    <option value="border-right-style">
+                                    <option value="border-right-width">
+                                    <option value="border-spacing">
+                                    <option value="border-start-end-radius">
+                                    <option value="border-start-start-radius">
+                                    <option value="border-style">
+                                    <option value="border-top">
+                                    <option value="border-top-color">
+                                    <option value="border-top-left-radius">
+                                    <option value="border-top-right-radius">
+                                    <option value="border-top-style">
+                                    <option value="border-top-width">
+                                    <option value="border-width">
+                                    <option value="bottom">
+                                    <option value="box-decoration-break">
+                                    <option value="box-shadow">
+                                    <option value="box-sizing">
+                                    <option value="box-snap">
+                                    <option value="break-after">
+                                    <option value="break-before">
+                                    <option value="break-inside">
+                                    <option value="caption-side">
+                                    <option value="caret">
+                                    <option value="caret-color">
+                                    <option value="caret-shape">
+                                    <option value="chains">
+                                    <option value="clear">
+                                    <option value="clip">
+                                    <option value="clip-path">
+                                    <option value="clip-rule">
+                                    <option value="color">
+                                    <option value="color-adjust">
+                                    <option value="color-interpolation-filters">
+                                    <option value="color-scheme">
+                                    <option value="column-count">
+                                    <option value="column-fill">
+                                    <option value="column-gap">
+                                    <option value="column-rule">
+                                    <option value="column-rule-color">
+                                    <option value="column-rule-style">
+                                    <option value="column-rule-width">
+                                    <option value="column-span">
+                                    <option value="column-width">
+                                    <option value="columns">
+                                    <option value="contain">
+                                    <option value="contain-intrinsic-size">
+                                    <option value="content">
+                                    <option value="content-visibility">
+                                    <option value="continue">
+                                    <option value="counter-increment">
+                                    <option value="counter-reset">
+                                    <option value="counter-set">
+                                    <option value="cue">
+                                    <option value="cue-after">
+                                    <option value="cue-before">
+                                    <option value="cursor">
+                                    <option value="direction">
+                                    <option value="display">
+                                    <option value="dominant-baseline">
+                                    <option value="elevation">
+                                    <option value="empty-cells">
+                                    <option value="fill">
+                                    <option value="fill-break">
+                                    <option value="fill-color">
+                                    <option value="fill-image">
+                                    <option value="fill-opacity">
+                                    <option value="fill-origin">
+                                    <option value="fill-position">
+                                    <option value="fill-repeat">
+                                    <option value="fill-rule">
+                                    <option value="fill-size">
+                                    <option value="filter">
+                                    <option value="flex">
+                                    <option value="flex-basis">
+                                    <option value="flex-direction">
+                                    <option value="flex-flow">
+                                    <option value="flex-grow">
+                                    <option value="flex-shrink">
+                                    <option value="flex-wrap">
+                                    <option value="float">
+                                    <option value="float-defer">
+                                    <option value="float-offset">
+                                    <option value="float-reference">
+                                    <option value="flood-color">
+                                    <option value="flood-opacity">
+                                    <option value="flow">
+                                    <option value="flow-from">
+                                    <option value="flow-into">
+                                    <option value="font">
+                                    <option value="font-family">
+                                    <option value="font-feature-settings">
+                                    <option value="font-kerning">
+                                    <option value="font-language-override">
+                                    <option value="font-optical-sizing">
+                                    <option value="font-palette">
+                                    <option value="font-size">
+                                    <option value="font-size-adjust">
+                                    <option value="font-stretch">
+                                    <option value="font-style">
+                                    <option value="font-synthesis">
+                                    <option value="font-synthesis-small-caps">
+                                    <option value="font-synthesis-style">
+                                    <option value="font-synthesis-weight">
+                                    <option value="font-variant">
+                                    <option value="font-variant-alternates">
+                                    <option value="font-variant-caps">
+                                    <option value="font-variant-east-asian">
+                                    <option value="font-variant-emoji">
+                                    <option value="font-variant-ligatures">
+                                    <option value="font-variant-numeric">
+                                    <option value="font-variant-position">
+                                    <option value="font-variation-settings">
+                                    <option value="font-weight">
+                                    <option value="footnote-display">
+                                    <option value="footnote-policy">
+                                    <option value="forced-color-adjust">
+                                    <option value="gap">
+                                    <option value="glyph-orientation-vertical">
+                                    <option value="grid">
+                                    <option value="grid-area">
+                                    <option value="grid-auto-columns">
+                                    <option value="grid-auto-flow">
+                                    <option value="grid-auto-rows">
+                                    <option value="grid-column">
+                                    <option value="grid-column-end">
+                                    <option value="grid-column-start">
+                                    <option value="grid-row">
+                                    <option value="grid-row-end">
+                                    <option value="grid-row-start">
+                                    <option value="grid-template">
+                                    <option value="grid-template-areas">
+                                    <option value="grid-template-columns">
+                                    <option value="grid-template-rows">
+                                    <option value="hanging-punctuation">
+                                    <option value="height">
+                                    <option value="hyphenate-character">
+                                    <option value="hyphenate-limit-chars">
+                                    <option value="hyphenate-limit-last">
+                                    <option value="hyphenate-limit-lines">
+                                    <option value="hyphenate-limit-zone">
+                                    <option value="hyphens">
+                                    <option value="image-orientation">
+                                    <option value="image-rendering">
+                                    <option value="image-resolution">
+                                    <option value="initial-letter">
+                                    <option value="initial-letter-align">
+                                    <option value="initial-letter-wrap">
+                                    <option value="inline-size">
+                                    <option value="inline-sizing">
+                                    <option value="inset">
+                                    <option value="inset-block">
+                                    <option value="inset-block-end">
+                                    <option value="inset-block-start">
+                                    <option value="inset-inline">
+                                    <option value="inset-inline-end">
+                                    <option value="inset-inline-start">
+                                    <option value="isolation">
+                                    <option value="justify-content">
+                                    <option value="justify-items">
+                                    <option value="justify-self">
+                                    <option value="leading-trim">
+                                    <option value="left">
+                                    <option value="letter-spacing">
+                                    <option value="lighting-color">
+                                    <option value="line-break">
+                                    <option value="line-clamp">
+                                    <option value="line-grid">
+                                    <option value="line-height">
+                                    <option value="line-height-step">
+                                    <option value="line-padding">
+                                    <option value="line-snap">
+                                    <option value="list-style">
+                                    <option value="list-style-image">
+                                    <option value="list-style-position">
+                                    <option value="list-style-type">
+                                    <option value="margin">
+                                    <option value="margin-block">
+                                    <option value="margin-block-end">
+                                    <option value="margin-block-start">
+                                    <option value="margin-bottom">
+                                    <option value="margin-break">
+                                    <option value="margin-inline">
+                                    <option value="margin-inline-end">
+                                    <option value="margin-inline-start">
+                                    <option value="margin-right">
+                                    <option value="margin-trim">
+                                    <option value="marker">
+                                    <option value="marker-end">
+                                    <option value="marker-knockout-left">
+                                    <option value="marker-knockout-right">
+                                    <option value="marker-mid">
+                                    <option value="marker-pattern">
+                                    <option value="marker-segment">
+                                    <option value="marker-side">
+                                    <option value="marker-start">
+                                    <option value="mask">
+                                    <option value="mask-border">
+                                    <option value="mask-border-mode">
+                                    <option value="mask-border-outset">
+                                    <option value="mask-border-repeat">
+                                    <option value="mask-border-slice">
+                                    <option value="mask-border-source">
+                                    <option value="mask-border-width">
+                                    <option value="mask-clip">
+                                    <option value="mask-composite">
+                                    <option value="mask-image">
+                                    <option value="mask-mode">
+                                    <option value="mask-origin">
+                                    <option value="mask-position">
+                                    <option value="mask-repeat">
+                                    <option value="mask-size">
+                                    <option value="mask-type">
+                                    <option value="max-block-size">
+                                    <option value="max-height">
+                                    <option value="max-inline-size">
+                                    <option value="max-lines">
+                                    <option value="max-width">
+                                    <option value="min-block-size">
+                                    <option value="min-height">
+                                    <option value="min-inline-size">
+                                    <option value="min-width">
+                                    <option value="mix-blend-mode">
+                                    <option value="nav-down">
+                                    <option value="nav-left">
+                                    <option value="nav-right">
+                                    <option value="nav-up">
+                                    <option value="object-fit">
+                                    <option value="object-position">
+                                    <option value="offset">
+                                    <option value="offset-anchor">
+                                    <option value="offset-distance">
+                                    <option value="offset-path">
+                                    <option value="offset-position">
+                                    <option value="offset-rotate">
+                                    <option value="opacity">
+                                    <option value="order">
+                                    <option value="orphans">
+                                    <option value="outline">
+                                    <option value="outline-color">
+                                    <option value="outline-offset">
+                                    <option value="outline-style">
+                                    <option value="outline-width">
+                                    <option value="overflow">
+                                    <option value="overflow-anchor">
+                                    <option value="overflow-block">
+                                    <option value="overflow-clip-margin">
+                                    <option value="overflow-inline">
+                                    <option value="overflow-wrap">
+                                    <option value="overflow-x">
+                                    <option value="overflow-y">
+                                    <option value="overscroll-behavior">
+                                    <option value="overscroll-behavior-block">
+                                    <option value="overscroll-behavior-inline">
+                                    <option value="overscroll-behavior-x">
+                                    <option value="overscroll-behavior-y">
+                                    <option value="padding">
+                                    <option value="padding-block">
+                                    <option value="padding-block-end">
+                                    <option value="padding-block-start">
+                                    <option value="padding-bottom">
+                                    <option value="padding-inline">
+                                    <option value="padding-inline-end">
+                                    <option value="padding-inline-start">
+                                    <option value="padding-left">
+                                    <option value="padding-right">
+                                    <option value="padding-top">
+                                    <option value="page">
+                                    <option value="page-break-after">
+                                    <option value="page-break-before">
+                                    <option value="page-break-inside">
+                                    <option value="pause">
+                                    <option value="pause-after">
+                                    <option value="pause-before">
+                                    <option value="perspective">
+                                    <option value="perspective-origin">
+                                    <option value="pitch">
+                                    <option value="pitch-range">
+                                    <option value="place-content">
+                                    <option value="place-items">
+                                    <option value="place-self">
+                                    <option value="play-during">
+                                    <option value="position">
+                                    <option value="quotes">
+                                    <option value="region-fragment">
+                                    <option value="resize">
+                                    <option value="rest">
+                                    <option value="rest-after">
+                                    <option value="rest-before">
+                                    <option value="richness">
+                                    <option value="right">
+                                    <option value="rotate">
+                                    <option value="row-gap">
+                                    <option value="ruby-align">
+                                    <option value="ruby-merge">
+                                    <option value="ruby-overhang">
+                                    <option value="ruby-position">
+                                    <option value="running">
+                                    <option value="scale">
+                                    <option value="scroll-behavior">
+                                    <option value="scroll-margin">
+                                    <option value="scroll-margin-block">
+                                    <option value="scroll-margin-block-end">
+                                    <option value="scroll-margin-block-start">
+                                    <option value="scroll-margin-bottom">
+                                    <option value="scroll-margin-inline">
+                                    <option value="scroll-margin-inline-end">
+                                    <option value="scroll-margin-inline-start">
+                                    <option value="scroll-margin-right">
+                                    <option value="scroll-padding">
+                                    <option value="scroll-padding-block">
+                                    <option value="scroll-padding-block-end">
+                                    <option value="scroll-padding-block-start">
+                                    <option value="scroll-padding-bottom">
+                                    <option value="scroll-padding-inline">
+                                    <option value="scroll-padding-inline-end">
+                                    <option value="scroll-padding-inline-start">
+                                    <option value="scroll-padding-left">
+                                    <option value="scroll-padding-right">
+                                    <option value="scroll-padding-top">
+                                    <option value="scroll-snap-align">
+                                    <option value="scroll-snap-stop">
+                                    <option value="scroll-snap-type">
+                                    <option value="scrollbar-color">
+                                    <option value="scrollbar-gutter">
+                                    <option value="scrollbar-width">
+                                    <option value="shape-image-threshold">
+                                    <option value="shape-inside">
+                                    <option value="shape-margin">
+                                    <option value="shape-outside">
+                                    <option value="spatial-navigation-action">
+                                    <option value="spatial-navigation-contain">
+                                    <option value="spatial-navigation-function">
+                                    <option value="speak">
+                                    <option value="speak-as">
+                                    <option value="speak-header">
+                                    <option value="speak-numeral">
+                                    <option value="speak-punctuation">
+                                    <option value="speech-rate">
+                                    <option value="stress">
+                                    <option value="string-set">
+                                    <option value="stroke">
+                                    <option value="stroke-align">
+                                    <option value="stroke-alignment">
+                                    <option value="stroke-break">
+                                    <option value="stroke-color">
+                                    <option value="stroke-dash-corner">
+                                    <option value="stroke-dash-justify">
+                                    <option value="stroke-dashadjust">
+                                    <option value="stroke-dasharray">
+                                    <option value="stroke-dashcorner">
+                                    <option value="stroke-dashoffset">
+                                    <option value="stroke-image">
+                                    <option value="stroke-linecap">
+                                    <option value="stroke-linejoin">
+                                    <option value="stroke-miterlimit">
+                                    <option value="stroke-opacity">
+                                    <option value="stroke-origin">
+                                    <option value="stroke-position">
+                                    <option value="stroke-repeat">
+                                    <option value="stroke-size">
+                                    <option value="stroke-width">
+                                    <option value="tab-size">
+                                    <option value="table-layout">
+                                    <option value="text-align">
+                                    <option value="text-align-all">
+                                    <option value="text-align-last">
+                                    <option value="text-combine-upright">
+                                    <option value="text-decoration">
+                                    <option value="text-decoration-color">
+                                    <option value="text-decoration-line">
+                                    <option value="text-decoration-skip">
+                                    <option value="text-decoration-skip-box">
+                                    <option value="text-decoration-skip-ink">
+                                    <option value="text-decoration-skip-inset">
+                                    <option value="text-decoration-skip-self">
+                                    <option value="text-decoration-skip-spaces">
+                                    <option value="text-decoration-style">
+                                    <option value="text-decoration-thickness">
+                                    <option value="text-edge">
+                                    <option value="text-emphasis">
+                                    <option value="text-emphasis-color">
+                                    <option value="text-emphasis-position">
+                                    <option value="text-emphasis-skip">
+                                    <option value="text-emphasis-style">
+                                    <option value="text-group-align">
+                                    <option value="text-indent">
+                                    <option value="text-justify">
+                                    <option value="text-orientation">
+                                    <option value="text-overflow">
+                                    <option value="text-shadow">
+                                    <option value="text-space-collapse">
+                                    <option value="text-space-trim">
+                                    <option value="text-spacing">
+                                    <option value="text-transform">
+                                    <option value="text-underline-offset">
+                                    <option value="text-underline-position">
+                                    <option value="text-wrap">
+                                    <option value="top">
+                                    <option value="transform">
+                                    <option value="transform-box">
+                                    <option value="transform-origin">
+                                    <option value="transform-style">
+                                    <option value="transition">
+                                    <option value="transition-delay">
+                                    <option value="transition-duration">
+                                    <option value="transition-property">
+                                    <option value="transition-timing-function">
+                                    <option value="translate">
+                                    <option value="unicode-bidi">
+                                    <option value="user-select">
+                                    <option value="vertical-align">
+                                    <option value="visibility">
+                                    <option value="voice-balance">
+                                    <option value="voice-duration">
+                                    <option value="voice-family">
+                                    <option value="voice-pitch">
+                                    <option value="voice-range">
+                                    <option value="voice-rate">
+                                    <option value="voice-stress">
+                                    <option value="voice-volume">
+                                    <option value="volume">
+                                    <option value="white-space">
+                                    <option value="widows">
+                                    <option value="width">
+                                    <option value="will-change">
+                                    <option value="word-boundary-detection">
+                                    <option value="word-boundary-expansion">
+                                    <option value="word-break">
+                                    <option value="word-spacing">
+                                    <option value="word-wrap">
+                                    <option value="wrap-after">
+                                    <option value="wrap-before">
+                                    <option value="wrap-flow">
+                                    <option value="wrap-inside">
+                                    <option value="wrap-through">
+                                    <option value="writing-mode">
+                                    <option value="z-index">
+                                </datalist>
+                            </div>
+                        </li>
+
+                        <li class="generate-item">
+                            <div class="step-container">
+                                <label class="label" for="element-lower-bound-value"><code id="step-2-property-name">width</code> value at lower bound</label>
+                                <div class="flex-wrap-joiner">
+                                    <input disabled id="element-lower-bound-value" type="number" step="0.001" placeholder="25" required>
+                                    <fieldset disabled class="unit-set" id="element-value-unit">
+                                        <legend>
+                                            <span class="visually-hidden"><code id="step-2-property-unit">width</code> unit</span>
+                                        </legend>
+                                        <input type="radio" name="element-value-unit" value="px" id="element-value-unit-px" checked>
+                                        <label class="unit-container" for="element-value-unit-px">
+                                            <code class="unit">px</code>
+                                        </label>
+                                        <input type="radio" name="element-value-unit" value="vw" id="element-value-unit-vw">
+                                        <label class="unit-container" for="element-value-unit-vw">
+                                            <code class="unit">vw</code>
+                                        </label>
+                                        <input type="radio" name="element-value-unit" value="%" id="element-value-unit-percent">
+                                        <label class="unit-container" for="element-value-unit-percent">
+                                            <code class="unit">%</code>
+                                        </label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="generate-item">
+                            <div class="step-container">
+                                <label class="label" for="container-lower-bound"><span id="step-3-container">Viewport</span> lower bound</label>
+                                <div class="flex-wrap-joiner">
+                                    <input disabled id="container-lower-bound" type="number" step="0.01" placeholder="320" required>
+                                    <code>px</code>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="generate-item">
+                            <div class="step-container">
+                                <label class="label" for="element-upper-bound-value"><code id="step-4-property">width</code> at upper bound</label>
+                                <div class="flex-wrap-joiner">
+                                    <input disabled id="element-upper-bound-value" type="number" step="0.001" placeholder="80" required>
+                                    <code id="step-4-unit">px</code>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="generate-item">
+                            <div class="step-container">
+                                <label class="label" for="container-upper-bound"><span id="step-5-container">Viewport</span> upper bound</label>
+                                <div class="flex-wrap-joiner">
+                                    <input disabled id="container-upper-bound" type="number" step="0.01" placeholder="1440" required>
+                                    <code>px</code>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                    <button disabled class="button">Generate and copy to clipboard</button>
+                    <output class="output"><code class="result"></code></output>
                 </form>
-                <p>Values are rounded to 3 decimal places. I remember reading that this strikes the optimal balance between precision and the number of digits but I can't find the source now.</p>
+                <p><code>calc()</code> values are rounded to 3 decimal places because adding more decimals doesn't affect precision, even when dealing with large numbers. Unfortunately, I can't find the article where I read this... 😕</p>
             </section>
         </main>
+        <footer class="footer" aria-labelledby="resources">
+            <h2 id="resources">Related resources</h2>
+            <ul class="resource-list">
+                <li class="resource-item">
+                    <p>There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear">generate <em>bezier</em> <code>calc()</code> functions</a>.</p>
+                </li>
+                <li class="resource-item">
+                    <p>For more awesomeness, James Gilyead and Trys Mudford created a <a class="link" href="https://utopia.fyi">technique for implementing a completely fluid design</a> that relies on responsive units like <code>vw</code>.</p>
+                </li>
+            </ul>
+        </footer>
     </body>
 </html>
