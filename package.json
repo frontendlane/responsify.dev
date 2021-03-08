@@ -1,0 +1,35 @@
+{
+  "name": "responsify",
+  "author": {
+    "name": "FrontEndLane",
+    "email": "petar@frontendlane.com",
+    "url": "https://frontendlane.com/about"
+  },
+  "bugs": "https://github.com/frontendlane/responsify/issues",
+  "homepage": "https://frontendlane.github.io/responsify/",
+  "version": "2.0.0",
+  "license": "ISC",
+  "keywords": [
+    "responsive",
+    "fluid",
+    "css",
+    "calc",
+    "@media"
+  ],
+  "description": "Responsify generates CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.",
+  "repository": "https://github.com/frontendlane/responsify",
+  "private": true,
+  "browser": "./index.js",
+  "scripts": {
+    "test": "echo 'TODO: add tests'",
+    "update": "nvm install node && npm install yarn -g && yarn set version berry && yarn set version latest && rm -rf node_modules && ncu -u && yarn install && yarn test"
+  },
+  "dependencies": {
+    "clipboard": "^2.0.6"
+  },
+  "devDependencies": {
+    "sass": "^1.32.8",
+    "webpack": "^5.24.3",
+    "webpack-cli": "^4.5.0"
+  }
+}
