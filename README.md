@@ -1,12 +1,14 @@
 # Responsify
 Responsify generates CSS `calc()` value that smoothens the "jump" in element's `width`, `height`, `padding`, `top` etc. caused by a @media query.
 
+## Notes
+- in place of `npx` type `yarn`
+
 ## Todos
+- why does webpack transform `while` loop to `for` loop when it shouldn't
 - add *.scss
     - replace generics with @mixins
     - font stack
-- copy doesn't work on ios/ipados: `npm install clipboard`
-    - notify that copying to clipboard has been successful
 - prettier
 - eslint
 - build step
@@ -17,7 +19,6 @@ Responsify generates CSS `calc()` value that smoothens the "jump" in element's `
     - video ratio 3.25
     - full page bleed
 - favicon
-- can output of the build process be stored in the "public" folder with index.html being the shortcut to the index.html inside "public" folder
 - improve animated border
     - does this provide any optimization
         https://www.sitepoint.com/introduction-to-hardware-acceleration-css-animations/

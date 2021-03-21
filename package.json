@@ -19,17 +19,18 @@
   "description": "Responsify generates CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.",
   "repository": "https://github.com/frontendlane/responsify",
   "private": true,
-  "browser": "./index.js",
   "scripts": {
     "test": "echo 'TODO: add tests'",
-    "update": "nvm install node && npm install yarn -g && yarn set version berry && yarn set version latest && rm -rf node_modules && ncu -u && yarn install && yarn test"
+    "update-all": "nvm install node && nvm use latest && npm install yarn -g && yarn set version berry && yarn set version latest && ncu -u && yarn install && yarn test"
   },
   "dependencies": {
-    "clipboard": "^2.0.6"
+    "clipboard": "^2.0.8"
   },
   "devDependencies": {
-    "sass": "^1.32.8",
-    "webpack": "^5.24.3",
+    "@yarnpkg/pnpify": "^2.4.0",
+    "ts-loader": "^8.0.18",
+    "typescript": "^4.2.3",
+    "webpack": "^5.27.1",
     "webpack-cli": "^4.5.0"
   }
 }
