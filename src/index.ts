@@ -99,6 +99,7 @@ const generate = () => {
 const generateAndRender = (event: Event) => {
     event.preventDefault();
     setContent(window.document.getElementById('result'), generate());
+    document.getElementById('clipboard-button')?.click();
 };
 
 const clipboardSuccess = () => {
@@ -121,7 +122,7 @@ const attachEventHandlers = () => {
     window.document.getElementById('element-value-unit')?.addEventListener('change', handleValueUnitChange);
     window.document.getElementById('form')?.addEventListener('submit', generateAndRender);
 
-    const clipboard = new ClipboardJS('.button', { text: () =>  generate()});
+    const clipboard = new ClipboardJS('#clipboard-button', { text: () =>  generate()});
     clipboard.on('success', clipboardSuccess);
     clipboard.on('error', clipboardError);
 };
