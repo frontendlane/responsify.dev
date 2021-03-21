@@ -5,8 +5,8 @@
         <title>Responsify</title>
         <meta name="description" content="Responsify generates CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./index.css">
-        <script src="./src/index.js" defer></script>
+        <link rel="stylesheet" href="./public/styles/index.css">
+        <script src="./public/scripts/index.js" defer></script>
     </head>
     <body>
         <header aria-labelledby="responsify">
@@ -60,8 +60,8 @@
                         </li>
                     </ol>
                     <video class="video" autoplay muted loop playsinline controls aria-hidden="true" tabindex="-1">
-                        <source src="./assets/example.webm" type="video/webm">
-                        <source src="./assets/example.mov" type="video/quicktime">
+                        <source src="./public/videos/example.webm" type="video/webm">
+                        <source src="./public/videos/example.mov" type="video/quicktime">
                     </video>
                 </details>
             </section>
@@ -73,12 +73,12 @@
                 <noscript>
                     <p class="noscript-note">☹️ JavaScript needs to be enabled in order to generate <code>calc()</code> value ☹️</p>
                 </noscript>
-                <form>
+                <form id="form">
                     <ol class="generate-list">
                         <li class="generate-item">
                             <div class="step-container">
                                 <label class="label" for="css-property">CSS property</label>
-                                <input disabled id="css-property" list="css-properties" type="text" placeholder="width" required>
+                                <input id="css-property" disabled list="css-properties" type="text" placeholder="width" required>
                                 <datalist id="css-properties">
                                     <option value="align-content">
                                     <option value="align-items">
@@ -614,8 +614,8 @@
                             <div class="step-container">
                                 <label class="label" for="element-lower-bound-value"><code id="step-2-property-name">width</code> value at lower bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input disabled id="element-lower-bound-value" type="number" step="0.001" placeholder="25" required>
-                                    <fieldset disabled class="unit-set" id="element-value-unit">
+                                    <input id="element-lower-bound-value" disabled type="number" step="0.001" placeholder="25" required>
+                                    <fieldset class="unit-set" id="element-value-unit" disabled>
                                         <legend>
                                             <span class="visually-hidden"><code id="step-2-property-unit">width</code> unit</span>
                                         </legend>
@@ -640,8 +640,8 @@
                             <div class="step-container">
                                 <label class="label" for="container-lower-bound"><span id="step-3-container">Viewport</span> lower bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input disabled id="container-lower-bound" type="number" step="0.01" placeholder="320" required>
-                                    <code>px</code>
+                                    <input id="container-lower-bound" disabled type="number" step="0.01" placeholder="320" required>
+                                    <code class="unit">px</code>
                                 </div>
                             </div>
                         </li>
@@ -650,8 +650,8 @@
                             <div class="step-container">
                                 <label class="label" for="element-upper-bound-value"><code id="step-4-property">width</code> at upper bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input disabled id="element-upper-bound-value" type="number" step="0.001" placeholder="80" required>
-                                    <code id="step-4-unit">px</code>
+                                    <input id="element-upper-bound-value" disabled type="number" step="0.001" placeholder="80" required>
+                                    <code class="unit" id="step-4-unit">px</code>
                                 </div>
                             </div>
                         </li>
@@ -660,23 +660,26 @@
                             <div class="step-container">
                                 <label class="label" for="container-upper-bound"><span id="step-5-container">Viewport</span> upper bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input disabled id="container-upper-bound" type="number" step="0.01" placeholder="1440" required>
-                                    <code>px</code>
+                                    <input id="container-upper-bound" disabled type="number" step="0.01" placeholder="1440" required>
+                                    <code class="unit">px</code>
                                 </div>
                             </div>
                         </li>
                     </ol>
-                    <button disabled class="button">Generate and copy to clipboard</button>
-                    <output class="output"><code class="result"></code></output>
+                    <button class="button" disabled>Generate and copy to clipboard</button>
+                    <output class="output" aria-live="assertive" role="alert">
+                        <span class="notification" id="notification"></span>
+                        <code class="result" id="result"></code>
+                    </output>
                 </form>
-                <p><code>calc()</code> values are rounded to 3 decimal places because adding more decimals doesn't affect precision, even when dealing with large numbers. Unfortunately, I can't find the article where I read this... 😕</p>
+                <p class="note"><code>calc()</code> values are rounded to 3 decimal places because adding more decimals doesn't affect dimensions of rendered elements, even when dealing with large numbers. Unfortunately, I can't find the article where I read this to back it up 😕</p>
             </section>
         </main>
         <footer class="footer" aria-labelledby="resources">
             <h2 id="resources">Related resources</h2>
             <ul class="resource-list">
                 <li class="resource-item">
-                    <p>There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear">generate <em>bezier</em> <code>calc()</code> functions</a>.</p>
+                    <p>There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear">generate <em>non-linear</em> <code>calc()</code> functions</a>.</p>
                 </li>
                 <li class="resource-item">
                     <p>For more awesomeness, James Gilyead and Trys Mudford created a <a class="link" href="https://utopia.fyi">technique for implementing a completely fluid design</a> that relies on responsive units like <code>vw</code>.</p>
