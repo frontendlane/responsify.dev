@@ -39,7 +39,7 @@ kbd {
 }
 
 code {
-    background-color: #191919;
+    background-color: #202020;
     color: #ffc6a4;
 }
 @media (prefers-color-scheme: dark) {
@@ -57,12 +57,12 @@ code {
 
 html {
     background-color: #eee; /* always set a background color on html for when users scroll beyong the page content, also in cases when the content doesn't cover all of the page */
-    color: #191919; /* i forgot why but i remember concluding that it's a good practice to set a color whenever setting a background-color and vice-versa */
+    color: #202020; /* i forgot why but i remember concluding that it's a good practice to set a color whenever setting a background-color and vice-versa */
 }
 @media (prefers-color-scheme: dark) {
     html {
-        background-color: #191919;
-        color: #e6e6e6;
+        background-color: #202020;
+        color: #e0e0e0;
     }
 }
 
@@ -76,6 +76,7 @@ body {
     body {
         margin-inline: auto;
         padding-inline: 0;
+        padding-block-end: 2em;
     }
 }
 
@@ -90,7 +91,7 @@ body {
 .details {
     display: inline-block;
     background-color: white;
-    border: 1px solid #191919;
+    border: 1px solid #202020;
     border-radius: .5em;
 }
 .details[open] {
@@ -98,7 +99,7 @@ body {
 }
 @media (prefers-color-scheme: dark) {
     .details {
-        border-color: #e6e6e6;
+        border-color: #e0e0e0;
         background-color: black;
     }
 }
@@ -132,7 +133,7 @@ body {
 
 .code-block {
     margin-block: var(--vertical-spacing);
-    background-color: #191919;
+    background-color: #202020;
     padding: 1em;
     border-radius: .5em;
 }
@@ -224,7 +225,7 @@ body {
     #container-lower-bound,
     #element-upper-bound-value,
     #container-upper-bound {
-        color: #e6e6e6;
+        color: #e0e0e0;
         background-color: black;
     }
 }
@@ -323,15 +324,15 @@ body {
     border-radius: .5em;
 }
 .button:not([disabled]):active {
-    box-shadow: inset 0 0 5px 0px #191919;
+    box-shadow: inset 0 0 5px 0px #202020;
 }
 @media (prefers-color-scheme: dark) {
     .button {
-        color: #e6e6e6;
+        color: #e0e0e0;
         background-color: black;
     }
     .button:not([disabled]):active {
-        box-shadow: inset 0 0 5px 0px #e6e6e6;
+        box-shadow: inset 0 0 5px 0px #e0e0e0;
     }
 }
 
@@ -341,7 +342,7 @@ body {
 
 .output {
     display: inline-block;
-    margin: calc(1em + .5em + 1em) 0 1em;
+    margin: calc(1em + .5em + 1em) 0 2em;
     position: relative;
 }
 
@@ -357,6 +358,7 @@ body {
     border-block-end-color: currentColor;
 }
 
+/* TODO: replace with svg of a horizontal } brace  */
 .notification:not(:empty)::after {
     content: "";
     display: block;
@@ -385,8 +387,10 @@ body {
 }
 
 .note {
-    border-block-start-style: dotted;
-    padding-block-start: 1em;
+    border-block-start-style: solid;
+    border-block-start-width: 1px;
+    border-block-start-color: #404040;
+    padding-block-start: 2em;
 }
 
 .footer {

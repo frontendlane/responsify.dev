@@ -1,10 +1,13 @@
 # Responsify
-Responsify generates CSS `calc()` value that smoothens the "jump" in element's `width`, `height`, `padding`, `top` etc. caused by a @media query.
+Responsify generates a CSS `calc()` value that smoothens the "jump" in element's `width`, `height`, `padding`, `top` etc. caused by a @media query.
 
 ## Notes
 - in place of `npx` type `yarn`
 
 ## Todos
+- safari: probably due to the fact that safari doesn't support inline-xxx and block-xxx values
+    - indenting inputs??
+    - landscape on actual mobile
 - why does webpack transform `while` loop to `for` loop when it shouldn't
 - add *.scss
     - replace generics with @mixins

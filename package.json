@@ -16,7 +16,7 @@
     "calc",
     "@media"
   ],
-  "description": "Responsify generates CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.",
+  "description": "Responsify generates a CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.",
   "repository": "https://github.com/frontendlane/responsify",
   "private": true,
   "scripts": {
