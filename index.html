@@ -2,32 +2,32 @@
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
         <title>Responsify</title>
-        <meta name="description" content="Responsify generates a CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Responsify generates a CSS calc() value that smoothens the 'jump' in an element's width, height, padding, top etc. caused by a @media query.">
         <link rel="stylesheet" href="./public/styles/index.css">
         <script src="./public/scripts/index.js" defer></script>
     </head>
     <body>
         <header aria-labelledby="responsify">
             <h1 id="responsify">Responsify</h1>
-            <p class="description">Responsify generates a CSS <code>calc()</code> value that smoothens the "jump" in element's <code>width</code>, <code>height</code>, <code>padding</code>, <code>top</code> etc. caused by a @media query.</p>
+            <p class="description">Responsify generates a CSS <code class="inline-code">calc()</code> value that smoothens the "jump" in an element's <code class="inline-code">width</code>, <code class="inline-code">height</code>, <code class="inline-code">padding</code>, <code class="inline-code">top</code> etc. caused by a @media query.</p>
         </header>
         <main class="main">
             <section aria-labelledby="example">
                 <details class="details">
                     <summary class="summary">
-                        <h2 class="example-heading" id="example">Example</h2>
+                        <h2 class="summary-heading" id="example">Example</h2>
                     </summary>
-                    <ol class="example-list">
-                        <li class="example-item">
-                            <p>By default <code>&lt;div&gt;</code> element expands to fill the width of its container.</p>
+                    <ol class="list">
+                        <li class="list-item">
+                            <p>By default <code class="inline-code">&lt;div&gt;</code> element expands to fill the width of its container.</p>
 <pre class="code-block"><code class="code-block-code">div {
     width: auto; /* default */
 }</code></pre>
                         </li>
-                        <li class="example-item">
-                            <p>Suppose the <code>&lt;div&gt;</code> element needs to be 30% of its parent width on resolutions ≤ 1000px.</p>
+                        <li class="list-item">
+                            <p>Suppose the <code class="inline-code">&lt;div&gt;</code> element needs to be 30% of its parent width on resolutions ≤ 1000px.</p>
 <pre class="code-block"><code class="code-block-code">div {
     width: auto; /* default */
 }
@@ -37,10 +37,10 @@
         width: 30%;
     }
 }</mark></code></pre>
-                            <p>The @media query causes <code>&lt;div&gt;</code> size to "jump" at 1000px.</p>
+                            <p class="follow-up">The @media query causes <code class="inline-code">&lt;div&gt;</code> size to "jump" at 1000px.</p>
                         </li>
-                        <li class="example-item">
-                            <p>To smoothen the transition we add another @media query that gradually changes the <code>&lt;div&gt;</code> width from 100% to 30%.</p>
+                        <li class="list-item">
+                            <p>To smoothen the transition we add another @media query that gradually changes the <code class="inline-code">&lt;div&gt;</code> width from 100% to 30%.</p>
 <pre class="code-block"><code class="code-block-code">div {
     width: auto; /* default */
 }
@@ -56,7 +56,7 @@
         width: calc(-4200px + 450%);
     }
 }</mark></code></pre>
-                            <p>The <code>width</code> value comes from a simple but annoying-to-calculate equation. Responsify simplifies and automates the calculation.</p>
+                            <p class="follow-up">The <code class="inline-code">width</code> value comes from a simple but annoying-to-calculate equation. Responsify simplifies and automates the calculation.</p>
                         </li>
                     </ol>
                     <video class="video" autoplay muted loop playsinline controls aria-hidden="true" tabindex="-1">
@@ -66,19 +66,17 @@
                 </details>
             </section>
             <section class="generate-section" aria-labelledby="generate">
-                <div class="generate-section-heading-container">
+                <div class="heading-container">
                     <h2 class="screen-reader-heading">Generate calc() value in 5 steps</h2>
-                    <h2 id="generate" aria-hidden="true">Generate <code>calc()</code> value in 5 steps</h2>
+                    <h2 id="generate" aria-hidden="true">Generate <code class="inline-code">calc()</code> value in 5 steps</h2>
                 </div>
-                <noscript>
-                    <p class="noscript-note">☹️ JavaScript needs to be enabled in order to generate <code>calc()</code> value ☹️</p>
-                </noscript>
+                <p class="js-error" id="js-error" hidden>JavaScript failed to execute. 😵 You won't be able to generate a <code class="inline-code">calc()</code> value. You might be able to resolve the issue by reloading the page. If that doesn't work, update your browser to the latest version and try again. Error details are logged to the browser console.</p>
                 <form id="form">
-                    <ol class="generate-list">
-                        <li class="generate-item">
+                    <ol class="list">
+                        <li class="list-item">
                             <div class="step-container">
                                 <label class="label" for="css-property">CSS property</label>
-                                <input id="css-property" disabled list="css-properties" type="text" placeholder="width" required>
+                                <input class="input input-css-property" id="css-property" disabled list="css-properties" type="text" placeholder="width" required>
                                 <datalist id="css-properties">
                                     <option value="align-content">
                                     <option value="align-items">
@@ -610,80 +608,183 @@
                             </div>
                         </li>
 
-                        <li class="generate-item">
+                        <li class="list-item">
                             <div class="step-container">
-                                <label class="label" for="element-lower-bound-value"><code id="step-2-property-name">width</code> value at lower bound</label>
+                                <label class="label" for="element-lower-bound-value"><code class="inline-code" id="step-2-property-name">width</code> value at lower bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input id="element-lower-bound-value" disabled type="number" step="0.001" placeholder="25" required>
+                                    <input class="input element-lower-bound-value" id="element-lower-bound-value" disabled type="number" step="0.001" placeholder="25" required>
                                     <fieldset class="unit-set" id="element-value-unit" disabled>
                                         <legend>
                                             <span class="visually-hidden"><code id="step-2-property-unit">width</code> unit</span>
                                         </legend>
-                                        <input type="radio" name="element-value-unit" value="px" id="element-value-unit-px" checked>
-                                        <label class="unit-container" for="element-value-unit-px">
-                                            <code class="unit">px</code>
-                                        </label>
-                                        <input type="radio" name="element-value-unit" value="vw" id="element-value-unit-vw">
-                                        <label class="unit-container" for="element-value-unit-vw">
-                                            <code class="unit">vw</code>
-                                        </label>
-                                        <input type="radio" name="element-value-unit" value="%" id="element-value-unit-percent">
-                                        <label class="unit-container" for="element-value-unit-percent">
-                                            <code class="unit">%</code>
-                                        </label>
+                                        <div class="unit-container">
+                                            <label class="radio-container" for="element-value-unit-px">
+                                                <input class="radio" type="radio" name="element-value-unit" value="px" id="element-value-unit-px" checked>
+                                                <code class="inline-code">px</code>
+                                            </label>
+                                        </div>
+                                        <div class="unit-container">
+                                            <label class="radio-container" for="element-value-unit-vw">
+                                                <input class="radio" type="radio" name="element-value-unit" value="vw" id="element-value-unit-vw">
+                                                <code class="inline-code">vw</code>
+                                            </label>
+                                        </div>
+                                        <div class="unit-container">
+                                            <label class="radio-container" for="element-value-unit-percent">
+                                                <input class="radio" type="radio" name="element-value-unit" value="%" id="element-value-unit-percent">
+                                                <code class="inline-code">%</code>
+                                            </label>
+                                        </div>
                                     </fieldset>
                                 </div>
                             </div>
                         </li>
 
-                        <li class="generate-item">
+                        <li class="list-item">
                             <div class="step-container">
                                 <label class="label" for="container-lower-bound"><span id="step-3-container">Viewport</span> lower bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input id="container-lower-bound" disabled type="number" step="0.01" placeholder="320" required>
-                                    <code class="unit">px</code>
+                                    <input class="input" id="container-lower-bound" disabled type="number" step="0.01" placeholder="320" min="0" required>
+                                    <code class="inline-code unit">px</code>
                                 </div>
                             </div>
                         </li>
 
-                        <li class="generate-item">
+                        <li class="list-item">
                             <div class="step-container">
-                                <label class="label" for="element-upper-bound-value"><code id="step-4-property">width</code> at upper bound</label>
+                                <label class="label" for="element-upper-bound-value"><code class="inline-code" id="step-4-property">width</code> at upper bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input id="element-upper-bound-value" disabled type="number" step="0.001" placeholder="80" required>
-                                    <code class="unit" id="step-4-unit">px</code>
+                                    <input class="input" id="element-upper-bound-value" disabled type="number" step="0.001" placeholder="80" required>
+                                    <code class="inline-code unit" id="step-4-unit">px</code>
                                 </div>
                             </div>
                         </li>
 
-                        <li class="generate-item">
+                        <li class="list-item">
                             <div class="step-container">
                                 <label class="label" for="container-upper-bound"><span id="step-5-container">Viewport</span> upper bound</label>
                                 <div class="flex-wrap-joiner">
-                                    <input id="container-upper-bound" disabled type="number" step="0.01" placeholder="1440" required>
-                                    <code class="unit">px</code>
+                                    <input class="input" id="container-upper-bound" disabled type="number" step="0.01" placeholder="1440" min="0" required>
+                                    <code class="inline-code unit">px</code>
                                 </div>
                             </div>
                         </li>
                     </ol>
+                    <label class="checkbox-container" for="checkbox">
+                        <input id="checkbox" type="checkbox" disabled checked>
+                        Include <a class="link" href="#calc-with-comment">CSS comment with input values</a>
+                    </label>
                     <button class="button" disabled>Generate and copy to clipboard</button>
                     <button hidden id="clipboard-button"></button>
+                    <noscript class="noscript">
+                        <p class="noscript-note">
+                            <strong>JavaScript needs to be enabled in order to generate a <code class="inline-code">calc()</code> value.</strong>
+                        </p>
+                    </noscript>
                     <output class="output" aria-live="assertive" role="alert">
                         <span class="notification" id="notification"></span>
-                        <code class="result" id="result"></code>
+                        <pre class="code-block result-container" id="result-container"><code class="result" id="result"></code></pre>
                     </output>
                 </form>
-                <p class="note"><code>calc()</code> values are rounded to 3 decimal places because adding more decimals doesn't affect dimensions of rendered elements, even when dealing with large numbers. Unfortunately, I can't find the article where I read this to back it up. 😕</p>
+                <h3 class="notes-heading">Notes</h3>
+                <div class="separator">
+                    <p><code class="inline-code">calc()</code> values are rounded to 3 decimal places because adding more decimals doesn't affect dimensions of rendered elements, even when dealing with large numbers. Unfortunately, I can't find the article where I read this to back it up. 😕</p>
+                </div>
+                <div class="separator" id="calc-with-comment">
+                    <p>Tweaking generated value later is hard because input values aren't preserved. So it's a good practice to add a comment documenting them.</p>
+                    <p class="note-continued">When you generate a <code class="inline-code">calc()</code> value with the form above, a comment is added alongside it in your clipboard. Should you decide to use your own comment format, make sure to specify the units as well. Below is an example of what would be copied to your clipboard.</p>
+                    <pre class="code-block"><code class="code-block-code">width: calc(9.286px + 4.911vw); /* viewport lower bound: 320px; viewport upper bound: 1440px; element lower bound: 25px; element upper bound: 80px; */</code></pre>
+                </div>
+            </section>
+            <section class="sass-section" aria-labelledby="sass-function">
+                <div class="heading-container">
+                    <h2 class="screen-reader-heading">Sass @function</h2>
+                    <h2 id="sass-function" aria-hidden="true">Sass <code class="inline-code">@function</code></h2>
+                </div>
+                <p class="sass-explanation">You can use Responsify as a Sass <code class="inline-code">@function</code>. Just <a class="download" href="./public/assets/__responsify.scss" download>download <code class="inline-code file-name">__responsify.scss</code></a> where your root Sass file is (look for <code class="inline-code">style.scss</code>) and add <code class="inline-code">@import "responsify";</code> at the top of it. If you use Dart Sass, consider using the recommended <code class="inline-code">@use "responsify";</code> instead.</p>
+                <p class="sass-explanation">The added bonus of using Sass <code class="inline-code">@function</code> is that you don't need comments.</p>
+                <details class="details details-sass">
+                    <summary class="summary summary-sass">
+                        <h3 class="summary-heading">Sass usage examples</h3>
+                    </summary>
+                    <h4 class="usage-heading">Example 1</h4>
+                    <dl>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;div&gt;</code>'s padding from 40px at 320px viewport width to 90px at 1024px viewport width. Note that <code class="inline-code">calc()</code> will be applied at all viewport widths, not just between 320px and 1024px.</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">div {
+    padding: responsify(320, 1024, 40, 90, "px");
+}</code></pre>
+                        </dd>
+                        <dt class="usage-example-intro">CSS output</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">div {
+    padding: calc(-2232.72727px + 7.10227vw);
+}</code></pre>
+                        </dd>
+                    </dl>
+
+                    <h4 class="separator usage-heading">Example 2</h4>
+                    <dl>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;img&gt;</code>'s height from 60% at 320px viewport width to 30% at 1024px viewport width. Again the <code class="inline-code">calc()</code> will be applied at all viewport widths.</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">img {
+    height: responsify(320, 1024, 60, 30, "%");
+}</code></pre>
+                        </dd>
+                        <dt class="usage-example-intro">CSS output</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">img {
+    height: calc(-5044.36364px + 16.36364%);
+}</code></pre>
+                    </dd>
+                    </dl>
+
+                    <h4 class="separator usage-heading">Example 3</h4>
+                    <dl>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;section&gt;</code>'s margin-top from 50px at 320px viewport width and 100px at 1000px viewport width. In this example <code class="inline-code">calc()</code> will be applied up to and including 1000px viewport width. Note the omitted optional "px" argument at the end.</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">@media (max-width: 1000px) {
+    section {
+        margin-top: responsify(320, 1000, 50, 100);
+    }
+}</code></pre>
+                        </dd>
+                        <dt class="usage-example-intro">CSS output</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">@media (max-width: 1000px) {
+    section {
+        margin-top: calc(-2302.94118px + 7.35294vw);
+    }
+}</code></pre>
+                        </dd>
+                    </dl>
+
+                    <h4 class="separator usage-heading">Example 4</h4>
+                    <dl>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;video&gt;</code>'s width from 100vw to 60vw, between 320px and 1024px viewport. In this example <code class="inline-code">width</code> is lower bound at <code class="inline-code">300px</code> and upper bound at <code class="inline-code">1800px</code> via <code class="inline-code">clamp()</code> function.</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">video {
+    width: clamp(300px, responsify(320, 1024, 100, 60, "vw"), 1800px);
+}</code></pre>
+                        </dd>
+                        <dt class="usage-example-intro">CSS output</dt>
+                        <dd>
+                            <pre class="code-block"><code class="code-block-code">video {
+    width: clamp(300px, calc(-13061.81818px + 41.81818vw), 1800px);
+}</code></pre>
+                        </dd>
+                    </dl>
+                </details>
             </section>
         </main>
         <footer class="footer" aria-labelledby="resources">
             <h2 id="resources">Related resources</h2>
-            <ul class="resource-list">
-                <li class="resource-item">
-                    <p>There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear">generate <em>non-linear</em> <code>calc()</code> functions</a>.</p>
+            <ul class="list">
+                <li class="list-item">
+                    <p>There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear">generate <em>non-linear</em> <code class="inline-code">calc()</code> functions</a>.</p>
                 </li>
-                <li class="resource-item">
-                    <p>For more awesomeness, James Gilyead and Trys Mudford created a <a class="link" href="https://utopia.fyi">technique for implementing a completely fluid design</a> that relies on responsive units like <code>vw</code>.</p>
+                <li class="list-item">
+                    <p>For more awesomeness, James Gilyead and Trys Mudford created a <a class="link" href="https://utopia.fyi">technique for implementing a completely fluid design</a> that relies on responsive units like <code class="inline-code">vw</code>.</p>
                 </li>
             </ul>
         </footer>

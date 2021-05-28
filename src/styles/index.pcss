@@ -1,0 +1,572 @@
+/* reset */
+:root {
+    --outline-width: .25em;
+    --outline-offset: calc(var(--outline-width) / 2);
+}
+
+* {
+    scroll-margin-block-start: .5em;
+    scroll-margin-block-end: 1.5em;
+}
+
+@keyframes fadeOut {
+    to {
+        background-color: transparent;
+        box-shadow: 0 0 0.5em .5em transparent
+    }
+}
+
+:target {
+    background-color: rgba(0, 0, 255, 0.15);
+    box-shadow: 0 0 0.5em .5em rgba(0, 0, 255, 0.15);
+    animation-name: fadeOut;
+    animation-delay: 2.5s;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+@media (prefers-color-scheme: dark) {
+    :target {
+        background-color: rgba(255, 255, 0, 0.15);
+        box-shadow: 0 0 0.5em .5em rgba(255, 255, 0, 0.15);
+    }
+}
+
+:not(form):not(:placeholder-shown):invalid {
+    box-shadow: 0 0 0 var(--outline-offset) red;
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+:focus-visible {
+    outline: var(--outline-width) dashed currentColor;
+    outline-offset: var(--outline-offset);
+    z-index: 1;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+input,
+textarea {
+    font-family: inherit;
+    line-height: inherit;
+}
+
+img,
+video {
+    display: block;
+}
+
+button:not([disabled]),
+label[for]:not([for=""]),
+label[for]:not([for=""]) *,
+input[type="checkbox"]:not([disabled]),
+input[type="radio"]:not([disabled]),
+summary {
+    cursor: pointer;
+}
+
+body {
+    font-size: 1rem;
+    text-size-adjust: 100%;
+}
+
+button,
+input:not([type]),
+input[type="text"],
+input[type="number"],
+input[type="checkbox"],
+input[type="radio"],
+code,
+kbd {
+    font-size: 1em;
+}
+
+button {
+    font-family: inherit;
+    color: inherit; /* fix for button:active on Safari */
+}
+
+a {
+    color: inherit;
+}
+
+/* specifics */
+:root {
+    --vertical-spacing: 1em;
+    --horizontal-spacing: 2ch;
+    --border-radius: .5em;
+
+    --dark: #202020;
+    --dirty-white: #e0e0e0;
+    --code-background-dark: #2a2d2e;
+    --code-color-dark: #ff9359;
+}
+
+html {
+    background-color: #eee; /* always set a background color on html for when users scroll beyong the page content, also in cases when the content doesn't cover all of the page */
+    color: var(--dark); /* i forgot why but i remember concluding that it's a good practice to set a color whenever setting a background-color and vice-versa */
+    font-family: sans-serif; /* TODO: find a font stack & also add it to reset */
+}
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: var(--dark);
+        color: var(--dirty-white);
+    }
+}
+
+body {
+    max-width: 75ch; /* always set *some* kind of limit on width - either on body or elsewhere - because text is difficult to read if the lines are too long: https://www.joshwcomeau.com/css/full-bleed/; */
+    margin-inline: auto;
+    padding: var(--vertical-spacing) var(--horizontal-spacing) calc(var(--vertical-spacing) * 2);
+    line-height: 1.35;
+}
+
+.description {
+    margin-block-start: var(--vertical-spacing);
+}
+
+.inline-code {
+    display: inline-block;
+    white-space: pre-wrap; /* ensures there's a white-space at the end of a line if text breaks into multiple lines */
+    border-radius: .25em;
+    padding-inline: .25ch;
+    background-color: var(--code-background-dark);
+    color: #ffa26b;
+}
+@media (prefers-color-scheme: dark) {
+    .inline-code {
+        color: var(--code-color-dark);
+    }
+}
+
+.main {
+    margin-block-start: calc(var(--vertical-spacing) * 2);
+}
+
+.details {
+    --details-heading-vertical-spacing: .5em;
+    --details-heading-horizontal-spacing: 1ch;
+
+    max-width: 100%;
+    display: inline-block;
+    background-color: white;
+    border: 1px solid var(--dark);
+    border-radius: var(--border-radius);
+}
+.details[open] {
+    padding: var(--details-heading-vertical-spacing) var(--details-heading-horizontal-spacing);
+}
+@media (prefers-color-scheme: dark) {
+    .details {
+        border-color: var(--dirty-white);
+        background-color: black;
+    }
+}
+
+.summary {
+    display: inline flow-root list-item;
+    padding: var(--details-heading-vertical-spacing) var(--details-heading-horizontal-spacing);
+}
+.details[open] .summary {
+    position: relative;
+    inset-block-start: calc(0px - var(--details-heading-vertical-spacing));
+    inset-inline-start: calc(0px - var(--details-heading-horizontal-spacing));
+}
+
+.summary-heading {
+    display: inline;
+}
+
+.list {
+    padding: var(--vertical-spacing) 0 0 var(--horizontal-spacing);
+}
+
+.list-item:not(:first-of-type) {
+    margin-block-start: var(--vertical-spacing);
+}
+
+.code-block {
+    overflow-x: auto;
+    margin-block-start: var(--vertical-spacing);
+    border-radius: var(--border-radius);
+    background-color: var(--code-background-dark);
+    color: #ffa26b;
+}
+@media (prefers-color-scheme: dark) {
+    .code-block {
+        color: var(--code-color-dark);
+    }
+}
+
+.code-block-code {
+    display: inline-block;
+    padding: 1em .75em;
+}
+
+.code-block-mark {
+    background-color: inherit;
+    color: inherit;
+    filter: hue-rotate(180deg) contrast(80%);
+}
+@media (prefers-color-scheme: dark) {
+    .code-block-mark {
+        filter: hue-rotate(180deg);
+    }
+}
+
+.follow-up {
+    margin-block-start: var(--vertical-spacing);
+}
+
+.video {
+    margin-block-start: var(--vertical-spacing);
+    max-width: 100%;
+    border-radius: var(--border-radius);
+}
+
+.generate-section {
+    padding-block-start: calc(var(--vertical-spacing) * 2);
+}
+
+.heading-container {
+    position: relative;
+}
+
+.screen-reader-heading {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    color: transparent;
+    background-color: transparent;
+    z-index: -1;
+}
+
+.js-error {
+    margin-block: var(--vertical-spacing);
+    padding-block: 1em;
+    border-width: .5em 0;
+    border-style: double;
+}
+
+.step-container {
+    display: flex; /* display: flex; on <li> removes ::marker so a div inside the <li> is needed */
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.label {
+    margin-inline-end: 1ch; /* margin goes on label instead of input because of possible wrapping and we want to avoid margin on the new line */
+}
+
+.input {
+    padding: 0 .25ch;
+    color: var(--dark);
+    background-color: white;
+    border: 1px solid #dadada;
+}
+@media (prefers-color-scheme: dark) {
+    .input {
+        color: var(--dirty-white);
+        background-color: black;
+        border-color: #4d4d4d;
+    }
+}
+.input[disabled] {
+    border-color: black;
+    opacity: .15;
+}
+@media (prefers-color-scheme: dark) {
+    .input[disabled] {
+        border-color: revert;
+        opacity: .3;
+    }
+}
+.input::placeholder {
+    color: inherit;
+    opacity: .15;
+    font-style: italic;
+}
+@media (prefers-color-scheme: dark) {
+    .input::placeholder {
+        opacity: .3;
+    }
+}
+.input[disabled]::placeholder {
+    opacity: 1;
+}
+
+.input-css-property {
+    --longest-css-property-length: 27ch;
+
+    max-width: var(--longest-css-property-length);
+    flex-grow: 1;
+}
+
+.input[type="number"] {
+    --number-size-limit: 4ch;
+    --precision-separator: 1ch;
+    --precision-digits: 2ch;
+    --stepper-width: 25px;
+
+    max-width: calc(var(--number-size-limit) + var(--precision-separator) + var(--precision-digits) + var(--stepper-width));
+}
+
+.element-lower-bound-value {
+    margin-inline-end: 2ch;
+}
+
+.flex-wrap-joiner {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.unit-set {
+    padding: 0;
+    display: flex;
+    border: none;
+}
+
+.unit-container + .unit-container {
+    margin-inline-start: 2ch;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #dadada;
+    border-radius: var(--border-radius);
+    padding: .25em;
+}
+@media (prefers-color-scheme: dark) {
+    .radio-container {
+        background-color: black;
+        border-color: #4d4d4d;
+    }
+}
+
+.radio {
+    margin-inline-end: .25ch;
+}
+
+.unit {
+    margin-inline-start: .25ch;
+}
+
+.checkbox-container {
+    display: inline-block;
+    margin-block-start: var(--vertical-spacing);
+    background-color: white;
+    border: 1px solid #dadada;
+    border-radius: var(--border-radius);
+    padding: .5em;
+}
+@media (prefers-color-scheme: dark) {
+    .checkbox-container {
+        background-color: black;
+        border-color: #4d4d4d;
+    }
+}
+
+.button {
+    --padding: .75em;
+
+    display: block;
+    margin-block-start: var(--vertical-spacing);
+    border: 1px solid;
+    padding: var(--padding);
+    background-color: white;
+    border-radius: var(--border-radius);
+}
+.button:not([disabled]):active {
+    box-shadow: inset 0 0 0 calc(var(--padding) / 2) var(--dark);
+    color: black;
+}
+@media (prefers-color-scheme: dark) {
+    .button {
+        color: var(--dirty-white);
+        background-color: black;
+    }
+    .button:not([disabled]):active {
+        box-shadow: inset 0 0 0 calc(var(--padding) / 2) var(--dirty-white);
+        color: var(--dirty-white);
+    }
+}
+
+.button[disabled] {
+    opacity: .3;
+}
+
+.noscript {
+    display: block;
+    margin-block: var(--vertical-spacing);
+    padding-block: 1em;
+    border-width: .5em 0;
+    border-style: double;
+    text-align: center;
+}
+
+.output {
+    --notification-height: 1em;
+    --notification-offset: .5em;
+
+    display: inline-block;
+    padding-block-start: calc(var(--vertical-spacing) + var(--notification-height) + var(--notification-offset) + var(--outline-width) + var(--outline-offset));
+    position: relative;
+    max-width: 100%;
+}
+
+.notification {
+    position: absolute;
+    border-block-end: .25em solid transparent;
+    padding: 0 .5ch;
+    inset-block-start: 0;
+    inset-inline-start: 50%;
+    transform: translate3d(-50%, var(--notification-offset), 0);
+}
+.notification:not(:empty) {
+    border-block-end-color: currentColor;
+}
+
+.notification:not(:empty)::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-start: 50%;
+    transform: translate3d(-50%, 100%, 0);
+    background-color: currentColor;
+    width: 1em;
+    height: 1em;
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+}
+
+.kbd {
+    padding-inline: .25ch;
+    border-radius: .25em;
+    background-color: var(--code-background-dark);
+    color: yellow;
+}
+
+.result-container {
+    margin-block-start: 0;
+}
+
+.result {
+    display: inline-block;
+    padding: 1em 0;
+    font-size: 1.5rem;
+}
+.result:not(:empty) {
+    padding: 1em .75em;
+}
+
+.notes-heading {
+    margin-block-start: calc(var(--vertical-spacing) * 2);
+}
+
+.separator {
+    margin-block-start: calc(var(--vertical-spacing) + var(--vertical-spacing));
+    position: relative;
+}
+
+.separator::before {
+    content: "";
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    inset-block-start: calc(0px - var(--vertical-spacing));
+    inset-inline-start: 0;
+    background-color: var(--dark);
+    background-image: linear-gradient(90deg, #eee -15%, var(--dark), #eee 115%);
+}
+@media (prefers-color-scheme: dark) {
+    .separator::before {
+        background-color: var(--dirty-white);
+        background-image: linear-gradient(90deg, var(--dark) -15%, var(--dirty-white), var(--dark) 115%);
+    }
+}
+
+.note-continued {
+    padding-block-start: var(--vertical-spacing);
+}
+
+.sass-section {
+    padding-block-start: calc(var(--vertical-spacing) * 2);
+}
+
+.sass-explanation {
+    margin-block-start: 1em;
+}
+
+.download {
+    text-decoration-thickness: .25em;
+}
+.download:hover {
+    color: black;
+}
+@media (prefers-color-scheme: dark) {
+    .download:hover {
+        color: white;
+    }
+}
+.download:hover > .file-name {
+    background-color: black;
+}
+
+.details-sass {
+    margin-block-start: calc(var(--vertical-spacing) * 2);
+}
+
+.usage-example-intro {
+    margin-block-start: var(--vertical-spacing);
+}
+
+.footer {
+    margin-block-start: calc(var(--vertical-spacing) * 2);
+}
+
+.link {
+    color: inherit;
+    text-underline-offset: .1em;
+}
+.link:hover {
+    color: black;
+}
+@media (prefers-color-scheme: dark) {
+    .link:hover {
+        color: white;
+    }
+}
+
+/* overrides */
+.visually-hidden:not(:focus):not(:active) {
+    width: 1px !important;
+    height: 1px !important; /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    white-space: nowrap !important; /* https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe */
+    clip: rect(1px 1px 1px 1px) !important; /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    clip-path: inset(50%) !important;
+}
+
+[disabled],
+[disabled] * {
+    cursor: not-allowed !important;
+}
+
+[hidden] {
+    display: none !important;
+}
