@@ -1,36 +1,43 @@
 {
-  "name": "responsify",
-  "author": {
-    "name": "FrontEndLane",
-    "email": "petar@frontendlane.com",
-    "url": "https://frontendlane.com/about"
-  },
-  "bugs": "https://github.com/frontendlane/responsify/issues",
-  "homepage": "https://frontendlane.github.io/responsify/",
-  "version": "2.0.0",
-  "license": "ISC",
-  "keywords": [
-    "responsive",
-    "fluid",
-    "css",
-    "calc",
-    "@media"
-  ],
-  "description": "Responsify generates a CSS calc() value that smoothens the 'jump' in element's width, height, padding, top etc. caused by a @media query.",
-  "repository": "https://github.com/frontendlane/responsify",
-  "private": true,
-  "scripts": {
-    "test": "echo 'TODO: add tests'",
-    "update-all": "nvm install node && nvm use latest && npm install yarn -g && yarn set version berry && yarn set version latest && ncu -u && yarn install && yarn test"
-  },
-  "dependencies": {
-    "clipboard": "^2.0.8"
-  },
-  "devDependencies": {
-    "@yarnpkg/pnpify": "^2.4.0",
-    "ts-loader": "^8.0.18",
-    "typescript": "^4.2.3",
-    "webpack": "^5.27.1",
-    "webpack-cli": "^4.5.0"
-  }
+    "name": "responsify",
+    "author": {
+        "name": "FrontEndLane",
+        "email": "petar@frontendlane.com",
+        "url": "https://frontendlane.com/about"
+    },
+    "bugs": "https://github.com/frontendlane/responsify/issues",
+    "homepage": "https://frontendlane.github.io/responsify/",
+    "version": "2.0.0",
+    "license": "ISC",
+    "keywords": [
+        "responsive",
+        "fluid",
+        "css",
+        "calc",
+        "@media"
+    ],
+    "description": "Responsify generates a CSS calc() value that smoothens the 'jump' in an element's width, height, padding, top etc. caused by a @media query.",
+    "repository": "https://github.com/frontendlane/responsify",
+    "private": true,
+    "scripts": {
+        "test": "echo 'TODO: add tests'",
+        "styles": "yarn postcss src/styles/index.pcss --output public/styles/index.css --watch",
+        "update-all": "nvm install node && nvm use latest && npm install yarn -g && yarn set version berry && yarn set version latest && ncu -u && yarn install && yarn test"
+    },
+    "dependencies": {
+        "clipboard": "^2.0.8"
+    },
+    "devDependencies": {
+        "@yarnpkg/pnpify": "^2.4.0",
+        "autoprefixer": "^10.2.5",
+        "postcss": "^8.2.15",
+        "postcss-cli": "^8.3.1",
+        "ts-loader": "^8.0.18",
+        "typescript": "^4.2.3",
+        "webpack": "^5.27.1",
+        "webpack-cli": "^4.5.0"
+    },
+    "browserslist": [
+        "defaults"
+    ]
 }
