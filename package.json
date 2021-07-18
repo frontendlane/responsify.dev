@@ -16,12 +16,12 @@
         "calc",
         "@media"
     ],
-    "description": "Responsify generates a CSS calc() value that smoothens the 'jump' in an element's width, height, padding, top etc. caused by a @media query.",
+    "description": "Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes.",
     "repository": "https://github.com/frontendlane/responsify",
     "private": true,
     "scripts": {
         "test": "echo 'TODO: add tests'",
-        "styles": "yarn postcss src/styles/index.pcss --output public/styles/index.css --watch",
+        "styles": "yarn postcss src/styles/ --dir public/styles/ --watch --ext css",
         "update-all": "nvm install node && nvm use latest && npm install yarn -g && yarn set version berry && yarn set version latest && ncu -u && yarn install && yarn test"
     },
     "dependencies": {
