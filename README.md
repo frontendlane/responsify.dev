@@ -1,5 +1,10 @@
 # Responsify
-Responsify generates a CSS `calc()` value that smoothens the "jump" in an element's `width`, `height`, `padding`, `top` etc. caused by a @media query.
+Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes. Unlike `%` or `vw`, generated `calc()` value can change at a nonproportional and negative rate. A common use case is to transform adaptive design based on @media queries into fluid design.
+
+## Other use cases
+### A mobile breakpoint + max()
+
+### clamp()
 
 ## Notes
 - in place of `npx` type `yarn`
@@ -7,13 +12,31 @@ Responsify generates a CSS `calc()` value that smoothens the "jump" in an elemen
     - used in place of Sass/SCSS
     - processes styles via `postcss-cli` because doing otherwise would create a depencencu on JavaScript for styles to be loaded
 - `browserslist` added to package.json for clarity
-- radio and checkbox <input>s should be inside the <label> so the space between is clickable
+- radio and checkbox `<input>`s should be inside the `<label>` so the space between is clickable
+- form design
+    - no js: disabled attribute on all form controls in HTML
+    - js: store everything to localstorage and read from there
 
 ## Todos
-- add css comment to clipboard (make it optional, and save it to localstorage or cookie??)
+- make sure .scss function works in both Node and Dart
+- differentiate between soft and hard reload using service worker (response 200 vs 304)
+- focus restoration: restore window.document.activeElement if there is one. if not then focus the form
+- remove width and height
+    - width -> inline-size
+    - height -> block-size
+- new screen recording
+- test aria-atomic
+- update `__responsify.scss` to support `ch`
+- verify that examples are correct and functioning
+- make sure about on github repo is updated when pushed - this needs to be manually done
+- add scss and sass keywords in github
+- can't download __responsify.scss
+
+- add vh unit
+- add video closed captions
+- add to .vscode/settings.json public folder
 - pre-commit hook that blocks commits if there's "TODO" anywhere in the repo
     - TODO: make sure the path is correct i.e. figure out a way that only the public/ folder is published and that it is the root of the project
-- make sure about on github repo is updated when pushed
 - typescript error
     let num1: number | undefined;
     let num2: number | undefined;
@@ -22,12 +45,10 @@ Responsify generates a CSS `calc()` value that smoothens the "jump" in an elemen
         console.log(num1 / 50); // error 2532
         console.log(num2 / 50); // error 2532
     }
-- add a <section> around every heading element
 - does html minification make much sense if i gzip .html file(s)?
 - go through pcss file and catalogue every color (move to CSS custom properties). colors in pcss should not be expressed in hex values
 - kbd styles can be improved
 - add diagonal colored backgorund bars on .noscript and .js-error with infinite animation
-- sass @function for negative value / write a postcss plugin that does the same
 - system font stack
 - Sort HTML attributes rbalet.vscode-sorting-attrs
     - class
@@ -56,9 +77,6 @@ Responsify generates a CSS `calc()` value that smoothens the "jump" in an elemen
     - description that gets pushed everywhere
     - dynamically pull list of CSS properties from official website
     - restrict the width of the input to the length of the longest CSS property
-- video recording needs to show viewport width in the browser
-    - video ratio 3.25
-    - full page bleed
 - favicon
 - why does webpack transform `while` loop to `for` loop when it shouldn't
 - improve animated border

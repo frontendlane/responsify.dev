@@ -1,5 +1,5 @@
 ///
-/// Smoothens the "jump" in an element's width, height, padding, top etc. caused by a @media query
+/// Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes. More at github.com/frontendlane/responsify
 /// @author github.com/frontendlane
 /// @param {Number} $containerLowerBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at lower bound, in pixels.
 /// @param {Number} $containerUpperBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at upper bound, in pixels.
@@ -17,7 +17,7 @@
 ///        padding: calc(-2232.72727px + 7.10227vw);
 ///     }
 ///
-/// @example scss - Responsify <img>'s height from 60% at 320px viewport width to 30% at 1024px viewport width. Again the calc() will be applied at all viewport widths.
+/// @example scss - Responsify <img>'s height from 60% at 320px viewport width to 30% at 1024px viewport width. Same as in the previous example, the calc() will be applied at all viewport widths.
 ///     img {
 ///        height: responsify(320, 1024, 60, 30, "%");
 ///     }
@@ -79,7 +79,7 @@
 
     $elementDiff: $elementEndingSize - $elementStartingSize;
     $containerDiff: $containerUpperBound - $containerLowerBound;
-    $rate: abs($elementDiff / $containerDiff) * 100;
+    $rate: $elementDiff / $containerDiff * 100;
     $initial: $elementStartingSize - ($containerLowerBound * $rate);
 
     $sign: 0;
@@ -96,6 +96,10 @@
     }
     @else {
         $calcUnit: "vw";
+    }
+
+    @if $rate < 0 {
+        $rate: $rate * -1;
     }
 
     @return calc(#{$initial}px #{$sign} #{$rate}#{$calcUnit});

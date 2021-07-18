@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "alwaysStrict": true,
-    "lib": ["ES2016", "DOM"],
+    "lib": ["ES2017", "DOM"],
     "module": "es6",
     "moduleResolution": "node",
     "noImplicitAny": true,
