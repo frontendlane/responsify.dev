@@ -1,0 +1,16 @@
+.form-container:active {
+    position: static;
+    z-index: auto;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.checkbox-container:active {
+    background-color: var(--white);
+}
+@media (prefers-color-scheme: dark) {
+    .checkbox-container:active {
+        background-color: var(--black);
+    }
+}
