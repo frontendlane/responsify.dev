@@ -16,7 +16,7 @@ export const storage = (storageType: StorageType) => {
                 throw new Error(`Unsupported storage source: "${storageType}".`); // when brower settings forbid access e.g. Chrome with "Block all cookies"
         }
     } catch (error) {
-        // TODO: show a notification to the user instead of logging the error to the console
+        // TODO: show a notification to the user instead of logging the error to the console (app wide)
         console.error(error);
         return;
     }
