@@ -8,7 +8,7 @@
 /// @param {"px" | "vw" | "%"} $unit ["px"] - unit for $elementLowerBound / $elementUpperBound.
 /// @return {*}
 ///
-/// @example scss - Responsify <div>'s padding from 40px at 320px viewport width to 90px at 1024px viewport width. Note that calc() will be applied at all viewport widths, not just between 320px and 1024px.
+/// @example scss - Responsify <div>'s padding from 40px at 320px viewport width to 90px at 1024px viewport width. Note that calc() will be applied at all viewport widths, not only between 320px and 1024px.
 ///     div {
 ///        padding: responsify(320, 1024, 40, 90, "px");
 ///     }
@@ -26,7 +26,7 @@
 ///        height: calc(-5044.36364px + 16.36364%);
 ///     }
 ///
-/// @example scss - Responsify <section>'s margin-top from 50px at 320px viewport width and 100px at 1000px viewport width. In this example calc() will be applied up to and including 1000px viewport width. Note the omitted optional "px" argument at the end.
+/// @example scss - Responsify <section>'s margin-top from 50px at 320px viewport width to 100px at 1000px viewport width. Due to s @media query in this example, the calc() will be applied up to and including 1000px viewport width. Note the omitted optional "px" argument at the end.
 ///     @media (max-width: 1000px) {
 ///         section {
 ///            margin-top: responsify(320, 1000, 50, 100);
@@ -39,7 +39,7 @@
 ///         }
 ///     }
 ///
-/// @example scss - Responsify <video>'s width from 100vw to 60vw, between 320px and 1024px viewport. In this example width is lower bound at 300px and upper bound at 1800px via clamp() function.
+/// @example scss - Responsify <video>'s width from 100vw at 320px viewport width to to 60vw at 1024px viewport width. In this example width is lower bound at 300px and upper bound at 1800px via clamp() function.
 ///     video {
 ///        width: clamp(300px, responsify(320, 1024, 100, 60, "vw"), 1800px);
 ///     }
