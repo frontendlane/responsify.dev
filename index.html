@@ -20,8 +20,8 @@
         <main class="main">
             <section aria-labelledby="how">
                 <details class="details section-details" id="how-details">
-                    <summary class="summary">
-                        <h2 class="summary-heading" id="how">How it works</h2>
+                    <summary class="summary summary-heading-2">
+                        <h2 class="heading-summary" id="how">How it works</h2>
                     </summary>
                     <p>Let's say you have an image that needs to be <code class="inline-code">100%</code> on resolutions below 1000px and <code class="inline-code">30%</code> above that. Because you use mobile first approach, you start with:</p>
                     <pre class="code-block"><code class="code-block-code">img {
@@ -33,7 +33,7 @@
         width: 30%;
     }
 }</code></pre>
-                    <p class="paragraph">You want to gradually transition between these two values so you reserve the 900px - 1000px range to smooth this out. You add another @media query with a magic <code class="inline-code">calc()</code> value generated from the form below: 🪄</p>
+                    <p class="paragraph">You want to gradually transition between these two values so you reserve the 900px - 1000px range to smooth this out. You add another @media query with a magic 🪄 <code class="inline-code">calc()</code> value generated from the form below:</p>
                     <pre class="code-block"><code class="code-block-code">@media (min-width: 900px) {
     img {
         width: calc(6300px - 600%);
@@ -42,16 +42,18 @@
                     <p class="paragraph">which you place before the first @media query and you're done! 🎉 You get something that behaves like the <code class="inline-code">&lt;div&gt;</code> element at the top of the page (resize the browser to see it in action).</p>
                     <p class="paragraph">Here's a screen recording of what that looks like:</p>
                     <video class="video" autoplay muted loop playsinline controls>
-                        <source src="./public/videos/example.webm" type="video/webm">
-                        <source src="./public/videos/example.mov" type="video/quicktime">
+                        <source media="(prefers-color-scheme: dark)" src="./public/videos/example-dark-265.mov" type="video/quicktime">
+                        <source media="(prefers-color-scheme: dark)" src="./public/videos/example-dark-264.mov" type="video/mp4">
+                        <source src="./public/videos/example-light-265.mov" type="video/quicktime">
+                        <source src="./public/videos/example-light-264.mov" type="video/mp4">
                     </video>
                 </details>
             </section>
             <section class="section" aria-labelledby="generate">
                 <div class="form-container" id="form-container">
                     <div class="heading-container">
-                        <h2 class="screen-reader-heading">Generate calc() value in 5 steps</h2>
-                        <h2 class="generate" id="generate" aria-hidden="true">Generate <code class="inline-code">calc()</code> value in 5 steps</h2>
+                        <h2 class="screen-reader-heading">Generate calc() value</h2>
+                        <h2 class="generate" id="generate" aria-hidden="true">Generate <code class="inline-code">calc()</code> value</h2>
                     </div>
                     <p class="js-error" id="js-error" hidden><span id="js-error-intro">JavaScript failed to execute.</span> 😵 You won't be able to generate a <code class="inline-code">calc()</code> value. You might be able to resolve the issue by reloading the page. If that doesn't work, update your browser to the latest version and try again. Error stack is logged to the console.</p>
                     <form id="form">
@@ -653,14 +655,14 @@
                     </form>
                 </div>
                 <details class="details details-separator">
-                    <summary class="summary">
-                        <h3 class="summary-heading">CSS comment and rounding</h3>
+                    <summary class="summary summary-heading-3">
+                        <h3 class="heading-summary">CSS comment and rounding</h3>
                     </summary>
                     <div>
                         <p>Tweaking generated value later is hard because input values aren't preserved. So it's a good practice to add a comment documenting them.</p>
-                        <p class="paragraph">When you generate a <code class="inline-code">calc()</code> value with the form above, it too is added to your clipboard, but you can turn this off. Should you decide to use your own comment format, make sure to specify the units as well. Below is an example of what would be copied to your clipboard.</p>
+                        <p class="paragraph">When you generate a <code class="inline-code">calc()</code> value with the form above, the CSS comment is added to your clipboard as well, but you can turn this off. Should you decide to use your own comment format, make sure to specify the units as well. Below is an example of what would be copied to your clipboard.</p>
                         <pre class="code-block"><code class="code-block-code">width: calc(9.286px + 4.911vw); /* Responsified - viewport lower bound: 320px; viewport upper bound: 1440px; element lower bound: 25px; element upper bound: 80px; */</code></pre>
-                        <p class="paragraph">I added "Responsified" at the start of the comment because I found it useful to have a unique string by which I can easily find all "responsified" values.</p>
+                        <p class="paragraph">I added <code class="inline-code">Responsified</code> at the start of the comment because I found it useful to have a unique string by which I can easily find all "responsified" values.</p>
                     </div>
                     <div class="separator">
                         <p><code class="inline-code">calc()</code> values are rounded to 3 decimal places because adding more decimals doesn't affect dimensions of rendered elements, even when dealing with large numbers. Unfortunately, I can't find the article where I read this to back it up. 😕</p>
@@ -672,15 +674,19 @@
                     <h2 class="screen-reader-heading">Sass @function</h2>
                     <h2 id="sass-function" aria-hidden="true">Sass <code class="inline-code">@function</code></h2>
                 </div>
-                <p class="paragraph">You can use Responsify as a Sass <code class="inline-code">@function</code>. Just <a class="download" href="./public/assets/__responsify.scss" download>download <code class="inline-code file-name">__responsify.scss</code></a> where your root Sass file (usually <code class="inline-code">style.scss</code>) is and add <code class="inline-code">@import "responsify";</code> at the top of it. If you use Dart Sass, consider using the recommended <code class="inline-code">@use "responsify";</code> instead.</p>
-                <p class="paragraph">The added bonus of using the Sass <code class="inline-code">@function</code> is that you don't need comments documenting input values.</p>
+                <p class="paragraph">You can use Responsify as a Sass <code class="inline-code">@function</code>. First, <a class="link" href="./public/assets/_responsify.scss.zip" download data-fileFormat=".zip" data-fileSize="1,391 bytes">download <code class="inline-code file-name">_responsify.scss</code></a> where your root Sass file is (usually called <code class="inline-code">style.scss</code> so look for that). Then unzip the downloaded file and finally, at the top of your root Sass file add <code class="inline-code">@import "responsify";</code> (if you're using Dart Sass, add the recommended <code class="inline-code">@use "responsify";</code> instead).</p>
+                <p class="paragraph">The added bonus of using the Sass <code class="inline-code">@function</code> is that you don't need comments documenting input values. 🙌</p>
+                <p class="paragraph"><em>Note:</em> At the moment, Sass <code class="inline-code">@function</code> doesn't support <code class="inline-code">ch</code> unit.</p>
                 <details class="details details-separator">
-                    <summary class="summary summary-sass">
-                        <h3 class="summary-heading">Sass usage examples</h3>
+                    <summary class="summary summary-sass summary-heading-3">
+                        <h3 class="heading-summary">Sass usage examples</h3>
                     </summary>
-                    <h4 class="usage-heading">Example 1</h4>
+                    <div class="heading-container">
+                        <h4 class="screen-reader-heading">Example 1 - featuring px</h4>
+                        <h4 aria-hidden="true">Example 1 - featuring <code class="inline-code">px</code></h4>
+                    </div>
                     <dl>
-                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;div&gt;</code>'s padding from 40px at 320px viewport width to 90px at 1024px viewport width. Note that <code class="inline-code">calc()</code> will be applied at all viewport widths, not just between 320px and 1024px.</dt>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;div&gt;</code>'s padding from 40px at 320px viewport width to 90px at 1024px viewport width. Note that <code class="inline-code">calc()</code> will be applied at all viewport widths, not only between 320px and 1024px.</dt>
                         <dd>
                             <pre class="code-block"><code class="code-block-code">div {
     padding: responsify(320, 1024, 40, 90, "px");
@@ -694,7 +700,10 @@
                         </dd>
                     </dl>
 
-                    <h4 class="separator usage-heading">Example 2</h4>
+                    <div class="heading-container separator">
+                        <h4 class="screen-reader-heading">Example 2 - featuring %</h4>
+                        <h4 aria-hidden="true">Example 2 - featuring <code class="inline-code">%</code></h4>
+                    </div>
                     <dl>
                         <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;img&gt;</code>'s height from 60% at 320px viewport width to 30% at 1024px viewport width. Same as in the previous example, the <code class="inline-code">calc()</code> will be applied at all viewport widths.</dt>
                         <dd>
@@ -710,9 +719,12 @@
                     </dd>
                     </dl>
 
-                    <h4 class="separator usage-heading">Example 3</h4>
+                    <div class="heading-container separator">
+                        <h4 class="screen-reader-heading">Example 3 - featuring @media query, optional $unit argument</h4>
+                        <h4 aria-hidden="true">Example 3 - featuring <code class="inline-code">@media</code> query, optional <code class="inline-code">$unit</code> argument</h4>
+                    </div>
                     <dl>
-                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;section&gt;</code>'s margin-top from 50px at 320px viewport width and 100px at 1000px viewport width. In this example <code class="inline-code">calc()</code> will be applied up to and including 1000px viewport width. Note the omitted optional "px" argument at the end.</dt>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;section&gt;</code>'s margin-top from 50px at 320px viewport width to 100px at 1000px viewport width. Due to s @media query in this example, the <code class="inline-code">calc()</code> will be applied up to and including 1000px viewport width. Note the omitted optional "px" argument at the end.</dt>
                         <dd>
                             <pre class="code-block"><code class="code-block-code">@media (max-width: 1000px) {
     section {
@@ -730,9 +742,12 @@
                         </dd>
                     </dl>
 
-                    <h4 class="separator usage-heading">Example 4</h4>
+                    <div class="heading-container separator">
+                        <h4 class="screen-reader-heading">Example 4 - featuring vw, clamp()</h4>
+                        <h4 aria-hidden="true">Example 4 - featuring <code class="inline-code">vw</code>, <code class="inline-code">clamp()</code></h4>
+                    </div>
                     <dl>
-                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;video&gt;</code>'s width from 100vw to 60vw, between 320px and 1024px viewport. In this example <code class="inline-code">width</code> is lower bound at <code class="inline-code">300px</code> and upper bound at <code class="inline-code">1800px</code> via <code class="inline-code">clamp()</code> function.</dt>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;video&gt;</code>'s width from 100vw at 320px viewport width to to 60vw at 1024px viewport width. In this example <code class="inline-code">width</code> is lower bound at <code class="inline-code">300px</code> and upper bound at <code class="inline-code">1800px</code> via <code class="inline-code">clamp()</code> function.</dt>
                         <dd>
                             <pre class="code-block"><code class="code-block-code">video {
     width: clamp(300px, responsify(320, 1024, 100, 60, "vw"), 1800px);
@@ -749,20 +764,20 @@
             </section>
             <section class="section" aria-describedby="why">
                 <details class="details section-details">
-                    <summary class="summary">
-                        <h2 class="summary-heading" id="why">Why I built this</h2>
+                    <summary class="summary summary-heading-2">
+                        <h2 class="heading-summary" id="why">Why I built this</h2>
                     </summary>
                     <div class="why-text">
                         <p>
                             <b>tl;dr:</b>
                             much lazy. such automation.
-                            <img class="meme" src="./public/images/doge.png" alt="Doge meme" width="640" height="744">
+                            <img class="doge" src="./public/images/doge.png" alt="Doge meme" width="64" height="74">
                         </p>
-                        <p class="paragraph">I made Responsify to scratch my own itch. 💆‍♂️ Working in a tech agency, I usually get design files with 3 breakpoints (sometimes 2, sometimes 1, and sometimes I get no designs but that's another story) with the expectation that when implemented, the content will reflow, adapt, and still look good in those in-between sizes. Pretty standard stuff.</p>
+                        <p class="paragraph">I made Responsify to scratch my own itch. 💆‍♂️ Working at a tech agency, I usually get design files with 3 breakpoints (sometimes 2, sometimes only 1, and sometimes none(!) but that's another story) with the expectation that when implemented, the content will reflow, adapt, and still look good in those in-between sizes. Pretty standard stuff.</p>
                         <p class="paragraph">But how should I handle element sizes and spacings in between those breakpoints? Should I</p>
                         <ol class="list">
                             <li class="list-item">use the pixel values from design files without worrying if it'll look disproportionate at certain viewport sizes? 🤨</li>
-                            <li class="list-item">try to convert pixel values to <code class="inline-code">%</code> or <code class="inline-code">vw</code> so I get a more fluid design, but run the risk of balooning these sizes as viewport size goes up, especially if the breakpoints are too far apart (e.g. only two breakpoints)? 🤨</li>
+                            <li class="list-item">try to convert pixel values to <code class="inline-code">%</code> or <code class="inline-code">vw</code> so I get a more fluid design, but run the risk of ballooning these sizes as viewport size goes up, especially if the breakpoints are too far apart (e.g. only two breakpoints)? 🤨</li>
                             <li class="list-item">come up with my own way to exactly match the design at the delivered breakpoints AND gradually transition the value between those breakpoints? 🤔</li>
                         </ol>
                         <p class="paragraph">Guess which one I picked? 😬 My first approach was to calculate the line equation between two breakpoints on paper (college math and stats classes came in real handy here 🧠) and then just plug that into a CSS <code class="inline-code">calc()</code> function. Quickly I realized I can streamline and automate the process so here's Responsify! 🤖</p>
@@ -774,10 +789,10 @@
             <h2 id="resources">Related resources</h2>
             <ul class="list">
                 <li class="list-item">
-                    <p>There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear">generate <em>non-linear</em> <code class="inline-code">calc()</code> functions</a>.</p>
+                    <p>There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear" target="_blank" rel="noopener noreferrer">generate <em>non-linear</em> <code class="inline-code">calc()</code> function</a>.</p>
                 </li>
                 <li class="list-item">
-                    <p>For more awesomeness, James Gilyead and Trys Mudford created a <a class="link" href="https://utopia.fyi">technique for implementing a completely fluid design</a> that relies on responsive units like <code class="inline-code">vw</code>.</p>
+                    <p>For more awesomeness, James Gilyead and Trys Mudford created a <a class="link" href="https://utopia.fyi" target="_blank" rel="noopener noreferrer">technique for implementing a completely fluid design</a> that relies on responsive units like <code class="inline-code">vw</code>.</p>
                 </li>
             </ul>
         </footer>

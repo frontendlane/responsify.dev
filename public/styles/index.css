@@ -4,6 +4,31 @@
     --outline-offset: calc(var(--outline-width) / 2);
     --scroll-margin-block-start: .5em;
     --scroll-margin-block-end: 1.5em;
+    --heading-multiplier: 1.08;
+}
+
+h1 {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important;  /* multiplier^15 */
+}
+
+h2 {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important;  /* multiplier^10 */
+}
+
+h3 {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important;  /* multiplier^6 */
+}
+
+h4 {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important; /* multiplier^3 */
+}
+
+h5 {
+    font-size: calc(1em * var(--heading-multiplier)) !important; /* multiplier^1 */
+}
+
+h6 {
+    font-size: 1em !important; /* multiplier^0 */
 }
 
 * {
@@ -81,7 +106,30 @@ button {
 }
 
 a {
-    color: inherit;
+    color: inherit; /* match <html> color, fix for currentColor */
+}
+
+a[href]:not([href=""])[target="_blank"]::after {
+    content: " ↗️"; /* Firefox & Safari fallback */
+    content: " ↗️" / "external link";
+    font-size: .5em;
+    vertical-align: top;
+}
+a[href]:not([href=""])[data-fileFormat]:not([data-fileFormat=""]):not([data-fileSize])[data-fileSize=""]::after {
+    content: " (" attr(data-fileFormat) ")";
+}
+a[href]:not([href=""])[data-fileSize]:not([data-fileSize=""]):not([data-fileFormat])[data-fileFormat=""]::after {
+    content: " (" attr(data-fileSize) ")";
+}
+a[href]:not([href=""])[data-fileFormat]:not([data-fileFormat=""])[data-fileSize]:not([data-fileSize=""])::after {
+    content: " (" attr(data-fileFormat) ", " attr(data-fileSize) ")";
+}
+a[href]:not([href=""])::after {
+    white-space: pre; /* ensures ::after doesn't break onto a separate line of its own */
+}
+
+summary::marker {
+    white-space: normal; /* eliminates white space between arrow and text */
 }
 
 /* specifics */
@@ -105,7 +153,8 @@ a {
 html {
     background-color: var(--near-white); /* always set a background color on html for when users scroll beyong the page content, also in cases when the content doesn't cover all of the page */
     color: var(--dark); /* i forgot why but i remember concluding that it's a good practice to set a color whenever setting a background-color and vice-versa */
-    font-family: sans-serif; /* TODO: find a font stack & also add it to reset */
+    /* TODO: investigate if this is the best font stack for me */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 @media (prefers-color-scheme: dark) {
     html {
@@ -120,7 +169,7 @@ body {
 }
 
 body > :not(.example-div) {
-    max-width: 75ch; /* always set *some* kind of limit on width - either on body or elsewhere - because text is difficult to read if the lines are too long: https://www.joshwcomeau.com/css/full-bleed/; */
+    max-inline-size: 75ch; /* always set *some* kind of limit on width - either on body or elsewhere - because text is difficult to read if the lines are too long: https://www.joshwcomeau.com/css/full-bleed/; */
     margin-inline: auto;
     /* TODO: this is an iOS Safari bug: not recognizing padding-inline with var() value */
     padding-inline: var(--horizontal-spacing);
@@ -146,7 +195,7 @@ body > :not(.example-div) {
 }
 @media (min-width: 900px) {
     .example-div {
-        width: calc(6300px - 600%);
+        inline-size: calc(6300px - 600%);
         background-color: var(--dark);
     }
 }
@@ -157,7 +206,7 @@ body > :not(.example-div) {
 }
 @media (min-width: 1000px) {
     .example-div {
-        width: 30%;
+        inline-size: 30%;
         background-color: var(--black);
     }
 }
@@ -195,7 +244,7 @@ body > :not(.example-div) {
 
 .inline-code {
     white-space: pre-wrap; /* ensures there's a white-space at the end of a line if text breaks into multiple lines */
-    border-radius: .25em;
+    border-radius: var(--inline-border-radius);
     padding-inline: .25ch;
     background-color: var(--code-background-dark);
     color: #ffa26b;
@@ -225,7 +274,7 @@ body > :not(.example-div) {
     --details-vertical-spacing: calc(var(--vertical-spacing) / 2);
     --details-horizontal-spacing: calc(var(--horizontal-spacing) / 2);
 
-    max-width: 100%;
+    max-inline-size: 100%;
     display: inline-block;
     background-color: var(--white);
     border: 1px solid var(--dark);
@@ -288,14 +337,38 @@ body > :not(.example-div) {
     }
 }
 
-.summary-heading {
-    display: inline;
+.summary-heading-1::marker {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important;  /* multiplier^15 */
 }
 
-.meme {
+.summary-heading-2::marker {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important;  /* multiplier^10 */
+}
+
+.summary-heading-3::marker {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important;  /* multiplier^6 */
+}
+
+.summary-heading-4::marker {
+    font-size: calc(1em * var(--heading-multiplier) * var(--heading-multiplier) * var(--heading-multiplier)) !important; /* multiplier^3 */
+}
+
+.summary-heading-5::marker {
+    font-size: calc(1em * var(--heading-multiplier)) !important; /* multiplier^1 */
+}
+
+.summary-heading-6::marker {
+    font-size: 1em !important; /* multiplier^0 */
+}
+
+.heading-summary {
+    display: inline; /* inline instead of inline-block to prevent heading being on a separate line from ::marker */
+}
+
+.doge {
     display: inline;
-    height: 1em;
-    width: auto;
+    block-size: 1em;
+    inline-size: auto;
     vertical-align: top;
 }
 
@@ -328,8 +401,8 @@ body > :not(.example-div) {
 }
 
 .video {
-    max-width: 100%;
-    border-radius: var(--block-border-radius);
+    max-inline-size: 100%;
+    border-radius: min(calc(0.345px + 0.517vw), 5px); /* Responsified - viewport lower bound: 320px; viewport upper bound: 900px; element lower bound: 2px; element upper bound: 5px; */
     -webkit-margin-before: var(--vertical-spacing);
             margin-block-start: var(--vertical-spacing);
 }
@@ -380,16 +453,14 @@ body > :not(.example-div) {
     display: block;
     margin-block: var(--vertical-spacing);
     padding-block: var(--vertical-spacing);
-    border-width: .5em 0;
-    border-style: double;
+    border-block: .5em double;
     text-align: center;
 }
 
 .js-error {
     margin-block: calc(var(--vertical-spacing) * 2);
     padding-block: var(--vertical-spacing);
-    border-width: .5em 0;
-    border-style: double;
+    border-block: .5em double;
 }
 
 .step-container {
@@ -466,7 +537,7 @@ body > :not(.example-div) {
 .css-property {
     --longest-css-property-length: 27ch;
 
-    max-width: var(--longest-css-property-length);
+    max-inline-size: var(--longest-css-property-length);
     flex-grow: 1;
 }
 
@@ -476,7 +547,7 @@ body > :not(.example-div) {
     --precision-digits: 2ch;
     --stepper-width: 25px;
 
-    max-width: calc(var(--number-size-limit) + var(--precision-separator) + var(--precision-digits) + var(--stepper-width));
+    max-inline-size: calc(var(--number-size-limit) + var(--precision-separator) + var(--precision-digits) + var(--stepper-width));
     -webkit-margin-end: .25ch;
             margin-inline-end: .25ch;
 }
@@ -570,7 +641,7 @@ body > :not(.example-div) {
     display: block;
     text-align: center;
     position: relative;
-    max-width: 100%;
+    max-inline-size: 100%;
 }
 
 .output:not(:empty) {
@@ -603,8 +674,8 @@ body > :not(.example-div) {
     inset-inline-start: 50%;
     transform: translate3d(-50%, 100%, 0);
     background-color: currentColor;
-    width: var(--arrow-size);
-    height: var(--arrow-size);
+    inline-size: var(--arrow-size);
+    block-size: var(--arrow-size);
     -webkit-clip-path: polygon(0 0, 100% 0, 50% 50%);
             clip-path: polygon(0 0, 100% 0, 50% 50%);
 }
@@ -640,8 +711,8 @@ body > :not(.example-div) {
 
 .separator::before {
     content: "";
-    height: 1px;
-    width: 100%;
+    block-size: 1px;
+    inline-size: 100%;
     position: absolute;
     inset-block-start: calc(0px - var(--vertical-spacing));
     inset-inline-start: 0;
@@ -655,24 +726,26 @@ body > :not(.example-div) {
     }
 }
 
-.download {
-    text-decoration-thickness: .25em;
+.link {
+    --link-underline-thickness: .06em;
+    --link-underline-offset: .2em;
+
+    text-decoration-thickness: var(--link-underline-thickness);
+    text-underline-offset: var(--link-underline-offset);
+    -webkit-text-decoration-skip-ink: none;
+            text-decoration-skip-ink: none;
 }
-.download:hover {
+.link:hover {
     color: var(--black);
+    text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
 }
 @media (prefers-color-scheme: dark) {
-    .download:hover {
+    .link:hover {
         color: var(--white);
     }
 }
-.download:hover > .file-name {
-    background-color: var(--black);
-}
-
-.details-sass {
-    -webkit-margin-before: calc(var(--vertical-spacing) * 2);
-            margin-block-start: calc(var(--vertical-spacing) * 2);
+.link:hover .inline-code {
+    background-color: var(--near-black);
 }
 
 .usage-example-intro {
@@ -685,23 +758,10 @@ body > :not(.example-div) {
             margin-block-start: calc(var(--vertical-spacing) * 2);
 }
 
-.link {
-    color: inherit;
-    text-underline-offset: .1em;
-}
-.link:hover {
-    color: var(--black);
-}
-@media (prefers-color-scheme: dark) {
-    .link:hover {
-        color: var(--white);
-    }
-}
-
 /* overrides */
 .visually-hidden:not(:focus):not(:active) {
-    width: 1px !important;
-    height: 1px !important; /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+    inline-size: 1px !important;
+    block-size: 1px !important; /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
     padding: 0 !important;
     border: 0 !important;
     overflow: hidden !important;

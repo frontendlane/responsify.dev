@@ -1,10 +1,5 @@
 # Responsify
-Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes. Unlike `%` or `vw`, generated `calc()` value can change at a nonproportional and negative rate. A common use case is to transform adaptive design based on @media queries into fluid design.
-
-## Other use cases
-### A mobile breakpoint + max()
-
-### clamp()
+Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes. Unlike `%` or `vw`, generated `calc()` value can change at nonproportional and negative rate. A common use case is to transform adaptive design based on @media queries into fluid design.
 
 ## Notes
 - in place of `npx` type `yarn`
@@ -16,22 +11,24 @@ Responsify generates a CSS `calc()` value that gradually changes an element's `w
 - form design
     - no js: disabled attribute on all form controls in HTML
     - js: store everything to localstorage and read from there
+- doge px size is optimized even if the users has 72px default font-size (including width and height attributes)
 
 ## Todos
-- make sure .scss function works in both Node and Dart
+- example 5: A mobile breakpoint + max() + ch(if it can be supported in _responsify.scss)
+- taller screen recording
+    - dark and light variants
+    - localhost in URL
+    - leave a bit of time waiting at the initial/lower viewport to avoid "skipping" loop
+- Safari doesn't support media attribute on `<source>` inside `<video>`
+- VoiceOver bug with "technique for implementing a completely fluid design": emoji is read first, then text
+- Chrome bug `<input for="datalist">` inside `<li>` inside `<ol>`
+- state of details open vs close should be kept in sessionStorage
+- increase padding on non .section-details (and make sure to update the responsified transition from mobile to desktop)
+- opening details shifts it a bit
 - differentiate between soft and hard reload using service worker (response 200 vs 304)
 - focus restoration: restore window.document.activeElement if there is one. if not then focus the form
-- remove width and height
-    - width -> inline-size
-    - height -> block-size
-- new screen recording
 - test aria-atomic
 - update `__responsify.scss` to support `ch`
-- verify that examples are correct and functioning
-- make sure about on github repo is updated when pushed - this needs to be manually done
-- add scss and sass keywords in github
-- can't download __responsify.scss
-
 - add vh unit
 - add video closed captions
 - add to .vscode/settings.json public folder
