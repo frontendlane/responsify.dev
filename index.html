@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <title>Responsify</title>
-        <meta name="description" content="Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes.">
+        <meta name="description" content="Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `padding`, `font-size`, etc. between two viewport sizes.">
         <link rel="stylesheet" href="./public/styles/index.css">
         <script src="./public/scripts/index.js" defer></script>
         <noscript>
@@ -15,7 +15,7 @@
         <div class="example-div" id="example-div" aria-live="polite" role="status" aria-atomic="true"></div>
         <header class="header" aria-labelledby="responsify">
             <h1 id="responsify">Responsify</h1>
-            <p class="paragraph">Responsify generates a CSS <code class="inline-code">calc()</code> value that gradually changes an element's <code class="inline-code">width</code>, <code class="inline-code">margin</code>, <code class="inline-code">padding</code>, etc. between two viewport sizes. Unlike <code class="inline-code">%</code> or <code class="inline-code">vw</code>, generated <code class="inline-code">calc()</code> value can change at nonproportional and negative rate. A common use case is to transform adaptive design based on @media queries into fluid design.</p>
+            <p class="paragraph">Responsify generates a CSS <code class="inline-code">calc()</code> value that gradually changes an element's <code class="inline-code">width</code>, <code class="inline-code">padding</code>, <code class="inline-code">font-size</code>, etc. between two viewport sizes. Unlike <code class="inline-code">%</code> or <code class="inline-code">vw</code>, generated <code class="inline-code">calc()</code> value can change at nonproportional and negative rate. A common use case is to transform adaptive design based on @media queries into fluid design.</p>
         </header>
         <main class="main">
             <section aria-labelledby="how">
@@ -609,6 +609,7 @@
                                             <option value="vw">vw</option>
                                             <option value="%">%</option>
                                             <option value="ch">ch</option>
+                                            <option value="rem">rem</option>
                                         </select>
                                     </div>
                                 </div>
@@ -648,24 +649,27 @@
                             <input id="should-include-comment" type="checkbox" disabled checked>
                             Include CSS comment with input values
                         </label>
-                        <button class="button" disabled>Generate and copy to clipboard</button>
+                        <button class="button" type="submit" disabled>Generate and copy to clipboard</button>
                         <button class="button" type="reset" disabled>Reset</button>
-                        <button hidden id="clipboard-button"></button>
+                        <button hidden id="clipboard-button" type="button"></button>
                         <output class="output" id="output" aria-live="assertive" role="alert"></output>
                     </form>
                 </div>
                 <details class="details details-separator">
                     <summary class="summary summary-heading-3">
-                        <h3 class="heading-summary">CSS comment and rounding</h3>
+                        <h3 class="heading-summary">CSS comment, rounding, and browser support</h3>
                     </summary>
                     <div>
-                        <p>Tweaking generated value later is hard because input values aren't preserved. So it's a good practice to add a comment documenting them.</p>
+                        <p>Tweaking generated value later is difficult because input values aren't preserved. So it's a good practice to add a comment documenting them.</p>
                         <p class="paragraph">When you generate a <code class="inline-code">calc()</code> value with the form above, the CSS comment is added to your clipboard as well, but you can turn this off. Should you decide to use your own comment format, make sure to specify the units as well. Below is an example of what would be copied to your clipboard.</p>
                         <pre class="code-block"><code class="code-block-code">width: calc(9.286px + 4.911vw); /* Responsified - viewport lower bound: 320px; viewport upper bound: 1440px; element lower bound: 25px; element upper bound: 80px; */</code></pre>
                         <p class="paragraph">I added <code class="inline-code">Responsified</code> at the start of the comment because I found it useful to have a unique string by which I can easily find all "responsified" values.</p>
                     </div>
                     <div class="separator">
                         <p><code class="inline-code">calc()</code> values are rounded to 3 decimal places because adding more decimals doesn't affect dimensions of rendered elements, even when dealing with large numbers. Unfortunately, I can't find the article where I read this to back it up. 😕</p>
+                    </div>
+                    <div class="separator">
+                        <p><code class="inline-code">vw</code> is supported by all browsers. <code class="inline-code">ch</code> is narrower on IE compared to other browsers. In spite of IE having known issues with <code class="inline-code">calc()</code> I haven't encountered any.</p>
                     </div>
                 </details>
             </section>
@@ -676,7 +680,7 @@
                 </div>
                 <p class="paragraph">You can use Responsify as a Sass <code class="inline-code">@function</code>. First, <a class="link" href="./public/assets/_responsify.scss.zip" download data-fileFormat=".zip" data-fileSize="1,391 bytes">download <code class="inline-code file-name">_responsify.scss</code></a> where your root Sass file is (usually called <code class="inline-code">style.scss</code> so look for that). Then unzip the downloaded file and finally, at the top of your root Sass file add <code class="inline-code">@import "responsify";</code> (if you're using Dart Sass, add the recommended <code class="inline-code">@use "responsify";</code> instead).</p>
                 <p class="paragraph">The added bonus of using the Sass <code class="inline-code">@function</code> is that you don't need comments documenting input values. 🙌</p>
-                <p class="paragraph"><em>Note:</em> At the moment, Sass <code class="inline-code">@function</code> doesn't support <code class="inline-code">ch</code> unit.</p>
+                <p class="paragraph"><em>Note:</em> At the moment, Sass <code class="inline-code">@function</code> doesn't support <code class="inline-code">ch</code> and <code class="inline-code">rem</code> units.</p>
                 <details class="details details-separator">
                     <summary class="summary summary-sass summary-heading-3">
                         <h3 class="heading-summary">Sass usage examples</h3>
@@ -720,11 +724,11 @@
                     </dl>
 
                     <div class="heading-container separator">
-                        <h4 class="screen-reader-heading">Example 3 - featuring @media query, optional $unit argument</h4>
-                        <h4 aria-hidden="true">Example 3 - featuring <code class="inline-code">@media</code> query, optional <code class="inline-code">$unit</code> argument</h4>
+                        <h4 class="screen-reader-heading">Example 3 - featuring @media query, optional px argument</h4>
+                        <h4 aria-hidden="true">Example 3 - featuring <code class="inline-code">@media</code> query, optional <code class="inline-code">px</code> argument</h4>
                     </div>
                     <dl>
-                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;section&gt;</code>'s margin-top from 50px at 320px viewport width to 100px at 1000px viewport width. Due to s @media query in this example, the <code class="inline-code">calc()</code> will be applied up to and including 1000px viewport width. Note the omitted optional "px" argument at the end.</dt>
+                        <dt class="usage-example-intro">Responsify <code class="inline-code">&lt;section&gt;</code>'s margin-top from 50px at 320px viewport width to 100px at 1000px viewport width. Due to s @media query in this example, the <code class="inline-code">calc()</code> will be applied up to and including 1000px viewport width. Note the omitted optional <code class="inline-code">px</code> argument at the end.</dt>
                         <dd>
                             <pre class="code-block"><code class="code-block-code">@media (max-width: 1000px) {
     section {
@@ -767,21 +771,19 @@
                     <summary class="summary summary-heading-2">
                         <h2 class="heading-summary" id="why">Why I built this</h2>
                     </summary>
-                    <div class="why-text">
-                        <p>
-                            <b>tl;dr:</b>
-                            much lazy. such automation.
-                            <img class="doge" src="./public/images/doge.png" alt="Doge meme" width="64" height="74">
-                        </p>
-                        <p class="paragraph">I made Responsify to scratch my own itch. 💆‍♂️ Working at a digital agency, I usually get design files with 3 breakpoints (sometimes 2, sometimes only 1, and sometimes none(!) but that's another story) with the expectation that when implemented, the content will reflow, adapt, and still look good in those in-between sizes. Pretty standard stuff.</p>
-                        <p class="paragraph">But how should I handle element sizes and spacings in between those breakpoints? Should I</p>
-                        <ol class="list">
-                            <li class="list-item">use the pixel values from design files without worrying if it'll look disproportionate at certain viewport sizes? 🤨</li>
-                            <li class="list-item">try to convert pixel values to <code class="inline-code">%</code> or <code class="inline-code">vw</code> so I get a more fluid design, but run the risk of ballooning these sizes as viewport size goes up, especially if the breakpoints are too far apart (e.g. only two breakpoints)? 🤨</li>
-                            <li class="list-item">come up with my own way to exactly match the design at the delivered breakpoints AND gradually transition the value between those breakpoints? 🤔</li>
-                        </ol>
-                        <p class="paragraph">Guess which one I picked? 😬 My first approach was to calculate the line equation between two breakpoints on paper (college math and stats classes came in real handy here 🧠) and then just plug that into a CSS <code class="inline-code">calc()</code> function. Quickly I realized I can streamline and automate the process so here's Responsify! 🤖</p>
-                    </div>
+                    <p>
+                        <b>tl;dr:</b>
+                        much lazy. such automation.
+                        <img class="doge" src="./public/images/doge.png" alt="Doge meme" width="64" height="74">
+                    </p>
+                    <p class="paragraph">I made Responsify to scratch my own itch. 💆‍♂️ Working at a digital agency, I usually get design files with 3 breakpoints (sometimes 2, sometimes only 1, and sometimes none(!) but that's another story) with the expectation that when implemented, the content will reflow, adapt, and still look good in those in-between sizes. Pretty standard stuff.</p>
+                    <p class="paragraph">But how should I handle element sizes and spacings in between those breakpoints? Should I</p>
+                    <ol class="list">
+                        <li class="list-item">use the pixel values from design files without worrying if it'll look disproportionate at certain viewport sizes? 🤨</li>
+                        <li class="list-item">try to convert pixel values to <code class="inline-code">%</code> or <code class="inline-code">vw</code> so I get a more fluid design, but run the risk of ballooning these sizes as viewport size goes up, especially if the breakpoints are too far apart (e.g. only two breakpoints)? 🤨</li>
+                        <li class="list-item">come up with my own way to exactly match the design at the delivered breakpoints AND gradually transition the value between those breakpoints? 🤔</li>
+                    </ol>
+                    <p class="paragraph">Guess which one I picked? 😬 My first approach was to calculate the line equation between two breakpoints on paper (college math and stats classes came in real handy here 🧠) and then just plug that into a CSS <code class="inline-code">calc()</code> function. Quickly I realized I can streamline and automate the process so here's Responsify! 🤖</p>
                 </details>
             </section>
         </main>

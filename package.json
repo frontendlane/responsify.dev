@@ -16,7 +16,7 @@
         "calc",
         "@media"
     ],
-    "description": "Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes.",
+    "description": "Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `padding`, `font-size`, etc. between two viewport sizes.",
     "repository": "https://github.com/frontendlane/responsify",
     "private": true,
     "scripts": {

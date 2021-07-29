@@ -413,6 +413,7 @@ body > :not(.example-div) {
 }
 
 .form-container {
+    position: relative; /* needed for :active, :focus-within but placed here because <select> doesn't open on first click otherwise */
     pointer-events: none;
 }
 
@@ -422,7 +423,6 @@ body > :not(.example-div) {
 
 .form-container:active,
 .form-container:focus-within {
-    position: relative;
     z-index: 1;
     background-color: var(--light);
     box-shadow: 0 0 0 var(--vertical-spacing) var(--light), 0 0 0 calc(var(--vertical-spacing) + var(--outline-width)) var(--dark), 0 0 0 12345vmax #eeeeeebf; /* #eeeeeebf === var(--near-white) + alpha */

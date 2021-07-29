@@ -4,6 +4,7 @@ import { storage } from './storage';
 import { removeContent, setContent, createElement } from './domInteraction';
 import { populateExampleDiv } from './populateExampleDiv';
 import { setState, state } from './state';
+import { REM_SIZE_IN_PX } from './constants';
 
 const restoreState = () => {
     setState(Object.assign(state, { ...storage(StorageType.local)?.get() }, { ...storage(StorageType.session)?.get() }));
@@ -191,6 +192,9 @@ const calculate = () => {
         case 'ch':
             elementStartingSize = elementLowerBound * (chWidthInPx as number);
             break;
+        case 'rem':
+            elementStartingSize = elementLowerBound * REM_SIZE_IN_PX;
+            break;
         default:
             throw new Error('Unsupported CSS unit selected.');
     }
@@ -209,6 +213,9 @@ const calculate = () => {
         case 'ch':
             elementEndingSize = elementUpperBound * (chWidthInPx as number);
             break;
+        case 'rem':
+            elementEndingSize = elementUpperBound * REM_SIZE_IN_PX;
+            break;
         default:
             throw new Error('Unsupported CSS unit selected.');
     }
@@ -216,17 +223,28 @@ const calculate = () => {
     const elementDiff = elementEndingSize - elementStartingSize;
     const containerDiff = containerUpperBound - containerLowerBound;
     const rate = elementDiff / containerDiff;
-    const initial = elementStartingSize - (containerLowerBound * rate);
-    const sign = rate < 0 ? '-' : '+';
+    const initialInPx = elementStartingSize - (containerLowerBound * rate);
+
+    let initial: number;
+    switch (state.unit) {
+        case 'ch':
+            initial = initialInPx / (chWidthInPx as number);
+            break;
+        case 'rem':
+            initial = initialInPx / REM_SIZE_IN_PX;
+            break;
+        default:
+            initial = initialInPx;
+            break;
+    }
 
     return {
         containerLowerBound,
         containerUpperBound,
         elementLowerBound,
         elementUpperBound,
-        initial: trimUnnecessaryDigits(initial),
-        sign,
-        rate: trimUnnecessaryDigits(Math.abs(rate) * 100)
+        initial,
+        rate
     };
 };
 
@@ -237,14 +255,26 @@ const generate = () => {
         elementLowerBound,
         elementUpperBound,
         initial,
-        sign,
         rate
     } = calculate();
 
-    const initialUnit = state.unit === 'ch' ? 'ch' : 'px';
+    const trimmedInitial = trimUnnecessaryDigits(initial);
+    let initialUnit: string;
+    switch (state.unit) {
+        case 'ch':
+            initialUnit = state.unit;
+            break;
+        case 'rem':
+            initialUnit = state.unit;
+            break;
+        default:
+            initialUnit = 'px';
+    }
+    const sign = rate < 0 ? '-' : '+';
+    const calcRate = trimUnnecessaryDigits(Math.abs(rate) * 100)
     const rateUnit = state.unit === '%' ? '%' : 'vw';
 
-    return `${state.cssProperty}: calc(${initial}${initialUnit} ${sign} ${rate}${rateUnit});${state.shouldIncludeComment ? ` /* Responsified - ${state.unit === '%' ? 'parent' : 'viewport'} lower bound: ${containerLowerBound}px; ${state.unit === '%' ? 'parent' : 'viewport'} upper bound: ${containerUpperBound}px; element lower bound: ${elementLowerBound}${state.unit}; element upper bound: ${elementUpperBound}${state.unit}; ${state.chWidthInPx ? `"ch" width in pixels: ${state.chWidthInPx}; ` : ''}*/` : ''}`;
+    return `${state.cssProperty}: calc(${trimmedInitial}${initialUnit} ${sign} ${calcRate}${rateUnit});${state.shouldIncludeComment ? ` /* Responsified - ${state.unit === '%' ? 'parent' : 'viewport'} lower bound: ${containerLowerBound}px; ${state.unit === '%' ? 'parent' : 'viewport'} upper bound: ${containerUpperBound}px; element lower bound: ${elementLowerBound}${state.unit}; element upper bound: ${elementUpperBound}${state.unit}; ${state.chWidthInPx ? `"ch" width in pixels: ${state.chWidthInPx}; ` : ''}*/` : ''}`;
 };
 
 const generateAndRender = (event: Event) => {
