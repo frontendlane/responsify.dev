@@ -1,5 +1,5 @@
 # Responsify
-Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `margin`, `padding`, etc. between two viewport sizes. Unlike `%` or `vw`, generated `calc()` value can change at nonproportional and negative rate. A common use case is to transform adaptive design based on @media queries into fluid design.
+Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `padding`, `font-size`, etc. between two viewport sizes. Unlike `%` or `vw`, generated `calc()` value can change at nonproportional and negative rate. A common use case is to transform adaptive design based on @media queries into fluid design.
 
 ## Notes
 - in place of `npx` type `yarn`
@@ -12,10 +12,17 @@ Responsify generates a CSS `calc()` value that gradually changes an element's `w
     - no js: disabled attribute on all form controls in HTML
     - js: store everything to localstorage and read from there
 - doge px size is optimized even if the users has 72px default font-size (including width and height attributes)
+- constants.ts universal truths or front-end truths
 
 ## Todos
+- example div rainbow colors when calc is in use
+- input, select, checkbox border color is not standardized
+- history of previous generated calc values
+- some of the examples are not realistic e.g. clamp on 300px
 - example 5: A mobile breakpoint + max() + ch(if it can be supported in _responsify.scss)
 - taller screen recording
+    - instead of `<img>` use `<div>`
+    - div initial width should be 90%
     - dark and light variants
     - localhost in URL
     - leave a bit of time waiting at the initial/lower viewport to avoid "skipping" loop
