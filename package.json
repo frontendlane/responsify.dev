@@ -1,43 +1,53 @@
 {
-    "name": "responsify",
+    "name": "responsify-website",
+    "version": "3.0.0",
     "author": {
-        "name": "FrontEndLane",
+        "name": "FrontendLane",
         "email": "petar@frontendlane.com",
-        "url": "https://frontendlane.com/about"
+        "url": "https://frontendlane.com/about/"
     },
+    "homepage": "https://github.com/frontendlane/responsify/",
+    "repository": "https://github.com/frontendlane/responsify/",
     "bugs": "https://github.com/frontendlane/responsify/issues",
-    "homepage": "https://frontendlane.github.io/responsify/",
-    "version": "2.0.0",
     "license": "ISC",
     "keywords": [
         "responsive",
-        "fluid",
         "css",
+        "scss",
         "calc",
         "@media"
     ],
-    "description": "Responsify generates a CSS `calc()` value that gradually changes an element's `width`, `padding`, `font-size`, etc. between two viewport sizes.",
-    "repository": "https://github.com/frontendlane/responsify",
-    "private": true,
+    "description": "Responsify smooths out breakpoint layout jumps using CSS `calc()` function.",
     "scripts": {
-        "test": "echo 'TODO: add tests'",
-        "styles": "yarn postcss src/styles/ --dir public/styles/ --watch --ext css",
-        "update-all": "nvm install node && nvm use latest && npm install yarn -g && yarn set version berry && yarn set version latest && ncu -u && yarn install && yarn test"
+        "test": "echo \"TODO: add tests\"",
+        "pages:dev": "zsh ./shell-scripts/pages/pages-dev.sh",
+        "styles:dev": "zsh ./shell-scripts/styles/styles-dev.sh",
+        "scripts:dev": "zsh ./shell-scripts/scripts/scripts-dev.sh",
+        "build": "zsh ./shell-scripts/build/build.sh",
+        "update": "zsh ./shell-scripts/update.sh"
     },
     "dependencies": {
-        "clipboard": "^2.0.8"
+        "clipboard": "^2.0.8",
+        "focus-visible": "^5.2.0"
     },
     "devDependencies": {
-        "@yarnpkg/pnpify": "^2.4.0",
-        "autoprefixer": "^10.2.5",
-        "postcss": "^8.2.15",
-        "postcss-cli": "^8.3.1",
-        "ts-loader": "^8.0.18",
-        "typescript": "^4.2.3",
-        "webpack": "^5.27.1",
-        "webpack-cli": "^4.5.0"
+        "@types/postcss-import": "^14",
+        "autoprefixer": "^10.4.1",
+        "cssnano": "^5.0.14",
+        "cssnano-preset-default": "^5.1.9",
+        "postcss": "^8.4.5",
+        "postcss-cli": "^9.1.0",
+        "postcss-focus-visible": "^6.0.2",
+        "postcss-import": "^14.0.2",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.5.4",
+        "webpack": "^5.65.0",
+        "webpack-cli": "^4.9.1",
+        "yarn-upgrade-all": "^0.5.4"
     },
     "browserslist": [
         "defaults"
-    ]
+    ],
+    "packageManager": "yarn@3.1.1",
+    "private": true
 }

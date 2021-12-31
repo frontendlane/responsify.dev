@@ -1,9 +1,11 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/scripts/index.ts',
+    entry: {
+        'index/scripts/index': './src/pages/index/scripts/index.ts',
+    },
+    // TODO: ship source map in production as well https://www.ctrl.blog/entry/deploy-javascript-source-maps.html
     devtool: 'source-map',
-    watch: true,
     module: {
         rules: [
             {
@@ -16,7 +18,7 @@ module.exports = {
         extensions: ['.ts'],
     },
     output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, 'public/scripts'),
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'public/pages'),
     },
 };

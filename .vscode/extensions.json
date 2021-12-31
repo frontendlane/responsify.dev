@@ -1,6 +1,7 @@
 {
-    "recommendations": [
-        "editorconfig.editorconfig",
-        "csstools.postcss"
-    ]
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "csstools.postcss",
+    "arcanis.vscode-zipfs"
+  ]
 }
