@@ -5,10 +5,10 @@
         <meta name="viewport" content="width=device-width">
         <title>Responsify | Smooth out breakpoint layout jumps</title>
         <meta name="description" content="Responsify smooths out breakpoint layout jumps using CSS `calc()` function.">
-        <link rel="stylesheet" href="/public/pages/index/index.css">
-        <script src="/public/pages/index/scripts/index.js" defer></script>
+        <link rel="stylesheet" href="./public/pages/index/index.css">
+        <script src="./public/pages/index/scripts/index.js" defer></script>
         <noscript>
-            <link rel="stylesheet" href="/public/pages/index/index.noscript.css">
+            <link rel="stylesheet" href="./public/pages/index/index.noscript.css">
         </noscript>
     </head>
     <body>
@@ -22,7 +22,7 @@
             <!-- TODO: maybe i can get around the fact that media attribute is not supported on video elements by showing the one with the appropriate id and not preloading either of them?? -->
             <!-- <video class="video" preload="metadata" muted loop playsinline controls> -->
             <video class="video" autoplay muted loop playsinline controls>
-                <source src="/public/pages/index/assets/screen-recording.mov" type="video/mp4">
+                <source src="./public/pages/index/assets/screen-recording.mov" type="video/mp4">
             </video>
             <p class="vertical-spacing"><b><time datetime="2021-11-16">November 16, 2021</time> update:</b> Today I learned that responsify is a rediscovery of <a class="link" href="https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/" target="_blank" rel="noopener">CSS locks</a>. 🤦‍♂️ Read the <a class="link" href="#comparison">comparison between CSS locks and responsify</a>.</p>
         </header>
@@ -778,7 +778,7 @@
                     <h2 class="screen-reader-heading">Sass @function</h2>
                     <h2 id="sass-function" aria-hidden="true">Sass <code class="inline-code">@function</code></h2>
                 </div>
-                <p class="vertical-spacing">You can use responsify as a Sass <code class="inline-code">@function</code>. First, <a class="link" href="/public/pages/index/assets/_responsify.scss.zip" download data-fileFormat=".zip" data-fileSize="1,391 bytes">download <code class="inline-code">_responsify.scss</code></a> where your root Sass file is (usually called <code class="inline-code">style.scss</code> so look for that). Then unzip the downloaded file and finally, at the top of your root Sass file add <code class="inline-code">@import "responsify";</code> (if you're using Dart Sass, add the recommended <code class="inline-code">@use "responsify";</code> instead). Usage examples are included in the file.</p>
+                <p class="vertical-spacing">You can use responsify as a Sass <code class="inline-code">@function</code>. First, <a class="link" href="./public/pages/index/assets/_responsify.scss.zip" download data-fileFormat=".zip" data-fileSize="1,391 bytes">download <code class="inline-code">_responsify.scss</code></a> where your root Sass file is (usually called <code class="inline-code">style.scss</code> so look for that). Then unzip the downloaded file and finally, at the top of your root Sass file add <code class="inline-code">@import "responsify";</code> (if you're using Dart Sass, add the recommended <code class="inline-code">@use "responsify";</code> instead). Usage examples are included in the file.</p>
                 <p class="vertical-spacing">The added bonus of using the Sass <code class="inline-code">@function</code> is that you don't need comments documenting input values. 🙌</p>
                 <p class="vertical-spacing">Note that at the moment, Sass <code class="inline-code">@function</code> doesn't support <code class="inline-code">ch</code> and <code class="inline-code">rem</code> units. 😞</p>
             </section>
