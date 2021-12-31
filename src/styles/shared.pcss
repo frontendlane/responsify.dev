@@ -1,0 +1,237 @@
+:root {
+    --vertical-spacing: calc(1em * var(--line-height));
+    --horizontal-spacing: 2ch;
+    --block-border-radius: .5em;
+    --inline-border-radius: .25em;
+    --wide-enough: 123vw;
+    --line-height: var(--golden-ratio);
+
+    /* TODO: just use white keyword for white, ditch --white */
+    --white: #fff;
+    --black: #080808;
+    --near-black: #181818;
+    --dark: #202020;
+    --light: #e0e0e0;
+    --near-white: #eee;
+    --code-background-dark: #2a2d2e;
+    --code-color-dark: #ff9359;
+}
+
+html {
+    background-color: var(--near-white); /* always set a background color on html for when users scroll beyong the page content, also in cases when the content doesn't cover all of the page */
+    color: var(--dark); /* i forgot why but i remember concluding that it's a good practice to set a color whenever setting a background-color and vice-versa */
+    /* TODO: investigate if this is the best font stack for me */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: var(--dark);
+        color: var(--light);
+    }
+}
+
+body {
+    /* TODO: this is an iOS Safari bug: not recognizing padding-inline with var() value */
+    margin-block: calc(var(--vertical-spacing) * 1.5);
+    margin-block: 2em;
+}
+
+body > * { /* has to target children because of .offscreen */
+    max-inline-size: 75ch; /* always set *some* kind of limit on width - either on body or elsewhere - because text is difficult to read if the lines are too long: https://www.joshwcomeau.com/css/full-bleed/; */
+    margin-inline: auto;
+    /* TODO: this is an iOS Safari bug: not recognizing padding-inline with var() value */
+    padding-inline: var(--horizontal-spacing);
+    padding-inline: 2ch;
+}
+
+.inline-code {
+    white-space: pre-wrap; /* ensures there's a white-space at the end of a line if text breaks into multiple lines */
+    border-radius: var(--inline-border-radius);
+    padding-inline: .25ch;
+    background-color: var(--code-background-dark);
+    color: #ffa26b;
+}
+@media (prefers-color-scheme: dark) {
+    .inline-code {
+        color: var(--code-color-dark);
+    }
+}
+
+.pre-block {
+    overflow-x: auto;
+    margin-block-start: var(--vertical-spacing);
+    border-radius: var(--block-border-radius);
+    background-color: var(--code-background-dark);
+    font-family: inherit;
+}
+
+.vertical-spacing {
+    margin-block-start: var(--vertical-spacing);
+}
+
+.vertical-spacing-150-percent {
+    margin-block-start: calc(var(--vertical-spacing) * 1.5);
+}
+
+.block-code {
+    display: inline-block; /* must be inline-block in order to have padding on the right hand side when horizontally scrolling on mobile */
+    /* TODO: maybe halve that vertical spacing?? */
+    padding: var(--vertical-spacing) .75em;
+    color: #ffa26b;
+}
+@media (prefers-color-scheme: dark) {
+    .block-code {
+        color: var(--code-color-dark);
+    }
+}
+
+.heading-container {
+    position: relative;
+}
+
+.a {
+    display: inline-block; /* so it can be transformed on :active */
+    font-weight: bold;
+    line-height: normal;
+    letter-spacing: -.01em;
+    word-spacing: .01em;
+}
+
+.a1 {
+    font-size: var(--font-size-h1);
+}
+.a2 {
+    font-size: var(--font-size-h2);
+}
+.a3 {
+    font-size: var(--font-size-h3);
+}
+
+.a ~ :where(h1, h2, h3, h4, h5, h6) {
+    display: inline;
+    text-indent: 1ch;
+}
+
+.screen-reader-heading {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    color: transparent;
+    background-color: transparent;
+    z-index: -1;
+}
+
+.js-error {
+    margin-block: calc(var(--vertical-spacing) * 1.5);
+    padding-block: var(--vertical-spacing);
+    border-block: .5em double;
+}
+
+/* TODO: add shadow on buttons: https://www.joshwcomeau.com/css/designing-shadows/ */
+.button {
+    display: block;
+    margin-block-start: var(--vertical-spacing);
+    border: 1px solid;
+    padding: .75em 1.5ch;
+    background-color: var(--white);
+    border-radius: var(--block-border-radius);
+}
+.button:not([disabled]):active {
+    background-color: transparent;
+}
+@media (prefers-color-scheme: dark) {
+    .button {
+        color: var(--light);
+        background-color: var(--black);
+    }
+}
+
+.button[disabled] {
+    opacity: .3;
+}
+
+.link {
+    --link-underline-thickness: .06em;
+    --link-underline-offset: .2em;
+
+    text-decoration-thickness: var(--link-underline-thickness);
+    text-underline-offset: var(--link-underline-offset);
+    text-decoration-skip-ink: none;
+}
+.link:hover,
+.a:hover {
+    color: var(--black);
+    text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
+}
+@media (prefers-color-scheme: dark) {
+    .link:hover,
+    .a:hover {
+        color: var(--white);
+    }
+}
+
+.link[href]:not([href=""]) {
+    position: relative;
+}
+.link[href]:not([href=""])::before {
+    --block-padding: calc(var(--vertical-spacing) / 2);
+    --inline-padding: calc(var(--horizontal-spacing) / 2);
+
+    content: attr(href); /* Firefox & Safari fallback */
+    content: attr(href) / "";
+    display: block;
+    position: absolute;
+    box-sizing: content-box;
+    padding: var(--inline-padding) var(--inline-padding);
+    inset-block-start: 0;
+    transform: translateY(calc(-100% - var(--outline-width) * 2 - var(--outline-offset) * 2 - var(--inline-padding)));
+    inset-inline-start: calc(var(--horizontal-spacing) * -1 - var(--inline-padding));
+    inline-size: calc(100% + var(--horizontal-spacing) * 2);
+    font-size: max(.5em, 10px);
+    outline: var(--outline-width) solid white;
+    background-color: var(--near-white);
+    border-radius: var(--block-border-radius);
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s .6s;
+}
+@media (prefers-color-scheme: dark) {
+    .link[href]:not([href=""])::before {
+        outline-color: black;
+        background-color: var(--near-black);
+    }
+}
+.link[href^="/"]:not([href^="//"])::before,
+.link[href^="/"]:not([href^="//"])::before {
+    content: "https://responsify.dev" attr(href); /* Firefox & Safari fallback */
+
+    content: "https://responsify.dev" attr(href) / "";
+}
+.link[href]:not([href=""]):hover::before,
+.link[href]:not([href=""]):focus-visible::before {
+    z-index: 1;
+    visibility: visible;
+    opacity: 1;
+}
+.link[href]:not([href=""]):hover::before {
+    background-color: white;
+}
+@media (prefers-color-scheme: dark) {
+    .link[href]:not([href=""]):hover::before {
+        background-color: black;
+    }
+}
+
+.email-enclosure {
+    display: inline-block;
+}
+
+.email-notification {
+    display: block;
+    text-align: center;
+}
+
+.email-notification:not(:empty) {
+    margin-block-end: calc(var(--vertical-spacing) * -1);
+}
