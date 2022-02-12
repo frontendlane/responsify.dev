@@ -1,3 +1,5 @@
 #!/bin/zsh
-echo "zip ./public/pages/index/assets/_responsify.scss.zip ./src/pages/index/assets/_responsify.scss"
-zip ./public/pages/index/assets/_responsify.scss.zip ./src/pages/index/assets/_responsify.scss
+echo "cd ./public/pages/index/assets"
+cd ./public/pages/index/assets
+echo "zip _responsify.scss.zip _responsify.scss"
+zip _responsify.scss.zip _responsify.scss

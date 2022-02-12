@@ -217,7 +217,7 @@ ol ol ol ol ol ol > li::marker {
     pointer-events: none;
 }
 
-.form :where(.label, .input, .select, .button, .output, .link) {
+.form :where(.a, .label, .input, .select, .button, .output) {
     pointer-events: all; /* no way to revert the cursor on form title. the cursor changed from the original "text" to now odd looking "default" */
 }
 
@@ -388,6 +388,10 @@ ol ol ol ol ol ol > li::marker {
     background-color: var(--near-black);
 }
 
+ul {
+    margin-block-start: calc(var(--vertical-spacing) / 2);
+}
+
 .offscreen {
     position: fixed;
     inset-block-end: 0;
@@ -418,6 +422,10 @@ table {
 
 table * {
     word-break: normal;
+}
+
+.caption {
+    margin-block-end: calc(var(--vertical-spacing) / 2);
 }
 
 thead {
@@ -451,4 +459,8 @@ td {
 th[colspan]:not([colspan=""]),
 td[colspan]:not([colspan=""]) {
     text-align: center;
+}
+
+footer {
+    border-block-start: 2px solid currentColor;
 }

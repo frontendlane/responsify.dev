@@ -31,12 +31,38 @@ Source code for https://responsify.dev.
 - radio and checkbox `<input>`s should be inside the `<label>` so the space between is clickable
 - constants.ts universal truths or front-end truths??
 - `border-radius` on `<video>` in Firefox changes video colors
+- submit button on iphone is bolded
 
 ## Todos
 ### this commit
+- fix sass function not being downloadable
+- .link::before: https://www.stefanjudis.com/today-i-learned/box-decoration-break-helps-to-define-how-elements-should-be-rendered-across/
+
+- dark theme
+    - https://twitter.com/__jakub_g/status/1478847423913107456
+    - https://web.dev/color-scheme/#background
+    - https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
+- move to 11ty
+    - https://www.aleksandrhovhannisyan.com/blog/eleventy-the-good-the-bad-and-the-possum/
+    - https://www.11ty.dev/docs/tutorials/
+    - https://www.11ty.dev/docs/samples/
+
+    typescript https://github.com/c0derabbit/eleventy-starter-typescript/
+    typescript, postcss https://github.com/cbergen/11ty-nostrils
+    typescript, css modules https://github.com/cbergen/11ty-nostrils
+    postcss https://github.com/philhawksworth/eleventyone
+    cache busting https://github.com/deviousdodo/elevenpack
+    11ty.js https://github.com/brycewray/eleventy_solo_starter_njk
+    11ty.js https://gitlab.com/reubenlillie/eleventy-dot-js-blog#readme
+    webp https://github.com/gregives/twelvety
+    rss https://github.com/equinusocio/xity-starter
+    rss https://github.com/Ewan-D/beginnersBase11ty
+    eslint, prettier, postcss https://github.com/ixartz/Eleventy-Starter-Boilerplate/
+- unorphan: if either of the words surrounding the non-breaking space are longer than 1/4 of the parent's width then don't unorphan
 - overflowing `<pre>` seem to need tabindex on safari for scrolling
 - https://modern-fluid-typography.vercel.app/
 - video
+    - narrate the video
     - create a shell script that generates all the formats
     - record only in dark theme
     - avc (h.264) [containers: 3GP, MP4]
@@ -75,10 +101,15 @@ Source code for https://responsify.dev.
     * https://adrianroselli.com/2019/12/responsive-type-and-zoom.html 6 December 2019
     - https://utopia.fyi/blog/clamp/
     - https://utopia.fyi/type/calculator/
+    - https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/ + check out all linked resources
+    - https://typetura.com/
+    - https://piperhaywood.com/fluid-type-sizes-and-spacing/
+    - https://twitter.com/hovhaDovah/status/1476677678044434435
 
 ### next commit
 - tabindex on `<pre>` for chrome
-- add postcss plugin that supports vi and vb
+- add postcss plugin that supports vi and vb units
+- https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/
 - safari desktop does not support :focus-visible
     - i implemented a polyfill. was this the right call? what about :focus:not(:focus-visible) and the like??
     - how do i get notified when :focus-visible ships with Safari so I can remove the polyfill??
@@ -90,6 +121,7 @@ Source code for https://responsify.dev.
         - id
 - system font stack
 - :hover on interactives needs to be perceivable: box-shadow maybe??
+    - joshwcomeau.com/shadow-palette/
     - hover on link isn't perceivable
 - input, select, checkbox border color is not standardized
 
@@ -147,7 +179,9 @@ Source code for https://responsify.dev.
 - does html minification make much sense if i gzip .html file(s)?
 - compare and pick the smallest minified css out of the list: https://github.com/GoalSmashers/css-minification-benchmark
 - postcss
+    - https://github.com/eduardoboucas/postcss-cssential
     - postcss-extract-media-query
+        - for each media query type there should be a separate css file that is linked to from index.html
     - postcss-assets (inlining background-images, cache busting, etc.)
     - postcss-nested
     - postcss-assets
