@@ -3,7 +3,7 @@
     --horizontal-spacing: 2ch;
     --block-border-radius: .5em;
     --inline-border-radius: .25em;
-    --wide-enough: 123vw;
+    --whitespace-width: 0.458671ch;
     --line-height: var(--golden-ratio);
 
     /* TODO: just use white keyword for white, ditch --white */
@@ -89,27 +89,45 @@ body > * { /* has to target children because of .offscreen */
     position: relative;
 }
 
-.a {
-    display: inline-block; /* so it can be transformed on :active */
+:where(h1, h2, h3, h4, h5, h6) {
+    display: inline;
+}
+
+.a-container {
+    padding-inline: var(--whitespace-width);
+}
+
+@media (hover: hover) {
+    .a-container {
+        opacity: 0;
+        transition: opacity .15s;
+    }
+
+    :where(h1, h2, h3, h4, h5, h6):hover + .a-container,
+    .a-container:hover,
+    .a-container:focus-within {
+        opacity: 1;
+        transition: none;
+    }
+}
+
+:where(h1, h2, h3, h4, h5, h6) + .a-container {
     font-weight: bold;
-    line-height: normal;
+    line-height: 1;
     letter-spacing: -.01em;
     word-spacing: .01em;
 }
 
-.a1 {
+h1 + .a-container {
     font-size: var(--font-size-h1);
 }
-.a2 {
+
+h2 + .a-container {
     font-size: var(--font-size-h2);
 }
-.a3 {
-    font-size: var(--font-size-h3);
-}
 
-.a ~ :where(h1, h2, h3, h4, h5, h6) {
-    display: inline;
-    text-indent: 1ch;
+h3 + .a-container {
+    font-size: var(--font-size-h3);
 }
 
 .screen-reader-heading {
@@ -170,56 +188,57 @@ body > * { /* has to target children because of .offscreen */
     }
 }
 
-.link[href]:not([href=""]) {
-    position: relative;
-}
-.link[href]:not([href=""])::before {
-    --block-padding: calc(var(--vertical-spacing) / 2);
-    --inline-padding: calc(var(--horizontal-spacing) / 2);
-
-    content: attr(href); /* Firefox & Safari fallback */
-    content: attr(href) / "";
-    display: block;
-    position: absolute;
-    box-sizing: content-box;
-    padding: var(--inline-padding) var(--inline-padding);
-    inset-block-start: 0;
-    transform: translateY(calc(-100% - var(--outline-width) * 2 - var(--outline-offset) * 2 - var(--inline-padding)));
-    inset-inline-start: calc(var(--horizontal-spacing) * -1 - var(--inline-padding));
-    inline-size: calc(100% + var(--horizontal-spacing) * 2);
-    font-size: max(.5em, 10px);
-    outline: var(--outline-width) solid white;
-    background-color: var(--near-white);
-    border-radius: var(--block-border-radius);
-    text-align: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity .15s .6s;
-}
-@media (prefers-color-scheme: dark) {
-    .link[href]:not([href=""])::before {
-        outline-color: black;
-        background-color: var(--near-black);
+@media (hover: hover) {
+    .link[href]:not([href=""]) {
+        position: relative;
     }
-}
-.link[href^="/"]:not([href^="//"])::before,
-.link[href^="/"]:not([href^="//"])::before {
-    content: "https://responsify.dev" attr(href); /* Firefox & Safari fallback */
+    .link[href]:not([href=""])::before {
+        --block-padding: calc(var(--vertical-spacing) / 2);
+        --inline-padding: calc(var(--horizontal-spacing) / 2);
 
-    content: "https://responsify.dev" attr(href) / "";
-}
-.link[href]:not([href=""]):hover::before,
-.link[href]:not([href=""]):focus-visible::before {
-    z-index: 1;
-    visibility: visible;
-    opacity: 1;
-}
-.link[href]:not([href=""]):hover::before {
-    background-color: white;
-}
-@media (prefers-color-scheme: dark) {
+        content: attr(href); /* Firefox & Safari fallback */
+        content: attr(href) / "";
+        display: block;
+        position: absolute;
+        box-sizing: content-box;
+        padding: var(--inline-padding) var(--inline-padding);
+        inset-block-start: 0;
+        transform: translateY(calc(-100% - var(--outline-width) * 2 - var(--outline-offset) * 2 - var(--inline-padding)));
+        inset-inline-start: calc(var(--horizontal-spacing) * -1 - var(--inline-padding));
+        inline-size: calc(100% + var(--horizontal-spacing) * 2);
+        font-size: max(.5em, 10px);
+        outline: var(--outline-width) solid white;
+        background-color: var(--near-white);
+        border-radius: var(--block-border-radius);
+        text-align: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .15s .6s;
+    }
+    @media (prefers-color-scheme: dark) {
+        .link[href]:not([href=""])::before {
+            outline-color: black;
+            background-color: var(--near-black);
+        }
+    }
+    .link[href^="/"]:not([href^="//"])::before,
+    .link[href^="/"]:not([href^="//"])::before {
+        content: "https://responsify.dev" attr(href); /* Firefox & Safari fallback */
+        content: "https://responsify.dev" attr(href) / "";
+    }
+    .link[href]:not([href=""]):hover::before,
+    .link[href]:not([href=""]):focus-visible::before {
+        z-index: 1;
+        visibility: visible;
+        opacity: 1;
+    }
     .link[href]:not([href=""]):hover::before {
-        background-color: black;
+        background-color: white;
+    }
+    @media (prefers-color-scheme: dark) {
+        .link[href]:not([href=""]):hover::before {
+            background-color: black;
+        }
     }
 }
 
