@@ -47,6 +47,7 @@ module.exports = (cliArguments) => {
     return {
         map: isDev,
         plugins: {
+			'postcss-media-minmax': {},
             'postcss-focus-visible': {},
             'postcss-import': {},
             'autoprefixer': {},

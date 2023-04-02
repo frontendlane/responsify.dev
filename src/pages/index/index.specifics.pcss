@@ -26,6 +26,8 @@
     border-radius: min(calc(0.345px + 0.517vw), 5px); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 900px; element lower bound: 2px; element upper bound: 5px; */
     margin-block-start: var(--vertical-spacing);
     outline: 1px solid white;
+    inline-size: 100%;
+    aspect-ratio: 2078 / 966;
 }
 @media (prefers-color-scheme: dark) {
     .video {
@@ -63,7 +65,7 @@ ol ol {
     margin-block-start: calc(var(--vertical-spacing) / 4);
     padding-inline-start: calc(var(--digit-ach) + var(--ch-period) + var(--ch-space) * 4);
 }
-@media (min-width: 75ch) {
+@media (width >= 75ch) {
     ol ol {
         padding-inline-start: calc(var(--digit-ach) + var(--ch-period) + var(--ch-space) * 8);
     }
@@ -141,13 +143,13 @@ ol ol ol ol ol ol > li::marker {
         background-color: var(--light);
     }
 }
-@media (min-width: 900px) {
+@media (width >= 900px) {
     .example-div ~ .example-div {
         --width: calc(3716.129px - 322.903vw); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90vw; element upper bound: 40vw; */
         background-blend-mode: normal;
     }
 }
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .example-div {
         --width: 40vw !important;
         background-blend-mode: luminosity !important;
@@ -168,12 +170,12 @@ ol ol ol ol ol ol > li::marker {
         color: var(--code-color-dark);
     }
 }
-@media (min-width: 900px) {
+@media (width >= 900px) {
     .example-div ~ .example-div::before {
         content: "width: calc(3716.129px - 322.903%);";
     }
 }
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .example-div::before {
         content: "width: 40%;" !important;
     }
@@ -184,7 +186,7 @@ ol ol ol ol ol ol > li::marker {
     content: "Resize the browser up ⬆️ to see responsify in action.";
     content: "Resize the browser up ⬆️ to see responsify in action." / "Resize the browser up to see responsify in action.";
 }
-@media (min-width: 900px) {
+@media (width >= 900px) {
     .resize::before {
         /* TODO: handle this with postcss */
         content: "Resize the browser to see responsify in action. 🦄";
@@ -192,7 +194,7 @@ ol ol ol ol ol ol > li::marker {
         white-space: pre-wrap;
     }
 }
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .resize::before {
         content: "Resize the browser down ⬇️ to see responsify in action.";
         content: "Resize the browser down ⬇️ to see responsify in action." / "Resize the browser down to see responsify in action.";

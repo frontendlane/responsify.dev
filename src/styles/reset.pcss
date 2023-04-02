@@ -8,7 +8,7 @@
     --font-size-h2: calc(1rem * var(--golden-ratio) * var(--golden-ratio) * .666);
     --font-size-h3: calc(1rem * var(--golden-ratio) * .666);
 }
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     /* TODO: this is just temporary. replace with utopia font sizes */
     :root {
         --font-size-h1: calc(1rem * var(--golden-ratio) * var(--golden-ratio) * var(--golden-ratio));
@@ -49,6 +49,7 @@ textarea {
 img,
 video {
     display: block;
+    max-inline-size: 100%;
 }
 
 button:not([disabled]),
@@ -76,11 +77,13 @@ h5,
 h6,
 caption {
     line-height: 1;
+    /* TODO: replace em with ch */
     letter-spacing: -.01em;
     word-spacing: .01em;
 }
 
 /* TODO: apply utopia font-size */
+/* TODO: alternative: https://typescale.com/ */
 h1 {
     font-size: var(--font-size-h1);
 }

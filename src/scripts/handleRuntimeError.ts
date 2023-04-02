@@ -1,3 +1,5 @@
+// isn't this page specific?? and should thus go under src/pages/index/scripts
+// also the error handling assumes the type of runtime error is with the form handling, it could be elsewhere e.g. in attachEventHandlers
 import { setContent, createElement } from "./domInteraction";
 
 const loadRuntimeErrorStyles = () => {

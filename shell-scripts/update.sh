@@ -1,4 +1,7 @@
 #!/bin/zsh
+# update nvm
+echo "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
 echo "nvm install node"
 nvm install node
 echo "nvm use node"
@@ -11,3 +14,4 @@ echo "yarn install"
 yarn install
 echo "yarn yarn-upgrade-all"
 yarn yarn-upgrade-all
+# alternative to yarn-upgrade-all: https://www.npmjs.com/package/npm-check-updates: updates dependencies to latest *major* version
