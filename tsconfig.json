@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
     "lib": ["ES2017", "DOM"],
     "module": "es6",
     "moduleResolution": "node",
-    "noImplicitAny": true,
     "outDir": "./public/scripts/",
     "removeComments": true,
     "sourceMap": true,

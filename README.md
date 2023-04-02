@@ -34,7 +34,31 @@ Source code for https://responsify.dev.
 - submit button on iphone is bolded
 
 ## Todos
+
+### move to astro
+- move to astro
+- keep
+	- unorphan
+	- form initial values (necessary because user preference is stored in local/session storage)
+	- enable form controls
+	- event listeners
+		- submit
+		- reset
+		- copy email
+		- form change
+- remove
+	- restore users position seems unnecessary and buggy on top of that
+	- init.sh
+	- remoe zsh from shell scripts
+- todo
+	- .npmrc vs .nvmrc
+	- pnpm.io/npmrc
+	- for development I'm fine with using nvm because I'll continue using it in the future. for deployment it's unnecessary to have nvm, I can just install the node version I need, especially if it's being deployed in a CI/CD pipeline that discards the build environment after building the site. more research needed here
+		- nvm should be installed via homebrew
+
 ### this commit
+- pressing reset button after generating css code produces a bug
+- `:any-link` instead of `a` (this probably only needs fixing in reset.scss and globals.pcss)
 - fix sass function not being downloadable
 - .link::before: https://www.stefanjudis.com/today-i-learned/box-decoration-break-helps-to-define-how-elements-should-be-rendered-across/
 
@@ -59,6 +83,8 @@ Source code for https://responsify.dev.
     rss https://github.com/Ewan-D/beginnersBase11ty
     eslint, prettier, postcss https://github.com/ixartz/Eleventy-Starter-Boilerplate/
 - unorphan: if either of the words surrounding the non-breaking space are longer than 1/4 of the parent's width then don't unorphan
+	- https://frontendfoc.us/link/129367/web
+	- https://cloudfour.com/thinks/responsive-headlines-are-about-to-get-awesome/
 - overflowing `<pre>` seem to need tabindex on safari for scrolling
 - https://modern-fluid-typography.vercel.app/
 - video
@@ -90,6 +116,7 @@ Source code for https://responsify.dev.
         - ask utopia guys what breakpoints they use for responsive images. because those only work with specific resolutions what do they use?? an option for me is to have one at every 100px
 - https://zellwk.com/blog/publish-to-npm/
 - better comparison with css locks:
+	- https://chrisburnell.com/clamp-calculator/
     * https://tbrown.org/notes/2012/02/03/molten-leading-or-fluid-line-height/ 3 February 2012
     * https://css-tricks.com/viewport-sized-typography/ 30 April, 2012
     * https://trentwalton.com/2012/06/19/fluid-type/ 19 June 2012
@@ -105,6 +132,10 @@ Source code for https://responsify.dev.
     - https://typetura.com/
     - https://piperhaywood.com/fluid-type-sizes-and-spacing/
     - https://twitter.com/hovhaDovah/status/1476677678044434435
+	- https://github.com/arielsalminen/Molten-Leading
+	- https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
+	- https://www.smashingmagazine.com/2022/08/fluid-sizing-multiple-media-queries/
+	- https://min-max-calculator.9elements.com/
 
 ### next commit
 - tabindex on `<pre>` for chrome
@@ -132,9 +163,11 @@ Source code for https://responsify.dev.
     - WONTFIX: unorphaning `display: none;` elements
     - WONTFIX: do this for CSS content as well
     - there's a different way to unrphan and that's with `<br>`. replace penultimate whitespace with `<br>`, assign it an `id` possibly and style it with media queries
+	- https://mnater.github.io/Hyphenopoly/
 - Chrome and Safari differently/incorrectly handle 100% width on ::before pseudo-element
 - linter for http URLs (should be https)
 - automatically generate table of contents
+	- https://css-tricks.com/a-perfect-table-of-contents-with-html-css/
 - input[type="number"] doesn't support localized comma for decimal separator (investigate and look for possible solution in https://www.ctrl.blog/entry/html5-input-number-localization.html)
 - hotlink protection??
 - add csp?? https://www.ctrl.blog/entry/safari-csp-media-controls.html
@@ -182,6 +215,7 @@ Source code for https://responsify.dev.
     - https://github.com/eduardoboucas/postcss-cssential
     - postcss-extract-media-query
         - for each media query type there should be a separate css file that is linked to from index.html
+		https://pepelsbey.dev/articles/conditionally-adaptive/
     - postcss-assets (inlining background-images, cache busting, etc.)
     - postcss-nested
     - postcss-assets
@@ -207,3 +241,11 @@ Source code for https://responsify.dev.
 - remove unnecessary package.json properties
 - graphical input: two-axis graph with x axis from 320 to maximum supported viewport with dropdown to select vw or %, left y axis from -100 to +100 with dropdown to select unit and right y axis with a different unit that spans the same distance as the left one (actually those two are in sync, if one changes the other changes as well). and you can add points, move them around. you can also select your target browser support list so that certain options are excluded from the generated code e.g. instead of clamp() @media query is used
 - code block: http://midasjs.com/
+- copy to clipboard and other notifications: https://codepen.io/jkantner/pen/XWzePgp
+- reset.pcss
+	https://baymard.com/blog/line-length-readability
+	https://blog.eleven-labs.com/en/responsive-accessible-typography/
+	https://kittygiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/
+	https://www.thegoodlineheight.com/
+	https://www.trysmudford.com/blog/a-good-reset/
+	https://www.joshwcomeau.com/css/custom-css-reset/#digit-tweaking-line-height

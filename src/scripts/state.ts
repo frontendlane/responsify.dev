@@ -1,3 +1,4 @@
+// isn't this page specific?? and should thus go under src/pages/index/scripts
 import { storage } from "./storage";
 import { ILocalState, ISessionState, IState, StorageType } from "./types";
 
