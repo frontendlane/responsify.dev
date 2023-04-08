@@ -1,15 +1,1163 @@
 ---
 ---
 
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Smooth out breakpoint layout jumps with responsify</title>
+		<meta name="description" content="Responsify smooths out breakpoint layout jumps using CSS `calc()` function." />
+		<link rel="stylesheet" href="./public/pages/index/index.css" />
+		<script src="./public/pages/index/scripts/index.js" defer></script>
+		<noscript>
+			<link rel="stylesheet" href="./public/pages/index/index.noscript.css" />
+		</noscript>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<main aria-labelledby="top">
+			<article aria-labelledby="top">
+				<h1 id="top">Smooth out breakpoint layout jumps with <i>responsify</i></h1><span class="a-container"
+					><a class="a" href="#top" aria-labelledby="top">#</a></span
+				>
+				<aside>
+					<p class="vertical-spacing"><b>Published</b>: <time datetime="2019-09-25">September 25, 2019</time></p>
+					<p><b>Updated</b>: <time datetime="2022-02-12">April 2, 2023</time></p>
+				</aside>
+				<section class="vertical-spacing-150-percent" aria-labelledby="responsify">
+					<h2 id="responsify">What is <i>responsify</i></h2><span class="a-container"
+						><a class="a" href="#responsify" aria-labelledby="responsify">#</a></span
+					>
+					<p class="vertical-spacing"
+						>Responsify is the name of my technique for smoothing out breakpoint layout jumps. It uses the CSS <code
+							class="inline-code">calc()</code
+						> function to <em>fluidly</em> change <code class="inline-code">width</code>, <code
+							class="inline-code">margin</code
+						>, <code class="inline-code">left</code>, etc. so they match the neighboring breakpoint value. Read
+						on to learn how to use it in your project.</p
+					>
+					<!-- TODO: maybe i can get around the fact that media attribute is not supported on video elements by showing the one with the appropriate id and not preloading either of them?? -->
+					<!-- <video class="video" preload="metadata" muted loop playsinline controls> -->
+					<video class="video" autoplay muted loop playsinline controls>
+						<source src="./public/pages/index/assets/screen-recording-265.mov" type="video/quicktime" />
+						<source src="./public/pages/index/assets/screen-recording-264.mov" type="video/mp4" />
+					</video>
+					<dl class="vertical-spacing">
+						<dt>
+							<b>Update: <time datetime="2021-11-16">November 16, 2021</time></b>
+						</dt>
+						<dd>
+							Today I learned that responsify is a rediscovery of <a
+								class="link"
+								href="https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/"
+								target="_blank"
+								rel="noopener">CSS locks</a
+							>. 🤦‍♂️ Read the <a class="link" href="#comparison">comparison between CSS locks and responsify</a
+							>.
+						</dd>
+					</dl>
+				</section>
+				<section class="vertical-spacing-150-percent" aria-describedby="contents">
+					<h2 id="contents">Table of contents</h2><span class="a-container"
+						><a class="a" href="#contents" aria-labelledby="contents">#</a></span
+					>
+					<ol>
+						<li>
+							<a class="link" href="#top">Smooth out breakpoint layout jumps with responsify</a>
+							<ol>
+								<li>
+									<a class="link" href="#responsify">What is responsify</a>
+								</li>
+								<li>
+									<a class="link" href="#contents">Table of contents</a>
+								</li>
+								<li>
+									<a class="link" href="#examples">How to use</a>
+									<ol>
+										<li>
+											<a class="link" href="#example-1">Example 1 featuring two media queries</a>
+										</li>
+										<li>
+											<a class="link" href="#example-2"
+												>Example 2 featuring <code class="inline-code">max-width</code> media query</a
+											>
+										</li>
+										<li>
+											<a class="link" href="#example-3"
+												>Example 3 featuring <code class="inline-code">max-height</code></a
+											>
+										</li>
+										<li>
+											<a class="link" href="#example-4"
+												>Example 4 featuring <code class="inline-code">clamp()</code></a
+											>
+										</li>
+										<li>
+											<a class="link" href="#example-5"
+												>Example 5 featuring <code class="inline-code">ch</code> and <code
+													class="inline-code">min()</code
+												></a
+											>
+										</li>
+									</ol>
+								</li>
+								<li>
+									<a class="link" href="#form"><b>Responsify form</b></a>
+								</li>
+								<li>
+									<a class="link" href="#sass-function">Sass <code class="inline-code">@function</code></a>
+								</li>
+								<li>
+									<a class="link" href="#browser-support">Browser support</a>
+								</li>
+								<li>
+									<a class="link" href="#comparison">Comparison with CSS locks</a>
+								</li>
+								<li>
+									<a class="link" href="#resources">Related resources</a>
+								</li>
+							</ol>
+						</li>
+						<li>
+							<a class="link" href="#privacy">Privacy policy</a>
+						</li>
+						<li>
+							<a class="link" href="#accessibility">Accessibility statement</a>
+						</li>
+					</ol>
+				</section>
+				<section class="vertical-spacing-150-percent" aria-describedby="examples">
+					<h2 id="examples">How to use</h2><span class="a-container"
+						><a class="a" href="#examples" aria-labelledby="examples">#</a></span
+					>
+					<p class="vertical-spacing"
+						>Examples assume smallest viewport width of 320px, a tablet breakpoint at 768px, and a desktop
+						breakpoint at 1024px.</p
+					>
+					<section class="vertical-spacing-150-percent" aria-describedby="example-1">
+						<h3 id="example-1">Example 1 featuring two media queries</h3><span class="a-container"
+							><a class="a" href="#example-1" aria-labelledby="example-1">#</a></span
+						>
+						<p class="vertical-spacing"
+							>Suppose a <code class="inline-code">&lt;div&gt;</code> needs to be 90% wide below desktop breakpoint
+							and 40% above that. Because you practice mobile-first approach, you start with:</p
+						>
+						<pre class="pre-block"><code class="block-code">div &lbrace;
+    width: 90%;
+&rbrace;</code></pre>
+						<p class="vertical-spacing">and for desktop you add:</p>
+						<pre class="pre-block"
+							><code class="block-code">@media (min-width: 1024px) &lbrace;
+    div &lbrace;
+        width: 40%;
+    &rbrace;
+&rbrace;</code></pre
+						>
+						<p class="vertical-spacing"
+							>You want to gradually transition between these two values so you reserve, let's say, the 900px -
+							1024px range to smooth this out. You add another media query with the magic 🪄 <code
+								class="inline-code">calc()</code
+							> value that you generate using the <a class="link" href="#form">responsify form</a> below and you're
+							done! 🎉</p
+						>
+						<pre class="pre-block"
+							><code class="block-code">@media (min-width: 900px) and (max-width: 1023px) &lbrace;
+    div &lbrace;
+        width: calc(3716.129px - 322.903%); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90%; element upper bound: 40%; */
+    &rbrace;
+&rbrace;</code></pre
+						>
+						<p class="vertical-spacing"
+							>Note the comment that accompanies <code class="inline-code">calc()</code> value. Preserving input
+							values makes it easier to maintain the code.</p
+						>
+						<p class="vertical-spacing"
+							>The comment also includes <code class="inline-code">https://responsify.dev</code> both as a reference
+							for future maintainers and as a unique string you can match against when tracking down responsified
+							values.</p
+						>
+						<!-- TODO: optimize screen reader usage -->
+						<p class="vertical-spacing resize"></p>
+						<p class="vertical-spacing"><em>Without</em> responsify:</p>
+						<div class="example-div vertical-spacing"></div>
+						<p class="vertical-spacing" id="description"><em>With</em> responsify:</p>
+						<div
+							class="example-div vertical-spacing"
+							aria-live="polite"
+							role="status"
+							aria-describedby="description"></div>
+					</section>
+
+					<section class="vertical-spacing heading-container" aria-describedby="example-2">
+						<h3 class="screen-reader-heading">Example 2 featuring max-width media query</h3>
+						<h3 id="example-2" aria-hidden="true"
+							>Example 2 featuring <code class="inline-code">max-width</code> media query</h3
+						><span class="a-container"><a class="a" href="#example-2" aria-labelledby="example-2">#</a></span>
+						<p class="vertical-spacing"
+							>You want the <code class="inline-code">&lt;body&gt;</code>'s <code class="inline-code"
+								>padding</code
+							> to increase from 10px to 50px, and have it stay at 50px once it hits the desktop breakpoint. For
+							desktop and above you start off with:</p
+						>
+						<pre class="pre-block"><code class="block-code">body &lbrace;
+    padding: 50px;
+&rbrace;</code></pre>
+						<p class="vertical-spacing">and for below desktop you add:</p>
+						<pre class="pre-block"
+							><code class="block-code">@media (max-width: 1023px) &lbrace;
+    body &lbrace;
+        padding: calc(-8.182px + 5.682vw); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 10px; element upper bound: 50px; */
+    &rbrace;
+&rbrace;</code></pre
+						>
+						<p class="vertical-spacing"
+							>I'm not a fan of using a <code class="inline-code">max-width</code> media query because it smells
+							of a desktop-first approach 👎, but I've included it here for completeness' sake.</p
+						>
+					</section>
+
+					<section class="vertical-spacing heading-container" aria-describedby="example-3">
+						<h3 class="screen-reader-heading">Example 3 featuring max-height</h3>
+						<h3 id="example-3" aria-hidden="true"
+							>Example 3 featuring <code class="inline-code">max-height</code></h3
+						><span class="a-container"><a class="a" href="#example-3" aria-labelledby="example-3">#</a></span>
+						<p class="vertical-spacing"
+							>You want the <code class="inline-code">&lt;header&gt;</code>'s <code class="inline-code"
+								>height</code
+							> to increase from 40px to 90px, and have it stay at 90px once it hits the desktop breakpoint.</p
+						>
+						<pre class="pre-block"
+							><code class="block-code">header &lbrace;
+    height: calc(17.273px + 7.102vw); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 40px; element upper bound: 90px; */
+    max-height: 90px;
+&rbrace;</code></pre
+						>
+						<p class="vertical-spacing"
+							>Without the <code class="inline-code">max-height</code> the <code class="inline-code"
+								>&lt;header&gt;</code
+							> would continue to grow in height with increase in viewport width. This approach removes the need
+							for a media query 👍, but is limited to <code class="inline-code">width</code> and <code
+								class="inline-code">height</code
+							> as no other property has a corresponding <code class="inline-code">max-width</code> and <code
+								class="inline-code">max-height</code
+							>. 👎</p
+						>
+					</section>
+
+					<section class="vertical-spacing heading-container" aria-describedby="example-4">
+						<h3 class="screen-reader-heading">Example 4 featuring clamp()</h3>
+						<h3 id="example-4" aria-hidden="true"
+							>Example 4 featuring <code class="inline-code">clamp()</code></h3
+						><span class="a-container"><a class="a" href="#example-4" aria-labelledby="example-4">#</a></span>
+						<p class="vertical-spacing"
+							>You want the <code class="inline-code">&lt;footer&gt;</code>'s <code class="inline-code"
+								>margin-top</code
+							> to be 20px below tablet breakpoint, 200px above desktop breakpoint, and increase from 2.6vw at tablet
+							breakpoint (0.026 * 768px ≅ 20px) to 19.5vw at desktop breakpoint (0.195 * 1024px ≅ 200px).</p
+						>
+						<pre class="pre-block"
+							><code class="block-code">footer &lbrace;
+    margin-top: clamp(20px, calc(-515.482px + 69.87vw), 200px); /* https://responsify.dev - viewport lower bound: 768px; viewport upper bound: 1024px; element lower bound: 2.75vw; element upper bound: 19.53vw; */
+&rbrace;</code></pre
+						>
+						<p class="vertical-spacing"
+							>Responsify + <code class="inline-code">clamp()</code> is a powerful combination 💪 that allows you
+							to mix and match units, something you can't do with responsify alone.</p
+						>
+					</section>
+
+					<section class="vertical-spacing heading-container" aria-describedby="example-5">
+						<h3 class="screen-reader-heading">Example 5 featuring ch and min()</h3>
+						<h3 id="example-5" aria-hidden="true"
+							>Example 5 featuring <code class="inline-code">ch</code> and <code class="inline-code"
+								>min()</code
+							></h3
+						><span class="a-container"><a class="a" href="#example-5" aria-labelledby="example-5">#</a></span>
+						<p class="vertical-spacing"
+							>You want the <code class="inline-code">&lt;button&gt;</code>'s <code class="inline-code"
+								>border-width</code
+							> to increase from 1ch to 2ch, and have it stay at 2ch once it hits the desktop breakpoint. In this
+							example let's say that the average character width is 13.65px.</p
+						>
+						<pre class="pre-block"
+							><code class="block-code">button &lbrace;
+    border-width: min(calc(0.545ch + 1.939vw), 2ch); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 1ch; element upper bound: 2ch; "ch" width in pixels: 13.65; */
+&rbrace;</code></pre
+						>
+						<p class="vertical-spacing"
+							>By using <code class="inline-code">min()</code> you can do away with media query <em>and</em> you're
+							not limited to <code class="inline-code">width</code> and <code class="inline-code">height</code>
+							like in <a class="link" href="#example-3">Example 3</a>. 💯</p
+						>
+					</section>
+				</section>
+				<section class="vertical-spacing-150-percent" aria-labelledby="form-title">
+					<div class="form" id="form">
+						<h2 id="form-title">Responsify form</h2><span class="a-container"
+							><a class="a" href="#form" aria-labelledby="form">#</a></span
+						>
+						<div class="js-error" id="js-error" hidden>
+							<p
+								><span id="js-error-intro">JavaScript failed to execute.</span> 😵 You won't be able to generate
+								a <code class="inline-code">calc()</code> value.</p
+							>
+							<p class="vertical-spacing"
+								>You might be able to resolve the issue by reloading the page. If that doesn't work, update
+								your browser to the latest version and try again.</p
+							>
+							<p class="vertical-spacing">Error stack is logged to the console.</p>
+						</div>
+						<p class="vertical-spacing"
+							>Generate responsified <code class="inline-code">calc()</code> value using the form below. Bookmark
+							the link next to the form heading above for direct access to this form.</p
+						>
+						<form class="form-element" id="form-element">
+							<noscript class="noscript">
+								<p
+									><strong
+										>JavaScript needs to be enabled in order to generate a <code class="inline-code"
+											>calc()</code
+										> value.</strong
+									></p
+								>
+							</noscript>
+							<ol class="list">
+								<li class="list-item">
+									<div class="step-container">
+										<label class="label" for="css-property">CSS property</label>
+										<input
+											class="input css-property"
+											id="css-property"
+											disabled
+											list="css-properties"
+											type="text"
+											placeholder="width"
+											required
+										/>
+										<datalist id="css-properties">
+											<option value="align-content"></option>
+											<option value="align-items"></option>
+											<option value="align-self"></option>
+											<option value="alignment-baseline"></option>
+											<option value="all"></option>
+											<option value="animation"></option>
+											<option value="animation-delay"></option>
+											<option value="animation-direction"></option>
+											<option value="animation-duration"></option>
+											<option value="animation-fill-mode"></option>
+											<option value="animation-iteration-count"></option>
+											<option value="animation-name"></option>
+											<option value="animation-play-state"></option>
+											<option value="animation-timing-function"></option>
+											<option value="appearance"></option>
+											<option value="aspect-ratio"></option>
+											<option value="azimuth"></option>
+											<option value="backface-visibility"></option>
+											<option value="background"></option>
+											<option value="background-attachment"></option>
+											<option value="background-blend-mode"></option>
+											<option value="background-clip"></option>
+											<option value="background-color"></option>
+											<option value="background-image"></option>
+											<option value="background-origin"></option>
+											<option value="background-position"></option>
+											<option value="background-repeat"></option>
+											<option value="background-size"></option>
+											<option value="baseline-shift"></option>
+											<option value="baseline-source"></option>
+											<option value="block-ellipsis"></option>
+											<option value="block-size"></option>
+											<option value="block-step"></option>
+											<option value="block-step-align"></option>
+											<option value="block-step-insert"></option>
+											<option value="block-step-round"></option>
+											<option value="block-step-size"></option>
+											<option value="bookmark-label"></option>
+											<option value="bookmark-level"></option>
+											<option value="bookmark-state"></option>
+											<option value="border"></option>
+											<option value="border-block"></option>
+											<option value="border-block-color"></option>
+											<option value="border-block-end"></option>
+											<option value="border-block-end-color"></option>
+											<option value="border-block-end-style"></option>
+											<option value="border-block-end-width"></option>
+											<option value="border-block-start"></option>
+											<option value="border-block-start-color"></option>
+											<option value="border-block-start-style"></option>
+											<option value="border-block-start-width"></option>
+											<option value="border-block-style"></option>
+											<option value="border-block-width"></option>
+											<option value="border-bottom"></option>
+											<option value="border-bottom-color"></option>
+											<option value="border-bottom-left-radius"></option>
+											<option value="border-bottom-right-radius"></option>
+											<option value="border-bottom-style"></option>
+											<option value="border-bottom-width"></option>
+											<option value="border-boundary"></option>
+											<option value="border-collapse"></option>
+											<option value="border-color"></option>
+											<option value="border-end-end-radius"></option>
+											<option value="border-end-start-radius"></option>
+											<option value="border-image"></option>
+											<option value="border-image-outset"></option>
+											<option value="border-image-repeat"></option>
+											<option value="border-image-slice"></option>
+											<option value="border-image-source"></option>
+											<option value="border-image-width"></option>
+											<option value="border-inline"></option>
+											<option value="border-inline-color"></option>
+											<option value="border-inline-end"></option>
+											<option value="border-inline-end-color"></option>
+											<option value="border-inline-end-style"></option>
+											<option value="border-inline-end-width"></option>
+											<option value="border-inline-start"></option>
+											<option value="border-inline-start-color"></option>
+											<option value="border-inline-start-style"></option>
+											<option value="border-inline-start-width"></option>
+											<option value="border-inline-style"></option>
+											<option value="border-inline-width"></option>
+											<option value="border-left"></option>
+											<option value="border-left-color"></option>
+											<option value="border-left-style"></option>
+											<option value="border-left-width"></option>
+											<option value="border-radius"></option>
+											<option value="border-right"></option>
+											<option value="border-right-color"></option>
+											<option value="border-right-style"></option>
+											<option value="border-right-width"></option>
+											<option value="border-spacing"></option>
+											<option value="border-start-end-radius"></option>
+											<option value="border-start-start-radius"></option>
+											<option value="border-style"></option>
+											<option value="border-top"></option>
+											<option value="border-top-color"></option>
+											<option value="border-top-left-radius"></option>
+											<option value="border-top-right-radius"></option>
+											<option value="border-top-style"></option>
+											<option value="border-top-width"></option>
+											<option value="border-width"></option>
+											<option value="bottom"></option>
+											<option value="box-decoration-break"></option>
+											<option value="box-shadow"></option>
+											<option value="box-sizing"></option>
+											<option value="box-snap"></option>
+											<option value="break-after"></option>
+											<option value="break-before"></option>
+											<option value="break-inside"></option>
+											<option value="caption-side"></option>
+											<option value="caret"></option>
+											<option value="caret-color"></option>
+											<option value="caret-shape"></option>
+											<option value="chains"></option>
+											<option value="clear"></option>
+											<option value="clip"></option>
+											<option value="clip-path"></option>
+											<option value="clip-rule"></option>
+											<option value="color"></option>
+											<option value="color-adjust"></option>
+											<option value="color-interpolation-filters"></option>
+											<option value="color-scheme"></option>
+											<option value="column-count"></option>
+											<option value="column-fill"></option>
+											<option value="column-gap"></option>
+											<option value="column-rule"></option>
+											<option value="column-rule-color"></option>
+											<option value="column-rule-style"></option>
+											<option value="column-rule-width"></option>
+											<option value="column-span"></option>
+											<option value="column-width"></option>
+											<option value="columns"></option>
+											<option value="contain"></option>
+											<option value="contain-intrinsic-size"></option>
+											<option value="content"></option>
+											<option value="content-visibility"></option>
+											<option value="continue"></option>
+											<option value="counter-increment"></option>
+											<option value="counter-reset"></option>
+											<option value="counter-set"></option>
+											<option value="cue"></option>
+											<option value="cue-after"></option>
+											<option value="cue-before"></option>
+											<option value="cursor"></option>
+											<option value="direction"></option>
+											<option value="display"></option>
+											<option value="dominant-baseline"></option>
+											<option value="elevation"></option>
+											<option value="empty-cells"></option>
+											<option value="fill"></option>
+											<option value="fill-break"></option>
+											<option value="fill-color"></option>
+											<option value="fill-image"></option>
+											<option value="fill-opacity"></option>
+											<option value="fill-origin"></option>
+											<option value="fill-position"></option>
+											<option value="fill-repeat"></option>
+											<option value="fill-rule"></option>
+											<option value="fill-size"></option>
+											<option value="filter"></option>
+											<option value="flex"></option>
+											<option value="flex-basis"></option>
+											<option value="flex-direction"></option>
+											<option value="flex-flow"></option>
+											<option value="flex-grow"></option>
+											<option value="flex-shrink"></option>
+											<option value="flex-wrap"></option>
+											<option value="float"></option>
+											<option value="float-defer"></option>
+											<option value="float-offset"></option>
+											<option value="float-reference"></option>
+											<option value="flood-color"></option>
+											<option value="flood-opacity"></option>
+											<option value="flow"></option>
+											<option value="flow-from"></option>
+											<option value="flow-into"></option>
+											<option value="font"></option>
+											<option value="font-family"></option>
+											<option value="font-feature-settings"></option>
+											<option value="font-kerning"></option>
+											<option value="font-language-override"></option>
+											<option value="font-optical-sizing"></option>
+											<option value="font-palette"></option>
+											<option value="font-size"></option>
+											<option value="font-size-adjust"></option>
+											<option value="font-stretch"></option>
+											<option value="font-style"></option>
+											<option value="font-synthesis"></option>
+											<option value="font-synthesis-small-caps"></option>
+											<option value="font-synthesis-style"></option>
+											<option value="font-synthesis-weight"></option>
+											<option value="font-variant"></option>
+											<option value="font-variant-alternates"></option>
+											<option value="font-variant-caps"></option>
+											<option value="font-variant-east-asian"></option>
+											<option value="font-variant-emoji"></option>
+											<option value="font-variant-ligatures"></option>
+											<option value="font-variant-numeric"></option>
+											<option value="font-variant-position"></option>
+											<option value="font-variation-settings"></option>
+											<option value="font-weight"></option>
+											<option value="footnote-display"></option>
+											<option value="footnote-policy"></option>
+											<option value="forced-color-adjust"></option>
+											<option value="gap"></option>
+											<option value="glyph-orientation-vertical"></option>
+											<option value="grid"></option>
+											<option value="grid-area"></option>
+											<option value="grid-auto-columns"></option>
+											<option value="grid-auto-flow"></option>
+											<option value="grid-auto-rows"></option>
+											<option value="grid-column"></option>
+											<option value="grid-column-end"></option>
+											<option value="grid-column-start"></option>
+											<option value="grid-row"></option>
+											<option value="grid-row-end"></option>
+											<option value="grid-row-start"></option>
+											<option value="grid-template"></option>
+											<option value="grid-template-areas"></option>
+											<option value="grid-template-columns"></option>
+											<option value="grid-template-rows"></option>
+											<option value="hanging-punctuation"></option>
+											<option value="height"></option>
+											<option value="hyphenate-character"></option>
+											<option value="hyphenate-limit-chars"></option>
+											<option value="hyphenate-limit-last"></option>
+											<option value="hyphenate-limit-lines"></option>
+											<option value="hyphenate-limit-zone"></option>
+											<option value="hyphens"></option>
+											<option value="image-orientation"></option>
+											<option value="image-rendering"></option>
+											<option value="image-resolution"></option>
+											<option value="initial-letter"></option>
+											<option value="initial-letter-align"></option>
+											<option value="initial-letter-wrap"></option>
+											<option value="inline-size"></option>
+											<option value="inline-sizing"></option>
+											<option value="inset"></option>
+											<option value="inset-block"></option>
+											<option value="inset-block-end"></option>
+											<option value="inset-block-start"></option>
+											<option value="inset-inline"></option>
+											<option value="inset-inline-end"></option>
+											<option value="inset-inline-start"></option>
+											<option value="isolation"></option>
+											<option value="justify-content"></option>
+											<option value="justify-items"></option>
+											<option value="justify-self"></option>
+											<option value="leading-trim"></option>
+											<option value="left"></option>
+											<option value="letter-spacing"></option>
+											<option value="lighting-color"></option>
+											<option value="line-break"></option>
+											<option value="line-clamp"></option>
+											<option value="line-grid"></option>
+											<option value="line-height"></option>
+											<option value="line-height-step"></option>
+											<option value="line-padding"></option>
+											<option value="line-snap"></option>
+											<option value="list-style"></option>
+											<option value="list-style-image"></option>
+											<option value="list-style-position"></option>
+											<option value="list-style-type"></option>
+											<option value="margin"></option>
+											<option value="margin-block"></option>
+											<option value="margin-block-end"></option>
+											<option value="margin-block-start"></option>
+											<option value="margin-bottom"></option>
+											<option value="margin-break"></option>
+											<option value="margin-inline"></option>
+											<option value="margin-inline-end"></option>
+											<option value="margin-inline-start"></option>
+											<option value="margin-right"></option>
+											<option value="margin-trim"></option>
+											<option value="marker"></option>
+											<option value="marker-end"></option>
+											<option value="marker-knockout-left"></option>
+											<option value="marker-knockout-right"></option>
+											<option value="marker-mid"></option>
+											<option value="marker-pattern"></option>
+											<option value="marker-segment"></option>
+											<option value="marker-side"></option>
+											<option value="marker-start"></option>
+											<option value="mask"></option>
+											<option value="mask-border"></option>
+											<option value="mask-border-mode"></option>
+											<option value="mask-border-outset"></option>
+											<option value="mask-border-repeat"></option>
+											<option value="mask-border-slice"></option>
+											<option value="mask-border-source"></option>
+											<option value="mask-border-width"></option>
+											<option value="mask-clip"></option>
+											<option value="mask-composite"></option>
+											<option value="mask-image"></option>
+											<option value="mask-mode"></option>
+											<option value="mask-origin"></option>
+											<option value="mask-position"></option>
+											<option value="mask-repeat"></option>
+											<option value="mask-size"></option>
+											<option value="mask-type"></option>
+											<option value="max-block-size"></option>
+											<option value="max-height"></option>
+											<option value="max-inline-size"></option>
+											<option value="max-lines"></option>
+											<option value="max-width"></option>
+											<option value="min-block-size"></option>
+											<option value="min-height"></option>
+											<option value="min-inline-size"></option>
+											<option value="min-width"></option>
+											<option value="mix-blend-mode"></option>
+											<option value="nav-down"></option>
+											<option value="nav-left"></option>
+											<option value="nav-right"></option>
+											<option value="nav-up"></option>
+											<option value="object-fit"></option>
+											<option value="object-position"></option>
+											<option value="offset"></option>
+											<option value="offset-anchor"></option>
+											<option value="offset-distance"></option>
+											<option value="offset-path"></option>
+											<option value="offset-position"></option>
+											<option value="offset-rotate"></option>
+											<option value="opacity"></option>
+											<option value="order"></option>
+											<option value="orphans"></option>
+											<option value="outline"></option>
+											<option value="outline-color"></option>
+											<option value="outline-offset"></option>
+											<option value="outline-style"></option>
+											<option value="outline-width"></option>
+											<option value="overflow"></option>
+											<option value="overflow-anchor"></option>
+											<option value="overflow-block"></option>
+											<option value="overflow-clip-margin"></option>
+											<option value="overflow-inline"></option>
+											<option value="overflow-wrap"></option>
+											<option value="overflow-x"></option>
+											<option value="overflow-y"></option>
+											<option value="overscroll-behavior"></option>
+											<option value="overscroll-behavior-block"></option>
+											<option value="overscroll-behavior-inline"></option>
+											<option value="overscroll-behavior-x"></option>
+											<option value="overscroll-behavior-y"></option>
+											<option value="padding"></option>
+											<option value="padding-block"></option>
+											<option value="padding-block-end"></option>
+											<option value="padding-block-start"></option>
+											<option value="padding-bottom"></option>
+											<option value="padding-inline"></option>
+											<option value="padding-inline-end"></option>
+											<option value="padding-inline-start"></option>
+											<option value="padding-left"></option>
+											<option value="padding-right"></option>
+											<option value="padding-top"></option>
+											<option value="page"></option>
+											<option value="page-break-after"></option>
+											<option value="page-break-before"></option>
+											<option value="page-break-inside"></option>
+											<option value="pause"></option>
+											<option value="pause-after"></option>
+											<option value="pause-before"></option>
+											<option value="perspective"></option>
+											<option value="perspective-origin"></option>
+											<option value="pitch"></option>
+											<option value="pitch-range"></option>
+											<option value="place-content"></option>
+											<option value="place-items"></option>
+											<option value="place-self"></option>
+											<option value="play-during"></option>
+											<option value="position"></option>
+											<option value="quotes"></option>
+											<option value="region-fragment"></option>
+											<option value="resize"></option>
+											<option value="rest"></option>
+											<option value="rest-after"></option>
+											<option value="rest-before"></option>
+											<option value="richness"></option>
+											<option value="right"></option>
+											<option value="rotate"></option>
+											<option value="row-gap"></option>
+											<option value="ruby-align"></option>
+											<option value="ruby-merge"></option>
+											<option value="ruby-overhang"></option>
+											<option value="ruby-position"></option>
+											<option value="running"></option>
+											<option value="scale"></option>
+											<option value="scroll-behavior"></option>
+											<option value="scroll-margin"></option>
+											<option value="scroll-margin-block"></option>
+											<option value="scroll-margin-block-end"></option>
+											<option value="scroll-margin-block-start"></option>
+											<option value="scroll-margin-bottom"></option>
+											<option value="scroll-margin-inline"></option>
+											<option value="scroll-margin-inline-end"></option>
+											<option value="scroll-margin-inline-start"></option>
+											<option value="scroll-margin-right"></option>
+											<option value="scroll-padding"></option>
+											<option value="scroll-padding-block"></option>
+											<option value="scroll-padding-block-end"></option>
+											<option value="scroll-padding-block-start"></option>
+											<option value="scroll-padding-bottom"></option>
+											<option value="scroll-padding-inline"></option>
+											<option value="scroll-padding-inline-end"></option>
+											<option value="scroll-padding-inline-start"></option>
+											<option value="scroll-padding-left"></option>
+											<option value="scroll-padding-right"></option>
+											<option value="scroll-padding-top"></option>
+											<option value="scroll-snap-align"></option>
+											<option value="scroll-snap-stop"></option>
+											<option value="scroll-snap-type"></option>
+											<option value="scrollbar-color"></option>
+											<option value="scrollbar-gutter"></option>
+											<option value="scrollbar-width"></option>
+											<option value="shape-image-threshold"></option>
+											<option value="shape-inside"></option>
+											<option value="shape-margin"></option>
+											<option value="shape-outside"></option>
+											<option value="spatial-navigation-action"></option>
+											<option value="spatial-navigation-contain"></option>
+											<option value="spatial-navigation-function"></option>
+											<option value="speak"></option>
+											<option value="speak-as"></option>
+											<option value="speak-header"></option>
+											<option value="speak-numeral"></option>
+											<option value="speak-punctuation"></option>
+											<option value="speech-rate"></option>
+											<option value="stress"></option>
+											<option value="string-set"></option>
+											<option value="stroke"></option>
+											<option value="stroke-align"></option>
+											<option value="stroke-alignment"></option>
+											<option value="stroke-break"></option>
+											<option value="stroke-color"></option>
+											<option value="stroke-dash-corner"></option>
+											<option value="stroke-dash-justify"></option>
+											<option value="stroke-dashadjust"></option>
+											<option value="stroke-dasharray"></option>
+											<option value="stroke-dashcorner"></option>
+											<option value="stroke-dashoffset"></option>
+											<option value="stroke-image"></option>
+											<option value="stroke-linecap"></option>
+											<option value="stroke-linejoin"></option>
+											<option value="stroke-miterlimit"></option>
+											<option value="stroke-opacity"></option>
+											<option value="stroke-origin"></option>
+											<option value="stroke-position"></option>
+											<option value="stroke-repeat"></option>
+											<option value="stroke-size"></option>
+											<option value="stroke-width"></option>
+											<option value="tab-size"></option>
+											<option value="table-layout"></option>
+											<option value="text-align"></option>
+											<option value="text-align-all"></option>
+											<option value="text-align-last"></option>
+											<option value="text-combine-upright"></option>
+											<option value="text-decoration"></option>
+											<option value="text-decoration-color"></option>
+											<option value="text-decoration-line"></option>
+											<option value="text-decoration-skip"></option>
+											<option value="text-decoration-skip-box"></option>
+											<option value="text-decoration-skip-ink"></option>
+											<option value="text-decoration-skip-inset"></option>
+											<option value="text-decoration-skip-self"></option>
+											<option value="text-decoration-skip-spaces"></option>
+											<option value="text-decoration-style"></option>
+											<option value="text-decoration-thickness"></option>
+											<option value="text-edge"></option>
+											<option value="text-emphasis"></option>
+											<option value="text-emphasis-color"></option>
+											<option value="text-emphasis-position"></option>
+											<option value="text-emphasis-skip"></option>
+											<option value="text-emphasis-style"></option>
+											<option value="text-group-align"></option>
+											<option value="text-indent"></option>
+											<option value="text-justify"></option>
+											<option value="text-orientation"></option>
+											<option value="text-overflow"></option>
+											<option value="text-shadow"></option>
+											<option value="text-space-collapse"></option>
+											<option value="text-space-trim"></option>
+											<option value="text-spacing"></option>
+											<option value="text-transform"></option>
+											<option value="text-underline-offset"></option>
+											<option value="text-underline-position"></option>
+											<option value="text-wrap"></option>
+											<option value="top"></option>
+											<option value="transform"></option>
+											<option value="transform-box"></option>
+											<option value="transform-origin"></option>
+											<option value="transform-style"></option>
+											<option value="transition"></option>
+											<option value="transition-delay"></option>
+											<option value="transition-duration"></option>
+											<option value="transition-property"></option>
+											<option value="transition-timing-function"></option>
+											<option value="translate"></option>
+											<option value="unicode-bidi"></option>
+											<option value="user-select"></option>
+											<option value="vertical-align"></option>
+											<option value="visibility"></option>
+											<option value="voice-balance"></option>
+											<option value="voice-duration"></option>
+											<option value="voice-family"></option>
+											<option value="voice-pitch"></option>
+											<option value="voice-range"></option>
+											<option value="voice-rate"></option>
+											<option value="voice-stress"></option>
+											<option value="voice-volume"></option>
+											<option value="volume"></option>
+											<option value="white-space"></option>
+											<option value="widows"></option>
+											<option value="width"></option>
+											<option value="will-change"></option>
+											<option value="word-boundary-detection"></option>
+											<option value="word-boundary-expansion"></option>
+											<option value="word-break"></option>
+											<option value="word-spacing"></option>
+											<option value="word-wrap"></option>
+											<option value="wrap-after"></option>
+											<option value="wrap-before"></option>
+											<option value="wrap-flow"></option>
+											<option value="wrap-inside"></option>
+											<option value="wrap-through"></option>
+											<option value="writing-mode"></option>
+											<option value="z-index"></option>
+										</datalist>
+									</div>
+								</li>
+
+								<li class="list-item" id="element-lower-bound-container">
+									<div class="step-container">
+										<label class="label" for="element-lower-bound"
+											><code class="inline-code" id="css-property-1">&lt;css-property&gt;</code> at lower
+											bound</label
+										>
+										<div class="flex-wrap-joiner">
+											<input
+												class="input"
+												id="element-lower-bound"
+												disabled
+												type="number"
+												step="0.01"
+												placeholder="25"
+												required
+											/>
+											<label class="visually-hidden" for="unit"
+												><code id="css-property-2">&lt;css-property&gt;</code> unit</label
+											>
+											<!-- TODO: height of the select should be the parent height. enhance with js -->
+											<select class="select" id="unit" disabled required>
+												<option value="px" selected>px</option>
+												<option value="vw">vw</option>
+												<option value="%">%</option>
+												<option value="ch">ch</option>
+												<option value="rem">rem</option>
+											</select>
+										</div>
+									</div>
+								</li>
+
+								<li class="list-item">
+									<div class="step-container">
+										<label class="label" for="container-lower-bound"
+											><span id="container-name-1">Viewport</span> lower bound</label
+										>
+										<div class="flex-wrap-joiner">
+											<input
+												class="input"
+												id="container-lower-bound"
+												disabled
+												type="number"
+												step="0.01"
+												placeholder="320"
+												min="0"
+												required
+											/>
+											<code class="inline-code">px</code>
+										</div>
+									</div>
+								</li>
+
+								<li class="list-item">
+									<div class="step-container">
+										<label class="label" for="element-upper-bound"
+											><code class="inline-code" id="css-property-3">&lt;css-property&gt;</code> at upper
+											bound</label
+										>
+										<div class="flex-wrap-joiner">
+											<input
+												class="input"
+												id="element-upper-bound"
+												disabled
+												type="number"
+												step="0.01"
+												placeholder="80"
+												required
+											/>
+											<code class="inline-code" id="unit-1">px</code>
+										</div>
+									</div>
+								</li>
+
+								<li class="list-item">
+									<div class="step-container">
+										<label class="label" for="container-upper-bound"
+											><span id="container-name-2">Viewport</span> upper bound</label
+										>
+										<div class="flex-wrap-joiner">
+											<input
+												class="input"
+												id="container-upper-bound"
+												disabled
+												type="number"
+												step="0.01"
+												placeholder="1440"
+												min="0"
+												required
+											/>
+											<code class="inline-code">px</code>
+										</div>
+									</div>
+								</li>
+							</ol>
+							<button class="button" type="submit" disabled>Generate and copy to clipboard</button>
+							<button hidden id="responsify-button" type="button"></button>
+							<!-- TODO: reset button doesn't reset the form to its pristine state -->
+							<button class="button" type="reset" disabled>Reset</button>
+							<output class="output" id="responsify-output" aria-live="assertive" role="alert"></output>
+						</form>
+					</div>
+				</section>
+				<section class="vertical-spacing-150-percent" aria-labelledby="sass-function">
+					<div class="heading-container">
+						<h2 class="screen-reader-heading">Sass @function</h2>
+						<h2 id="sass-function" aria-hidden="true">Sass <code class="inline-code">@function</code></h2><span
+							class="a-container"
+							><a class="a" href="#sass-function" aria-labelledby="sass-function">#</a></span
+						>
+					</div>
+					<p class="vertical-spacing"
+						>You can use responsify as a Sass <code class="inline-code">@function</code>. <a
+							class="link"
+							href="./public/pages/index/assets/_responsify.scss.zip"
+							download
+							data-fileFormat=".zip"
+							data-fileSize="1,170 bytes">Download <code class="inline-code">_responsify.scss</code></a
+						>, unzip it, and import it to your root Sass file. Usage examples are included in the file.</p
+					>
+					<p class="vertical-spacing"
+						>The advantage of using the Sass <code class="inline-code">@function</code> is that you don't need comments
+						documenting input values. 🙌</p
+					>
+					<p class="vertical-spacing"
+						>Note that at the moment, Sass <code class="inline-code">@function</code> doesn't support <code
+							class="inline-code">ch</code
+						> and <code class="inline-code">rem</code> units. 😞</p
+					>
+				</section>
+				<section class="vertical-spacing-150-percent" aria-describedby="browser-support">
+					<h2 id="browser-support">Browser support</h2><span class="a-container"
+						><a class="a" href="#browser-support" aria-labelledby="browser-support">#</a></span
+					>
+					<p class="vertical-spacing"
+						>Browser support is very good. In spite of IE having <a
+							class="link"
+							href="https://caniuse.com/calc/"
+							target="_blank"
+							rel="noopener noreferrer">known issues with <code class="inline-code">calc()</code></a
+						> I haven't encountered any. Two of the examples use <code class="inline-code">clamp()</code> and <code
+							class="inline-code">min()</code
+						>, which IE doesn't support. As far as "exotic" 🐠 CSS values go: <code class="inline-code">vw</code>
+						is supported by all browsers and <code class="inline-code">ch</code> is narrower on IE compared to other
+						browsers, so just look out for that.</p
+					>
+				</section>
+				<section class="vertical-spacing-150-percent" aria-describedby="comparison">
+					<h2 id="comparison">Comparison with CSS locks</h2><span class="a-container"
+						><a class="a" href="#comparison" aria-labelledby="comparison">#</a></span
+					>
+					<p class="vertical-spacing"
+						>CSS locks originated as <a
+							class="link"
+							href="https://tbrown.org/notes/2012/02/03/molten-leading-or-fluid-line-height/"
+							target="_blank"
+							rel="noopener noreferrer">Molten leading</a
+						>. In the article that introduced the concept and in almost every example I came across CSS locks are
+						used for controlling <code class="inline-code">line-height</code> and <code class="inline-code"
+							>font-size</code
+						>, even though it works with many CSS properties.</p
+					>
+					<p class="vertical-spacing"
+						>CSS locks and responsify are based on fundamentally the same logic/math and as such share many
+						similarities. They both:</p
+					>
+					<ul>
+						<li>work with CSS properties that accept a <code class="inline-code">px</code> value,</li>
+						<li
+							>don't work with properties that accept keyword value like <code class="inline-code"
+								>visibility</code
+							>,</li
+						>
+						<li
+							>don't work with properties that accept a unitless value like <code class="inline-code"
+								>z-index</code
+							>.</li
+						>
+					</ul>
+					<p class="vertical-spacing"
+						>There are also a few differences, most notable are listed in the following table.</p
+					>
+					<div class="table-container">
+						<table class="vertical-spacing">
+							<caption class="caption">CSS locks vs responsify</caption>
+							<thead>
+								<tr>
+									<th>Criterion</th>
+									<th>CSS locks</th>
+									<th>Responsify</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Sass</td>
+									<!-- TODO: can CSS locks Sass function be used in all of the examples I have?? -->
+									<td
+										><a
+											class="link"
+											href="https://codepen.io/andi1984/pen/yJARkv"
+											target="_blank"
+											rel="noopener noreferrer">CSS locks Sass function</a
+										></td
+									>
+									<td><a class="link" href="#sass-function">Responsify Sass function</a></td>
+								</tr>
+								<tr>
+									<td>PostCSS</td>
+									<td
+										><a
+											class="link"
+											href="https://github.com/bramstein/postcss-scale"
+											target="_blank"
+											rel="noopener noreferrer"><code class="inline-code">postcss-scale</code></a
+										></td
+									>
+									<td>No <span aria-hidden="true">❌</span></td>
+								</tr>
+								<tr>
+									<td>Web interface</td>
+									<td>No <span aria-hidden="true">❌</span></td>
+									<td>Yes <span aria-hidden="true">✅</span></td>
+								</tr>
+								<tr>
+									<td>Since</td>
+									<td>2016</td>
+									<td>2019</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+				<section class="vertical-spacing-150-percent" aria-labelledby="resources">
+					<h2 id="resources">Related resources</h2><span class="a-container"
+						><a class="a" href="#resources" aria-labelledby="resources">#</a></span
+					>
+					<p class="vertical-spacing"
+						>There's a similar tool that can <a
+							class="link"
+							href="https://andersriggelsen.dk/nonlinear/"
+							target="_blank"
+							rel="noopener noreferrer"
+							>generate <em>non-linear</em> <code class="inline-code">calc()</code> value</a
+						>.</p
+					>
+					<p class="vertical-spacing"
+						>For more awesomeness, James Gilyead and Trys Mudford created <a
+							class="link"
+							href="https://utopia.fyi/"
+							target="_blank"
+							rel="noopener noreferrer">"Utopia" design system</a
+						> where elements scale proportionally and fluidly. It's an unconventional approach that uses a whole lot
+						of <code class="inline-code">calc()</code>, CSS variables, <code class="inline-code">rem</code> and <code
+							class="inline-code">vw</code
+						> relative units, all tied together with what seems to me as undecipherable math. Fascinating stuff. 🧠</p
+					>
+				</section>
+			</article>
+		</main>
+		<footer class="vertical-spacing-150-percent">
+			<section class="vertical-spacing-150-percent" aria-describedby="privacy">
+				<h2 id="privacy">Privacy policy</h2><span class="a-container"
+					><a class="a" href="#privacy" aria-labelledby="privacy">#</a></span
+				>
+				<p class="vertical-spacing"
+					>There is none because no data is collected. No ads 📢, no analytics 📊, no tracking 🕵️, no telemetry 📡,
+					no cookies 🍪, no bullshit 🐂💩.</p
+				>
+			</section>
+			<section class="vertical-spacing-150-percent" aria-describedby="accessibility">
+				<h2 id="accessibility">Accessibility statement</h2><span class="a-container"
+					><a class="a" href="#accessibility" aria-labelledby="accessibility">#</a></span
+				>
+				<p class="vertical-spacing"
+					>I try hard to make my work accessible. ♿️ If something isn't working for you please email me at <a
+						class="link"
+						href="mailto:a11y@responsify.dev"
+						id="email">a11y@responsify.dev</a
+					>.</p
+				>
+				<div class="email-dispenser">
+					<div class="email-enclosure">
+						<output class="email-notification" id="email-notification" aria-live="polite" role="status"></output>
+						<button class="button" id="email-button" data-clipboard-target="#email" disabled
+							>Copy email address</button
+						>
+					</div>
+				</div>
+			</section>
+		</footer>
+		<!-- TODO: this entire div should be generated by unorphan, so that it can be extracted into a separate npm package -->
+		<div class="offscreen" id="offscreen">
+			<div class="offscreen-reveal" id="offscreen-reveal"></div>
+			<div class="offscreen-nowrap" id="offscreen-nowrap"></div>
+		</div>
 	</body>
 </html>

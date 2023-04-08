@@ -1,0 +1,14 @@
+root = true
+
+[*]
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{astro,html,svg,js,mjs,cjs,jsx,tsx,ts,css,pcss,scss,json,md}]
+end_of_line = lf # not for all files because of compatibility with Windows for .bat and .cmd
+indent_style = tab # not for all files because YAML files use space indentation
+indent_size = 4 # apparently better specify this than tab_width, but unsure of the differences
+
+[*.{astro,html,js,mjs,cjs,jsx,tsx,ts,css,pcss,scss}] # all but .svg, .json, and .md files
+max_line_length = 125
