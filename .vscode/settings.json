@@ -1,0 +1,6 @@
+{
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.documentSelectors": ["**/*.astro"], // needed to format *.astro on save
+	"typescript.tsdk": "node_modules/typescript/lib" // this ensures vs code uses the repo version of typescript
+}
