@@ -241,6 +241,24 @@ ol ol ol ol ol ol > li::marker {
     }
 }
 
+@keyframes dissipateBackgroundColor {
+	0% {
+		background-color: var(--color1);
+	}
+
+	50% {
+		background-color: var(--color1)
+	}
+
+	100% {
+		background-color: auto;
+	}
+}
+
+:target {
+	animation: 5s ease-out-dissipateBackgroundColor;
+}
+
 .step-container {
     display: flex; /* display: flex; on <li> removes ::marker so a div inside the <li> is needed */
     align-items: flex-end;

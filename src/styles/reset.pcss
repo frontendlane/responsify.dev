@@ -34,10 +34,30 @@
     word-break: break-word;
 }
 
+@keyframes zoomAndColor {
+	10% {
+		outline-offset: calc(var(--outline-offset) * 1.5);
+		outline-width: calc(var(--outline-width) * 1.5);
+		outline-color: var(--code-color-dark);
+	}
+}
+
+@keyframes color {
+	10% {
+		outline-color: var(--code-color-dark);
+	}
+}
+
 :focus-visible {
     outline: var(--outline-width) dashed currentColor;
     outline-offset: var(--outline-offset);
     z-index: 1;
+	animation: zoomAndColor 1.25s ease-out 3s infinite;
+}
+@media (prefers-reduced-motion) {
+	:focus-visible {
+		animation-name: color;
+	}
 }
 
 input,
