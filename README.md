@@ -178,6 +178,7 @@ Source code for https://responsify.dev.
 - go through pcss file and catalogue every color (move to CSS custom properties). colors in pcss should not be expressed in hex values
 - kbd styles can be improved
 - add diagonal colored background bars on .noscript and .js-error with infinite animation
+	https://www.stefanjudis.com/blog/how-to-detect-disabled-javascript-in-css/
 - every section heading should show you how to copy URl to that section, kinda like GitHub does it, but is it the most accessible solution??
 - if URL contains hash that points to form then focus the first input field
 - Self-hosted on a 2013 MacBook Pro. will it??
@@ -240,7 +241,11 @@ Source code for https://responsify.dev.
 - https://github.com/browserslist/browserslist
 - remove unnecessary package.json properties
 - graphical input: two-axis graph with x axis from 320 to maximum supported viewport with dropdown to select vw or %, left y axis from -100 to +100 with dropdown to select unit and right y axis with a different unit that spans the same distance as the left one (actually those two are in sync, if one changes the other changes as well). and you can add points, move them around. you can also select your target browser support list so that certain options are excluded from the generated code e.g. instead of clamp() @media query is used
-- code block: http://midasjs.com/
+- code block
+	http://midasjs.com/
+	bright.codehike.org
+	https://shiki.matsu.io/
+	https://marketplace.visualstudio.com/items?itemName=pnp.polacode
 - copy to clipboard and other notifications: https://codepen.io/jkantner/pen/XWzePgp
 - reset.pcss
 	https://baymard.com/blog/line-length-readability
