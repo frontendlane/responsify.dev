@@ -2,8 +2,40 @@
 
 Source code for https://responsify.dev.
 
+## Tech stack
+
+-   VS Code (extensions, etc.)
+-   Astro
+-   Preact
+    -   React Form Hook
+    -   Zod
+-   TypeScript
+-   PostCSS (postcss language support vs code extension)
+-   CSS modules
+-   Axe
+-   Percy
+-   Cloudflare Pages
+-   Google Search Console
+
+vanilla-extract to replace PostCSS and CSS modules at some point in the future
+
 ## Notes
 
+-   astro file download bug: name needs to be supplied
+-   astro plugin that appends <link> with all styles @media (scripting: none)
+-   missing dependencies when pnpm install
+-   improve typescript usage: https://docs.astro.build/en/guides/imports/#typescript
+-   browserslist??
+-   // TODO: ship source map in production as well https://www.ctrl.blog/entry/deploy-javascript-source-maps.html
+-   de-italicize "responsify"
+-   hover over anchors shows tooltip
+-   extract reusable components to ui folder and keep content-components in components
+
+-   optimize the page for reader view
+-   accessibility and privacy as separate pages??
+-   disable astro telemetry
+    `astro telemetry disable`
+    `ASTRO_TELEMETRY_DISABLE=1`
 -   I thought that video shouldn't go to the top of the page because there it would always visible and would distract repeat visitors. but, when i implement linkable sections then repeat visitors should bookmark the #form to avoid being distracted by the intro video. alternatively, index.html can become an iframe, and the landing page can become intro.html
 -   postcss
     -   used in place of Sass/SCSS
@@ -156,9 +188,6 @@ Source code for https://responsify.dev.
 -   tabindex on `<pre>` for chrome
 -   add postcss plugin that supports vi and vb units
 -   https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/
--   safari desktop does not support :focus-visible
-    -   i implemented a polyfill. was this the right call? what about :focus:not(:focus-visible) and the like??
-    -   how do i get notified when :focus-visible ships with Safari so I can remove the polyfill??
 -   handle edge case when parent/viewport lower and upper bound are the same
 -   edge case when it's the same percentage value e.g. width: calc(0px + 7.813vw); /_ https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 25px; element upper bound: 80px; _/
 -   research vscode capabilities and options and add them to `.vscode` folder
@@ -239,7 +268,7 @@ Source code for https://responsify.dev.
     -   postcss-assets
         -   cachebusting for images
         -   inlines images
-    -   stylelint
+    -   stylelint (vs code extension)
         -   stylelint-order
     -   https://github.com/hail2u/node-css-mqpacker?? unsupported and deprecated, find alternative. does this make delived css smaller??
     -   postcss-pxtorem??
@@ -247,7 +276,7 @@ Source code for https://responsify.dev.
 -   prettier
     -   css formatting?? turn off for `*.css` / `*.pcss` as that will be handled by stylelint?? but keep for `*.ts`
 -   css-bug-webkit
--   eslint
+-   eslint (vs code extension)
 -   webpack by default introduces unnecessary boilerplate related to importing and exporting modules (right?) and is there a way to remove that and use plain import/export syntax??
 -   build step
     -   restrict the width of the input to the length of the longest CSS property (puppeteer)
@@ -259,6 +288,7 @@ Source code for https://responsify.dev.
 -   remove unnecessary package.json properties
 -   graphical input: two-axis graph with x axis from 320 to maximum supported viewport with dropdown to select vw or %, left y axis from -100 to +100 with dropdown to select unit and right y axis with a different unit that spans the same distance as the left one (actually those two are in sync, if one changes the other changes as well). and you can add points, move them around. you can also select your target browser support list so that certain options are excluded from the generated code e.g. instead of clamp() @media query is used
 -   code block: http://midasjs.com/
+    -   https://shiki.matsu.io/
 -   copy to clipboard and other notifications: https://codepen.io/jkantner/pen/XWzePgp
 -   reset.pcss
     https://baymard.com/blog/line-length-readability

@@ -1,0 +1,10 @@
+---
+const { id } = Astro.props
+
+import classes from './HeadingLink.module.css'
+import Link from '../Link/Link.astro'
+---
+
+<span class={classes.aContainer}>
+	<Link class={classes.a} href={`#${id}`} aria-labelledby={id}>#</Link>
+</span>

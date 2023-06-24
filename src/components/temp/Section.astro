@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import type { HeadingShape } from '../TableOfContents/TableOfContents.astro'
+import Heading from '../Heading/Heading.astro'
+
+export type Props = HTMLAttributes<'section'> & {
+	heading: HeadingShape
+}
+
+const { heading, ...props } = Astro.props
+---
+
+<section {...props} aria-labelledby={heading.id}>
+	<Heading element={heading.element} id={heading.id} set:html={heading.html} />
+	<slot />
+</section>

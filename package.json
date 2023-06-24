@@ -7,7 +7,7 @@
 		"email": "petar@frontendlane.com",
 		"url": "https://frontendlane.com/about/"
 	},
-	"homepage": "https://github.com/frontendlane/responsify/",
+	"homepage": "https://responsify.dev",
 	"repository": "https://github.com/frontendlane/responsify/",
 	"bugs": "https://github.com/frontendlane/responsify/issues",
 	"license": "ISC",
@@ -18,19 +18,30 @@
 		"calc",
 		"@media"
 	],
-	"description": "Responsify smooths out breakpoint layout jumps using CSS `calc()` function.",
+	"description": "Responsify helps you smooth out layout jumps at breakpoints.",
 	"scripts": {
+		"update": "pnpm install && npx npm-check-updates -u && rm -rf node_modules && rm pnpm-lock.yaml && pnpm install",
 		"dev": "nvm use && astro dev",
-		"start": "astro dev",
-		"build": "nvm use && astro build",
+		"start": "pnpm run zip && astro dev",
+		"build": "nvm use && astro check && tsc --noEmit && pnpm run zip && astro build",
+		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"preview": "nvm use && astro preview",
 		"astro": "nvm use && astro",
 		"format": "nvm use && prettier --write ."
 	},
 	"dependencies": {
-		"astro": "^2.1.9",
-		"clipboard": "^2.0.11",
-		"focus-visible": "^5.2.0"
+		"astro": "^2.7.0",
+		"clipboard": "^2.0.11"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.4.14",
+		"cheerio": "1.0.0-rc.12",
+		"cssnano": "^6.0.1",
+		"cssnano-preset-default": "^6.0.1",
+		"postcss-import": "^15.1.0",
+		"postcss-media-minmax": "^5.0.0",
+		"prettier": "^2.8.8",
+		"prettier-plugin-astro": "^0.10.0"
 	},
 	"private": true
 }

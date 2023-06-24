@@ -3,6 +3,5 @@
 		"astro-build.astro-vscode",
 		"EditorConfig.EditorConfig",
 		"esbenp.prettier-vscode"
-	],
-	"unwantedRecommendations": []
+	]
 }

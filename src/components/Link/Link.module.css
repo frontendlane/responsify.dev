@@ -1,0 +1,72 @@
+.link {
+	--link-underline-thickness: 0.06em;
+	--link-underline-offset: 0.2em;
+
+	text-decoration-thickness: var(--link-underline-thickness);
+	text-underline-offset: var(--link-underline-offset);
+	text-decoration-skip-ink: none;
+}
+.link:hover {
+	color: var(--black);
+	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
+}
+@media (prefers-color-scheme: dark) {
+	.link:hover {
+		color: var(--white);
+	}
+}
+
+@media (hover: hover) {
+	.link[href]:not([href='']) {
+		position: relative;
+	}
+	.link[href]:not([href=''])::before {
+		--block-padding: calc(var(--vertical-spacing) / 2);
+		--inline-padding: calc(var(--horizontal-spacing) / 2);
+
+		content: attr(href); /* Firefox & Safari fallback */
+		content: attr(href) / '';
+		display: block;
+		position: absolute;
+		box-sizing: content-box;
+		padding: var(--inline-padding) var(--inline-padding);
+		inset-block-start: 0;
+		transform: translateY(calc(-100% - var(--outline-width) * 2 - var(--outline-offset) * 2 - var(--inline-padding)));
+		inset-inline-start: calc(var(--horizontal-spacing) * -1 - var(--inline-padding));
+		inline-size: calc(100% + var(--horizontal-spacing) * 2);
+		font-size: max(0.5em, 10px);
+		outline: var(--outline-width) solid white;
+		background-color: var(--near-white);
+		border-radius: var(--block-border-radius);
+		text-align: center;
+		visibility: hidden;
+		opacity: 0;
+		transition: opacity 0.15s 0.6s;
+	}
+	@media (prefers-color-scheme: dark) {
+		.link[href]:not([href=''])::before {
+			outline-color: black;
+			background-color: var(--near-black);
+		}
+	}
+	.link[href^="/"]:not([href^="//"])::before,
+    .link[href^="/"]:not([href^="//"])::before
+	{
+		content: 'https://responsify.dev' attr(href); /* Firefox & Safari fallback */
+		content: 'https://responsify.dev' attr(href) / '';
+	}
+	.link[href]:not([href='']):hover::before,
+	.link[href]:not([href='']):focus-visible::before {
+		z-index: 1;
+		visibility: visible;
+		opacity: 1;
+	}
+	.link[href]:not([href='']):hover::before {
+		background-color: white;
+	}
+	@media (prefers-color-scheme: dark) {
+		.link[href]:not([href='']):hover::before {
+			background-color: black;
+		}
+	}
+}

@@ -1,0 +1,22 @@
+.footer {
+	border-block-start: 2px solid currentColor;
+}
+
+@media (scripting: none) {
+	.emailDispenser {
+		display: none;
+	}
+}
+
+.emailEnclosure {
+	display: inline-block;
+}
+
+.emailNotification {
+	display: block;
+	text-align: center;
+}
+
+.emailNotification:not(:empty) {
+	margin-block-end: calc(var(--vertical-spacing) * -1);
+}

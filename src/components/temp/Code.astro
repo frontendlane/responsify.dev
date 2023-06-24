@@ -1,0 +1,7 @@
+---
+import classes from './Code.module.css'
+
+const { class: className, ...props } = Astro.props
+---
+
+<code class={`${className ? className : ''} ${classes.inlineCode}`} {...props}><slot /></code>
