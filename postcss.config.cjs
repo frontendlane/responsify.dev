@@ -4,10 +4,9 @@ module.exports = () => ({
 		inline: false,
 	},
 	plugins: {
-		// 'postcss-media-minmax': {},
-		// 'postcss-focus-visible': {},
-		// 'postcss-import': {},
-		// autoprefixer: {},
-		// cssnano: { preset: ['cssnano-preset-default'] },
+		'postcss-media-minmax': {},
+		'postcss-import': {},
+		autoprefixer: {},
+		cssnano: { preset: ['cssnano-preset-default'] },
 	},
 })

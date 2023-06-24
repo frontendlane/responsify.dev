@@ -1,0 +1,97 @@
+.exampleDiv {
+	--width: 90vw;
+
+	inline-size: var(--width);
+	margin-inline-start: calc((var(--width) - 100%) / 2 * -1);
+
+	border-radius: var(--block-border-radius);
+	padding: calc(var(--vertical-spacing) * 2) 0;
+	display: flex;
+	justify-content: center;
+
+	background-image: repeating-linear-gradient(
+		45deg,
+		red 0,
+		red 20px,
+		orange 20px,
+		orange 40px,
+		yellow 40px,
+		yellow 60px,
+		green 60px,
+		green 80px,
+		blue 80px,
+		blue 100px,
+		indigo 100px,
+		indigo 120px,
+		violet 120px,
+		violet 140px
+	);
+	background-color: var(--black);
+	background-blend-mode: luminosity;
+	background-attachment: fixed;
+}
+@media (prefers-color-scheme: dark) {
+	.exampleDiv {
+		background-color: var(--light);
+	}
+}
+@media (width >= 900px) {
+	.exampleDiv ~ .exampleDiv {
+		--width: calc(
+			3716.129px - 322.903vw
+		); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90vw; element upper bound: 40vw; */
+		background-blend-mode: normal;
+	}
+}
+@media (width >= 1024px) {
+	.exampleDiv {
+		--width: 40vw !important;
+		background-blend-mode: luminosity !important;
+	}
+}
+
+.exampleDiv::before {
+	content: 'width: 90%;';
+	border-radius: var(--inline-border-radius);
+	background-color: var(--code-background-dark);
+	color: #ffa26b;
+	font-family: monospace;
+	outline: 1px solid var(--light);
+	padding: calc(var(--vertical-spacing) / 2) var(--horizontal-spacing);
+}
+@media (prefers-color-scheme: dark) {
+	.exampleDiv::before {
+		color: var(--code-color-dark);
+	}
+}
+@media (width >= 900px) {
+	.exampleDiv ~ .exampleDiv::before {
+		content: 'width: calc(3716.129px - 322.903%);';
+	}
+}
+@media (width >= 1024px) {
+	.exampleDiv::before {
+		content: 'width: 40%;' !important;
+	}
+}
+
+/* TODO: improve the copy for mobile users who cannot resize their browsers */
+.resize::before {
+	content: 'Resize the browser up ⬆️ to see responsify in action.';
+	content: 'Resize the browser up ⬆️ to see responsify in action.' / 'Resize the browser up to see responsify in action.';
+}
+@media (width >= 900px) {
+	.resize::before {
+		/* TODO: handle this with postcss */
+		content: 'Resize the browser to see responsify in action. 🦄';
+		content: 'Resize the browser to see responsify in action. 🦄' / 'Resize the browser to see responsify in action.';
+		white-space: pre-wrap;
+	}
+}
+@media (width >= 1024px) {
+	.resize::before {
+		content: 'Resize the browser down ⬇️ to see responsify in action.';
+		content: 'Resize the browser down ⬇️ to see responsify in action.' /
+			'Resize the browser down to see responsify in action.';
+	}
+}

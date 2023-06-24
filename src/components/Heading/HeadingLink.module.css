@@ -1,0 +1,46 @@
+.aContainer {
+	padding-inline: var(--whitespace-width);
+}
+
+@media (hover: hover) {
+	.aContainer {
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+
+	:where(h1, h2, h3):hover + .aContainer,
+	.aContainer:hover,
+	.aContainer:focus-within {
+		opacity: 1;
+		transition: none;
+	}
+}
+
+:where(h1, h2, h3) + .aContainer {
+	font-weight: bold;
+	line-height: 1;
+	letter-spacing: -0.01em;
+	word-spacing: 0.01em;
+}
+
+h1 + .aContainer {
+	font-size: var(--font-size-h1);
+}
+
+h2 + .aContainer {
+	font-size: var(--font-size-h2);
+}
+
+h3 + .aContainer {
+	font-size: var(--font-size-h3);
+}
+
+.a:hover {
+	color: var(--black);
+	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
+}
+@media (prefers-color-scheme: dark) {
+	.a:hover {
+		color: var(--white);
+	}
+}

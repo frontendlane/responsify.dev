@@ -1,0 +1,226 @@
+@media (scripting: none) {
+	.noscript {
+		display: block;
+		padding-block: var(--vertical-spacing);
+		border-block: 0.5em double;
+		text-align: center;
+	}
+}
+
+.jsError {
+	margin-block: calc(var(--vertical-spacing) * 1.5);
+	padding-block: var(--vertical-spacing);
+	border-block: 0.5em double;
+}
+
+.formElement {
+	margin-block-start: var(--vertical-spacing);
+}
+
+.list {
+	margin-block-start: var(--vertical-spacing);
+	padding-inline-start: var(--horizontal-spacing);
+}
+
+.listItem + :not(:first-of-type) {
+	margin-block-start: calc(var(--vertical-spacing) / 2);
+}
+
+.form {
+	position: relative; /* needed for :active, :focus-within but placed here because <select> doesn't open on first click otherwise */
+	pointer-events: none;
+}
+@media (scripting: none) {
+	.form {
+		pointer-events: auto;
+	}
+
+	.form:active {
+		position: static;
+		z-index: auto;
+		background-color: transparent;
+		box-shadow: none;
+		border-radius: 0;
+	}
+}
+
+/* form highlights when clicking on the heading... */
+/* find a way to avoid element selectors */
+.form :where(h2, h2 + span, .label, .input, .select, .button, .output) {
+	pointer-events: all;
+}
+
+/* TODO: think about this more deeply, do i just focus on the first input field with JS on page load?? */
+/* .form:target, */
+.form:active,
+.form:focus-within {
+	z-index: 1;
+	background-color: var(--light);
+	box-shadow: 0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--light),
+		0 0 0 var(--horizontal-spacing) var(--dark), 0 0 0 12345vmax #eeeeee80; /* #eeeeee80 === var(--near-white) + alpha */
+	border-radius: var(--block-border-radius);
+}
+@media (prefers-color-scheme: dark) {
+	/* .form:target, */
+	.form:active,
+	.form:focus-within {
+		background-color: var(--near-black);
+		box-shadow: 0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--near-black),
+			0 0 0 var(--horizontal-spacing) var(--light), 0 0 0 12345vmax #20202080; /* #20202080 === var(--dark) + alpha */
+	}
+}
+
+.stepContainer {
+	display: flex; /* display: flex; on <li> removes ::marker so a div inside the <li> is needed */
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
+.label {
+	margin-inline-end: 1.5ch; /* margin goes on label instead of input because of possible wrapping and we want to avoid margin on the new line */
+}
+
+.input {
+	padding: 0 0.25ch;
+	color: var(--dark);
+	background-color: var(--white);
+	border: 1px solid #dadada;
+}
+@media (prefers-color-scheme: dark) {
+	.input {
+		color: var(--light);
+		background-color: var(--black);
+		/* TODO: add --input-border-color: #4d4d4d; */
+		border-color: #4d4d4d;
+	}
+}
+.input[disabled] {
+	border-color: var(--black);
+	opacity: 0.15;
+}
+@media (prefers-color-scheme: dark) {
+	.input[disabled] {
+		border-color: revert;
+		opacity: 0.3;
+	}
+}
+.input::placeholder {
+	color: inherit;
+	opacity: 0.15;
+	font-style: italic;
+}
+@media (prefers-color-scheme: dark) {
+	.input::placeholder {
+		opacity: 0.3;
+	}
+}
+.input[disabled]::placeholder {
+	opacity: 1;
+}
+
+.cssProperty {
+	--longest-css-property-length: 27ch;
+
+	max-inline-size: var(--longest-css-property-length);
+	flex-grow: 1;
+}
+
+.input[type='number'] {
+	--number-size-limit: 4ch;
+	--precision-separator: 1ch;
+	--precision-digits: 2ch;
+	--stepper-width: 25px;
+
+	max-inline-size: calc(
+		var(--number-size-limit) + var(--precision-separator) + var(--precision-digits) + var(--stepper-width)
+	);
+	margin-inline-end: 0.25ch;
+}
+
+.flexWrapJoiner {
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: wrap;
+}
+
+.select {
+	font-family: monospace;
+	padding-inline: 0.25ch;
+	background-color: var(--white);
+	color: var(--dark);
+	border: 1px solid #dadada;
+}
+@media (prefers-color-scheme: dark) {
+	.select {
+		background-color: var(--black);
+		color: var(--light);
+		border-color: #4d4d4d;
+	}
+}
+
+.select[disabled] {
+	opacity: 0.3;
+	border-color: revert;
+}
+
+.output {
+	--notification-height: 1em;
+	--notification-offset: 0.5em;
+
+	display: block;
+	text-align: center;
+	position: relative;
+	max-inline-size: 100%;
+}
+
+.output:not(:empty) {
+	margin-block-start: calc(
+		var(--vertical-spacing) + var(--notification-height) + var(--notification-offset) + var(--outline-width) +
+			var(--outline-offset)
+	);
+}
+
+/* JS classes */
+.notification {
+	--arrow-size: 1em;
+	--arrow-offset: var(--outline-offset);
+	--arrow-pedestal: 0.25em;
+
+	position: absolute;
+	border-block-end: var(--arrow-pedestal) solid transparent;
+	padding: 0 0.5ch;
+	inset-block-start: 0;
+	inset-inline-start: 50%;
+	transform: translate3d(
+		-50%,
+		calc((100% + var(--outline-offset) + var(--outline-width) + var(--arrow-offset) + var(--arrow-size) / 2) * -1),
+		0
+	);
+}
+.notification:not(:empty) {
+	border-block-end-color: currentColor;
+}
+
+.notification:not(:empty)::before {
+	content: '';
+	display: block;
+	position: absolute;
+	inset-block-end: calc(var(--arrow-pedestal) * -1);
+	inset-inline-start: 50%;
+	transform: translate3d(-50%, 100%, 0);
+	background-color: currentColor;
+	inline-size: var(--arrow-size);
+	block-size: var(--arrow-size);
+	clip-path: polygon(0 0, 100% 0, 50% 50%);
+}
+
+.kbd {
+	padding-inline: 0.25ch;
+	border-radius: var(--inline-border-radius);
+	background-color: var(--code-background-dark);
+	color: yellow;
+}
+
+.result {
+	font-size: 1.5em;
+}
