@@ -49,7 +49,7 @@ body > * {
 	margin-block-start: calc(var(--vertical-spacing) * 1.5);
 }
 
-@keyframes dissipateBackgroundColor {
+@keyframes reveal {
 	0% {
 		/* START: for the duration of the animation */
 		position: relative;
@@ -90,6 +90,31 @@ body > * {
 	}
 }
 
+@keyframes dissipate {
+	0% {
+		/* START: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: var(--code-color-dark);
+		box-shadow: 0 0 0 0.5ch var(--code-color-dark);
+	}
+
+	100% {
+		/* START: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: transparent;
+		box-shadow: 0 0 0 0.5ch transparent;
+	}
+}
+
 :target {
-	animation: 2.5s ease-out dissipateBackgroundColor;
+	animation: 2.5s ease-out reveal;
+}
+@media (prefers-reduced-motion: reduce) {
+	:target {
+		animation: 2.5s ease-out dissipate;
+	}
 }

@@ -1,5 +1,5 @@
 ///
-/// Responsify smooths out breakpoint layout jumps using CSS `calc()` function. More at https://responsify.dev
+/// Smooth out layout jumps at breakpoints with responsify. More at https://responsify.dev
 /// @param {Number} $containerLowerBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at lower bound, in pixels.
 /// @param {Number} $containerUpperBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at upper bound, in pixels.
 /// @param {Number} $elementLowerBound - Size of the target element at lower bound, in $unit.
@@ -53,75 +53,66 @@
 ///         margin-top: clamp(20px, calc(-515.4816px + 69.87vw), 200px);
 ///     }
 ///
-@function responsify($containerLowerBound, $containerUpperBound, $elementLowerBound, $elementUpperBound, $unit: "px") {
-    @if $containerLowerBound < 0 {
-        @error "Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at lower bound cannot be negative.";
-    }
+@function responsify($containerLowerBound, $containerUpperBound, $elementLowerBound, $elementUpperBound, $unit: 'px') {
+	@if $containerLowerBound < 0 {
+		@error "Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at lower bound cannot be negative.";
+	}
 
-    @if $containerUpperBound < 0 {
-        @error "Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at upper bound cannot be negative.";
-    }
+	@if $containerUpperBound < 0 {
+		@error "Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at upper bound cannot be negative.";
+	}
 
-    @if $unit != "px" and $unit != "vw" and $unit != "%"  {
-        @error "$unit must be \"px\", \"vw\", or \"%\".";
-    }
+	@if $unit != 'px' and $unit != 'vw' and $unit != '%' {
+		@error "$unit must be \"px\", \"vw\", or \"%\".";
+	}
 
-    $elementStartingSize: 0;
-    @if $unit == "px" {
-        $elementStartingSize: $elementLowerBound;
-    }
-    @else if $unit == "vw" {
-        $elementStartingSize: $elementLowerBound / 100 * $containerLowerBound;
-    }
-    @else if $unit == "%" {
-        $elementStartingSize: $elementLowerBound / 100 * $containerLowerBound;
-    }
-    @else {
-        @error "Unsupported CSS unit.";
-    }
+	$elementStartingSize: 0;
+	@if $unit == 'px' {
+		$elementStartingSize: $elementLowerBound;
+	} @else if $unit == 'vw' {
+		$elementStartingSize: $elementLowerBound / 100 * $containerLowerBound;
+	} @else if $unit == '%' {
+		$elementStartingSize: $elementLowerBound / 100 * $containerLowerBound;
+	} @else {
+		@error "Unsupported CSS unit.";
+	}
 
-    $elementEndingSize: 0;
-    @if $unit == "px" {
-        $elementEndingSize: $elementUpperBound;
-    }
-    @else if $unit == "vw" {
-        $elementEndingSize: $elementUpperBound / 100 * $containerUpperBound;
-    }
-    @else if $unit == "%" {
-        $elementEndingSize: $elementUpperBound / 100 * $containerUpperBound;
-    }
-    @else {
-        @error "Unsupported CSS unit.";
-    }
+	$elementEndingSize: 0;
+	@if $unit == 'px' {
+		$elementEndingSize: $elementUpperBound;
+	} @else if $unit == 'vw' {
+		$elementEndingSize: $elementUpperBound / 100 * $containerUpperBound;
+	} @else if $unit == '%' {
+		$elementEndingSize: $elementUpperBound / 100 * $containerUpperBound;
+	} @else {
+		@error "Unsupported CSS unit.";
+	}
 
-    $elementDiff: $elementEndingSize - $elementStartingSize;
-    $containerDiff: $containerUpperBound - $containerLowerBound;
-    $rate: $elementDiff / $containerDiff;
-    $initial: $elementStartingSize - ($containerLowerBound * $rate);
+	$elementDiff: $elementEndingSize - $elementStartingSize;
+	$containerDiff: $containerUpperBound - $containerLowerBound;
+	$rate: $elementDiff / $containerDiff;
+	$initial: $elementStartingSize - ($containerLowerBound * $rate);
 
-    $sign: 0;
-    @if $rate < 0 {
-        $sign: "-";
-    }
-    @else {
-        $sign: "+";
-    }
+	$sign: 0;
+	@if $rate < 0 {
+		$sign: '-';
+	} @else {
+		$sign: '+';
+	}
 
-    $calcRate: 0;
-    @if $rate < 0 {
-        $calcRate: $rate * -100;
-    }
-    @else {
-        $calcRate: $rate * 100;
-    }
+	$calcRate: 0;
+	@if $rate < 0 {
+		$calcRate: $rate * -100;
+	} @else {
+		$calcRate: $rate * 100;
+	}
 
-    $rateUnit: 0;
-    @if $unit == "%" {
-        $rateUnit: "%";
-    }
-    @else {
-        $rateUnit: "vw";
-    }
+	$rateUnit: 0;
+	@if $unit == '%' {
+		$rateUnit: '%';
+	} @else {
+		$rateUnit: 'vw';
+	}
 
-    @return calc(#{$initial}px #{$sign} #{$calcRate}#{$rateUnit});
+	@return calc(#{$initial}px #{$sign} #{$calcRate}#{$rateUnit});
 }
