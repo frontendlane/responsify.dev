@@ -102,23 +102,6 @@ import classes from './Examples.module.css'
 
 	<Section class="vertical-spacing heading-container" heading={headings.h3_4}>
 		<p class="vertical-spacing"
-			>You want the <Code>&lt;footer&gt;</Code>'s <Code>margin-top</Code> to be 20px below tablet breakpoint, 200px above
-			desktop breakpoint, and increase from 2.6vw at tablet breakpoint (0.026 * 768px ≅ 20px) to 19.5vw at desktop breakpoint
-			(0.195 * 1024px ≅ 200px).</p
-		>
-		<CodeBlock>
-			footer &lbrace; margin-top: clamp(20px, calc(-515.482px + 69.87vw), 200px); /* https://responsify.dev - viewport
-			lower bound: 768px; viewport upper bound: 1024px; element lower bound: 2.75vw; element upper bound: 19.53vw; */
-			&rbrace;
-		</CodeBlock>
-		<p class="vertical-spacing"
-			>Responsify + <Code>clamp()</Code> is a powerful combination 💪 that allows you to mix and match units, something
-			you can't do with responsify alone.</p
-		>
-	</Section>
-
-	<Section class="vertical-spacing heading-container" heading={headings.h3_5}>
-		<p class="vertical-spacing"
 			>You want the <Code>&lt;button&gt;</Code>'s <Code>border-width</Code> to increase from 1ch to 2ch, and have it stay
 			at 2ch once it hits the desktop breakpoint. In this example let's say that the average character width is 13.65px.</p
 		>
@@ -134,6 +117,23 @@ import classes from './Examples.module.css'
 			<Code>height</Code>
 			like in
 			<Link href="#example-3">Example 3</Link>. 💯</p
+		>
+	</Section>
+
+	<Section class="vertical-spacing heading-container" heading={headings.h3_5}>
+		<p class="vertical-spacing"
+			>You want the <Code>&lt;footer&gt;</Code>'s <Code>margin-top</Code> to be 20px below tablet breakpoint, 200px above
+			desktop breakpoint, and increase from 2.6vw at tablet breakpoint (0.026 * 768px ≅ 20px) to 19.5vw at desktop breakpoint
+			(0.195 * 1024px ≅ 200px).</p
+		>
+		<CodeBlock>
+			footer &lbrace; margin-top: clamp(20px, calc(-515.482px + 69.87vw), 200px); /* https://responsify.dev - viewport
+			lower bound: 768px; viewport upper bound: 1024px; element lower bound: 2.75vw; element upper bound: 19.53vw; */
+			&rbrace;
+		</CodeBlock>
+		<p class="vertical-spacing"
+			>Responsify + <Code>clamp()</Code> is a powerful combination 💪 that also allows you to do away with media queries
+			and also allows you to mix and match units, something you can't do with responsify alone.</p
 		>
 	</Section>
 </Section>

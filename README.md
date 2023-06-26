@@ -21,13 +21,14 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
 
 ## Notes
 
+-   move all astro components to Preact
+-   nvm use
 -   astro file download bug: name needs to be supplied
 -   astro plugin that appends <link> with all styles @media (scripting: none)
 -   missing dependencies when pnpm install
 -   improve typescript usage: https://docs.astro.build/en/guides/imports/#typescript
 -   browserslist??
 -   // TODO: ship source map in production as well https://www.ctrl.blog/entry/deploy-javascript-source-maps.html
--   de-italicize "responsify"
 -   hover over anchors shows tooltip
 -   extract reusable components to ui folder and keep content-components in components
 
@@ -313,6 +314,8 @@ Version 7.30.5
 ## TypeScript
 
 ## Preact
+
+Astro + Prettier doesn't handle whitespaces the same way (correct way) that it does in React/Preact components. Hence, only use Astro components for pages.
 
 preact dev tools: https://preactjs.github.io/preact-devtools
 

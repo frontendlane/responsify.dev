@@ -1,3 +1,34 @@
 .ul {
 	margin-block-start: calc(var(--vertical-spacing) / 2);
 }
+
+.preBlock {
+	overflow-x: auto;
+	margin-block-start: var(--vertical-spacing);
+	border-radius: var(--block-border-radius);
+	background-color: var(--code-background-dark);
+	font-family: inherit;
+}
+
+/* TODO: responsify padding-left from 600px to 900px to be twice as wide */
+.blockquote {
+	display: inline-block; /* must be inline-block in order to have padding on the right hand side when horizontally scrolling on mobile */
+	border-inline-start: calc(var(--horizontal-spacing) / 2) solid #3296fa;
+	/* TODO: padding-inline should var(--horizontal-spacing) not .75em, except for padding-left which should be half of that because of border */
+	/* TODO: maybe halve that vertical spacing?? */
+	padding: var(--vertical-spacing) 0.75em;
+	color: var(--light);
+}
+@media (prefers-color-scheme: dark) {
+	.blockquote {
+		color: inherit;
+	}
+}
+
+.term {
+	font-size: 1.35em;
+}
+
+.termType {
+	font-size: 0.75em;
+}

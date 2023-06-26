@@ -23,16 +23,31 @@
 }
 
 @keyframes zoomAndColor {
-	10% {
-		outline-offset: calc(var(--outline-offset) * 1.5);
-		outline-width: calc(var(--outline-width) * 1.5);
+	5% {
 		outline-color: var(--code-color-dark);
+	}
+	8% {
+		outline-width: calc(var(--outline-width) * 1.5);
+		outline-offset: calc(var(--outline-offset) * 2);
+	}
+	11% {
+		outline-color: var(--code-color-dark);
+	}
+	16% {
+		outline: var(--outline-width) dashed currentColor;
+		outline-offset: var(--outline-offset);
 	}
 }
 
 @keyframes color {
-	10% {
+	5% {
 		outline-color: var(--code-color-dark);
+	}
+	11% {
+		outline-color: var(--code-color-dark);
+	}
+	16% {
+		outline-color: currentColor;
 	}
 }
 
@@ -40,7 +55,7 @@
 	outline: var(--outline-width) dashed currentColor;
 	outline-offset: var(--outline-offset);
 	z-index: 1;
-	animation: zoomAndColor 1.25s ease-out 3s infinite;
+	animation: zoomAndColor 5s ease-out 3s infinite;
 }
 @media (prefers-reduced-motion: reduce) {
 	:focus-visible {
