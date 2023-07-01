@@ -1,27 +1,24 @@
 ---
 import { Heading } from '../components/Heading/Heading'
-import { Link } from '../components/Link/Link'
 import { TableOfContents, headings } from '../components/TableOfContents/TableOfContents'
 import { BrowserSupport } from '../components/temp/BrowserSupport'
-import { Code } from '../components/temp/Code'
-import { ComparisonTable } from '../components/temp/ComparisonTable'
+import { Comparison } from '../components/temp/Comparison'
 import { Dateline } from '../components/temp/Dateline'
 import { Examples } from '../components/temp/Examples'
 import { Footer } from '../components/temp/Footer'
 import { Form } from '../components/temp/Form/Form'
 import { SassFunction } from '../components/temp/SassFunction'
-import { Section } from '../components/temp/Section'
+import { Related } from '../components/temp/Related'
 import { Unorphan } from '../components/temp/Unorphan'
-import { Updates } from '../components/temp/Updates'
-import { Video } from '../components/temp/Video'
-import classes from './Index.module.css'
+import { Intro } from '../components/temp/Intro'
 
+import '../styles/variables.css'
 import '../styles/reset.css'
 import './Index.css'
 import '../styles/overrides.css'
 
 // TODO: inject this into package.json and manifest as well
-const responsifyOneLiner = 'Smooth out layout jumps at breakpoints with responsify.'
+const responsifyOneLiner = 'Responsify: Smooth out layout jumps at breakpoints'
 ---
 
 <!DOCTYPE html>
@@ -29,38 +26,25 @@ const responsifyOneLiner = 'Smooth out layout jumps at breakpoints with responsi
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<title>Responsify</title>
+		<title>{responsifyOneLiner}</title>
+		<!-- TODO: use something else for description, then use that same thing in package.json -->
 		<meta name="description" content={responsifyOneLiner} />
 	</head>
 	<body>
 		<main aria-labelledby={headings.h1.id}>
 			<article aria-labelledby={headings.h1.id}>
 				<Heading element={headings.h1.element} id={headings.h1.id} renderContent={headings.h1.renderContent} />
+				<p
+					style="font-size: var(--font-size-h2); letter-spacing: -.01em; line-height: 1; word-spacing: .01em; margin-block-start: 1rem;"
+				>
+					Smooth out layout jumps at breakpoints
+				</p>
+
 				<Dateline />
 
-				<Section class="vertical-spacing-150-percent" heading={headings.h2_1}>
-					<pre class={classes.preBlock}
-						><blockquote class={classes.blockquote}><b class={classes.term}>responsify</b>
-	<i class={classes.termType}>verb</i>
-		To make an HTML element fluidly adapt to changes in viewport size</blockquote></pre
-					>
-					<p class="vertical-spacing">
-						At my past job at a digital agency I transformed Photoshop, Sketch, and InVision designs into
-						functioning websites. The design files usually featured disperate layouts for mobile
-						<span aria-hidden="true">📱</span>, tablet, and desktop
-						<span aria-hidden="true">🖥</span>. To smooth out the layout jump at breakpoints I employed a
-						technique I call responsify, which uses CSS <Code>calc()</Code> function to <em>fluidly</em> change
-						<Code>width</Code>, <Code>margin</Code>, <Code>left</Code>, etc. so it matches the value at the
-						neighboring breakpoint.
-					</p>
-					<p class="vertical-spacing">Read on to learn how to use it in your project.</p>
-					<Video />
-					<Updates />
-				</Section>
+				<Intro />
 
-				<Section class="vertical-spacing-150-percent" heading={headings.h2_2}>
-					<TableOfContents />
-				</Section>
+				<TableOfContents />
 
 				<Examples />
 
@@ -70,48 +54,9 @@ const responsifyOneLiner = 'Smooth out layout jumps at breakpoints with responsi
 
 				<BrowserSupport />
 
-				<Section class="vertical-spacing-150-percent" heading={headings.h2_7}>
-					<p class="vertical-spacing"
-						>CSS locks originated as <Link
-							href="https://tbrown.org/notes/2012/02/03/molten-leading-or-fluid-line-height/"
-						>
-							Molten leading
-						</Link>. In the article that introduced the concept and in almost every example I came across CSS
-						locks are used for controlling <Code>line-height</Code> and <Code>font-size</Code>, even though it
-						works with many CSS properties.</p
-					>
-					<p class="vertical-spacing"
-						>CSS locks and responsify are based on fundamentally the same logic/math and as such share many
-						similarities. They both:</p
-					>
-					<ul class={classes.ul}>
-						<li>work with CSS properties that accept a <Code>px</Code> value,</li>
-						<li>don't work with properties that accept keyword value like <Code>visibility</Code>,</li>
-						<li>don't work with properties that accept a unitless value like <Code>z-index</Code>.</li>
-					</ul>
-					<p class="vertical-spacing"
-						>There are also a few differences, most notable are listed in the following table.</p
-					>
-					<ComparisonTable />
-				</Section>
+				<Comparison />
 
-				<Section class="vertical-spacing-150-percent" heading={headings.h2_8}>
-					<p class="vertical-spacing">
-						There's a similar tool that can
-						<Link href="https://andersriggelsen.dk/nonlinear/">
-							generate <em>non-linear</em>
-							<Code>calc()</Code> value
-						</Link>.
-					</p>
-					<p class="vertical-spacing"
-						>For more awesomeness, James Gilyead and Trys Mudford created <Link href="https://utopia.fyi/">
-							"Utopia" design system
-						</Link> where elements scale proportionally and fluidly. It's an unconventional approach that uses a whole
-						lot of <Code>calc()</Code>, CSS variables, <Code>rem</Code> and
-						<Code>vw</Code> relative units, all tied together with what seems to me as undecipherable math. Fascinating
-						stuff. 🧠</p
-					>
-				</Section>
+				<Related />
 			</article>
 		</main>
 

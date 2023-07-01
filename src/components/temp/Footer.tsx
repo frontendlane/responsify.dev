@@ -16,7 +16,7 @@ export const Footer: FunctionalComponent = () => {
 			</Section>
 			<Section class="vertical-spacing-150-percent" heading={headings.h2_10}>
 				<p class="vertical-spacing">
-					I try hard to make my work accessible. ♿️ If something isn't working for you please email me at
+					I try hard to make my work accessible. ♿️ If something isn't working for you please email me at{' '}
 					<Link href="mailto:a11y@responsify.dev" id="email">
 						a11y@responsify.dev
 					</Link>

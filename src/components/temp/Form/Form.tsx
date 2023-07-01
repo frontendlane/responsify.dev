@@ -49,14 +49,12 @@ export const Form: FunctionComponent = () => {
 					<p class="vertical-spacing"> Error stack is logged to the console.</p>
 				</div>
 				<p class="vertical-spacing">
-					Generate responsified
-					<Code>calc()</Code>
-					value using the form below.
+					Generate responsified <Code>calc()</Code> value using the form below.
 				</p>
 				<p class="vertical-spacing">
 					Bookmark the link next to the form heading above for direct access to this form.
 				</p>
-				<form class='form-element"' id="form-element">
+				<form class='form-element"' id="form-element" aria-labelledby={headings.h2_4.id}>
 					<noscript class={classes.noscript}>
 						<p>
 							<strong>
