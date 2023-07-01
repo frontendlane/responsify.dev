@@ -1,10 +1,10 @@
 import type { FunctionalComponent } from 'preact'
-import { headings } from '../TableOfContents/TableOfContents'
-import { Code } from './Code'
-import { Section } from './Section'
-import { Updates } from './Updates'
-import { Video } from './Video'
+import { Section } from '../Section'
+import { Updates } from '../Updates'
 import classes from './Intro.module.css'
+import { Code } from '../Code/Code'
+import { headings } from '../TableOfContents/TableOfContents'
+import { Video } from '../Video/Video'
 
 export const Intro: FunctionalComponent = () => {
 	return (

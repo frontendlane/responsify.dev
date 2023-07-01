@@ -1,8 +1,8 @@
 import type { FunctionalComponent } from 'preact'
-import { Link } from '../Link/Link'
-import { Code } from './Code'
 
 import classes from './ComparisonTable.module.css'
+import { Code } from '../Code/Code'
+import { Link } from '../Link/Link'
 
 export const ComparisonTable: FunctionalComponent = () => {
 	return (

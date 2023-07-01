@@ -1,6 +1,6 @@
 import { Link } from '../Link/Link'
+import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
-import { Section } from './Section'
 
 import classes from './Footer.module.css'
 import type { FunctionalComponent } from 'preact'

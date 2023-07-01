@@ -1,8 +1,8 @@
+import { Code } from '../Code/Code'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
 import { Link } from '../Link/Link'
+import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
-import { Code } from './Code'
-import { CodeBlock } from './CodeBlock'
-import { Section } from './Section'
 
 import classes from './Examples.module.css'
 import type { FunctionalComponent } from 'preact'

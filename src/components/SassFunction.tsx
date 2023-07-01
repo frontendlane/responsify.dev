@@ -1,8 +1,8 @@
 import type { FunctionalComponent } from 'preact'
-import { Link } from '../Link/Link'
-import { headings } from '../TableOfContents/TableOfContents'
-import { Code } from './Code'
 import { Section } from './Section'
+import { Code } from './Code/Code'
+import { Link } from './Link/Link'
+import { headings } from './TableOfContents/TableOfContents'
 
 export const SassFunction: FunctionalComponent = () => {
 	return (

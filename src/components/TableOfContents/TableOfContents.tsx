@@ -1,8 +1,8 @@
 import type { HeadingElement } from '../Heading/Heading'
 import { Link } from '../Link/Link'
 import { Fragment } from 'preact'
-import { Code } from '../temp/Code'
-import { Section } from '../temp/Section'
+import { Code } from '../Code/Code'
+import { Section } from '../Section'
 
 import classes from './TableOfContents.module.css'
 

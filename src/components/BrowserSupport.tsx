@@ -1,7 +1,7 @@
 import type { FunctionalComponent } from 'preact'
-import { Link } from '../Link/Link'
-import { headings } from '../TableOfContents/TableOfContents'
-import { Code } from './Code'
+import { Code } from './Code/Code'
+import { Link } from './Link/Link'
+import { headings } from './TableOfContents/TableOfContents'
 import { Section } from './Section'
 
 export const BrowserSupport: FunctionalComponent = () => {

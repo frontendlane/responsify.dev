@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from 'preact'
-import { Link } from '../Link/Link'
+import { Link } from './Link/Link'
 
 export const Updates: FunctionalComponent = () => {
 	return (
