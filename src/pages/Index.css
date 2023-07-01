@@ -51,7 +51,7 @@ body > * {
 
 @keyframes reveal {
 	0% {
-		/* START: for the duration of the animation */
+		/* BEGIN: for the duration of the animation */
 		position: relative;
 		z-index: var(--max-z-index);
 		border-radius: var(--block-border-radius);
@@ -74,7 +74,7 @@ body > * {
 	}
 
 	100% {
-		/* START: for the duration of the animation */
+		/* BEGIN: for the duration of the animation */
 		position: relative;
 		z-index: var(--max-z-index);
 		border-radius: var(--block-border-radius);
@@ -83,7 +83,7 @@ body > * {
 		background-color: transparent;
 		box-shadow: 0 0 0 0.5ch transparent;
 
-		/* START: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
+		/* BEGIN: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
 		outline: 100vmax solid transparent;
 		outline-offset: 100vmax;
 		/* END: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
@@ -92,7 +92,7 @@ body > * {
 
 @keyframes dissipate {
 	0% {
-		/* START: for the duration of the animation */
+		/* BEGIN: for the duration of the animation */
 		border-radius: var(--block-border-radius);
 		/* END: for the duration of the animation */
 
@@ -101,7 +101,7 @@ body > * {
 	}
 
 	100% {
-		/* START: for the duration of the animation */
+		/* BEGIN: for the duration of the animation */
 		border-radius: var(--block-border-radius);
 		/* END: for the duration of the animation */
 
