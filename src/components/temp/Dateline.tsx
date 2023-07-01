@@ -2,8 +2,8 @@ import type { FunctionalComponent } from 'preact'
 
 export const Dateline: FunctionalComponent = () => {
 	return (
-		<aside>
-			<p class="vertical-spacing">
+		<aside class="vertical-spacing-150-percent">
+			<p>
 				<b>Published</b>: <time dateTime="2019-09-25">September 25, 2019</time>
 			</p>
 			<p>

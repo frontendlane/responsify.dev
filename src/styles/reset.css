@@ -24,14 +24,14 @@
 
 @keyframes zoomAndColor {
 	5% {
-		outline-color: var(--code-color-dark);
+		outline-color: var(--accent);
 	}
 	8% {
 		outline-width: calc(var(--outline-width) * 1.5);
 		outline-offset: calc(var(--outline-offset) * 2);
 	}
 	11% {
-		outline-color: var(--code-color-dark);
+		outline-color: var(--accent);
 	}
 	16% {
 		outline: var(--outline-width) dashed currentColor;
@@ -41,10 +41,10 @@
 
 @keyframes color {
 	5% {
-		outline-color: var(--code-color-dark);
+		outline-color: var(--accent);
 	}
 	11% {
-		outline-color: var(--code-color-dark);
+		outline-color: var(--accent);
 	}
 	16% {
 		outline-color: currentColor;

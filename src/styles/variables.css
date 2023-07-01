@@ -16,6 +16,7 @@
 	--near-white: #eee;
 	--code-background-dark: #2a2d2e;
 	--code-color-dark: #ff9359;
+	--accent: #3296fa;
 }
 
 @media (width >= 1024px) {

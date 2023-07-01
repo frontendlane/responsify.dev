@@ -57,15 +57,15 @@ body > * {
 		border-radius: var(--block-border-radius);
 		/* END: for the duration of the animation */
 
-		background-color: var(--code-color-dark);
-		box-shadow: 0 0 0 0.5ch var(--code-color-dark);
-		outline: 100vmax solid var(--code-color-dark);
+		background-color: var(--accent);
+		box-shadow: 0 0 0 0.5ch var(--accent);
+		outline: 100vmax solid var(--accent);
 
 		outline-offset: var(--outline-offset);
 	}
 
 	10% {
-		outline: 100vmax solid var(--code-color-dark);
+		outline: 100vmax solid var(--accent);
 	}
 
 	80% {
@@ -96,8 +96,8 @@ body > * {
 		border-radius: var(--block-border-radius);
 		/* END: for the duration of the animation */
 
-		background-color: var(--code-color-dark);
-		box-shadow: 0 0 0 0.5ch var(--code-color-dark);
+		background-color: var(--accent);
+		box-shadow: 0 0 0 0.5ch var(--accent);
 	}
 
 	100% {

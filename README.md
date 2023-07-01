@@ -316,7 +316,7 @@ Version 7.30.5
 
 ## Preact
 
-Astro + Prettier doesn't handle whitespaces the same way (correct way) that it does in React/Preact components. Hence, only use Astro components for pages.
+Astro + Prettier doesn't handle whitespaces the same way (correct way) that it does in React/Preact components. Hence, only use Astro components for pages. Do not place any content in Astro components precisely because of the whitespace rendering issues. All content must originate from Preact components.
 
 preact dev tools: https://preactjs.github.io/preact-devtools
 

@@ -3,7 +3,7 @@
 	"type": "module",
 	"version": "4.0.0",
 	"author": {
-		"name": "FrontendLane",
+		"name": "Petar Petrovic",
 		"email": "petar@frontendlane.com",
 		"url": "https://frontendlane.com/about/"
 	},
@@ -18,7 +18,7 @@
 		"calc",
 		"@media"
 	],
-	"description": "Smooth out layout jumps at breakpoints with responsify",
+	"description": "Responsify: Smooth out layout jumps at breakpoints",
 	"scripts": {
 		"update": "pnpm install && npx npm-check-updates -u && rm -rf node_modules && rm pnpm-lock.yaml && pnpm install",
 		"dev": "pnpm run zip && astro dev",

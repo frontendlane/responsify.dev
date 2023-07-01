@@ -16,20 +16,16 @@ export const Examples: FunctionalComponent = () => {
 			</p>
 			<Section class="vertical-spacing-150-percent" heading={headings.h3_1}>
 				<p class="vertical-spacing">
-					Suppose a<Code>&lt;div&gt;</Code>
-					needs to be 90% wide below desktop breakpoint and 40% above that. Because you practice mobile-first
-					approach, you start with:
+					Suppose a <Code>&lt;div&gt;</Code> needs to be 90% wide below desktop breakpoint and 40% above that.
+					Because you practice mobile-first approach, you start with:
 				</p>
 				<CodeBlock>div &#123; width: 90%; &#125;</CodeBlock>
 				<p class="vertical-spacing">and for desktop you add:</p>
 				<CodeBlock>@media (min-width: 1024px) &#123; div &#123; width: 40%; &#125; &#125;</CodeBlock>
 				<p class="vertical-spacing">
 					You want to gradually transition between these two values so you reserve, let's say, the 900px - 1024px
-					range to smooth this out. You add another media query with the magic 🪄
-					<Code>calc()</Code>
-					value that you generate using the
-					<Link href="#form">responsify form</Link>
-					below and you're done! 🎉
+					range to smooth this out. You add another media query with the magic 🪄 <Code>calc()</Code> value that
+					you generate using the <Link href="#form">responsify form</Link> below and you're done! 🎉
 				</p>
 				<CodeBlock>
 					@media (min-width: 900px) and (max-width: 1023px) &#123; div &#123; width: calc(3716.129px - 322.903%);
@@ -37,15 +33,12 @@ export const Examples: FunctionalComponent = () => {
 					90%; element upper bound: 40%; */ &#125; &#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
-					Note the comment that accompanies
-					<Code>calc()</Code>
-					value. Preserving input values makes it easier to maintain the code.
+					Note the comment that accompanies <Code>calc()</Code> value. Preserving input values makes it easier to
+					maintain the code.
 				</p>
 				<p class="vertical-spacing">
-					The comment also includes
-					<Code>https://responsify.dev</Code>
-					both as a reference for future maintainers and as a unique string you can match against when tracking
-					down responsified values.
+					The comment also includes <Code>https://responsify.dev</Code> both as a reference for future maintainers
+					and as a unique string you can match against when tracking down responsified values.
 				</p>
 				{/* <!-- TODO: optimize screen reader usage --> */}
 				<p class={`vertical-spacing ${classes.resize}`}></p>
@@ -93,16 +86,10 @@ export const Examples: FunctionalComponent = () => {
 					&#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
-					Without the
-					<Code>max-height</Code>
-					the
-					<Code>&lt;header&gt;</Code>
-					would continue to grow in height with increase in viewport width. This approach removes the need for a
-					media query 👍, but is limited to
-					<Code>width</Code>
-					and
-					<Code>height</Code>
-					as no other property has a corresponding <Code>max-width</Code> and <Code>max-height</Code>. 👎
+					Without the <Code>max-height</Code> the <Code>&lt;header&gt;</Code> would continue to grow in height with
+					increase in viewport width. This approach removes the need for a media query 👍, but is limited to{' '}
+					<Code>width</Code> and <Code>height</Code> as no other property has a corresponding{' '}
+					<Code>max-width</Code> and <Code>max-height</Code>. 👎
 				</p>
 			</Section>
 
@@ -118,12 +105,8 @@ export const Examples: FunctionalComponent = () => {
 					width in pixels: 13.65; */ &#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
-					By using <Code>min()</Code> you can do away with media query <em>and</em> you're not limited to
-					<Code>width</Code>
-					and
-					<Code>height</Code>
-					like in
-					<Link href="#example-3">Example 3</Link>. 💯
+					By using <Code>min()</Code> you can do away with media query <em>and</em> you're not limited to{' '}
+					<Code>width</Code> and <Code>height</Code> like in <Link href="#example-3">Example 3</Link>. 💯
 				</p>
 			</Section>
 

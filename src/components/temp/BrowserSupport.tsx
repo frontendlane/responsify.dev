@@ -12,10 +12,9 @@ export const BrowserSupport: FunctionalComponent = () => {
 				<Link href="https://caniuse.com/calc/">
 					known issues with <Code>calc()</Code>
 				</Link>{' '}
-				I haven't encountered any. Two of the examples use <Code>clamp()</Code> and
-				<Code>min()</Code>, which IE doesn't support. As far as "exotic" 🐠 CSS values go: <Code>vw</Code>
-				is supported by all browsers and <Code>ch</Code> is narrower on IE compared to other browsers, so just look
-				out for that.
+				I haven't encountered any. Two of the examples use <Code>clamp()</Code> and <Code>min()</Code>, which IE
+				doesn't support. As far as "exotic" 🐠 CSS values go: <Code>vw</Code> is supported by all browsers and{' '}
+				<Code>ch</Code> is narrower on IE compared to other browsers, so just look out for that.
 			</p>
 		</Section>
 	)
