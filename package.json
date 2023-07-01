@@ -18,24 +18,24 @@
 		"calc",
 		"@media"
 	],
-	"description": "Responsify helps you smooth out layout jumps at breakpoints.",
+	"description": "Smooth out layout jumps at breakpoints with responsify",
 	"scripts": {
 		"update": "pnpm install && npx npm-check-updates -u && rm -rf node_modules && rm pnpm-lock.yaml && pnpm install",
-		"dev": "nvm use && astro dev",
-		"start": "pnpm run zip && astro dev",
-		"build": "nvm use && astro check && tsc --noEmit && pnpm run zip && astro build",
+		"dev": "pnpm run zip && astro dev",
+		"build": "astro check && tsc --noEmit && pnpm run zip && astro build",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
-		"preview": "nvm use && astro preview",
-		"astro": "nvm use && astro",
-		"format": "nvm use && prettier --write ."
+		"preview": "astro preview",
+		"astro": "astro",
+		"format": "prettier --write ."
 	},
 	"dependencies": {
+		"@astrojs/preact": "^2.2.1",
 		"astro": "^2.7.0",
-		"clipboard": "^2.0.11"
+		"clipboard": "^2.0.11",
+		"preact": "^10.6.5"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.14",
-		"cheerio": "1.0.0-rc.12",
 		"cssnano": "^6.0.1",
 		"cssnano-preset-default": "^6.0.1",
 		"postcss-import": "^15.1.0",

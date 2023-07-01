@@ -4,6 +4,7 @@ Source code for https://responsify.dev.
 
 ## Tech stack
 
+-   `nvm use` (make sure you're using the correct Node version, cannot be automated as part of package.json script)
 -   VS Code (extensions, etc.)
 -   Astro
 -   Preact
@@ -14,6 +15,7 @@ Source code for https://responsify.dev.
 -   CSS modules
 -   Axe
 -   Percy
+-   Cloudflare Registrar
 -   Cloudflare Pages
 -   Google Search Console
 
@@ -22,7 +24,6 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
 ## Notes
 
 -   move all astro components to Preact
--   nvm use
 -   astro file download bug: name needs to be supplied
 -   astro plugin that appends <link> with all styles @media (scripting: none)
 -   missing dependencies when pnpm install
