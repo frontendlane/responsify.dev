@@ -1,19 +1,19 @@
 ---
-import Heading from '../components/Heading/Heading.astro'
-import Link from '../components/Link/Link.astro'
-import TableOfContents, { headings } from '../components/TableOfContents/TableOfContents.astro'
-import BrowserSupport from '../components/temp/BrowserSupport.astro'
-import Code from '../components/temp/Code.astro'
-import ComparisonTable from '../components/temp/ComparisonTable.astro'
-import Dateline from '../components/temp/Dateline.astro'
-import Examples from '../components/temp/Examples.astro'
-import Footer from '../components/temp/Footer.astro'
-import Form from '../components/temp/Form/Form.astro'
-import SassFunction from '../components/temp/SassFunction.astro'
-import Section from '../components/temp/Section.astro'
-import Unorphan from '../components/temp/Unorphan.astro'
-import Updates from '../components/temp/Updates.astro'
-import Video from '../components/temp/Video.astro'
+import { Heading } from '../components/Heading/Heading'
+import { Link } from '../components/Link/Link'
+import { TableOfContents, headings } from '../components/TableOfContents/TableOfContents'
+import { BrowserSupport } from '../components/temp/BrowserSupport'
+import { Code } from '../components/temp/Code'
+import { ComparisonTable } from '../components/temp/ComparisonTable'
+import { Dateline } from '../components/temp/Dateline'
+import { Examples } from '../components/temp/Examples'
+import { Footer } from '../components/temp/Footer'
+import { Form } from '../components/temp/Form/Form'
+import { SassFunction } from '../components/temp/SassFunction'
+import { Section } from '../components/temp/Section'
+import { Unorphan } from '../components/temp/Unorphan'
+import { Updates } from '../components/temp/Updates'
+import { Video } from '../components/temp/Video'
 import classes from './Index.module.css'
 
 import '../styles/reset.css'
@@ -35,7 +35,7 @@ const responsifyOneLiner = 'Smooth out layout jumps at breakpoints with responsi
 	<body>
 		<main aria-labelledby={headings.h1.id}>
 			<article aria-labelledby={headings.h1.id}>
-				<Heading element={headings.h1.element} id={headings.h1.id} set:html={headings.h1.html} />
+				<Heading element={headings.h1.element} id={headings.h1.id} renderContent={headings.h1.renderContent} />
 				<Dateline />
 
 				<Section class="vertical-spacing-150-percent" heading={headings.h2_1}>
@@ -59,12 +59,12 @@ const responsifyOneLiner = 'Smooth out layout jumps at breakpoints with responsi
 				</Section>
 
 				<Section class="vertical-spacing-150-percent" heading={headings.h2_2}>
-					<TableOfContents headings={headings} />
+					<TableOfContents />
 				</Section>
 
 				<Examples />
 
-				<Form />
+				<Form client:idle />
 
 				<SassFunction />
 
@@ -117,6 +117,6 @@ const responsifyOneLiner = 'Smooth out layout jumps at breakpoints with responsi
 
 		<Footer />
 
-		<Unorphan />
+		<Unorphan client:only />
 	</body>
 </html>
