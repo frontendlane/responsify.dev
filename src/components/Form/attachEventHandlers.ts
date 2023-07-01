@@ -2,11 +2,11 @@
 // import ClipboardJS from 'clipboard';
 // NOTE: upgrading to typescript 4 shows error when importing external dependencies even though it works
 import ClipboardJS from 'clipboard'
-import { StorageType } from '../../../scripts/types'
-import { storage } from '../../../scripts/storage'
-import { removeContent, setContent, createElement } from '../../../scripts/domInteraction'
-import { setState, state } from '../../../scripts/state'
-import { REM_SIZE_IN_PX } from '../../../scripts/constants'
+import { StorageType } from '../../scripts/types'
+import { storage } from '../../scripts/storage'
+import { removeContent, setContent, createElement } from '../../scripts/domInteraction'
+import { setState, state } from '../../scripts/state'
+import { REM_SIZE_IN_PX } from '../../scripts/constants'
 
 const restoreState = () => {
 	setState(Object.assign(state, { ...storage(StorageType.local)?.get() }, { ...storage(StorageType.session)?.get() }))

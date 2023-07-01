@@ -1,7 +1,7 @@
 import type { FunctionalComponent } from 'preact'
 import { useEffect } from 'preact/hooks'
 import classes from './Unorphan.module.css'
-import { unorphan } from './../../scripts/unorphan'
+import { unorphan } from '../../scripts/unorphan'
 
 export const Unorphan: FunctionalComponent = () => {
 	useEffect(() => {

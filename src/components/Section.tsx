@@ -1,7 +1,7 @@
-import type { HeadingShape } from '../TableOfContents/TableOfContents'
-import { Heading } from '../Heading/Heading'
 import type { FunctionalComponent } from 'preact'
 import type { JSXInternal } from 'preact/src/jsx'
+import { Heading } from './Heading/Heading'
+import type { HeadingShape } from './TableOfContents/TableOfContents'
 
 export type Props = JSXInternal.HTMLAttributes<HTMLElement> & {
 	heading: HeadingShape

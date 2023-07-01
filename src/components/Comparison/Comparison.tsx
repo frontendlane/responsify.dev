@@ -1,10 +1,10 @@
 import type { FunctionalComponent } from 'preact'
+import { Section } from '../Section'
+import classes from './Comparison.module.css'
+import { Code } from '../Code/Code'
 import { Link } from '../Link/Link'
 import { headings } from '../TableOfContents/TableOfContents'
-import { Code } from './Code'
 import { ComparisonTable } from './ComparisonTable'
-import { Section } from './Section'
-import classes from './Comparison.module.css'
 
 export const Comparison: FunctionalComponent = () => {
 	return (
