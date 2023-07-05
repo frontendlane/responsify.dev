@@ -310,6 +310,8 @@ Version 19.8.1
 
 Version 7.30.5
 
+_Note: currently using npm instead of pnpm until this issue is resolved: https://github.com/pnpm/pnpm/issues/6759_
+
 ## Astro
 
 ## TypeScript
