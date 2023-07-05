@@ -30,6 +30,8 @@ export const Form: FunctionComponent = () => {
 	})
 
 	const cssProperty = watch('css-property') || '<css-property>'
+	const unit = watch('unit') || 'px'
+	const container = unit === '%' ? 'Parent' : 'Viewport'
 
 	const { onChange, ...cssPropertyAttributes } = register('css-property')
 
@@ -155,10 +157,32 @@ export const Form: FunctionComponent = () => {
 							</div>
 						</li>
 
+						{unit === 'ch' && (
+							<li class={classes.listItem}>
+								<div class={classes.stepContainer}>
+									<label class={classes.label} for="ch-width-in-px">
+										<Code>ch</Code> width
+									</label>
+									<div class={classes.flexWrapJoiner}>
+										<input
+											class={classes.input}
+											id="ch-width-in-px"
+											type="number"
+											step="0.01"
+											placeholder="8.9"
+											min="0"
+											required
+										/>
+										<Code>px</Code>
+									</div>
+								</div>
+							</li>
+						)}
+
 						<li class={classes.listItem}>
 							<div class={classes.stepContainer}>
 								<label class={classes.label} for="container-lower-bound">
-									<span id="container-name-1">Viewport</span> lower bound
+									{container} lower bound
 								</label>
 								<div class={classes.flexWrapJoiner}>
 									<input
@@ -193,7 +217,7 @@ export const Form: FunctionComponent = () => {
 										placeholder="80"
 										required
 									/>
-									<Code id="unit-1">px</Code>
+									<Code id="unit-1">{unit}</Code>
 								</div>
 							</div>
 						</li>
@@ -201,7 +225,7 @@ export const Form: FunctionComponent = () => {
 						<li class={classes.listItem}>
 							<div class={classes.stepContainer}>
 								<label class={classes.label} for="container-upper-bound">
-									<span id="container-name-2">Viewport</span> upper bound
+									{container} upper bound
 								</label>
 								<div class={classes.flexWrapJoiner}>
 									<input

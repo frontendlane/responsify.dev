@@ -120,18 +120,6 @@ export const restoreFromStorage = () => {
 	restoreUsersPosition()
 }
 
-const handleElementLowerBoundChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	setState({ elementLowerBound: target.value })
-}
-
-const handleValueUnitChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	setState({ unit: target.value })
-	setUnits()
-	target.value === 'ch' ? renderChWidthInPx() : window.document.getElementById('ch-width-container')?.remove()
-}
-
 const handleChWidthChange = (event: Event) => {
 	const target = event.target as HTMLInputElement
 	setState({ chWidthInPx: target.value })
@@ -356,8 +344,6 @@ const emailClipboardError = () => {
 }
 
 export const attachEventHandlers = () => {
-	window.document.getElementById('element-lower-bound')!.addEventListener('change', handleElementLowerBoundChange)
-	window.document.getElementById('unit')!.addEventListener('change', handleValueUnitChange)
 	window.document.getElementById('ch-width-in-px')?.addEventListener('change', handleChWidthChange)
 	window.document.getElementById('container-lower-bound')!.addEventListener('change', handleContainerLowerBoundChange)
 	window.document.getElementById('element-upper-bound')!.addEventListener('change', handleElementUpperBoundChange)
