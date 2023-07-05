@@ -6,5 +6,5 @@ import preact from '@astrojs/preact'
 export default defineConfig({
 	site: 'https://responsify.dev',
 	trailingSlash: 'always',
-	integrations: [preact()],
+	integrations: [preact({ compat: true })],
 })

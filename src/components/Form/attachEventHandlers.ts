@@ -120,15 +120,6 @@ export const restoreFromStorage = () => {
 	restoreUsersPosition()
 }
 
-const handlePropertyNameChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	setState({ cssProperty: target.value })
-	setCssProperties(target.value)
-}
-
-// TODO: if user selects a value from one of the suggested items
-const handlePropertyNameInput = () => {}
-
 const handleElementLowerBoundChange = (event: Event) => {
 	const target = event.target as HTMLInputElement
 	setState({ elementLowerBound: target.value })
@@ -365,8 +356,6 @@ const emailClipboardError = () => {
 }
 
 export const attachEventHandlers = () => {
-	window.document.getElementById('css-property')!.addEventListener('change', handlePropertyNameChange)
-	window.document.getElementById('css-property')!.addEventListener('input', handlePropertyNameInput)
 	window.document.getElementById('element-lower-bound')!.addEventListener('change', handleElementLowerBoundChange)
 	window.document.getElementById('unit')!.addEventListener('change', handleValueUnitChange)
 	window.document.getElementById('ch-width-in-px')?.addEventListener('change', handleChWidthChange)
