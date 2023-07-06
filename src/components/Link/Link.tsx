@@ -16,7 +16,7 @@ export const Link: FunctionalComponent<Props> = ({ className, href, children, ..
 		<a
 			{...props}
 			href={href}
-			class={`${className ? className : ''} ${classes.link}`}
+			class={`${className || ''} ${classes.link}`}
 			{...(isExternalLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
 		>
 			{children}

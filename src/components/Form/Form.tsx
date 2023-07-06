@@ -1,46 +1,75 @@
-import type { FunctionComponent } from 'preact'
+import { Fragment, type FunctionComponent } from 'preact'
 import { headings } from '../TableOfContents/TableOfContents'
 import { Code } from '../Code/Code'
 import { DataList } from '../DataList'
 import { Section } from '../Section'
 import classes from './Form.module.css'
-import { useEffect } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { setContent, createElement } from '../../scripts/domInteraction'
 import { attachEventHandlers } from './attachEventHandlers'
 import { enableFormControls } from './enableFormControls'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { CodeBlock } from '../CodeBlock/CodeBlock'
+import { generateCss } from './generate'
+import { assertUnreachable } from '../../utils/assertUnreachable'
+
+const longTaskDurationAsDefinedByGoogleWebVitals = 50
 
 const formSchema = z.object({
-	'css-property': z.string(),
-	'element-lower-bound': z.coerce.number(),
+	cssProperty: z.string(),
+	elementLowerBound: z.coerce.number(),
 	unit: z.union([z.literal('px'), z.literal('vw'), z.literal('%'), z.literal('ch'), z.literal('rem')]),
-	'container-lower-bound': z.coerce.number(),
-	'element-upper-bound': z.coerce.number(),
-	'container-upper-bound': z.coerce.number(),
+	chWidthInPx: z.optional(z.coerce.number()),
+	containerLowerBound: z.coerce.number(),
+	elementUpperBound: z.coerce.number(),
+	containerUpperBound: z.coerce.number(),
 })
 
-type Form = z.infer<typeof formSchema>
+export type FormValues = z.infer<typeof formSchema>
+type NotificationStatus = 'hidden' | 'success' | 'error'
 
 export const Form: FunctionComponent = () => {
-	const { watch, register, handleSubmit } = useForm<Form>({
+	const resultContainer = useRef<HTMLPreElement>(null)
+	const [notificationStatus, setNotificationStatus] = useState<NotificationStatus>('hidden')
+	const {
+		watch,
+		getValues,
+		register,
+		handleSubmit,
+		formState: { isSubmitted },
+	} = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		// TODO: defaultValues pros and cons
+		// TODO: on page reload some inputs preserve value and others don't... why?
 	})
 
-	const cssProperty = watch('css-property') || '<css-property>'
+	const cssProperty = watch('cssProperty') || '<css-property>'
 	const unit = watch('unit') || 'px'
 	const container = unit === '%' ? 'Parent' : 'Viewport'
 
-	const { onChange, ...cssPropertyAttributes } = register('css-property')
-
-	const customOnChange = (event: Event) => {
-		onChange(event)
+	const clipboardSuccess = () => {
+		setNotificationStatus('success')
+		window.setTimeout(() => setNotificationStatus('hidden'), 5000)
 	}
 
-	const onSubmit = (values: any) => {
-		console.log({ values })
+	const clipboardError = () => {
+		setNotificationStatus('error')
+		window.setTimeout(() => setNotificationStatus('hidden'), 5000)
+	}
+
+	const focusResult = (interval: number) => {
+		if (resultContainer.current) {
+			resultContainer.current.focus()
+			window.clearInterval(interval)
+		}
+	}
+
+	const onSubmit = (values: FormValues) => {
+		const interval = window.setInterval(() => focusResult(interval), 0)
+		window.setTimeout(() => window.clearInterval(interval), longTaskDurationAsDefinedByGoogleWebVitals)
+		navigator.clipboard.writeText(generateCss(values)).then(clipboardSuccess, clipboardError)
 	}
 
 	useEffect(() => {
@@ -68,9 +97,29 @@ export const Form: FunctionComponent = () => {
 		enableFormControls()
 	}, [])
 
+	const renderNotification = () => {
+		switch (notificationStatus) {
+			case 'hidden':
+				return <Fragment></Fragment>
+			case 'success':
+				return <Fragment>Copied</Fragment>
+			case 'error':
+				return (
+					<Fragment>
+						Press{' '}
+						<kbd class={classes.kbd}>
+							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
+						</kbd>{' '}
+						to copy
+					</Fragment>
+				)
+			default:
+				return assertUnreachable(notificationStatus)
+		}
+	}
+
 	return (
 		<div class={classes.form} id="form">
-			{/* <pre>{JSON.stringify(watch())}</pre> */}
 			<Section class="vertical-spacing-150-percent" heading={headings.h2_4}>
 				<div class={classes.jsError} id="js-error" hidden>
 					<p>
@@ -111,8 +160,7 @@ export const Form: FunctionComponent = () => {
 								</label>
 								<input
 									class={`${classes.input} ${classes.cssProperty}`}
-									onChange={customOnChange}
-									{...cssPropertyAttributes}
+									{...register('cssProperty')}
 									id="css-property"
 									disabled
 									list="css-properties"
@@ -124,7 +172,7 @@ export const Form: FunctionComponent = () => {
 							</div>
 						</li>
 
-						<li class={classes.listItem} id="element-lower-bound-container">
+						<li class={classes.listItem}>
 							<div class={classes.stepContainer}>
 								<label class={classes.label} for="element-lower-bound">
 									<Code id="css-property-1">{cssProperty}</Code> at lower bound
@@ -132,7 +180,7 @@ export const Form: FunctionComponent = () => {
 								<div class={classes.flexWrapJoiner}>
 									<input
 										class={classes.input}
-										{...register('element-lower-bound')}
+										{...register('elementLowerBound')}
 										id="element-lower-bound"
 										disabled
 										type="number"
@@ -166,6 +214,7 @@ export const Form: FunctionComponent = () => {
 									<div class={classes.flexWrapJoiner}>
 										<input
 											class={classes.input}
+											{...register('chWidthInPx')}
 											id="ch-width-in-px"
 											type="number"
 											step="0.01"
@@ -187,7 +236,7 @@ export const Form: FunctionComponent = () => {
 								<div class={classes.flexWrapJoiner}>
 									<input
 										class={classes.input}
-										{...register('container-lower-bound')}
+										{...register('containerLowerBound')}
 										id="container-lower-bound"
 										disabled
 										type="number"
@@ -209,7 +258,7 @@ export const Form: FunctionComponent = () => {
 								<div class={classes.flexWrapJoiner}>
 									<input
 										class={classes.input}
-										{...register('element-upper-bound')}
+										{...register('elementUpperBound')}
 										id="element-upper-bound"
 										disabled
 										type="number"
@@ -230,7 +279,7 @@ export const Form: FunctionComponent = () => {
 								<div class={classes.flexWrapJoiner}>
 									<input
 										class={classes.input}
-										{...register('container-upper-bound')}
+										{...register('containerUpperBound')}
 										id="container-upper-bound"
 										disabled
 										type="number"
@@ -252,7 +301,16 @@ export const Form: FunctionComponent = () => {
 					<button class={classes.button} type="reset" disabled>
 						Reset
 					</button>
-					<output class={classes.output} id="responsify-output" aria-live="assertive" role="alert"></output>
+					<output class={classes.output} aria-live="assertive" role="alert">
+						{isSubmitted && (
+							<Fragment>
+								<span class={classes.notification}>{renderNotification()}</span>
+								<CodeBlock ref={resultContainer} class={classes.result}>
+									{generateCss(getValues())}
+								</CodeBlock>
+							</Fragment>
+						)}
+					</output>
 				</form>
 			</Section>
 		</div>

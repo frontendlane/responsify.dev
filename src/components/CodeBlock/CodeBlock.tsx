@@ -1,10 +1,14 @@
-import type { FunctionalComponent } from 'preact'
 import classes from './CodeBlock.module.css'
+import type { JSXInternal } from 'preact/src/jsx'
+import type { Ref } from 'preact'
+import { forwardRef } from 'preact/compat'
 
-export const CodeBlock: FunctionalComponent = ({ children }) => {
+type Props = JSXInternal.HTMLAttributes<HTMLPreElement>
+
+export const CodeBlock = forwardRef(({ class: className, children }: Props, ref: Ref<HTMLPreElement>) => {
 	return (
-		<pre class={classes.preBlock}>
+		<pre class={`${classes.preBlock} ${className || ''}`} ref={ref}>
 			<code class={classes.blockCode}>{children}</code>
 		</pre>
 	)
-}
+})
