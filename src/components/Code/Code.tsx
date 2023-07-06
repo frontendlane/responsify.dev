@@ -6,7 +6,7 @@ type Props = JSXInternal.HTMLAttributes<HTMLElement>
 
 export const Code: FunctionalComponent<Props> = ({ className, children, ...props }) => {
 	return (
-		<code className={`${className ? className : ''} ${classes.inlineCode}`} {...props}>
+		<code className={`${className || ''} ${classes.inlineCode}`} {...props}>
 			{children}
 		</code>
 	)

@@ -23,6 +23,7 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
 
 ## Notes
 
+-   ensure clipboard works on all sorts of devices and that clipboard.js dependency is removed
 -   move all astro components to Preact
 -   astro file download bug: name needs to be supplied
 -   astro plugin that appends <link> with all styles @media (scripting: none)

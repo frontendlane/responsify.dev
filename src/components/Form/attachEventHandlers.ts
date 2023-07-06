@@ -6,7 +6,6 @@ import { StorageType } from '../../scripts/types'
 import { storage } from '../../scripts/storage'
 import { removeContent, setContent, createElement } from '../../scripts/domInteraction'
 import { setState, state } from '../../scripts/state'
-import { REM_SIZE_IN_PX } from '../../scripts/constants'
 
 const restoreState = () => {
 	setState(Object.assign(state, { ...storage(StorageType.local)?.get() }, { ...storage(StorageType.session)?.get() }))
@@ -120,210 +119,8 @@ export const restoreFromStorage = () => {
 	restoreUsersPosition()
 }
 
-const handleChWidthChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	setState({ chWidthInPx: target.value })
-}
-
-const handleContainerLowerBoundChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	setState({ containerLowerBound: target.value })
-}
-
-const handleElementUpperBoundChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	setState({ elementUpperBound: target.value })
-}
-
-const handleContainerUpperBoundChange = (event: Event) => {
-	const target = event.target as HTMLInputElement
-	setState({ containerUpperBound: target.value })
-}
-
-const isValidNumber = (anything: any) => typeof anything === 'number' && !Number.isNaN(anything)
-
-const getCalculationValues = () => {
-	const elementLowerBound = (window.document.getElementById('element-lower-bound') as HTMLInputElement).valueAsNumber
-	const chWidthInPx = (window.document.getElementById('ch-width-in-px') as HTMLInputElement | null)?.valueAsNumber
-	const containerLowerBound = (window.document.getElementById('container-lower-bound') as HTMLInputElement).valueAsNumber
-	const elementUpperBound = (window.document.getElementById('element-upper-bound') as HTMLInputElement).valueAsNumber
-	const containerUpperBound = (window.document.getElementById('container-upper-bound') as HTMLInputElement).valueAsNumber
-
-	// NOTE: TypeScript does not recognize that if any of these values is undefined that it will throw an error
-	if (
-		[elementLowerBound, containerLowerBound, elementUpperBound, containerUpperBound].some(
-			(value) => !isValidNumber(value)
-		)
-	) {
-		throw new Error(
-			'Invalid number value for one (or more) of the following: element lower bound, container lower bound, element upper bound, container upper bound.'
-		)
-	}
-
-	if (state.unit === 'ch' && !isValidNumber(chWidthInPx)) {
-		throw new Error('Invalid number value for "ch" width ix pixels.')
-	}
-
-	setState({ elementLowerBound, chWidthInPx, containerLowerBound, elementUpperBound, containerUpperBound })
-
-	return { elementLowerBound, containerLowerBound, elementUpperBound, containerUpperBound, chWidthInPx }
-}
-
-const removeLastCharacter = (word: string) => word.substring(0, word.length - 1)
-
-const trimUnnecessaryDigits = (number: number) => {
-	let numberAsString = number.toFixed(3)
-	while (numberAsString.endsWith('0')) {
-		numberAsString = removeLastCharacter(numberAsString)
-	}
-	if (numberAsString.endsWith('.')) {
-		numberAsString = removeLastCharacter(numberAsString)
-	}
-	return +numberAsString
-}
-
-const calculate = () => {
-	const { elementLowerBound, containerLowerBound, elementUpperBound, containerUpperBound, chWidthInPx } =
-		getCalculationValues()
-
-	let elementStartingSize
-	switch (state.unit) {
-		case 'px':
-			elementStartingSize = elementLowerBound
-			break
-		case 'vw':
-			elementStartingSize = (elementLowerBound / 100) * containerLowerBound
-			break
-		case '%':
-			elementStartingSize = (elementLowerBound / 100) * containerLowerBound
-			break
-		case 'ch':
-			elementStartingSize = elementLowerBound * (chWidthInPx as number)
-			break
-		case 'rem':
-			elementStartingSize = elementLowerBound * REM_SIZE_IN_PX
-			break
-		default:
-			throw new Error('Unsupported CSS unit.')
-	}
-
-	let elementEndingSize
-	switch (state.unit) {
-		case 'px':
-			elementEndingSize = elementUpperBound
-			break
-		case 'vw':
-			elementEndingSize = (elementUpperBound / 100) * containerUpperBound
-			break
-		case '%':
-			elementEndingSize = (elementUpperBound / 100) * containerUpperBound
-			break
-		case 'ch':
-			elementEndingSize = elementUpperBound * (chWidthInPx as number)
-			break
-		case 'rem':
-			elementEndingSize = elementUpperBound * REM_SIZE_IN_PX
-			break
-		default:
-			throw new Error('Unsupported CSS unit.')
-	}
-
-	const elementDiff = elementEndingSize - elementStartingSize
-	const containerDiff = containerUpperBound - containerLowerBound
-	const rate = elementDiff / containerDiff
-	const initialInPx = elementStartingSize - containerLowerBound * rate
-
-	let initial: number
-	switch (state.unit) {
-		case 'ch':
-			initial = initialInPx / (chWidthInPx as number)
-			break
-		case 'rem':
-			initial = initialInPx / REM_SIZE_IN_PX
-			break
-		default:
-			initial = initialInPx
-			break
-	}
-
-	return {
-		containerLowerBound,
-		containerUpperBound,
-		elementLowerBound,
-		elementUpperBound,
-		initial,
-		rate,
-	}
-}
-
-const generate = () => {
-	const { containerLowerBound, containerUpperBound, elementLowerBound, elementUpperBound, initial, rate } = calculate()
-
-	const trimmedInitial = trimUnnecessaryDigits(initial)
-	let initialUnit: string
-	switch (state.unit) {
-		case 'ch':
-			initialUnit = state.unit
-			break
-		case 'rem':
-			initialUnit = state.unit
-			break
-		default:
-			initialUnit = 'px'
-	}
-	const sign = rate < 0 ? '-' : '+'
-	const calcRate = trimUnnecessaryDigits(Math.abs(rate) * 100)
-	const rateUnit = state.unit === '%' ? '%' : 'vw'
-
-	return `${state.cssProperty}: calc(${trimmedInitial}${initialUnit} ${sign} ${calcRate}${rateUnit});${
-		state.shouldIncludeComment
-			? ` /* https://responsify.dev - ${
-					state.unit === '%' ? 'parent' : 'viewport'
-			  } lower bound: ${containerLowerBound}px; ${
-					state.unit === '%' ? 'parent' : 'viewport'
-			  } upper bound: ${containerUpperBound}px; element lower bound: ${elementLowerBound}${
-					state.unit
-			  }; element upper bound: ${elementUpperBound}${state.unit}; ${
-					state.chWidthInPx ? `"ch" width in pixels: ${state.chWidthInPx}; ` : ''
-			  }*/`
-			: ''
-	}`
-}
-
-const generateAndRender = (event: Event) => {
-	event.preventDefault()
-
-	const notification = createElement('span', { class: 'notification', id: 'notification' })
-	const result = createElement('code', { class: 'block-code result' }, generate())
-	// @ts-ignore
-	const resultContainer = createElement('pre', { class: 'pre-block', id: 'result-container' }, result)
-	// @ts-ignore
-	setContent(window.document.getElementById('responsify-output'), [notification, resultContainer])
-	window.document.getElementById('responsify-button')!.click()
-	// @ts-ignore
-	resultContainer.focus()
-	setState({ hasUsedForm: true })
-}
-
 const handleReset = () => {
 	storage(StorageType.session)?.clear()
-}
-
-const responsifyClipboardSuccess = () => {
-	const notification = window.document.getElementById('notification')
-	setContent(notification, 'Copied')
-	window.setTimeout(() => removeContent(notification), 5000)
-}
-
-const responsifyClipboardError = () => {
-	const notification = window.document.getElementById('notification')
-	const kbd = window.document.createElement('kbd')
-	kbd.className = 'kbd'
-	// TODO: I need to programatically select the CSS declaration first (use Range API)
-	// TODO: what about mobile users?? for them indicate that the text is selected?? (is it) and that they need to copy
-	setContent(kbd, window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C')
-	setContent(notification, ['Press ', kbd, ' to copy'])
-	window.setTimeout(() => removeContent(notification), 5000)
 }
 
 const emailClipboardSuccess = () => {
@@ -344,16 +141,7 @@ const emailClipboardError = () => {
 }
 
 export const attachEventHandlers = () => {
-	window.document.getElementById('ch-width-in-px')?.addEventListener('change', handleChWidthChange)
-	window.document.getElementById('container-lower-bound')!.addEventListener('change', handleContainerLowerBoundChange)
-	window.document.getElementById('element-upper-bound')!.addEventListener('change', handleElementUpperBoundChange)
-	window.document.getElementById('container-upper-bound')!.addEventListener('change', handleContainerUpperBoundChange)
-	window.document.getElementById('form-element')!.addEventListener('submit', generateAndRender)
 	window.document.getElementById('form-element')!.addEventListener('reset', handleReset)
-
-	const responsifyClipboard = new ClipboardJS('#responsify-button', { text: () => generate() })
-	responsifyClipboard.on('success', responsifyClipboardSuccess)
-	responsifyClipboard.on('error', responsifyClipboardError)
 
 	const emailClipboard = new ClipboardJS('#email-button')
 	emailClipboard.on('success', emailClipboardSuccess)

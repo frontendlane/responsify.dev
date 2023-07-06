@@ -180,7 +180,7 @@
 	);
 }
 
-/* JS classes */
+/* TODO: conditionally render notification so replace the :empty selector */
 .notification {
 	--arrow-size: 1em;
 	--arrow-offset: var(--outline-offset);
@@ -221,6 +221,6 @@
 	color: yellow;
 }
 
-.result {
+.result > code {
 	font-size: 1.5em;
 }
