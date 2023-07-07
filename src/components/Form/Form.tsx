@@ -5,7 +5,7 @@ import { DataList } from '../DataList'
 import { Section } from '../Section'
 import classes from './Form.module.css'
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { setContent, createElement } from '../../scripts/domInteraction'
+import { createElement } from '../../scripts/domInteraction'
 import { attachEventHandlers } from './attachEventHandlers'
 import { enableFormControls } from './enableFormControls'
 import { useForm } from 'react-hook-form'
@@ -32,6 +32,7 @@ type NotificationStatus = 'hidden' | 'success' | 'error'
 
 export const Form: FunctionComponent = () => {
 	const resultContainer = useRef<HTMLPreElement>(null)
+	const [windowError, setWindowError] = useState('')
 	const [notificationStatus, setNotificationStatus] = useState<NotificationStatus>('hidden')
 	const {
 		reset,
@@ -75,6 +76,7 @@ export const Form: FunctionComponent = () => {
 
 	useEffect(() => {
 		window.addEventListener('error', (error) => {
+			setWindowError(error.message)
 			// TODO: should I wrap all of this code in a try catch block so as to prevent an infinite call stack??
 			window.document.head.append(
 				// @ts-ignore
@@ -84,14 +86,6 @@ export const Form: FunctionComponent = () => {
 					`.form :where(.a, .label, .input, .select, .button, .output) {pointer-events: revert;}`
 				)
 			)
-			const jsErrorElement = window.document.getElementById('js-error')
-			jsErrorElement && jsErrorElement.removeAttribute('hidden')
-			// TODO: put back disabled attributes
-			const errorMessage = createElement('code', { class: 'inline-code' }, error.message) as Element
-			setContent(window.document.getElementById('js-error-intro'), [
-				'JavaScript failed to execute with the following error message: ',
-				errorMessage,
-			])
 		})
 
 		attachEventHandlers()
@@ -101,9 +95,9 @@ export const Form: FunctionComponent = () => {
 	const renderNotification = () => {
 		switch (notificationStatus) {
 			case 'hidden':
-				return <Fragment></Fragment>
+				return
 			case 'success':
-				return <Fragment>Copied</Fragment>
+				return 'Copied'
 			case 'error':
 				return (
 					<Fragment>
@@ -118,13 +112,22 @@ export const Form: FunctionComponent = () => {
 				return assertUnreachable(notificationStatus)
 		}
 	}
+	// TODO: put back disabled attributes when window error happens
+
+	const dataListId = 'css-properties'
 
 	return (
 		<div class={classes.form} id="form">
 			<Section class="vertical-spacing-150-percent" heading={headings.h2_4}>
-				<div class={classes.jsError} id="js-error" hidden>
+				<div class={classes.jsError} hidden={!windowError}>
 					<p>
-						<span id="js-error-intro">JavaScript failed to execute.</span>
+						{windowError ? (
+							<Fragment>
+								JavaScript failed to execute with the following error message: <Code>{windowError}</Code>
+							</Fragment>
+						) : (
+							'JavaScript failed to execute.'
+						)}
 						😵 You won't be able to generate a <Code>calc()</Code> value.
 					</p>
 					<p class="vertical-spacing">
@@ -139,12 +142,7 @@ export const Form: FunctionComponent = () => {
 				<p class="vertical-spacing">
 					Bookmark the link next to the form heading above for direct access to this form.
 				</p>
-				<form
-					class='form-element"'
-					id="form-element"
-					aria-labelledby={headings.h2_4.id}
-					onSubmit={handleSubmit(onSubmit)}
-				>
+				<form class='form-element"' aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
 					<noscript class={classes.noscript}>
 						<p>
 							<strong>
@@ -164,19 +162,19 @@ export const Form: FunctionComponent = () => {
 									{...register('cssProperty')}
 									id="css-property"
 									disabled
-									list="css-properties"
+									list={dataListId}
 									type="text"
 									placeholder="width"
 									required
 								/>
-								<DataList />
+								<DataList id={dataListId} />
 							</div>
 						</li>
 
 						<li class={classes.listItem}>
 							<div class={classes.stepContainer}>
 								<label class={classes.label} for="element-lower-bound">
-									<Code id="css-property-1">{cssProperty}</Code> at lower bound
+									<Code>{cssProperty}</Code> at lower bound
 								</label>
 								<div class={classes.flexWrapJoiner}>
 									<input
@@ -190,7 +188,7 @@ export const Form: FunctionComponent = () => {
 										required
 									/>
 									<label class="visually-hidden" for="unit">
-										<Code id="css-property-2">{cssProperty}</Code> unit
+										<Code>{cssProperty}</Code> unit
 									</label>
 									{/* <!-- TODO: height of the select should be the parent height. enhance with js --> */}
 									<select class={classes.select} id="unit" disabled required {...register('unit')}>
@@ -254,7 +252,7 @@ export const Form: FunctionComponent = () => {
 						<li class={classes.listItem}>
 							<div class={classes.stepContainer}>
 								<label class={classes.label} for="element-upper-bound">
-									<Code id="css-property-3">{cssProperty}</Code> at upper bound
+									<Code>{cssProperty}</Code> at upper bound
 								</label>
 								<div class={classes.flexWrapJoiner}>
 									<input
@@ -267,7 +265,7 @@ export const Form: FunctionComponent = () => {
 										placeholder="80"
 										required
 									/>
-									<Code id="unit-1">{unit}</Code>
+									<Code>{unit}</Code>
 								</div>
 							</div>
 						</li>
@@ -297,7 +295,7 @@ export const Form: FunctionComponent = () => {
 					<button class={classes.button} type="submit" disabled>
 						Generate and copy to clipboard
 					</button>
-					<button hidden id="responsify-button" type="button"></button>
+					<button hidden type="button"></button>
 					<button class={classes.button} type="reset" disabled onClick={() => reset()}>
 						Reset
 					</button>

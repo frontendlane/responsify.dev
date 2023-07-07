@@ -180,14 +180,13 @@
 	);
 }
 
-/* TODO: conditionally render notification so replace the :empty selector */
 .notification {
 	--arrow-size: 1em;
 	--arrow-offset: var(--outline-offset);
 	--arrow-pedestal: 0.25em;
 
 	position: absolute;
-	border-block-end: var(--arrow-pedestal) solid transparent;
+	border-block-end: var(--arrow-pedestal) solid currentColor;
 	padding: 0 0.5ch;
 	inset-block-start: 0;
 	inset-inline-start: 50%;
@@ -197,11 +196,8 @@
 		0
 	);
 }
-.notification:not(:empty) {
-	border-block-end-color: currentColor;
-}
 
-.notification:not(:empty)::before {
+.notification::before {
 	content: '';
 	display: block;
 	position: absolute;

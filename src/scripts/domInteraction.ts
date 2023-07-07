@@ -1,5 +1,3 @@
-import type { IAttributes } from './types'
-
 export const removeContent = (element: Element | null) => {
 	while (element?.firstChild) {
 		element.removeChild(element.firstChild)
@@ -30,6 +28,10 @@ export const setContent = (
 	return Array.isArray(target)
 		? target.map((element) => setElementContent(element, content))
 		: setElementContent(target, content)
+}
+
+interface IAttributes {
+	[key: string]: string | number | boolean
 }
 
 export const createElement = (
