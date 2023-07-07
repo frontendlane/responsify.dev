@@ -119,10 +119,6 @@ export const restoreFromStorage = () => {
 	restoreUsersPosition()
 }
 
-const handleReset = () => {
-	storage(StorageType.session)?.clear()
-}
-
 const emailClipboardSuccess = () => {
 	const emailNotification = window.document.getElementById('email-notification')
 	setContent(emailNotification, 'Copied')
@@ -141,8 +137,6 @@ const emailClipboardError = () => {
 }
 
 export const attachEventHandlers = () => {
-	window.document.getElementById('form-element')!.addEventListener('reset', handleReset)
-
 	const emailClipboard = new ClipboardJS('#email-button')
 	emailClipboard.on('success', emailClipboardSuccess)
 	emailClipboard.on('error', emailClipboardError)

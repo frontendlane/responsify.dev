@@ -23,6 +23,7 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
 
 ## Notes
 
+-   https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.md
 -   ensure clipboard works on all sorts of devices and that clipboard.js dependency is removed
 -   move all astro components to Preact
 -   astro file download bug: name needs to be supplied

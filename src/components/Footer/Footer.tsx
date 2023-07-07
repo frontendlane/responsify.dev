@@ -30,7 +30,7 @@ export const Footer: FunctionalComponent = () => {
 							aria-live="polite"
 							role="status"
 						></output>
-						<button class="button" id="email-button" data-clipboard-target="#email" disabled>
+						<button class="button" id="email-button" disabled>
 							Copy email address
 						</button>
 					</div>
