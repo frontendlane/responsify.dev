@@ -76,6 +76,7 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
 
 ### move to astro
 
+-   add to documentation a note about styling content that will be hydrated or only rendered on the client: https://zellwk.com/blog/overcoming-astro-styling-frustrations/
 -   move to astro
     -   postcss.config.cjs + .brwoserslistrc + package.json(devDependencies + scripts) + shell-scripts
         -   cssnano-preset-default preset does only safe transforms
