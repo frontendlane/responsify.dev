@@ -34,6 +34,7 @@ export const Form: FunctionComponent = () => {
 	const resultContainer = useRef<HTMLPreElement>(null)
 	const [notificationStatus, setNotificationStatus] = useState<NotificationStatus>('hidden')
 	const {
+		reset,
 		watch,
 		getValues,
 		register,
@@ -297,8 +298,7 @@ export const Form: FunctionComponent = () => {
 						Generate and copy to clipboard
 					</button>
 					<button hidden id="responsify-button" type="button"></button>
-					{/* <!-- TODO: reset button doesn't reset the form to its pristine state --> */}
-					<button class={classes.button} type="reset" disabled>
+					<button class={classes.button} type="reset" disabled onClick={() => reset()}>
 						Reset
 					</button>
 					<output class={classes.output} aria-live="assertive" role="alert">

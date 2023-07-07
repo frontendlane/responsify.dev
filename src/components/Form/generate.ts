@@ -1,37 +1,16 @@
 import { REM_SIZE_IN_PX } from '../../scripts/constants'
+import { assertUnreachable } from '../../utils/assertUnreachable'
 import type { FormValues } from './Form'
 
-// TODO: move all of this to zod schema
-export const generateCss = ({ cssProperty, unit, chWidthInPx }: FormValues) => {
-	const isValidNumber = (anything: any) => typeof anything === 'number' && !Number.isNaN(anything)
-
-	const getCalculationValues = () => {
-		const elementLowerBound = (window.document.getElementById('element-lower-bound') as HTMLInputElement).valueAsNumber
-		const chWidthInPx = (window.document.getElementById('ch-width-in-px') as HTMLInputElement | null)?.valueAsNumber
-		const containerLowerBound = (window.document.getElementById('container-lower-bound') as HTMLInputElement)
-			.valueAsNumber
-		const elementUpperBound = (window.document.getElementById('element-upper-bound') as HTMLInputElement).valueAsNumber
-		const containerUpperBound = (window.document.getElementById('container-upper-bound') as HTMLInputElement)
-			.valueAsNumber
-
-		// NOTE: TypeScript does not recognize that if any of these values is undefined that it will throw an error
-		if (
-			[elementLowerBound, containerLowerBound, elementUpperBound, containerUpperBound].some(
-				(value) => !isValidNumber(value)
-			)
-		) {
-			throw new Error(
-				'Invalid number value for one (or more) of the following: element lower bound, container lower bound, element upper bound, container upper bound.'
-			)
-		}
-
-		if (unit === 'ch' && !isValidNumber(chWidthInPx)) {
-			throw new Error('Invalid number value for "ch" width ix pixels.')
-		}
-
-		return { elementLowerBound, containerLowerBound, elementUpperBound, containerUpperBound, chWidthInPx }
-	}
-
+export const generateCss = ({
+	cssProperty,
+	unit,
+	elementLowerBound,
+	containerLowerBound,
+	elementUpperBound,
+	containerUpperBound,
+	chWidthInPx,
+}: FormValues) => {
 	const removeLastCharacter = (word: string) => word.substring(0, word.length - 1)
 
 	const trimUnnecessaryDigits = (number: number) => {
@@ -46,10 +25,7 @@ export const generateCss = ({ cssProperty, unit, chWidthInPx }: FormValues) => {
 	}
 
 	const calculate = () => {
-		const { elementLowerBound, containerLowerBound, elementUpperBound, containerUpperBound, chWidthInPx } =
-			getCalculationValues()
-
-		let elementStartingSize
+		let elementStartingSize: number
 		switch (unit) {
 			case 'px':
 				elementStartingSize = elementLowerBound
@@ -67,7 +43,7 @@ export const generateCss = ({ cssProperty, unit, chWidthInPx }: FormValues) => {
 				elementStartingSize = elementLowerBound * REM_SIZE_IN_PX
 				break
 			default:
-				throw new Error('Unsupported CSS unit.')
+				elementStartingSize = assertUnreachable(unit)
 		}
 
 		let elementEndingSize
@@ -88,7 +64,7 @@ export const generateCss = ({ cssProperty, unit, chWidthInPx }: FormValues) => {
 				elementEndingSize = elementUpperBound * REM_SIZE_IN_PX
 				break
 			default:
-				throw new Error('Unsupported CSS unit.')
+				elementEndingSize = assertUnreachable(unit)
 		}
 
 		const elementDiff = elementEndingSize - elementStartingSize
