@@ -31,7 +31,8 @@ body {
 	margin-block: 2em;
 }
 
-body > * {
+body > *,
+body > astro-island > * {
 	/* has to target children because of .offscreen */
 	max-inline-size: 75ch; /* always set *some* kind of limit on width - either on body or elsewhere - because text is difficult to read if the lines are too long: https://www.joshwcomeau.com/css/full-bleed/; */
 	margin-inline: auto;

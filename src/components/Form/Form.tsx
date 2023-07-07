@@ -6,7 +6,6 @@ import { Section } from '../Section'
 import classes from './Form.module.css'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { createElement } from '../../scripts/domInteraction'
-import { attachEventHandlers } from './attachEventHandlers'
 import { enableFormControls } from './enableFormControls'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -88,7 +87,7 @@ export const Form: FunctionComponent = () => {
 			)
 		})
 
-		attachEventHandlers()
+		// TODO: move to Preact
 		enableFormControls()
 	}, [])
 
@@ -103,6 +102,7 @@ export const Form: FunctionComponent = () => {
 					<Fragment>
 						Press{' '}
 						<kbd class={classes.kbd}>
+							{/* TODO: if it fails then CMD + C / Control + C won't do anything... */}
 							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
 						</kbd>{' '}
 						to copy
