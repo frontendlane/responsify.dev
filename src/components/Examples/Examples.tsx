@@ -19,18 +19,51 @@ export const Examples: FunctionalComponent = () => {
 					Suppose a <Code>&lt;div&gt;</Code> needs to be 90% wide below desktop breakpoint and 40% above that.
 					Because you practice mobile-first approach, you start with:
 				</p>
-				<CodeBlock>div &#123; width: 90%; &#125;</CodeBlock>
+				<CodeBlock>
+					div &#123;
+					{`
+`}
+					{`    `}width: 90%;
+					{`
+`}
+					&#125;
+				</CodeBlock>
 				<p class="vertical-spacing">and for desktop you add:</p>
-				<CodeBlock>@media (min-width: 1024px) &#123; div &#123; width: 40%; &#125; &#125;</CodeBlock>
+				<CodeBlock>
+					@media (min-width: 1024px) &#123;
+					{`
+`}
+					{`    `}div &#123;
+					{`
+`}
+					{`        `}width: 40%;
+					{`
+`}
+					{`    `}&#125;
+					{`
+`}
+					&#125;
+				</CodeBlock>
 				<p class="vertical-spacing">
 					You want to gradually transition between these two values so you reserve, let's say, the 900px - 1024px
 					range to smooth this out. You add another media query with the magic 🪄 <Code>calc()</Code> value that
 					you generate using the <Link href="#form">responsify form</Link> below and you're done! 🎉
 				</p>
 				<CodeBlock>
-					@media (min-width: 900px) and (max-width: 1023px) &#123; div &#123; width: calc(3716.129px - 322.903%);
-					/* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound:
-					90%; element upper bound: 40%; */ &#125; &#125;
+					@media (min-width: 900px) and (max-width: 1023px) &#123;
+					{`
+`}
+					{`    `}div &#123;
+					{`
+`}
+					{`        `}width: calc(3716.129px - 322.903%); /* https://responsify.dev - parent lower bound: 900px;
+					parent upper bound: 1024px; element lower bound: 90%; element upper bound: 40%; */
+					{`
+`}
+					{`    `}&#125;
+					{`
+`}
+					&#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
 					Note the comment that accompanies <Code>calc()</Code> value. Preserving input values makes it easier to
@@ -62,12 +95,31 @@ export const Examples: FunctionalComponent = () => {
 					You want the <Code>&lt;body&gt;</Code>'s <Code>padding</Code> to increase from 10px to 50px, and have it
 					stay at 50px once it hits the desktop breakpoint. For desktop and above you start off with:
 				</p>
-				<CodeBlock>body &#123; padding: 50px; &#125;</CodeBlock>
+				<CodeBlock>
+					body &#123;
+					{`
+`}
+					{`    `}padding: 50px;
+					{`
+`}
+					&#125;
+				</CodeBlock>
 				<p class="vertical-spacing">and for below desktop you add:</p>
 				<CodeBlock>
-					@media (max-width: 1023px) &#123; body &#123; padding: calc(-8.182px + 5.682vw); /*
-					https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound:
-					10px; element upper bound: 50px; */ &#125; &#125;
+					@media (max-width: 1023px) &#123;
+					{`
+`}
+					{`    `}body &#123;
+					{`
+`}
+					{`        `}padding: calc(-8.182px + 5.682vw); /* https://responsify.dev - viewport lower bound: 320px;
+					viewport upper bound: 1024px; element lower bound: 10px; element upper bound: 50px; */
+					{`
+`}
+					{`    `}&#125;
+					{`
+`}
+					&#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
 					I'm not a fan of using a <Code>max-width</Code> media query because it smells of a desktop-first approach
@@ -81,8 +133,16 @@ export const Examples: FunctionalComponent = () => {
 					stay at 90px once it hits the desktop breakpoint.
 				</p>
 				<CodeBlock>
-					header &#123; height: calc(17.273px + 7.102vw); /* https://responsify.dev - viewport lower bound: 320px;
-					viewport upper bound: 1024px; element lower bound: 40px; element upper bound: 90px; */ max-height: 90px;
+					header &#123;
+					{`
+`}
+					{`    `}height: calc(17.273px + 7.102vw); /* https://responsify.dev - viewport lower bound: 320px;
+					viewport upper bound: 1024px; element lower bound: 40px; element upper bound: 90px; */
+					{`
+    `}
+					max-height: 90px;
+					{`
+`}
 					&#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
@@ -100,9 +160,15 @@ export const Examples: FunctionalComponent = () => {
 					character width is 13.65px.
 				</p>
 				<CodeBlock>
-					button &#123; border-width: min(calc(0.545ch + 1.939vw), 2ch); /* https://responsify.dev - viewport lower
+					button &#123;
+					{`
+`}
+					{`    `}border-width: min(calc(0.545ch + 1.939vw), 2ch); /* https://responsify.dev - viewport lower
 					bound: 320px; viewport upper bound: 1024px; element lower bound: 1ch; element upper bound: 2ch; "ch"
-					width in pixels: 13.65; */ &#125;
+					width in pixels: 13.65; */
+					{`
+`}
+					&#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
 					By using <Code>min()</Code> you can do away with media query <em>and</em> you're not limited to{' '}
@@ -117,9 +183,15 @@ export const Examples: FunctionalComponent = () => {
 					19.5vw at desktop breakpoint (0.195 * 1024px ≅ 200px).
 				</p>
 				<CodeBlock>
-					footer &#123; margin-top: clamp(20px, calc(-515.482px + 69.87vw), 200px); /* https://responsify.dev -
-					viewport lower bound: 768px; viewport upper bound: 1024px; element lower bound: 2.75vw; element upper
-					bound: 19.53vw; */ &#125;
+					footer &#123;
+					{`
+`}
+					{`    `}margin-top: clamp(20px, calc(-515.482px + 69.87vw), 200px); /* https://responsify.dev - viewport
+					lower bound: 768px; viewport upper bound: 1024px; element lower bound: 2.75vw; element upper bound:
+					19.53vw; */
+					{`
+`}
+					&#125;
 				</CodeBlock>
 				<p class="vertical-spacing">
 					Responsify + <Code>clamp()</Code> is a powerful combination 💪 that also allows you to do away with media
