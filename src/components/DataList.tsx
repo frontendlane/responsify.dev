@@ -1,9 +1,13 @@
 import type { FunctionalComponent } from 'preact'
 
-export const DataList: FunctionalComponent = () => {
+type DataListProps = {
+	id: string
+}
+
+export const DataList: FunctionalComponent<DataListProps> = ({ id }) => {
 	// TODO: retrieve the list of css properties and then map over them
 	return (
-		<datalist id="css-properties">
+		<datalist id={id}>
 			<option value="align-content"></option>
 			<option value="align-items"></option>
 			<option value="align-self"></option>
