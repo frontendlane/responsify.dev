@@ -4,15 +4,15 @@ import { Code } from '../Code/Code'
 import { DataList } from '../DataList'
 import { Section } from '../Section'
 import classes from './Form.module.css'
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { createElement } from '../../scripts/domInteraction'
-import { enableFormControls } from './enableFormControls'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CodeBlock } from '../CodeBlock/CodeBlock'
 import { generateCss } from './generate'
 import { assertUnreachable } from '../../utils/assertUnreachable'
+import { Link } from '../Link/Link'
 
 const longTaskDurationAsDefinedByGoogleWebVitals = 50
 
@@ -32,6 +32,7 @@ type NotificationStatus = 'hidden' | 'success' | 'error'
 export const Form: FunctionComponent = () => {
 	const resultContainer = useRef<HTMLPreElement>(null)
 	const [windowError, setWindowError] = useState('')
+	const [isFirstRender, setIsFirstRender] = useState(true)
 	const [notificationStatus, setNotificationStatus] = useState<NotificationStatus>('hidden')
 	const {
 		reset,
@@ -74,6 +75,7 @@ export const Form: FunctionComponent = () => {
 	}
 
 	useEffect(() => {
+		setIsFirstRender(false)
 		window.addEventListener('error', (error) => {
 			setWindowError(error.message)
 			// TODO: should I wrap all of this code in a try catch block so as to prevent an infinite call stack??
@@ -86,9 +88,6 @@ export const Form: FunctionComponent = () => {
 				)
 			)
 		})
-
-		// TODO: move to Preact
-		enableFormControls()
 	}, [])
 
 	const renderNotification = () => {
@@ -112,135 +111,119 @@ export const Form: FunctionComponent = () => {
 				return assertUnreachable(notificationStatus)
 		}
 	}
-	// TODO: put back disabled attributes when window error happens
+
+	const isDisabled = useMemo(() => isFirstRender || !!windowError, [isFirstRender, windowError])
 
 	const dataListId = 'css-properties'
 
+	const contactEmailAddress = 'petar@responsify.dev'
+
 	return (
-		<div class={classes.form} id="form">
-			<Section class="vertical-spacing-150-percent" heading={headings.h2_4}>
-				<div class={classes.jsError} hidden={!windowError}>
+		<Section class={classes.formContainer} heading={headings.h2_4}>
+			<div class={classes.jsError} hidden={!windowError}>
+				<p>
+					{windowError ? (
+						<Fragment>
+							JavaScript failed to execute with the following error message: <Code>{windowError}</Code>
+						</Fragment>
+					) : (
+						'JavaScript failed to execute.'
+					)}{' '}
+					😵 You won't be able to generate a <Code>calc()</Code> value.
+				</p>
+				<p class="vertical-spacing">
+					You might be able to resolve the issue by reloading the page. If that doesn't work, update your browser
+					to the latest version and try again. If that doesn't work please email me at{' '}
+					<Link href={`mailto:${contactEmailAddress}`}>{contactEmailAddress}</Link>.
+				</p>
+				<p class="vertical-spacing"> Error stack is logged to the console.</p>
+			</div>
+			<p class="vertical-spacing">
+				Generate responsified <Code>calc()</Code> value using the form below.
+			</p>
+			<p class="vertical-spacing">Bookmark the link next to the form heading above for direct access to this form.</p>
+			<form class='form-element"' aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
+				<noscript class={classes.noscript}>
 					<p>
-						{windowError ? (
-							<Fragment>
-								JavaScript failed to execute with the following error message: <Code>{windowError}</Code>
-							</Fragment>
-						) : (
-							'JavaScript failed to execute.'
-						)}
-						😵 You won't be able to generate a <Code>calc()</Code> value.
+						<strong>
+							JavaScript needs to be enabled in order to generate a<Code>calc()</Code>
+							value.
+						</strong>
 					</p>
-					<p class="vertical-spacing">
-						You might be able to resolve the issue by reloading the page. If that doesn't work, update your
-						browser to the latest version and try again.
-					</p>
-					<p class="vertical-spacing"> Error stack is logged to the console.</p>
-				</div>
-				<p class="vertical-spacing">
-					Generate responsified <Code>calc()</Code> value using the form below.
-				</p>
-				<p class="vertical-spacing">
-					Bookmark the link next to the form heading above for direct access to this form.
-				</p>
-				<form class='form-element"' aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
-					<noscript class={classes.noscript}>
-						<p>
-							<strong>
-								JavaScript needs to be enabled in order to generate a<Code>calc()</Code>
-								value.
-							</strong>
-						</p>
-					</noscript>
-					<ol class={classes.list}>
-						<li class={classes.listItem}>
-							<div class={classes.stepContainer}>
-								<label class={classes.label} for="css-property">
-									CSS property
-								</label>
+				</noscript>
+				<ol class={classes.list}>
+					<li class={classes.listItem}>
+						<div class={classes.stepContainer}>
+							<label class={classes.label} for="css-property">
+								CSS property
+							</label>
+							<input
+								class={`${classes.input} ${classes.cssProperty}`}
+								{...register('cssProperty')}
+								id="css-property"
+								disabled={isDisabled}
+								list={dataListId}
+								type="text"
+								placeholder="width"
+								required
+							/>
+							<DataList id={dataListId} />
+						</div>
+					</li>
+
+					<li class={classes.listItem}>
+						<div class={classes.stepContainer}>
+							<label class={classes.label} for="element-lower-bound">
+								<Code>{cssProperty}</Code> at lower bound
+							</label>
+							<div class={classes.flexWrapJoiner}>
 								<input
-									class={`${classes.input} ${classes.cssProperty}`}
-									{...register('cssProperty')}
-									id="css-property"
-									disabled
-									list={dataListId}
-									type="text"
-									placeholder="width"
+									class={classes.input}
+									{...register('elementLowerBound')}
+									id="element-lower-bound"
+									disabled={isDisabled}
+									type="number"
+									step="0.01"
+									placeholder="25"
 									required
 								/>
-								<DataList id={dataListId} />
+								<label class="visually-hidden" for="unit">
+									<Code>{cssProperty}</Code> unit
+								</label>
+								{/* <!-- TODO: height of the select should be the parent height. enhance with js --> */}
+								<select
+									class={classes.select}
+									id="unit"
+									disabled={isDisabled}
+									required
+									{...register('unit')}
+								>
+									<option value="px" selected>
+										px
+									</option>
+									<option value="vw">vw</option>
+									<option value="%">%</option>
+									<option value="ch">ch</option>
+									<option value="rem">rem</option>
+								</select>
 							</div>
-						</li>
+						</div>
+					</li>
 
+					{unit === 'ch' && (
 						<li class={classes.listItem}>
 							<div class={classes.stepContainer}>
-								<label class={classes.label} for="element-lower-bound">
-									<Code>{cssProperty}</Code> at lower bound
+								<label class={classes.label} for="ch-width-in-px">
+									<Code>ch</Code> width
 								</label>
 								<div class={classes.flexWrapJoiner}>
 									<input
 										class={classes.input}
-										{...register('elementLowerBound')}
-										id="element-lower-bound"
-										disabled
+										{...register('chWidthInPx')}
+										id="ch-width-in-px"
 										type="number"
 										step="0.01"
-										placeholder="25"
-										required
-									/>
-									<label class="visually-hidden" for="unit">
-										<Code>{cssProperty}</Code> unit
-									</label>
-									{/* <!-- TODO: height of the select should be the parent height. enhance with js --> */}
-									<select class={classes.select} id="unit" disabled required {...register('unit')}>
-										<option value="px" selected>
-											px
-										</option>
-										<option value="vw">vw</option>
-										<option value="%">%</option>
-										<option value="ch">ch</option>
-										<option value="rem">rem</option>
-									</select>
-								</div>
-							</div>
-						</li>
-
-						{unit === 'ch' && (
-							<li class={classes.listItem}>
-								<div class={classes.stepContainer}>
-									<label class={classes.label} for="ch-width-in-px">
-										<Code>ch</Code> width
-									</label>
-									<div class={classes.flexWrapJoiner}>
-										<input
-											class={classes.input}
-											{...register('chWidthInPx')}
-											id="ch-width-in-px"
-											type="number"
-											step="0.01"
-											placeholder="8.9"
-											min="0"
-											required
-										/>
-										<Code>px</Code>
-									</div>
-								</div>
-							</li>
-						)}
-
-						<li class={classes.listItem}>
-							<div class={classes.stepContainer}>
-								<label class={classes.label} for="container-lower-bound">
-									{container} lower bound
-								</label>
-								<div class={classes.flexWrapJoiner}>
-									<input
-										class={classes.input}
-										{...register('containerLowerBound')}
-										id="container-lower-bound"
-										disabled
-										type="number"
-										step="0.01"
-										placeholder="320"
+										placeholder="8.9"
 										min="0"
 										required
 									/>
@@ -248,69 +231,91 @@ export const Form: FunctionComponent = () => {
 								</div>
 							</div>
 						</li>
+					)}
 
-						<li class={classes.listItem}>
-							<div class={classes.stepContainer}>
-								<label class={classes.label} for="element-upper-bound">
-									<Code>{cssProperty}</Code> at upper bound
-								</label>
-								<div class={classes.flexWrapJoiner}>
-									<input
-										class={classes.input}
-										{...register('elementUpperBound')}
-										id="element-upper-bound"
-										disabled
-										type="number"
-										step="0.01"
-										placeholder="80"
-										required
-									/>
-									<Code>{unit}</Code>
-								</div>
+					<li class={classes.listItem}>
+						<div class={classes.stepContainer}>
+							<label class={classes.label} for="container-lower-bound">
+								{container} lower bound
+							</label>
+							<div class={classes.flexWrapJoiner}>
+								<input
+									class={classes.input}
+									{...register('containerLowerBound')}
+									id="container-lower-bound"
+									disabled={isDisabled}
+									type="number"
+									step="0.01"
+									placeholder="320"
+									min="0"
+									required
+								/>
+								<Code>px</Code>
 							</div>
-						</li>
+						</div>
+					</li>
 
-						<li class={classes.listItem}>
-							<div class={classes.stepContainer}>
-								<label class={classes.label} for="container-upper-bound">
-									{container} upper bound
-								</label>
-								<div class={classes.flexWrapJoiner}>
-									<input
-										class={classes.input}
-										{...register('containerUpperBound')}
-										id="container-upper-bound"
-										disabled
-										type="number"
-										step="0.01"
-										placeholder="1440"
-										min="0"
-										required
-									/>
-									<Code>px</Code>
-								</div>
+					<li class={classes.listItem}>
+						<div class={classes.stepContainer}>
+							<label class={classes.label} for="element-upper-bound">
+								<Code>{cssProperty}</Code> at upper bound
+							</label>
+							<div class={classes.flexWrapJoiner}>
+								<input
+									class={classes.input}
+									{...register('elementUpperBound')}
+									id="element-upper-bound"
+									disabled={isDisabled}
+									type="number"
+									step="0.01"
+									placeholder="80"
+									required
+								/>
+								<Code>{unit}</Code>
 							</div>
-						</li>
-					</ol>
-					<button class={classes.button} type="submit" disabled>
-						Generate and copy to clipboard
-					</button>
-					<button hidden type="button"></button>
-					<button class={classes.button} type="reset" disabled onClick={() => reset()}>
-						Reset
-					</button>
-					<output class={classes.output} aria-live="assertive" role="alert">
-						{isSubmitted && (
-							<Fragment>
-								<span class={classes.notification}>{renderNotification()}</span>
-								<CodeBlock ref={resultContainer} class={classes.result}>
-									{generateCss(getValues())}
-								</CodeBlock>
-							</Fragment>
-						)}
-					</output>
-				</form>
-			</Section>
-		</div>
+						</div>
+					</li>
+
+					<li class={classes.listItem}>
+						<div class={classes.stepContainer}>
+							<label class={classes.label} for="container-upper-bound">
+								{container} upper bound
+							</label>
+							<div class={classes.flexWrapJoiner}>
+								<input
+									class={classes.input}
+									{...register('containerUpperBound')}
+									id="container-upper-bound"
+									disabled={isDisabled}
+									type="number"
+									step="0.01"
+									placeholder="1440"
+									min="0"
+									required
+								/>
+								<Code>px</Code>
+							</div>
+						</div>
+					</li>
+				</ol>
+				<button class={classes.button} type="submit" disabled={isDisabled}>
+					Generate and copy to clipboard
+				</button>
+				<button hidden type="button"></button>
+				<button class={classes.button} type="reset" disabled={isDisabled} onClick={() => reset()}>
+					Reset
+				</button>
+				<output class={classes.output} aria-live="assertive" role="alert">
+					{isSubmitted && (
+						<Fragment>
+							<span class={classes.notification}>{renderNotification()}</span>
+							<CodeBlock ref={resultContainer} class={classes.result}>
+								{generateCss(getValues())}
+							</CodeBlock>
+						</Fragment>
+					)}
+				</output>
+			</form>
+		</Section>
 	)
 }

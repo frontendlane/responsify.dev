@@ -17,7 +17,7 @@ export const Intro: FunctionalComponent = () => {
 					<i class={classes.termType}>verb</i>
 					{`
         `}
-					To make an HTML element fluidly adapt to changes in viewport size
+					to make an HTML element fluidly adapt to changes in viewport size
 				</blockquote>
 			</pre>
 			<p class="vertical-spacing">

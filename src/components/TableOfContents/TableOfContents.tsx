@@ -94,7 +94,7 @@ export const headings: Headings = {
 		),
 	},
 	h2_4: {
-		id: 'form-title',
+		id: 'form',
 		element: 'h2',
 		renderContent: () => (
 			<Fragment>

@@ -3,6 +3,7 @@ import type { FunctionalComponent } from 'preact'
 import classes from './ComparisonTable.module.css'
 import { Code } from '../Code/Code'
 import { Link } from '../Link/Link'
+import { headings } from '../TableOfContents/TableOfContents'
 
 export const ComparisonTable: FunctionalComponent = () => {
 	return (
@@ -24,7 +25,7 @@ export const ComparisonTable: FunctionalComponent = () => {
 							<Link href="https://codepen.io/andi1984/pen/yJARkv">CSS locks Sass function</Link>
 						</td>
 						<td class={classes.td}>
-							<Link href="#sass-function">Responsify Sass function</Link>
+							<Link href={`#${headings.h2_5.id}`}>Responsify Sass function</Link>
 						</td>
 					</tr>
 					<tr class={classes.tr}>
