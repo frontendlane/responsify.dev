@@ -47,7 +47,8 @@ export const Examples: FunctionalComponent = () => {
 				<p class="vertical-spacing">
 					You want to gradually transition between these two values so you reserve, let's say, the 900px - 1024px
 					range to smooth this out. You add another media query with the magic 🪄 <Code>calc()</Code> value that
-					you generate using the <Link href="#form">responsify form</Link> below and you're done! 🎉
+					you generate using the <Link href={`#${headings.h2_4.id}`}>responsify form</Link> below and you're done!
+					🎉
 				</p>
 				<CodeBlock>
 					@media (min-width: 900px) and (max-width: 1023px) &#123;
@@ -172,7 +173,8 @@ export const Examples: FunctionalComponent = () => {
 				</CodeBlock>
 				<p class="vertical-spacing">
 					By using <Code>min()</Code> you can do away with media query <em>and</em> you're not limited to{' '}
-					<Code>width</Code> and <Code>height</Code> like in <Link href="#example-3">Example 3</Link>. 💯
+					<Code>width</Code> and <Code>height</Code> like in <Link href={`#${headings.h3_3.id}`}>Example 3</Link>.
+					💯
 				</p>
 			</Section>
 

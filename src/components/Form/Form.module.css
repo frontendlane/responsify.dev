@@ -1,5 +1,6 @@
 @media (scripting: none) {
 	.noscript {
+		margin-block-start: var(--vertical-spacing);
 		display: block;
 		padding-block: var(--vertical-spacing);
 		border-block: 0.5em double;
@@ -26,34 +27,11 @@
 	margin-block-start: calc(var(--vertical-spacing) / 2);
 }
 
-.form {
-	position: relative; /* needed for :active, :focus-within but placed here because <select> doesn't open on first click otherwise */
-	pointer-events: none;
-}
-@media (scripting: none) {
-	.form {
-		pointer-events: auto;
-	}
-
-	.form:active {
-		position: static;
-		z-index: auto;
-		background-color: transparent;
-		box-shadow: none;
-		border-radius: 0;
-	}
+.formContainer {
+	margin-block-start: calc(var(--vertical-spacing) * 1.5);
 }
 
-/* form highlights when clicking on the heading... */
-/* find a way to avoid element selectors */
-.form :where(h2, h2 + span, .label, .input, .select, .button, .output) {
-	pointer-events: all;
-}
-
-/* TODO: think about this more deeply, do i just focus on the first input field with JS on page load?? */
-/* .form:target, */
-.form:active,
-.form:focus-within {
+.formContainer:focus-within {
 	z-index: 1;
 	background-color: var(--light);
 	box-shadow: 0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--light),
@@ -61,12 +39,19 @@
 	border-radius: var(--block-border-radius);
 }
 @media (prefers-color-scheme: dark) {
-	/* .form:target, */
-	.form:active,
-	.form:focus-within {
+	.formContainer:focus-within {
 		background-color: var(--near-black);
 		box-shadow: 0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--near-black),
 			0 0 0 var(--horizontal-spacing) var(--light), 0 0 0 12345vmax #20202080; /* #20202080 === var(--dark) + alpha */
+	}
+}
+@media (scripting: none) {
+	.formContainer:focus-within {
+		position: static;
+		z-index: auto;
+		background-color: transparent;
+		box-shadow: none;
+		border-radius: 0;
 	}
 }
 

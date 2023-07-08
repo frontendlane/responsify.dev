@@ -1,5 +1,6 @@
 import type { FunctionalComponent } from 'preact'
 import { Link } from './Link/Link'
+import { headings } from './TableOfContents/TableOfContents'
 
 export const Updates: FunctionalComponent = () => {
 	return (
@@ -12,7 +13,7 @@ export const Updates: FunctionalComponent = () => {
 			<dd>
 				Today I learned that responsify is a rediscovery of{' '}
 				<Link href="https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/">CSS locks</Link>. 🤦‍♂️
-				Read the <Link href="#comparison">comparison between CSS locks and responsify</Link>.
+				Read the <Link href={`#${headings.h2_7.id}`}>comparison between CSS locks and responsify</Link>.
 			</dd>
 		</dl>
 	)
