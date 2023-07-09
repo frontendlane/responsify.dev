@@ -10,9 +10,7 @@
 .blockquote {
 	display: inline-block; /* must be inline-block in order to have padding on the right hand side when horizontally scrolling on mobile */
 	border-inline-start: calc(var(--horizontal-spacing) / 2) solid var(--accent);
-	/* TODO: padding-inline should var(--horizontal-spacing) not .75em, except for padding-left which should be half of that because of border */
-	/* TODO: maybe halve that vertical spacing?? */
-	padding: var(--vertical-spacing) 0.75em;
+	padding: calc(var(--vertical-spacing) * 0.75) calc(var(--horizontal-spacing) * 0.75);
 	color: var(--light);
 }
 @media (prefers-color-scheme: dark) {

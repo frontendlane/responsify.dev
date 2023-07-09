@@ -54,7 +54,7 @@
 	content: 'width: 90%;';
 	border-radius: var(--inline-border-radius);
 	background-color: var(--code-background-dark);
-	color: #ffa26b;
+	color: var(--code-color-light);
 	font-family: monospace;
 	outline: 1px solid var(--light);
 	padding: calc(var(--vertical-spacing) / 2) var(--horizontal-spacing);

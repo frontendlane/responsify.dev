@@ -3,9 +3,9 @@ import type { JSXInternal } from 'preact/src/jsx'
 import type { Ref } from 'preact'
 import { forwardRef } from 'preact/compat'
 
-type Props = JSXInternal.HTMLAttributes<HTMLPreElement>
+type CodeBlockProps = JSXInternal.HTMLAttributes<HTMLPreElement>
 
-export const CodeBlock = forwardRef(({ class: className, children }: Props, ref: Ref<HTMLPreElement>) => {
+export const CodeBlock = forwardRef(({ class: className, children }: CodeBlockProps, ref: Ref<HTMLPreElement>) => {
 	return (
 		<pre class={`${classes.preBlock} ${className || ''}`} ref={ref}>
 			<code class={classes.blockCode}>{children}</code>

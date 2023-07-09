@@ -18,11 +18,21 @@
 }
 
 .thead {
-	border-bottom: 2px solid #4d4d4d;
+	border-bottom: 2px solid var(--input-border-light);
+}
+@media (prefers-color-scheme: dark) {
+	.thead {
+		border-bottom-color: var(--input-border-dark);
+	}
 }
 
 .tbody {
-	border-top: 2px solid #4d4d4d;
+	border-top: 2px solid var(--input-border-light);
+}
+@media (prefers-color-scheme: dark) {
+	.tbody {
+		border-top-color: var(--input-border-dark);
+	}
 }
 
 .tbody > .tr:nth-of-type(2n + 1) {
@@ -36,8 +46,14 @@
 
 .th,
 .td {
-	border: 1px solid #4d4d4d;
+	border: 1px solid var(--input-border-light);
 	padding: calc(var(--vertical-spacing) / 4) calc(var(--horizontal-spacing) / 4);
+}
+@media (prefers-color-scheme: dark) {
+	.th,
+	.td {
+		border-color: 1px solid var(--input-border-dark);
+	}
 }
 
 .th[colspan]:not([colspan='']),
