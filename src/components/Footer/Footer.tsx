@@ -1,15 +1,21 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useMemo, useState } from 'preact/hooks'
 import { Link } from '../Link/Link'
 import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
 import { Fragment, type FunctionalComponent } from 'preact'
 import classes from './Footer.module.css'
 import { assertUnreachable } from '../../utils/assertUnreachable'
+import { Button } from '../../ui/Button'
 
 type NotificationStatus = 'hidden' | 'success' | 'error'
 
 export const Footer: FunctionalComponent = () => {
 	const [notificationStatus, setNotificationStatus] = useState<NotificationStatus>('hidden')
+	const [isFirstRender, setIsFirstRender] = useState(true)
+
+	useEffect(() => {
+		setIsFirstRender(false)
+	}, [])
 
 	const renderNotification = () => {
 		switch (notificationStatus) {
@@ -18,6 +24,7 @@ export const Footer: FunctionalComponent = () => {
 			case 'success':
 				return 'Copied'
 			case 'error':
+				// TODO: verify that all platforms support this way of copying to clipboard. still customize the error message copy
 				return (
 					<Fragment>
 						Press{' '}
@@ -63,15 +70,14 @@ export const Footer: FunctionalComponent = () => {
 						<output class={classes.emailNotification} id="email-notification" aria-live="polite" role="status">
 							{renderNotification()}
 						</output>
-						<button
-							class="button"
-							disabled
+						<Button
+							disabled={isFirstRender}
 							onClick={() =>
 								navigator.clipboard.writeText(a11yEmailAddress).then(clipboardSuccess, clipboardError)
 							}
 						>
 							Copy email address
-						</button>
+						</Button>
 					</div>
 				</div>
 			</Section>

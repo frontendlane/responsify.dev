@@ -7,16 +7,20 @@
 	--font-size-h3: calc(1rem * var(--golden-ratio) * var(--mobile-multiplier));
 	--link-underline-thickness: 0.06em;
 
-	/* TODO: just use white keyword for white, ditch --white */
 	--white: #fff;
+	--pitch-black: #080808;
 	--black: #080808;
 	--near-black: #181818;
 	--dark: #202020;
 	--light: #e0e0e0;
 	--near-white: #eee;
 	--code-background-dark: #2a2d2e;
+	--code-color-light: #ffa26b;
 	--code-color-dark: #ff9359;
 	--accent: #3296fa;
+	--yellow: yellow;
+	--input-border-light: #dadada;
+	--input-border-dark: #4d4d4d;
 }
 
 @media (width >= 1024px) {

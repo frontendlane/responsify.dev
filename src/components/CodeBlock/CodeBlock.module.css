@@ -8,9 +8,8 @@
 
 .blockCode {
 	display: inline-block; /* must be inline-block in order to have padding on the right hand side when horizontally scrolling on mobile */
-	/* TODO: maybe halve that vertical spacing?? */
-	padding: var(--vertical-spacing) 0.75em;
-	color: #ffa26b;
+	padding: calc(var(--vertical-spacing) * 0.75) 0.75em;
+	color: var(--code-color-light);
 }
 @media (prefers-color-scheme: dark) {
 	.blockCode {

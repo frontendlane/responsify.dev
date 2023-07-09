@@ -160,25 +160,6 @@ summary::marker {
 	white-space: normal; /* eliminates white space between arrow and text */
 }
 
-/* TODO: add shadow on buttons: https://www.joshwcomeau.com/css/designing-shadows/ */
-button {
-	display: block;
-	margin-block-start: var(--vertical-spacing);
-	border: 1px solid;
-	padding: 0.75em 1.5ch;
-	background-color: var(--white);
-	border-radius: var(--block-border-radius);
-}
-button:not([disabled]):active {
-	background-color: transparent;
-}
-@media (prefers-color-scheme: dark) {
-	button {
-		color: var(--light);
-		background-color: var(--black);
-	}
-}
-
 button[disabled] {
 	opacity: 0.3;
 }

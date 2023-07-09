@@ -28,6 +28,7 @@
 }
 
 .formContainer {
+	position: relative;
 	margin-block-start: calc(var(--vertical-spacing) * 1.5);
 }
 
@@ -69,14 +70,13 @@
 	padding: 0 0.25ch;
 	color: var(--dark);
 	background-color: var(--white);
-	border: 1px solid #dadada;
+	border: 1px solid var(--input-border-light);
 }
 @media (prefers-color-scheme: dark) {
 	.input {
 		color: var(--light);
 		background-color: var(--black);
-		/* TODO: add --input-border-color: #4d4d4d; */
-		border-color: #4d4d4d;
+		border-color: var(--input-border-dark);
 	}
 }
 .input[disabled] {
@@ -133,13 +133,13 @@
 	padding-inline: 0.25ch;
 	background-color: var(--white);
 	color: var(--dark);
-	border: 1px solid #dadada;
+	border: 1px solid var(--input-border-light);
 }
 @media (prefers-color-scheme: dark) {
 	.select {
 		background-color: var(--black);
 		color: var(--light);
-		border-color: #4d4d4d;
+		border-color: var(--input-border-dark);
 	}
 }
 
@@ -199,7 +199,7 @@
 	padding-inline: 0.25ch;
 	border-radius: var(--inline-border-radius);
 	background-color: var(--code-background-dark);
-	color: yellow;
+	color: var(--yellow);
 }
 
 .result > code {

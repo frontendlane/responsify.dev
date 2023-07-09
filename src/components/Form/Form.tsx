@@ -5,7 +5,6 @@ import { DataList } from '../DataList'
 import { Section } from '../Section'
 import classes from './Form.module.css'
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
-import { createElement } from '../../scripts/domInteraction'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,6 +12,7 @@ import { CodeBlock } from '../CodeBlock/CodeBlock'
 import { generateCss } from './generate'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import { Link } from '../Link/Link'
+import { Button } from '../../ui/Button'
 
 const longTaskDurationAsDefinedByGoogleWebVitals = 50
 
@@ -76,18 +76,7 @@ export const Form: FunctionComponent = () => {
 
 	useEffect(() => {
 		setIsFirstRender(false)
-		window.addEventListener('error', (error) => {
-			setWindowError(error.message)
-			// TODO: should I wrap all of this code in a try catch block so as to prevent an infinite call stack??
-			window.document.head.append(
-				// @ts-ignore
-				createElement(
-					'style',
-					{},
-					`.form :where(.a, .label, .input, .select, .button, .output) {pointer-events: revert;}`
-				)
-			)
-		})
+		window.addEventListener('error', (error) => setWindowError(error.message))
 	}, [])
 
 	const renderNotification = () => {
@@ -98,6 +87,7 @@ export const Form: FunctionComponent = () => {
 				return 'Copied'
 			case 'error':
 				return (
+					// TODO: verify that all platforms support this way of copying to clipboard. still customize the error message copy
 					<Fragment>
 						Press{' '}
 						<kbd class={classes.kbd}>
@@ -298,13 +288,12 @@ export const Form: FunctionComponent = () => {
 						</div>
 					</li>
 				</ol>
-				<button class={classes.button} type="submit" disabled={isDisabled}>
+				<Button type="submit" disabled={isDisabled}>
 					Generate and copy to clipboard
-				</button>
-				<button hidden type="button"></button>
-				<button class={classes.button} type="reset" disabled={isDisabled} onClick={() => reset()}>
+				</Button>
+				<Button type="reset" disabled={isDisabled} onClick={() => reset()}>
 					Reset
-				</button>
+				</Button>
 				<output class={classes.output} aria-live="assertive" role="alert">
 					{isSubmitted && (
 						<Fragment>
