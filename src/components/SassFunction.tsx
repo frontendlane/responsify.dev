@@ -9,12 +9,7 @@ export const SassFunction: FunctionalComponent = () => {
 		<Section class="vertical-spacing-150-percent" heading={headings.h2_5}>
 			<p class="vertical-spacing">
 				You can use responsify as a Sass <Code>@function</Code>.{' '}
-				<Link
-					href="/_responsify.scss.zip"
-					download="_responsify.scss.zip"
-					data-fileFormat=".zip"
-					data-fileSize="1,170 bytes"
-				>
+				<Link href="/_responsify.scss.zip" download data-fileFormat=".zip" data-fileSize="1,170 bytes">
 					Download <Code>_responsify.scss</Code>
 				</Link>
 				, unzip it, and import it to your root Sass file. Usage examples are included in the file.
