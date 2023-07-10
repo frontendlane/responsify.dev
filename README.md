@@ -12,95 +12,44 @@ Source code for https://responsify.dev.
     -   Zod
 -   TypeScript
 -   PostCSS (postcss language support vs code extension)
+    -   `cssnano-preset-default` only does safe transforms
 -   CSS modules
 -   Axe
 -   Percy
 -   Cloudflare Registrar
 -   Cloudflare Pages
+    -   https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/
+        -   does nvm need to be installed??
+        -   for development I'm fine with using nvm because I'll continue using it in the future. for deployment it's unnecessary to have nvm, I can just install the node version I need, especially if it's being deployed in a CI/CD pipeline that discards the build environment after building the site. more research needed here
 -   Google Search Console
 
 vanilla-extract to replace PostCSS and CSS modules at some point in the future
 
 ## Notes
 
--   https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.md
+-   meta tags
+-   favicon
+
+-   responsify demo page
 -   ensure clipboard works on all sorts of devices and that clipboard.js dependency is removed
--   move all astro components to Preact
--   astro file download bug: name needs to be supplied
--   astro plugin that appends <link> with all styles @media (scripting: none)
--   missing dependencies when pnpm install
+-   eslint
+    -   https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.md
 -   improve typescript usage: https://docs.astro.build/en/guides/imports/#typescript
 -   browserslist??
+    -   per https://github.com/browserslist/browserslist/issues/492#issuecomment-640254935, no need to update caniuse-lite database, rather update all dependencies before `yarn run build:prod`
+-   datalist from https://www.w3.org/Style/CSS/all-properties.en.json
+    -   const propertyNames = new Set(response.map(property => property.property));
+-   (astro?) plugin that appends <link> with all styles @media (scripting: none)
 -   // TODO: ship source map in production as well https://www.ctrl.blog/entry/deploy-javascript-source-maps.html
--   hover over anchors shows tooltip
--   extract reusable components to ui folder and keep content-components in components
-
 -   optimize the page for reader view
 -   accessibility and privacy as separate pages??
 -   disable astro telemetry
     `astro telemetry disable`
     `ASTRO_TELEMETRY_DISABLE=1`
--   I thought that video shouldn't go to the top of the page because there it would always visible and would distract repeat visitors. but, when i implement linkable sections then repeat visitors should bookmark the #form to avoid being distracted by the intro video. alternatively, index.html can become an iframe, and the landing page can become intro.html
--   postcss
-    -   used in place of Sass/SCSS
-    -   processes styles via `postcss-cli` because doing via webpack would create a dependency on JavaScript for styles to be loaded
--   `browserslist` added to package.json for clarity
--   form design
-    -   no js: disabled attribute on all form controls in HTML
-    -   js: store everything to localStorage and read from there
--   per https://github.com/browserslist/browserslist/issues/492#issuecomment-640254935, no need to update caniuse-lite database, rather update all dependencies before `yarn run build:prod`
+-   missing dependencies when `npm install` or `pnpm install`
 -   put/use trailing slash in URLs
--   create development and production builds
-    -   development build should have source maps
-        -   postcss
-            -   --map / --no-map
-            -   --verbose to let you know when a build occurs
--   Naming pairs
-    -   **shared - individual** (used in this project to distinguish between code that's reused and not)
-    -   general - specific
-    -   global - local
-    -   public - private
-    -   core - edge
-    -   common - rare
-    -   previous - next
-    -   preceding - following
-
-# extract out of this project to anki?? or somewhere else
-
--   radio and checkbox `<input>`s should be inside the `<label>` so the space between is clickable
--   constants.ts universal truths or front-end truths??
--   `border-radius` on `<video>` in Firefox changes video colors
--   submit button on iphone is bolded
 
 ## Todos
-
-### move to astro
-
--   add to documentation a note about styling content that will be hydrated or only rendered on the client: https://zellwk.com/blog/overcoming-astro-styling-frustrations/
--   move to astro
-    -   postcss.config.cjs + .brwoserslistrc + package.json(devDependencies + scripts) + shell-scripts
-        -   cssnano-preset-default preset does only safe transforms
-    -   cloudflare
-        -   does nvm need to be installed??
-        -   remove CNAME file
--   keep
-    -   unorphan
-    -   form initial values (necessary because user preference is stored in local/session storage)
-    -   enable form controls
-    -   event listeners
-        -   submit
-        -   reset
-        -   copy email
-        -   form change
--   remove
-    -   restore users position seems unnecessary and buggy on top of that
-    -   init.sh
-    -   remoe zsh from shell scripts
--   todo
-    -   .npmrc vs .nvmrc
-    -   pnpm.io/npmrc
-    -   for development I'm fine with using nvm because I'll continue using it in the future. for deployment it's unnecessary to have nvm, I can just install the node version I need, especially if it's being deployed in a CI/CD pipeline that discards the build environment after building the site. more research needed here
-        -   nvm should be installed via homebrew
 
 ### this commit
 
@@ -317,15 +266,15 @@ _Note: currently using npm instead of pnpm until this issue is resolved: https:/
 
 ## Astro
 
+-   add to documentation a note about styling content that will be hydrated or only rendered on the client: https://zellwk.com/blog/overcoming-astro-styling-frustrations/
+
 ## TypeScript
 
 ## Preact
 
-Astro + Prettier doesn't handle whitespaces the same way (correct way) that it does in React/Preact components. Hence, only use Astro components for pages. Do not place any content in Astro components precisely because of the whitespace rendering issues. All content must originate from Preact components.
+Astro + Prettier doesn't handle whitespaces the same way (correct way) compared to how React/Preact + Prettier. Hence, only use Astro components for pages. Do not place any content in Astro components precisely because of the whitespace rendering issues. All content should originate from Preact components.
 
 preact dev tools: https://preactjs.github.io/preact-devtools
-
-## Netlify + Netlify Forms
 
 ## 🧞 Commands
 
