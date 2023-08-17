@@ -18,7 +18,11 @@ import './Index.css'
 import '../styles/overrides.css'
 
 // TODO: inject this into package.json and manifest as well
-const responsifyOneLiner = 'Responsify: Smooth out layout jumps at breakpoints'
+const title = 'Responsify: Smooth out layout jumps at breakpoints'
+const pageDescription =
+	'Responsify is the name of a CSS technique that helps you smooth out layout jumps when your users resize the page.'
+// TODO: does this work? where does URL constructor come from??
+// const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 ---
 
 <!DOCTYPE html>
@@ -26,9 +30,25 @@ const responsifyOneLiner = 'Responsify: Smooth out layout jumps at breakpoints'
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<title>{responsifyOneLiner}</title>
-		<!-- TODO: use something else for description, then use that same thing in package.json -->
-		<meta name="description" content={responsifyOneLiner} />
+
+		<title>{title}</title>
+		<meta name="description" content={pageDescription} />
+
+		<link rel="canonical" href="https://responsify.dev" />
+
+		<!-- 1200 x 630 ideal resolution according to https://iamturns.com/open-graph-image-size/ -->
+		<!-- <meta property="og:image" content="https://responsify.dev/og-image.png" /> -->
+		<!-- TODO: One of image/jpeg, image/gif or image/png -->
+		<!-- <meta property="og:image:type" content="" /> -->
+		<!-- <meta property="og:image:width" content="xx" /> -->
+		<!-- <meta property="og:image:height" content="xx" /> -->
+
+		<!-- TODO: must be video/mp4 -->
+		<!-- <meta property="og:video" content="https://responsify.dev/og-video.mov" /> -->
+		<!-- <meta property="og:video:secure_url" content="https://responsify.dev/og-video.mov" /> -->
+		<!-- <meta property="og:video:type" content="video/mp4" /> -->
+		<!-- <meta property="og:video:width" content="xx" /> -->
+		<!-- <meta property="og:video:height" content="xx" /> -->
 	</head>
 	<body>
 		<main aria-labelledby={headings.h1.id}>
@@ -48,7 +68,7 @@ const responsifyOneLiner = 'Responsify: Smooth out layout jumps at breakpoints'
 
 				<Examples />
 
-				<Form client:idle />
+				<Form client:visible />
 
 				<SassFunction />
 
@@ -60,7 +80,7 @@ const responsifyOneLiner = 'Responsify: Smooth out layout jumps at breakpoints'
 			</article>
 		</main>
 
-		<Footer client:idle />
+		<Footer client:visible />
 
 		<Unorphan client:only="preact" />
 	</body>

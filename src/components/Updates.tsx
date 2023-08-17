@@ -12,8 +12,9 @@ export const Updates: FunctionalComponent = () => {
 			</dt>
 			<dd>
 				Today I learned that responsify is a rediscovery of{' '}
-				<Link href="https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/">CSS locks</Link>. 🤦‍♂️
-				Read the <Link href={`#${headings.h2_7.id}`}>comparison between CSS locks and responsify</Link>.
+				<Link href="https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/">CSS locks</Link>.{' '}
+				<span aria-hidden="true">🤦‍♂️</span> Read the{' '}
+				<Link href={`#${headings.h2_7.id}`}>comparison between CSS locks and responsify</Link>.
 			</dd>
 		</dl>
 	)

@@ -2,35 +2,22 @@
 
 Source code for https://responsify.dev.
 
-## Tech stack
+## Todos
 
--   `nvm use` (make sure you're using the correct Node version, cannot be automated as part of package.json script)
--   VS Code (extensions, etc.)
--   Astro
--   Preact
-    -   React Form Hook
-    -   Zod
--   TypeScript
--   PostCSS (postcss language support vs code extension)
-    -   `cssnano-preset-default` only does safe transforms
--   CSS modules
--   Axe
--   Percy
--   Cloudflare Registrar
--   Cloudflare Pages
-    -   https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/
-        -   does nvm need to be installed??
-        -   for development I'm fine with using nvm because I'll continue using it in the future. for deployment it's unnecessary to have nvm, I can just install the node version I need, especially if it's being deployed in a CI/CD pipeline that discards the build environment after building the site. more research needed here
--   Google Search Console
-
-vanilla-extract to replace PostCSS and CSS modules at some point in the future
-
-## Notes
+- either replace breakpoint or smooth out the transition...
+- readme.md should also include the version of the project (ideally the same as in package.json)
 
 -   meta tags
 -   favicon
 
 -   responsify demo page
+    -   https://www.freecodecamp.org/news/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862/
+-   pressing reset button after generating css code produces a bug in firefox (bug is in the intersection of following things: my laptop, firefox/safari, and <pre> being inside <output>, preact? vs react?)
+-   fix sass function zip including "public" folder
+-   404 page
+-   flip the order in the table, put Responsify first. Change the table caption to Responsify vs CSS locks
+-   skip link to the form
+-   `:any-link` instead of `a` (this probably only needs fixing in reset.scss and globals.pcss)
 -   ensure clipboard works on all sorts of devices and that clipboard.js dependency is removed
 -   eslint
     -   https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.md
@@ -48,46 +35,18 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
     `ASTRO_TELEMETRY_DISABLE=1`
 -   missing dependencies when `npm install` or `pnpm install`
 -   put/use trailing slash in URLs
-
-## Todos
-
-### this commit
-
--   pressing reset button after generating css code produces a bug
--   `:any-link` instead of `a` (this probably only needs fixing in reset.scss and globals.pcss)
--   fix sass function not being downloadable
 -   .link::before: https://www.stefanjudis.com/today-i-learned/box-decoration-break-helps-to-define-how-elements-should-be-rendered-across/
-
 -   dark theme
     -   https://twitter.com/__jakub_g/status/1478847423913107456
     -   https://web.dev/color-scheme/#background
     -   https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
--   move to 11ty
-
-    -   https://www.aleksandrhovhannisyan.com/blog/eleventy-the-good-the-bad-and-the-possum/
-    -   https://www.11ty.dev/docs/tutorials/
-    -   https://www.11ty.dev/docs/samples/
-
-    typescript https://github.com/c0derabbit/eleventy-starter-typescript/
-    typescript, postcss https://github.com/cbergen/11ty-nostrils
-    typescript, css modules https://github.com/cbergen/11ty-nostrils
-    postcss https://github.com/philhawksworth/eleventyone
-    cache busting https://github.com/deviousdodo/elevenpack
-    11ty.js https://github.com/brycewray/eleventy_solo_starter_njk
-    11ty.js https://gitlab.com/reubenlillie/eleventy-dot-js-blog#readme
-    webp https://github.com/gregives/twelvety
-    rss https://github.com/equinusocio/xity-starter
-    rss https://github.com/Ewan-D/beginnersBase11ty
-    eslint, prettier, postcss https://github.com/ixartz/Eleventy-Starter-Boilerplate/
-
--   unorphan: if either of the words surrounding the non-breaking space are longer than 1/4 of the parent's width then don't unorphan
-    -   https://frontendfoc.us/link/129367/web
-    -   https://cloudfour.com/thinks/responsive-headlines-are-about-to-get-awesome/
+-   hyphenation: https://frontendfoc.us/link/129367/web
+-   https://cloudfour.com/thinks/responsive-headlines-are-about-to-get-awesome/
 -   overflowing `<pre>` seem to need tabindex on safari for scrolling
 -   https://modern-fluid-typography.vercel.app/
 -   video
 
-    -   narrate the video
+    -   narrate the video?
     -   create a shell script that generates all the formats
     -   record only in dark theme
     -   avc (h.264) [containers: 3GP, MP4]
@@ -114,8 +73,8 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
         -   `poster="data:image/svg+xml,<svg><foreignObject><picture><source …/>…</picture></foreignObject></svg>"`
         -   ask utopia guys what breakpoints they use for responsive images. because those only work with specific resolutions what do they use?? an option for me is to have one at every 100px
 
--   https://zellwk.com/blog/publish-to-npm/
 -   better comparison with css locks:
+    -   add a note that responsify can't work with properties that accept non-number values (also, remove these values from the CSS property form input)
     -   https://chrisburnell.com/clamp-calculator/
         -   https://tbrown.org/notes/2012/02/03/molten-leading-or-fluid-line-height/ 3 February 2012
         -   https://css-tricks.com/viewport-sized-typography/ 30 April, 2012
@@ -136,9 +95,6 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
     -   https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
     -   https://www.smashingmagazine.com/2022/08/fluid-sizing-multiple-media-queries/
     -   https://min-max-calculator.9elements.com/
-
-### next commit
-
 -   tabindex on `<pre>` for chrome
 -   add postcss plugin that supports vi and vb units
 -   https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/
@@ -149,21 +105,14 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
         -   class
         -   id
 -   system font stack
+	- https://news.ycombinator.com/item?id=35150345
 -   :hover on interactives needs to be perceivable: box-shadow maybe??
     -   joshwcomeau.com/shadow-palette/
     -   hover on link isn't perceivable
 -   input, select, checkbox border color is not standardized
-
-### future commits
-
 -   get types for classes imported from css modules: ts-css-modules-vite-plugin
--   extract styles into a classless css
+-   extract styles into a classless css (should I???)
     -   https://github.com/dbox/html5-kitchen-sink/
--   extract unorphan into a separate npm package
-    -   WONTFIX: unorphaning `display: none;` elements
-    -   WONTFIX: do this for CSS content as well
-    -   there's a different way to unrphan and that's with `<br>`. replace penultimate whitespace with `<br>`, assign it an `id` possibly and style it with media queries
-    -   https://mnater.github.io/Hyphenopoly/
 -   Chrome and Safari differently/incorrectly handle 100% width on ::before pseudo-element
 -   linter for http URLs (should be https)
 -   automatically generate table of contents
@@ -171,16 +120,11 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
 -   input[type="number"] doesn't support localized comma for decimal separator (investigate and look for possible solution in https://www.ctrl.blog/entry/html5-input-number-localization.html)
 -   hotlink protection??
 -   add csp?? https://www.ctrl.blog/entry/safari-csp-media-controls.html
--   break down each section into its own \*.specifics.pcss file
--   use leading underscore to indicate pcss partials that shouldn't be converted into `.css` e.g. `_examples.specifics.pcss`
--   `pages` script should only copy .html files
--   `assets-videos` script should only copy .mov files
--   go through pcss file and catalogue every color (move to CSS custom properties). colors in pcss should not be expressed in hex values
 -   kbd styles can be improved
 -   add diagonal colored background bars on .noscript and .js-error with infinite animation
 -   every section heading should show you how to copy URl to that section, kinda like GitHub does it, but is it the most accessible solution??
--   if URL contains hash that points to form then focus the first input field
--   Self-hosted on a 2013 MacBook Pro. will it??
+-   if URL contains hash that points to form then focus the first input field??
+-   https://www.erikkroes.nl/blog/the-universal-focus-state/#show-me-how
 -   publish postcss as `responsify` or `@fel/responsify` package.json
     -   https://github.com/bramstein/postcss-scale
         -   contribute to the plugin by fixing issues
@@ -193,7 +137,6 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
 -   differentiate between soft and hard reload using service worker (response 200 vs 304)
     -   clear the form on hard reload
     -   state of details open vs close should be kept in sessionStorage??
--   focus restoration: restore window.document.activeElement if there is one. if not then focus the form
 -   use jest for testing, and inside it use puppeteer, not jsdom
 -   test aria-atomic
 -   update `__responsify.scss` to support `ch`
@@ -236,13 +179,11 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
     -   restrict the width of the input to the length of the longest CSS property (puppeteer)
     -   dynamically pull list of CSS properties from official website and add the date of which the list is updated to the footer or some other place
         -   filter out properties that cannot accept a px value
--   favicon
--   why does webpack transform `while` loop to `for` loop when it shouldn't??
 -   https://github.com/browserslist/browserslist
--   remove unnecessary package.json properties
 -   graphical input: two-axis graph with x axis from 320 to maximum supported viewport with dropdown to select vw or %, left y axis from -100 to +100 with dropdown to select unit and right y axis with a different unit that spans the same distance as the left one (actually those two are in sync, if one changes the other changes as well). and you can add points, move them around. you can also select your target browser support list so that certain options are excluded from the generated code e.g. instead of clamp() @media query is used
 -   code block: http://midasjs.com/
     -   https://shiki.matsu.io/
+    -   prism.js
 -   copy to clipboard and other notifications: https://codepen.io/jkantner/pen/XWzePgp
 -   reset.pcss
     https://baymard.com/blog/line-length-readability
@@ -252,31 +193,52 @@ vanilla-extract to replace PostCSS and CSS modules at some point in the future
     https://www.trysmudford.com/blog/a-good-reset/
     https://www.joshwcomeau.com/css/custom-css-reset/#digit-tweaking-line-height
 
-# Technologies
+## Technologies
 
-## Node + nvm (via homebrew)
+-   `nvm use` (make sure you're using the correct Node version, cannot be automated as part of package.json script)
+-   VS Code (or VS Codium) (extensions, etc.)
+- GitHub
+-   TypeScript
+-   PostCSS (postcss language support vs code extension)
+    -   `cssnano-preset-default` only does safe transforms
+-   CSS modules
+-   Axe
+-   Percy
+-   Cloudflare Registrar
+-   Cloudflare Pages
+    -   https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/
+        -   does nvm need to be installed??
+        -   for development I'm fine with using nvm because I'll continue using it in the future. for deployment it's unnecessary to have nvm, I can just install the node version I need, especially if it's being deployed in a CI/CD pipeline that discards the build environment after building the site. more research needed here
+-   Google Search Console
+
+vanilla-extract to replace PostCSS and CSS modules at some point in the future
+
+### Node + nvm (via homebrew)
 
 Version 19.8.1
 
-## pnpm
+### pnpm
 
 Version 7.30.5
 
 _Note: currently using npm instead of pnpm until this issue is resolved: https://github.com/pnpm/pnpm/issues/6759_
 
-## Astro
+### Astro
 
 -   add to documentation a note about styling content that will be hydrated or only rendered on the client: https://zellwk.com/blog/overcoming-astro-styling-frustrations/
 
-## TypeScript
+### TypeScript
 
-## Preact
+### Preact
 
 Astro + Prettier doesn't handle whitespaces the same way (correct way) compared to how React/Preact + Prettier. Hence, only use Astro components for pages. Do not place any content in Astro components precisely because of the whitespace rendering issues. All content should originate from Preact components.
 
 preact dev tools: https://preactjs.github.io/preact-devtools
 
-## 🧞 Commands
+-   React Form Hook
+-   Zod
+
+### 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
 

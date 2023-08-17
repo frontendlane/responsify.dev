@@ -10,3 +10,5 @@ module.exports = () => ({
 		cssnano: { preset: ['cssnano-preset-default'] },
 	},
 })
+
+// even for postcss files the name of prettier's parser is `css`
