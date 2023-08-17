@@ -22,7 +22,7 @@
 	"scripts": {
 		"update": "pnpm install && npx npm-check-updates -u && rm -rf node_modules && rm pnpm-lock.yaml && pnpm install",
 		"dev": "pnpm run zip && astro dev",
-		"build": "astro check && tsc --noEmit && pnpm run zip && astro build",
+		"build": "astro check && tsc --noEmit && astro build",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"preview": "astro preview",
 		"astro": "astro",
