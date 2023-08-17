@@ -22,14 +22,23 @@ export const Intro: FunctionalComponent = () => {
 			</pre>
 			<p class="vertical-spacing">
 				At my past job at a digital agency I transformed Photoshop, Sketch, and InVision designs into functioning
-				websites. The design files usually featured disperate layouts for mobile <span aria-hidden="true">📱</span>,
-				tablet, and desktop <span aria-hidden="true">🖥</span>. To smooth out the layout jump at breakpoints I
-				employed a technique I call responsify, which uses CSS <Code>calc()</Code> function to <em>fluidly</em>{' '}
-				change <Code>width</Code>, <Code>margin</Code>, <Code>left</Code>, etc. so it matches the value at the
-				neighboring breakpoint.
+				websites. But the designs gave no instructions on how to handle the in-between resolutions.{' '}
+				<span aria-hidden="true">☹️</span> So, to minimize the abrupt layout jumps I employed a technique I call
+				responsify, which uses CSS <Code>calc()</Code> function to <em>fluidly</em> change <Code>width</Code>,{' '}
+				<Code>margin</Code>, <Code>left</Code>, etc. so they match the value at the neighboring breakpoint.
 			</p>
-			<p class="vertical-spacing">Read on to learn how to use it in your project.</p>
+			<p class="vertical-spacing">
+				<span aria-hidden="true">🤨</span> Hmmmm, if reading the previous paragraph left you wondering what exactly
+				this is and how it works, you're not alone. Many told me it didn't click for them until they saw it in
+				action. <span aria-hidden="true">💡</span> So, here's a screen recording of an example.
+			</p>
+
 			<Video />
+
+			{/* TODO: neat, but why should I care? users rarely resize their browser, right? */}
+
+			<p class="vertical-spacing">Read on to learn how to use it in your project.</p>
+
 			<Updates />
 		</Section>
 	)

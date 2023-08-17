@@ -40,7 +40,7 @@ export const Form: FunctionComponent = () => {
 		getValues,
 		register,
 		handleSubmit,
-		formState: { isSubmitted },
+		formState: { isSubmitted, isDirty },
 	} = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		// TODO: defaultValues pros and cons
@@ -84,18 +84,18 @@ export const Form: FunctionComponent = () => {
 			case 'hidden':
 				return
 			case 'success':
-				return 'Copied'
+				return <span class={classes.notification}>Copied</span>
 			case 'error':
 				return (
 					// TODO: verify that all platforms support this way of copying to clipboard. still customize the error message copy
-					<Fragment>
+					<span class={classes.notification}>
 						Press{' '}
 						<kbd class={classes.kbd}>
 							{/* TODO: if it fails then CMD + C / Control + C won't do anything... */}
 							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
 						</kbd>{' '}
 						to copy
-					</Fragment>
+					</span>
 				)
 			default:
 				return assertUnreachable(notificationStatus)
@@ -295,9 +295,9 @@ export const Form: FunctionComponent = () => {
 					Reset
 				</Button>
 				<output class={classes.output} aria-live="assertive" role="alert">
-					{isSubmitted && (
+					{isSubmitted && isDirty && (
 						<Fragment>
-							<span class={classes.notification}>{renderNotification()}</span>
+							{renderNotification()}
 							<CodeBlock ref={resultContainer} class={classes.result}>
 								{generateCss(getValues())}
 							</CodeBlock>

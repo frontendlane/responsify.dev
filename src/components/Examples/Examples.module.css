@@ -11,42 +11,27 @@
 
 	background-image: repeating-linear-gradient(
 		45deg,
-		red 0,
-		red 20px,
-		orange 20px,
-		orange 40px,
-		yellow 40px,
-		yellow 60px,
-		green 60px,
-		green 80px,
-		blue 80px,
-		blue 100px,
-		indigo 100px,
-		indigo 120px,
-		violet 120px,
-		violet 140px
+		#fff 0,
+		#fff 20px,
+		#aaa 20px,
+		#aaa 40px,
+		#555 40px,
+		#555 60px,
+		#000 60px,
+		#000 80px
 	);
-	background-color: var(--black);
-	background-blend-mode: luminosity;
 	background-attachment: fixed;
-}
-@media (prefers-color-scheme: dark) {
-	.exampleDiv {
-		background-color: var(--light);
-	}
 }
 @media (width >= 900px) {
 	.exampleDiv ~ .exampleDiv {
 		--width: calc(
 			3716.129px - 322.903vw
 		); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90vw; element upper bound: 40vw; */
-		background-blend-mode: normal;
 	}
 }
 @media (width >= 1024px) {
 	.exampleDiv {
 		--width: 40vw !important;
-		background-blend-mode: luminosity !important;
 	}
 }
 
