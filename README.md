@@ -4,8 +4,10 @@ Source code for https://responsify.dev.
 
 ## Todos
 
-- either replace breakpoint or smooth out the transition...
-- readme.md should also include the version of the project (ideally the same as in package.json)
+-   removed `pnpm run zip &&` from build script to make it deployable on cloudflare pages
+
+-   either replace breakpoint or smooth out the transition...
+-   readme.md should also include the version of the project (ideally the same as in package.json)
 
 -   meta tags
 -   favicon
@@ -105,7 +107,7 @@ Source code for https://responsify.dev.
         -   class
         -   id
 -   system font stack
-	- https://news.ycombinator.com/item?id=35150345
+    -   https://news.ycombinator.com/item?id=35150345
 -   :hover on interactives needs to be perceivable: box-shadow maybe??
     -   joshwcomeau.com/shadow-palette/
     -   hover on link isn't perceivable
@@ -197,7 +199,7 @@ Source code for https://responsify.dev.
 
 -   `nvm use` (make sure you're using the correct Node version, cannot be automated as part of package.json script)
 -   VS Code (or VS Codium) (extensions, etc.)
-- GitHub
+-   GitHub
 -   TypeScript
 -   PostCSS (postcss language support vs code extension)
     -   `cssnano-preset-default` only does safe transforms
