@@ -51,6 +51,7 @@ body > astro-island > * {
 	margin-block-start: calc(var(--vertical-spacing) * 1.5);
 }
 
+/* TODO: figure out a way not to duplicate the animation keyframes but just to change the css variable for color */
 @keyframes reveal {
 	0% {
 		/* BEGIN: for the duration of the animation */
@@ -59,15 +60,55 @@ body > astro-island > * {
 		border-radius: var(--block-border-radius);
 		/* END: for the duration of the animation */
 
-		background-color: var(--accent);
-		box-shadow: 0 0 0 0.5ch var(--accent);
-		outline: 100vmax solid var(--accent);
+		background-color: var(--link-visited-light);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-light);
+		outline: 100vmax solid var(--link-visited-light);
 
 		outline-offset: var(--outline-offset);
 	}
 
 	10% {
-		outline: 100vmax solid var(--accent);
+		outline: 100vmax solid var(--link-visited-light);
+	}
+
+	80% {
+		outline: 100vmax solid transparent;
+		outline-offset: 100vmax;
+	}
+
+	100% {
+		/* BEGIN: for the duration of the animation */
+		position: relative;
+		z-index: var(--max-z-index);
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: transparent;
+		box-shadow: 0 0 0 0.5ch transparent;
+
+		/* BEGIN: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
+		outline: 100vmax solid transparent;
+		outline-offset: 100vmax;
+		/* END: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
+	}
+}
+@keyframes revealDark {
+	0% {
+		/* BEGIN: for the duration of the animation */
+		position: relative;
+		z-index: var(--max-z-index);
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: var(--link-visited-dark);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-dark);
+		outline: 100vmax solid var(--link-visited-dark);
+
+		outline-offset: var(--outline-offset);
+	}
+
+	10% {
+		outline: 100vmax solid var(--link-visited-dark);
 	}
 
 	80% {
@@ -98,8 +139,27 @@ body > astro-island > * {
 		border-radius: var(--block-border-radius);
 		/* END: for the duration of the animation */
 
-		background-color: var(--accent);
-		box-shadow: 0 0 0 0.5ch var(--accent);
+		background-color: var(--link-visited-light);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-light);
+	}
+
+	100% {
+		/* BEGIN: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: transparent;
+		box-shadow: 0 0 0 0.5ch transparent;
+	}
+}
+@keyframes dissipateDark {
+	0% {
+		/* BEGIN: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: var(--link-visited-dark);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-dark);
 	}
 
 	100% {
@@ -115,8 +175,18 @@ body > astro-island > * {
 :target {
 	animation: 2.5s ease-out reveal;
 }
+@media (prefers-color-scheme: dark) {
+	:target {
+		animation-name: revealDark;
+	}
+}
 @media (prefers-reduced-motion: reduce) {
 	:target {
 		animation: 2.5s ease-out dissipate;
+	}
+}
+@media (prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) {
+	:target {
+		animation: 2.5s ease-out dissipateDark;
 	}
 }

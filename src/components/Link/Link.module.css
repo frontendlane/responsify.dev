@@ -1,5 +1,4 @@
 .link {
-	--link-underline-thickness: 0.06em;
 	--link-underline-offset: 0.2em;
 
 	text-decoration-thickness: var(--link-underline-thickness);
@@ -7,13 +6,7 @@
 	text-decoration-skip-ink: none;
 }
 .link:hover {
-	color: var(--black);
 	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
-}
-@media (prefers-color-scheme: dark) {
-	.link:hover {
-		color: var(--white);
-	}
 }
 
 @media (hover: hover) {

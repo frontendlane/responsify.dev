@@ -4,6 +4,8 @@ Source code for https://responsify.dev.
 
 ## Todos
 
+-   add postinstall format
+
 -   removed `pnpm run zip &&` from build script to make it deployable on cloudflare pages
 
 -   either replace breakpoint or smooth out the transition...
@@ -11,6 +13,9 @@ Source code for https://responsify.dev.
 
 -   meta tags
 -   favicon
+
+-   accent: https://fullystacked.net/posts/accentcolor/
+-   global store: https://docs.astro.build/en/core-concepts/sharing-state/
 
 -   responsify demo page
     -   https://www.freecodecamp.org/news/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862/
@@ -24,6 +29,7 @@ Source code for https://responsify.dev.
 -   eslint
     -   https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.md
 -   improve typescript usage: https://docs.astro.build/en/guides/imports/#typescript
+    -   for any astro questions look at the showcase on astro.build...
 -   browserslist??
     -   per https://github.com/browserslist/browserslist/issues/492#issuecomment-640254935, no need to update caniuse-lite database, rather update all dependencies before `yarn run build:prod`
 -   datalist from https://www.w3.org/Style/CSS/all-properties.en.json
@@ -97,6 +103,7 @@ Source code for https://responsify.dev.
     -   https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
     -   https://www.smashingmagazine.com/2022/08/fluid-sizing-multiple-media-queries/
     -   https://min-max-calculator.9elements.com/
+    -   https://tobiasahlin.com/blog/responsive-fluid-css-type-scales/
 -   tabindex on `<pre>` for chrome
 -   add postcss plugin that supports vi and vb units
 -   https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/
@@ -237,8 +244,11 @@ Astro + Prettier doesn't handle whitespaces the same way (correct way) compared 
 
 preact dev tools: https://preactjs.github.io/preact-devtools
 
+Preact is in compat mode because of React hook form.
+
 -   React Form Hook
 -   Zod
+    IT'S NOT IN PACKAGE.JSON!! THIS IS A BUG??!!
 
 ### 🧞 Commands
 

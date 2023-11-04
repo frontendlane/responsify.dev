@@ -28,9 +28,9 @@ export const Intro: FunctionalComponent = () => {
 				<Code>margin</Code>, <Code>left</Code>, etc. so they match the value at the neighboring breakpoint.
 			</p>
 			<p class="vertical-spacing">
-				<span aria-hidden="true">🤨</span> Hmmmm, if reading the previous paragraph left you wondering what exactly
-				this is and how it works, you're not alone. Many told me it didn't click for them until they saw it in
-				action. <span aria-hidden="true">💡</span> So, here's a screen recording of an example.
+				<span aria-hidden="true">🤨</span> Hmmmm, if you're still unclear what exactly it is and how it works, you're
+				not alone. Many told me it didn't click for them until they saw it in action.{' '}
+				<span aria-hidden="true">💡</span> So, below's a screen recording of an example.
 			</p>
 
 			<Video />

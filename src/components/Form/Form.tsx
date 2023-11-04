@@ -45,6 +45,12 @@ export const Form: FunctionComponent = () => {
 		resolver: zodResolver(formSchema),
 		// TODO: defaultValues pros and cons
 		// TODO: on page reload some inputs preserve value and others don't... why?
+		//  TODO: well, default values fix this ^ issue, won't they??
+		defaultValues: {
+			elementLowerBound: NaN,
+			containerLowerBound: NaN,
+			containerUpperBound: NaN,
+		},
 	})
 
 	const cssProperty = watch('cssProperty') || '<css-property>'
