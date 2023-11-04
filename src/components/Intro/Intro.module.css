@@ -9,13 +9,14 @@
 /* TODO: responsify padding-left from 600px to 900px to be twice as wide */
 .blockquote {
 	display: inline-block; /* must be inline-block in order to have padding on the right hand side when horizontally scrolling on mobile */
-	border-inline-start: calc(var(--horizontal-spacing) / 2) solid var(--accent);
+	border-inline-start: calc(var(--horizontal-spacing) / 2) solid var(--code-color-light);
 	padding: calc(var(--vertical-spacing) * 0.75) calc(var(--horizontal-spacing) * 0.75);
 	color: var(--light);
 }
 @media (prefers-color-scheme: dark) {
 	.blockquote {
 		color: inherit;
+		border-inline-start-color: var(--code-color-dark);
 	}
 }
 

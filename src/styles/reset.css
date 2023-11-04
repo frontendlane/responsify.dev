@@ -22,16 +22,34 @@
 	word-break: break-word;
 }
 
+/* TODO: figure out a way not to duplicate the animation keyframes but just to change the css variable for color */
 @keyframes zoomAndColor {
 	5% {
-		outline-color: var(--accent);
+		outline-color: var(--near-black);
 	}
 	8% {
 		outline-width: calc(var(--outline-width) * 1.5);
 		outline-offset: calc(var(--outline-offset) * 2);
 	}
 	11% {
-		outline-color: var(--accent);
+		outline-color: var(--near-black);
+	}
+	16% {
+		outline: var(--outline-width) dashed currentColor;
+		outline-offset: var(--outline-offset);
+	}
+}
+
+@keyframes zoomAndColorDark {
+	5% {
+		outline-color: var(--near-white);
+	}
+	8% {
+		outline-width: calc(var(--outline-width) * 1.5);
+		outline-offset: calc(var(--outline-offset) * 2);
+	}
+	11% {
+		outline-color: var(--near-white);
 	}
 	16% {
 		outline: var(--outline-width) dashed currentColor;
@@ -41,10 +59,22 @@
 
 @keyframes color {
 	5% {
-		outline-color: var(--accent);
+		outline-color: var(--near-black);
 	}
 	11% {
-		outline-color: var(--accent);
+		outline-color: var(--near-black);
+	}
+	16% {
+		outline-color: currentColor;
+	}
+}
+
+@keyframes colorDark {
+	5% {
+		outline-color: var(--near-white);
+	}
+	11% {
+		outline-color: var(--near-white);
 	}
 	16% {
 		outline-color: currentColor;
@@ -57,9 +87,19 @@
 	z-index: 1;
 	animation: zoomAndColor 5s ease-out 3s infinite;
 }
+@media (prefers-color-scheme: dark) {
+	:focus-visible {
+		animation-name: zoomAndColorDark;
+	}
+}
 @media (prefers-reduced-motion: reduce) {
 	:focus-visible {
 		animation-name: color;
+	}
+}
+@media (prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) {
+	:focus-visible {
+		animation-name: colorDark;
 	}
 }
 
@@ -135,10 +175,23 @@ select:not([disabled]):hover {
 	box-shadow: 0 0 0 1px;
 }
 
-a {
-	color: inherit; /* match <html> color, fix for currentColor */
+a:link {
+	color: var(--link-unvisited-light);
+}
+a:visited {
+	color: var(--link-visited-light);
+}
+@media (prefers-color-scheme: dark) {
+	a:link {
+		color: var(--link-unvisited-dark);
+	}
+	a:visited {
+		color: var(--link-visited-dark);
+	}
 }
 
+/* TODO: https://css-irl.info/styling-external-links-with-attribute-selectors/ */
+/* TODO: is a[href]:not([href='']) different from :any-link?? */
 a[href]:not([href=''])[target='_blank']::after {
 	content: ' ↗️'; /* Firefox & Safari fallback */
 	content: ' ↗️' / ' external link';

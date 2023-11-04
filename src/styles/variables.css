@@ -1,6 +1,6 @@
 :root {
 	--whitespace-width: 0.458671ch;
-	--golden-ratio: 1.618;
+	--golden-ratio: 1.597;
 	--mobile-multiplier: calc(1 / 1.5); /* TODO: should be 1 / 1.125 */
 	--font-size-h1: calc(1rem * var(--golden-ratio) * var(--golden-ratio) * var(--golden-ratio) * var(--mobile-multiplier));
 	--font-size-h2: calc(1rem * var(--golden-ratio) * var(--golden-ratio) * var(--mobile-multiplier));
@@ -17,7 +17,10 @@
 	--code-background-dark: #2a2d2e;
 	--code-color-light: #ffa26b;
 	--code-color-dark: #ff9359;
-	--accent: #3296fa;
+	--link-unvisited-light: #00e;
+	--link-visited-light: #551a8b;
+	--link-unvisited-dark: #59f;
+	--link-visited-dark: #9fa9ff;
 	--yellow: yellow;
 	--input-border-light: #dadada;
 	--input-border-dark: #4d4d4d;

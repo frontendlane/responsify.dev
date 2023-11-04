@@ -4,5 +4,5 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"prettier.documentSelectors": ["**/*.astro"], // needed to format *.astro on save
 	"typescript.tsdk": "node_modules/.pnpm/typescript@5.0.3/node_modules/typescript/lib", // this ensures vs code uses the repo version of typescript
-	"typescript.enablePromptUseWorkspaceTsdk": true
+	"typescript.enablePromptUseWorkspaceTsdk": true // will prompt to use typescript version specified in the workspace
 }

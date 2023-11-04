@@ -35,12 +35,10 @@ h3 + .aContainer {
 	font-size: var(--font-size-h3);
 }
 
-.a:hover {
-	color: var(--black);
-	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
+.a {
+	text-decoration-thickness: var(--link-underline-thickness);
 }
-@media (prefers-color-scheme: dark) {
-	.a:hover {
-		color: var(--white);
-	}
+
+.a:hover {
+	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
 }
