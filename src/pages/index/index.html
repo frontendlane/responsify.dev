@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Smooth out breakpoint layout jumps with responsify</title>
+        <meta name="description" content="Responsify smooths out breakpoint layout jumps using CSS `calc()` function.">
+        <link rel="stylesheet" href="./public/pages/index/index.css">
+        <script src="./public/pages/index/scripts/index.js" defer></script>
+        <noscript>
+            <link rel="stylesheet" href="./public/pages/index/index.noscript.css">
+        </noscript>
+    </head>
+    <body>
+        <main aria-labelledby="top">
+            <article aria-labelledby="top">
+                <h1 id="top">Smooth out breakpoint layout jumps with <i>responsify</i></h1><span class="a-container"><a class="a" href="#top" aria-labelledby="top">#</a></span>
+                <aside>
+                    <p class="vertical-spacing"><b>Published</b>: <time datetime="2019-09-25">September 25, 2019</time></p>
+                    <p><b>Updated</b>: <time datetime="2022-02-12">April 2, 2023</time></p>
+                </aside>
+                <section class="vertical-spacing-150-percent" aria-labelledby="responsify">
+                    <h2 id="responsify">What is <i>responsify</i></h2><span class="a-container"><a class="a" href="#responsify" aria-labelledby="responsify">#</a></span>
+                    <p class="vertical-spacing">Responsify is the name of my technique for smoothing out breakpoint layout jumps. It uses the CSS <code class="inline-code">calc()</code> function to <em>fluidly</em> change <code class="inline-code">width</code>, <code class="inline-code">margin</code>, <code class="inline-code">left</code>, etc. so they match the neighboring breakpoint value. Read on to learn how to use it in your project.</p>
+                    <!-- TODO: maybe i can get around the fact that media attribute is not supported on video elements by showing the one with the appropriate id and not preloading either of them?? -->
+                    <!-- <video class="video" preload="metadata" muted loop playsinline controls> -->
+                    <video class="video" autoplay muted loop playsinline controls>
+                        <source src="./public/pages/index/assets/screen-recording-265.mov" type="video/quicktime">
+                        <source src="./public/pages/index/assets/screen-recording-264.mov" type="video/mp4">
+                    </video>
+                    <dl class="vertical-spacing">
+                        <dt>
+                            <b>Update: <time datetime="2021-11-16">November 16, 2021</time></b>
+                        </dt>
+                        <dd>
+                            Today I learned that responsify is a rediscovery of <a class="link" href="https://blog.typekit.com/2016/08/17/flexible-typography-with-css-locks/" target="_blank" rel="noopener">CSS locks</a>. 🤦‍♂️ Read the <a class="link" href="#comparison">comparison between CSS locks and responsify</a>.
+                        </dd>
+                    </dl>
+                </section>
+                <section class="vertical-spacing-150-percent" aria-describedby="contents">
+                    <h2 id="contents">Table of contents</h2><span class="a-container"><a class="a" href="#contents" aria-labelledby="contents">#</a></span>
+                    <ol>
+                        <li>
+                            <a class="link" href="#top">Smooth out breakpoint layout jumps with responsify</a>
+                            <ol>
+                                <li>
+                                    <a class="link" href="#responsify">What is responsify</a>
+                                </li>
+                                <li>
+                                    <a class="link" href="#contents">Table of contents</a>
+                                </li>
+                                <li>
+                                    <a class="link" href="#examples">How to use</a>
+                                    <ol>
+                                        <li>
+                                            <a class="link" href="#example-1">Example 1 featuring two media queries</a>
+                                        </li>
+                                        <li>
+                                            <a class="link" href="#example-2">Example 2 featuring <code class="inline-code">max-width</code> media query</a>
+                                        </li>
+                                        <li>
+                                            <a class="link" href="#example-3">Example 3 featuring <code class="inline-code">max-height</code></a>
+                                        </li>
+                                        <li>
+                                            <a class="link" href="#example-4">Example 4 featuring <code class="inline-code">clamp()</code></a>
+                                        </li>
+                                        <li>
+                                            <a class="link" href="#example-5">Example 5 featuring <code class="inline-code">ch</code> and <code class="inline-code">min()</code></a>
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <a class="link" href="#form"><b>Responsify form</b></a>
+                                </li>
+                                <li>
+                                    <a class="link" href="#sass-function">Sass <code class="inline-code">@function</code></a>
+                                </li>
+                                <li>
+                                    <a class="link" href="#browser-support">Browser support</a>
+                                </li>
+                                <li>
+                                    <a class="link" href="#comparison">Comparison with CSS locks</a>
+                                </li>
+                                <li>
+                                    <a class="link" href="#resources">Related resources</a>
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            <a class="link" href="#privacy">Privacy policy</a>
+                        </li>
+                        <li>
+                            <a class="link" href="#accessibility">Accessibility statement</a>
+                        </li>
+                    </ol>
+                </section>
+                <section class="vertical-spacing-150-percent" aria-describedby="examples">
+                    <h2 id="examples">How to use</h2><span class="a-container"><a class="a" href="#examples" aria-labelledby="examples">#</a></span>
+                    <p class="vertical-spacing">Examples assume smallest viewport width of 320px, a tablet breakpoint at 768px, and a desktop breakpoint at 1024px.</p>
+                    <section class="vertical-spacing-150-percent" aria-describedby="example-1">
+                        <h3 id="example-1">Example 1 featuring two media queries</h3><span class="a-container"><a class="a" href="#example-1" aria-labelledby="example-1">#</a></span>
+                        <p class="vertical-spacing">Suppose a <code class="inline-code">&lt;div&gt;</code> needs to be 90% wide below desktop breakpoint and 40% above that. Because you practice mobile-first approach, you start with:</p>
+                        <pre class="pre-block"><code class="block-code">div {
+    width: 90%;
+}</code></pre>
+                        <p class="vertical-spacing">and for desktop you add:</p>
+                        <pre class="pre-block"><code class="block-code">@media (min-width: 1024px) {
+    div {
+        width: 40%;
+    }
+}</code></pre>
+                        <p class="vertical-spacing">You want to gradually transition between these two values so you reserve, let's say, the 900px - 1024px range to smooth this out. You add another media query with the magic 🪄 <code class="inline-code">calc()</code> value that you generate using the <a class="link" href="#form">responsify form</a> below and you're done! 🎉</p>
+                        <pre class="pre-block"><code class="block-code">@media (min-width: 900px) and (max-width: 1023px) {
+    div {
+        width: calc(3716.129px - 322.903%); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90%; element upper bound: 40%; */
+    }
+}</code></pre>
+                        <p class="vertical-spacing">Note the comment that accompanies <code class="inline-code">calc()</code> value. Preserving input values makes it easier to maintain the code.</p>
+                        <p class="vertical-spacing">The comment also includes <code class="inline-code">https://responsify.dev</code> both as a reference for future maintainers and as a unique string you can match against when tracking down responsified values.</p>
+                        <!-- TODO: optimize screen reader usage -->
+                        <p class="vertical-spacing resize"></p>
+                        <p class="vertical-spacing"><em>Without</em> responsify:</p>
+                        <div class="example-div vertical-spacing"></div>
+                        <p class="vertical-spacing" id="description"><em>With</em> responsify:</p>
+                        <div class="example-div vertical-spacing" aria-live="polite" role="status" aria-describedby="description"></div>
+                    </section>
+
+                    <section class="vertical-spacing heading-container" aria-describedby="example-2">
+                        <h3 class="screen-reader-heading">Example 2 featuring max-width media query</h3>
+                        <h3 id="example-2" aria-hidden="true">Example 2 featuring <code class="inline-code">max-width</code> media query</h3><span class="a-container"><a class="a" href="#example-2" aria-labelledby="example-2">#</a></span>
+                        <p class="vertical-spacing">You want the <code class="inline-code">&lt;body&gt;</code>'s <code class="inline-code">padding</code> to increase from 10px to 50px, and have it stay at 50px once it hits the desktop breakpoint. For desktop and above you start off with:</p>
+                        <pre class="pre-block"><code class="block-code">body {
+    padding: 50px;
+}</code></pre>
+                        <p class="vertical-spacing">and for below desktop you add:</p>
+                        <pre class="pre-block"><code class="block-code">@media (max-width: 1023px) {
+    body {
+        padding: calc(-8.182px + 5.682vw); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 10px; element upper bound: 50px; */
+    }
+}</code></pre>
+                        <p class="vertical-spacing">I'm not a fan of using a <code class="inline-code">max-width</code> media query because it smells of a desktop-first approach 👎, but I've included it here for completeness' sake.</p>
+                    </section>
+
+                    <section class="vertical-spacing heading-container" aria-describedby="example-3">
+                        <h3 class="screen-reader-heading">Example 3 featuring max-height</h3>
+                        <h3 id="example-3" aria-hidden="true">Example 3 featuring <code class="inline-code">max-height</code></h3><span class="a-container"><a class="a" href="#example-3" aria-labelledby="example-3">#</a></span>
+                        <p class="vertical-spacing">You want the <code class="inline-code">&lt;header&gt;</code>'s <code class="inline-code">height</code> to increase from 40px to 90px, and have it stay at 90px once it hits the desktop breakpoint.</p>
+                        <pre class="pre-block"><code class="block-code">header {
+    height: calc(17.273px + 7.102vw); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 40px; element upper bound: 90px; */
+    max-height: 90px;
+}</code></pre>
+                        <p class="vertical-spacing">Without the <code class="inline-code">max-height</code> the <code class="inline-code">&lt;header&gt;</code> would continue to grow in height with increase in viewport width. This approach removes the need for a media query 👍, but is limited to <code class="inline-code">width</code> and <code class="inline-code">height</code> as no other property has a corresponding <code class="inline-code">max-width</code> and <code class="inline-code">max-height</code>. 👎</p>
+                    </section>
+
+                    <section class="vertical-spacing heading-container" aria-describedby="example-4">
+                        <h3 class="screen-reader-heading">Example 4 featuring clamp()</h3>
+                        <h3 id="example-4" aria-hidden="true">Example 4 featuring <code class="inline-code">clamp()</code></h3><span class="a-container"><a class="a" href="#example-4" aria-labelledby="example-4">#</a></span>
+                        <p class="vertical-spacing">You want the <code class="inline-code">&lt;footer&gt;</code>'s <code class="inline-code">margin-top</code> to be 20px below tablet breakpoint, 200px above desktop breakpoint, and increase from 2.6vw at tablet breakpoint (0.026 * 768px ≅ 20px) to 19.5vw at desktop breakpoint (0.195 * 1024px ≅ 200px).</p>
+                        <pre class="pre-block"><code class="block-code">footer {
+    margin-top: clamp(20px, calc(-515.482px + 69.87vw), 200px); /* https://responsify.dev - viewport lower bound: 768px; viewport upper bound: 1024px; element lower bound: 2.75vw; element upper bound: 19.53vw; */
+}</code></pre>
+                        <p class="vertical-spacing">Responsify + <code class="inline-code">clamp()</code> is a powerful combination 💪 that allows you to mix and match units, something you can't do with responsify alone.</p>
+                    </section>
+
+                    <section class="vertical-spacing heading-container" aria-describedby="example-5">
+                        <h3 class="screen-reader-heading">Example 5 featuring ch and min()</h3>
+                        <h3 id="example-5" aria-hidden="true">Example 5 featuring <code class="inline-code">ch</code> and <code class="inline-code">min()</code></h3><span class="a-container"><a class="a" href="#example-5" aria-labelledby="example-5">#</a></span>
+                        <p class="vertical-spacing">You want the <code class="inline-code">&lt;button&gt;</code>'s <code class="inline-code">border-width</code> to increase from 1ch to 2ch, and have it stay at 2ch once it hits the desktop breakpoint. In this example let's say that the average character width is 13.65px.</p>
+                        <pre class="pre-block"><code class="block-code">button {
+    border-width: min(calc(0.545ch + 1.939vw), 2ch); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 1ch; element upper bound: 2ch; "ch" width in pixels: 13.65; */
+}</code></pre>
+                        <p class="vertical-spacing">By using <code class="inline-code">min()</code> you can do away with media query <em>and</em> you're not limited to <code class="inline-code">width</code> and <code class="inline-code">height</code> like in <a class="link" href="#example-3">Example 3</a>. 💯</p>
+                    </section>
+                </section>
+                <section class="vertical-spacing-150-percent" aria-labelledby="form-title">
+                    <div class="form" id="form">
+                        <h2 id="form-title">Responsify form</h2><span class="a-container"><a class="a" href="#form" aria-labelledby="form">#</a></span>
+                        <div class="js-error" id="js-error" hidden>
+                            <p><span id="js-error-intro">JavaScript failed to execute.</span> 😵 You won't be able to generate a <code class="inline-code">calc()</code> value.</p>
+                            <p class="vertical-spacing">You might be able to resolve the issue by reloading the page. If that doesn't work, update your browser to the latest version and try again.</p>
+                            <p class="vertical-spacing">Error stack is logged to the console.</p>
+                        </div>
+                        <p class="vertical-spacing">Generate responsified <code class="inline-code">calc()</code> value using the form below. Bookmark the link next to the form heading above for direct access to this form.</p>
+                        <form class="form-element" id="form-element">
+                            <noscript class="noscript">
+                                <p><strong>JavaScript needs to be enabled in order to generate a <code class="inline-code">calc()</code> value.</strong></p>
+                            </noscript>
+                            <ol class="list">
+                                <li class="list-item">
+                                    <div class="step-container">
+                                        <label class="label" for="css-property">CSS property</label>
+                                        <input class="input css-property" id="css-property" disabled list="css-properties" type="text" placeholder="width" required>
+                                        <datalist id="css-properties">
+                                            <option value="align-content">
+                                            <option value="align-items">
+                                            <option value="align-self">
+                                            <option value="alignment-baseline">
+                                            <option value="all">
+                                            <option value="animation">
+                                            <option value="animation-delay">
+                                            <option value="animation-direction">
+                                            <option value="animation-duration">
+                                            <option value="animation-fill-mode">
+                                            <option value="animation-iteration-count">
+                                            <option value="animation-name">
+                                            <option value="animation-play-state">
+                                            <option value="animation-timing-function">
+                                            <option value="appearance">
+                                            <option value="aspect-ratio">
+                                            <option value="azimuth">
+                                            <option value="backface-visibility">
+                                            <option value="background">
+                                            <option value="background-attachment">
+                                            <option value="background-blend-mode">
+                                            <option value="background-clip">
+                                            <option value="background-color">
+                                            <option value="background-image">
+                                            <option value="background-origin">
+                                            <option value="background-position">
+                                            <option value="background-repeat">
+                                            <option value="background-size">
+                                            <option value="baseline-shift">
+                                            <option value="baseline-source">
+                                            <option value="block-ellipsis">
+                                            <option value="block-size">
+                                            <option value="block-step">
+                                            <option value="block-step-align">
+                                            <option value="block-step-insert">
+                                            <option value="block-step-round">
+                                            <option value="block-step-size">
+                                            <option value="bookmark-label">
+                                            <option value="bookmark-level">
+                                            <option value="bookmark-state">
+                                            <option value="border">
+                                            <option value="border-block">
+                                            <option value="border-block-color">
+                                            <option value="border-block-end">
+                                            <option value="border-block-end-color">
+                                            <option value="border-block-end-style">
+                                            <option value="border-block-end-width">
+                                            <option value="border-block-start">
+                                            <option value="border-block-start-color">
+                                            <option value="border-block-start-style">
+                                            <option value="border-block-start-width">
+                                            <option value="border-block-style">
+                                            <option value="border-block-width">
+                                            <option value="border-bottom">
+                                            <option value="border-bottom-color">
+                                            <option value="border-bottom-left-radius">
+                                            <option value="border-bottom-right-radius">
+                                            <option value="border-bottom-style">
+                                            <option value="border-bottom-width">
+                                            <option value="border-boundary">
+                                            <option value="border-collapse">
+                                            <option value="border-color">
+                                            <option value="border-end-end-radius">
+                                            <option value="border-end-start-radius">
+                                            <option value="border-image">
+                                            <option value="border-image-outset">
+                                            <option value="border-image-repeat">
+                                            <option value="border-image-slice">
+                                            <option value="border-image-source">
+                                            <option value="border-image-width">
+                                            <option value="border-inline">
+                                            <option value="border-inline-color">
+                                            <option value="border-inline-end">
+                                            <option value="border-inline-end-color">
+                                            <option value="border-inline-end-style">
+                                            <option value="border-inline-end-width">
+                                            <option value="border-inline-start">
+                                            <option value="border-inline-start-color">
+                                            <option value="border-inline-start-style">
+                                            <option value="border-inline-start-width">
+                                            <option value="border-inline-style">
+                                            <option value="border-inline-width">
+                                            <option value="border-left">
+                                            <option value="border-left-color">
+                                            <option value="border-left-style">
+                                            <option value="border-left-width">
+                                            <option value="border-radius">
+                                            <option value="border-right">
+                                            <option value="border-right-color">
+                                            <option value="border-right-style">
+                                            <option value="border-right-width">
+                                            <option value="border-spacing">
+                                            <option value="border-start-end-radius">
+                                            <option value="border-start-start-radius">
+                                            <option value="border-style">
+                                            <option value="border-top">
+                                            <option value="border-top-color">
+                                            <option value="border-top-left-radius">
+                                            <option value="border-top-right-radius">
+                                            <option value="border-top-style">
+                                            <option value="border-top-width">
+                                            <option value="border-width">
+                                            <option value="bottom">
+                                            <option value="box-decoration-break">
+                                            <option value="box-shadow">
+                                            <option value="box-sizing">
+                                            <option value="box-snap">
+                                            <option value="break-after">
+                                            <option value="break-before">
+                                            <option value="break-inside">
+                                            <option value="caption-side">
+                                            <option value="caret">
+                                            <option value="caret-color">
+                                            <option value="caret-shape">
+                                            <option value="chains">
+                                            <option value="clear">
+                                            <option value="clip">
+                                            <option value="clip-path">
+                                            <option value="clip-rule">
+                                            <option value="color">
+                                            <option value="color-adjust">
+                                            <option value="color-interpolation-filters">
+                                            <option value="color-scheme">
+                                            <option value="column-count">
+                                            <option value="column-fill">
+                                            <option value="column-gap">
+                                            <option value="column-rule">
+                                            <option value="column-rule-color">
+                                            <option value="column-rule-style">
+                                            <option value="column-rule-width">
+                                            <option value="column-span">
+                                            <option value="column-width">
+                                            <option value="columns">
+                                            <option value="contain">
+                                            <option value="contain-intrinsic-size">
+                                            <option value="content">
+                                            <option value="content-visibility">
+                                            <option value="continue">
+                                            <option value="counter-increment">
+                                            <option value="counter-reset">
+                                            <option value="counter-set">
+                                            <option value="cue">
+                                            <option value="cue-after">
+                                            <option value="cue-before">
+                                            <option value="cursor">
+                                            <option value="direction">
+                                            <option value="display">
+                                            <option value="dominant-baseline">
+                                            <option value="elevation">
+                                            <option value="empty-cells">
+                                            <option value="fill">
+                                            <option value="fill-break">
+                                            <option value="fill-color">
+                                            <option value="fill-image">
+                                            <option value="fill-opacity">
+                                            <option value="fill-origin">
+                                            <option value="fill-position">
+                                            <option value="fill-repeat">
+                                            <option value="fill-rule">
+                                            <option value="fill-size">
+                                            <option value="filter">
+                                            <option value="flex">
+                                            <option value="flex-basis">
+                                            <option value="flex-direction">
+                                            <option value="flex-flow">
+                                            <option value="flex-grow">
+                                            <option value="flex-shrink">
+                                            <option value="flex-wrap">
+                                            <option value="float">
+                                            <option value="float-defer">
+                                            <option value="float-offset">
+                                            <option value="float-reference">
+                                            <option value="flood-color">
+                                            <option value="flood-opacity">
+                                            <option value="flow">
+                                            <option value="flow-from">
+                                            <option value="flow-into">
+                                            <option value="font">
+                                            <option value="font-family">
+                                            <option value="font-feature-settings">
+                                            <option value="font-kerning">
+                                            <option value="font-language-override">
+                                            <option value="font-optical-sizing">
+                                            <option value="font-palette">
+                                            <option value="font-size">
+                                            <option value="font-size-adjust">
+                                            <option value="font-stretch">
+                                            <option value="font-style">
+                                            <option value="font-synthesis">
+                                            <option value="font-synthesis-small-caps">
+                                            <option value="font-synthesis-style">
+                                            <option value="font-synthesis-weight">
+                                            <option value="font-variant">
+                                            <option value="font-variant-alternates">
+                                            <option value="font-variant-caps">
+                                            <option value="font-variant-east-asian">
+                                            <option value="font-variant-emoji">
+                                            <option value="font-variant-ligatures">
+                                            <option value="font-variant-numeric">
+                                            <option value="font-variant-position">
+                                            <option value="font-variation-settings">
+                                            <option value="font-weight">
+                                            <option value="footnote-display">
+                                            <option value="footnote-policy">
+                                            <option value="forced-color-adjust">
+                                            <option value="gap">
+                                            <option value="glyph-orientation-vertical">
+                                            <option value="grid">
+                                            <option value="grid-area">
+                                            <option value="grid-auto-columns">
+                                            <option value="grid-auto-flow">
+                                            <option value="grid-auto-rows">
+                                            <option value="grid-column">
+                                            <option value="grid-column-end">
+                                            <option value="grid-column-start">
+                                            <option value="grid-row">
+                                            <option value="grid-row-end">
+                                            <option value="grid-row-start">
+                                            <option value="grid-template">
+                                            <option value="grid-template-areas">
+                                            <option value="grid-template-columns">
+                                            <option value="grid-template-rows">
+                                            <option value="hanging-punctuation">
+                                            <option value="height">
+                                            <option value="hyphenate-character">
+                                            <option value="hyphenate-limit-chars">
+                                            <option value="hyphenate-limit-last">
+                                            <option value="hyphenate-limit-lines">
+                                            <option value="hyphenate-limit-zone">
+                                            <option value="hyphens">
+                                            <option value="image-orientation">
+                                            <option value="image-rendering">
+                                            <option value="image-resolution">
+                                            <option value="initial-letter">
+                                            <option value="initial-letter-align">
+                                            <option value="initial-letter-wrap">
+                                            <option value="inline-size">
+                                            <option value="inline-sizing">
+                                            <option value="inset">
+                                            <option value="inset-block">
+                                            <option value="inset-block-end">
+                                            <option value="inset-block-start">
+                                            <option value="inset-inline">
+                                            <option value="inset-inline-end">
+                                            <option value="inset-inline-start">
+                                            <option value="isolation">
+                                            <option value="justify-content">
+                                            <option value="justify-items">
+                                            <option value="justify-self">
+                                            <option value="leading-trim">
+                                            <option value="left">
+                                            <option value="letter-spacing">
+                                            <option value="lighting-color">
+                                            <option value="line-break">
+                                            <option value="line-clamp">
+                                            <option value="line-grid">
+                                            <option value="line-height">
+                                            <option value="line-height-step">
+                                            <option value="line-padding">
+                                            <option value="line-snap">
+                                            <option value="list-style">
+                                            <option value="list-style-image">
+                                            <option value="list-style-position">
+                                            <option value="list-style-type">
+                                            <option value="margin">
+                                            <option value="margin-block">
+                                            <option value="margin-block-end">
+                                            <option value="margin-block-start">
+                                            <option value="margin-bottom">
+                                            <option value="margin-break">
+                                            <option value="margin-inline">
+                                            <option value="margin-inline-end">
+                                            <option value="margin-inline-start">
+                                            <option value="margin-right">
+                                            <option value="margin-trim">
+                                            <option value="marker">
+                                            <option value="marker-end">
+                                            <option value="marker-knockout-left">
+                                            <option value="marker-knockout-right">
+                                            <option value="marker-mid">
+                                            <option value="marker-pattern">
+                                            <option value="marker-segment">
+                                            <option value="marker-side">
+                                            <option value="marker-start">
+                                            <option value="mask">
+                                            <option value="mask-border">
+                                            <option value="mask-border-mode">
+                                            <option value="mask-border-outset">
+                                            <option value="mask-border-repeat">
+                                            <option value="mask-border-slice">
+                                            <option value="mask-border-source">
+                                            <option value="mask-border-width">
+                                            <option value="mask-clip">
+                                            <option value="mask-composite">
+                                            <option value="mask-image">
+                                            <option value="mask-mode">
+                                            <option value="mask-origin">
+                                            <option value="mask-position">
+                                            <option value="mask-repeat">
+                                            <option value="mask-size">
+                                            <option value="mask-type">
+                                            <option value="max-block-size">
+                                            <option value="max-height">
+                                            <option value="max-inline-size">
+                                            <option value="max-lines">
+                                            <option value="max-width">
+                                            <option value="min-block-size">
+                                            <option value="min-height">
+                                            <option value="min-inline-size">
+                                            <option value="min-width">
+                                            <option value="mix-blend-mode">
+                                            <option value="nav-down">
+                                            <option value="nav-left">
+                                            <option value="nav-right">
+                                            <option value="nav-up">
+                                            <option value="object-fit">
+                                            <option value="object-position">
+                                            <option value="offset">
+                                            <option value="offset-anchor">
+                                            <option value="offset-distance">
+                                            <option value="offset-path">
+                                            <option value="offset-position">
+                                            <option value="offset-rotate">
+                                            <option value="opacity">
+                                            <option value="order">
+                                            <option value="orphans">
+                                            <option value="outline">
+                                            <option value="outline-color">
+                                            <option value="outline-offset">
+                                            <option value="outline-style">
+                                            <option value="outline-width">
+                                            <option value="overflow">
+                                            <option value="overflow-anchor">
+                                            <option value="overflow-block">
+                                            <option value="overflow-clip-margin">
+                                            <option value="overflow-inline">
+                                            <option value="overflow-wrap">
+                                            <option value="overflow-x">
+                                            <option value="overflow-y">
+                                            <option value="overscroll-behavior">
+                                            <option value="overscroll-behavior-block">
+                                            <option value="overscroll-behavior-inline">
+                                            <option value="overscroll-behavior-x">
+                                            <option value="overscroll-behavior-y">
+                                            <option value="padding">
+                                            <option value="padding-block">
+                                            <option value="padding-block-end">
+                                            <option value="padding-block-start">
+                                            <option value="padding-bottom">
+                                            <option value="padding-inline">
+                                            <option value="padding-inline-end">
+                                            <option value="padding-inline-start">
+                                            <option value="padding-left">
+                                            <option value="padding-right">
+                                            <option value="padding-top">
+                                            <option value="page">
+                                            <option value="page-break-after">
+                                            <option value="page-break-before">
+                                            <option value="page-break-inside">
+                                            <option value="pause">
+                                            <option value="pause-after">
+                                            <option value="pause-before">
+                                            <option value="perspective">
+                                            <option value="perspective-origin">
+                                            <option value="pitch">
+                                            <option value="pitch-range">
+                                            <option value="place-content">
+                                            <option value="place-items">
+                                            <option value="place-self">
+                                            <option value="play-during">
+                                            <option value="position">
+                                            <option value="quotes">
+                                            <option value="region-fragment">
+                                            <option value="resize">
+                                            <option value="rest">
+                                            <option value="rest-after">
+                                            <option value="rest-before">
+                                            <option value="richness">
+                                            <option value="right">
+                                            <option value="rotate">
+                                            <option value="row-gap">
+                                            <option value="ruby-align">
+                                            <option value="ruby-merge">
+                                            <option value="ruby-overhang">
+                                            <option value="ruby-position">
+                                            <option value="running">
+                                            <option value="scale">
+                                            <option value="scroll-behavior">
+                                            <option value="scroll-margin">
+                                            <option value="scroll-margin-block">
+                                            <option value="scroll-margin-block-end">
+                                            <option value="scroll-margin-block-start">
+                                            <option value="scroll-margin-bottom">
+                                            <option value="scroll-margin-inline">
+                                            <option value="scroll-margin-inline-end">
+                                            <option value="scroll-margin-inline-start">
+                                            <option value="scroll-margin-right">
+                                            <option value="scroll-padding">
+                                            <option value="scroll-padding-block">
+                                            <option value="scroll-padding-block-end">
+                                            <option value="scroll-padding-block-start">
+                                            <option value="scroll-padding-bottom">
+                                            <option value="scroll-padding-inline">
+                                            <option value="scroll-padding-inline-end">
+                                            <option value="scroll-padding-inline-start">
+                                            <option value="scroll-padding-left">
+                                            <option value="scroll-padding-right">
+                                            <option value="scroll-padding-top">
+                                            <option value="scroll-snap-align">
+                                            <option value="scroll-snap-stop">
+                                            <option value="scroll-snap-type">
+                                            <option value="scrollbar-color">
+                                            <option value="scrollbar-gutter">
+                                            <option value="scrollbar-width">
+                                            <option value="shape-image-threshold">
+                                            <option value="shape-inside">
+                                            <option value="shape-margin">
+                                            <option value="shape-outside">
+                                            <option value="spatial-navigation-action">
+                                            <option value="spatial-navigation-contain">
+                                            <option value="spatial-navigation-function">
+                                            <option value="speak">
+                                            <option value="speak-as">
+                                            <option value="speak-header">
+                                            <option value="speak-numeral">
+                                            <option value="speak-punctuation">
+                                            <option value="speech-rate">
+                                            <option value="stress">
+                                            <option value="string-set">
+                                            <option value="stroke">
+                                            <option value="stroke-align">
+                                            <option value="stroke-alignment">
+                                            <option value="stroke-break">
+                                            <option value="stroke-color">
+                                            <option value="stroke-dash-corner">
+                                            <option value="stroke-dash-justify">
+                                            <option value="stroke-dashadjust">
+                                            <option value="stroke-dasharray">
+                                            <option value="stroke-dashcorner">
+                                            <option value="stroke-dashoffset">
+                                            <option value="stroke-image">
+                                            <option value="stroke-linecap">
+                                            <option value="stroke-linejoin">
+                                            <option value="stroke-miterlimit">
+                                            <option value="stroke-opacity">
+                                            <option value="stroke-origin">
+                                            <option value="stroke-position">
+                                            <option value="stroke-repeat">
+                                            <option value="stroke-size">
+                                            <option value="stroke-width">
+                                            <option value="tab-size">
+                                            <option value="table-layout">
+                                            <option value="text-align">
+                                            <option value="text-align-all">
+                                            <option value="text-align-last">
+                                            <option value="text-combine-upright">
+                                            <option value="text-decoration">
+                                            <option value="text-decoration-color">
+                                            <option value="text-decoration-line">
+                                            <option value="text-decoration-skip">
+                                            <option value="text-decoration-skip-box">
+                                            <option value="text-decoration-skip-ink">
+                                            <option value="text-decoration-skip-inset">
+                                            <option value="text-decoration-skip-self">
+                                            <option value="text-decoration-skip-spaces">
+                                            <option value="text-decoration-style">
+                                            <option value="text-decoration-thickness">
+                                            <option value="text-edge">
+                                            <option value="text-emphasis">
+                                            <option value="text-emphasis-color">
+                                            <option value="text-emphasis-position">
+                                            <option value="text-emphasis-skip">
+                                            <option value="text-emphasis-style">
+                                            <option value="text-group-align">
+                                            <option value="text-indent">
+                                            <option value="text-justify">
+                                            <option value="text-orientation">
+                                            <option value="text-overflow">
+                                            <option value="text-shadow">
+                                            <option value="text-space-collapse">
+                                            <option value="text-space-trim">
+                                            <option value="text-spacing">
+                                            <option value="text-transform">
+                                            <option value="text-underline-offset">
+                                            <option value="text-underline-position">
+                                            <option value="text-wrap">
+                                            <option value="top">
+                                            <option value="transform">
+                                            <option value="transform-box">
+                                            <option value="transform-origin">
+                                            <option value="transform-style">
+                                            <option value="transition">
+                                            <option value="transition-delay">
+                                            <option value="transition-duration">
+                                            <option value="transition-property">
+                                            <option value="transition-timing-function">
+                                            <option value="translate">
+                                            <option value="unicode-bidi">
+                                            <option value="user-select">
+                                            <option value="vertical-align">
+                                            <option value="visibility">
+                                            <option value="voice-balance">
+                                            <option value="voice-duration">
+                                            <option value="voice-family">
+                                            <option value="voice-pitch">
+                                            <option value="voice-range">
+                                            <option value="voice-rate">
+                                            <option value="voice-stress">
+                                            <option value="voice-volume">
+                                            <option value="volume">
+                                            <option value="white-space">
+                                            <option value="widows">
+                                            <option value="width">
+                                            <option value="will-change">
+                                            <option value="word-boundary-detection">
+                                            <option value="word-boundary-expansion">
+                                            <option value="word-break">
+                                            <option value="word-spacing">
+                                            <option value="word-wrap">
+                                            <option value="wrap-after">
+                                            <option value="wrap-before">
+                                            <option value="wrap-flow">
+                                            <option value="wrap-inside">
+                                            <option value="wrap-through">
+                                            <option value="writing-mode">
+                                            <option value="z-index">
+                                        </datalist>
+                                    </div>
+                                </li>
+
+                                <li class="list-item" id="element-lower-bound-container">
+                                    <div class="step-container">
+                                        <label class="label" for="element-lower-bound"><code class="inline-code" id="css-property-1">&lt;css-property&gt;</code> at lower bound</label>
+                                        <div class="flex-wrap-joiner">
+                                            <input class="input" id="element-lower-bound" disabled type="number" step="0.01" placeholder="25" required>
+                                            <label class="visually-hidden" for="unit"><code id="css-property-2">&lt;css-property&gt;</code> unit</label>
+                                            <!-- TODO: height of the select should be the parent height. enhance with js -->
+                                            <select class="select" id="unit" disabled required>
+                                                <option value="px" selected>px</option>
+                                                <option value="vw">vw</option>
+                                                <option value="%">%</option>
+                                                <option value="ch">ch</option>
+                                                <option value="rem">rem</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-item">
+                                    <div class="step-container">
+                                        <label class="label" for="container-lower-bound"><span id="container-name-1">Viewport</span> lower bound</label>
+                                        <div class="flex-wrap-joiner">
+                                            <input class="input" id="container-lower-bound" disabled type="number" step="0.01" placeholder="320" min="0" required>
+                                            <code class="inline-code">px</code>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-item">
+                                    <div class="step-container">
+                                        <label class="label" for="element-upper-bound"><code class="inline-code" id="css-property-3">&lt;css-property&gt;</code> at upper bound</label>
+                                        <div class="flex-wrap-joiner">
+                                            <input class="input" id="element-upper-bound" disabled type="number" step="0.01" placeholder="80" required>
+                                            <code class="inline-code" id="unit-1">px</code>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-item">
+                                    <div class="step-container">
+                                        <label class="label" for="container-upper-bound"><span id="container-name-2">Viewport</span> upper bound</label>
+                                        <div class="flex-wrap-joiner">
+                                            <input class="input" id="container-upper-bound" disabled type="number" step="0.01" placeholder="1440" min="0" required>
+                                            <code class="inline-code">px</code>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                            <button class="button" type="submit" disabled>Generate and copy to clipboard</button>
+                            <button hidden id="responsify-button" type="button"></button>
+                            <!-- TODO: reset button doesn't reset the form to its pristine state -->
+                            <button class="button" type="reset" disabled>Reset</button>
+                            <output class="output" id="responsify-output" aria-live="assertive" role="alert"></output>
+                        </form>
+                    </div>
+                </section>
+                <section class="vertical-spacing-150-percent" aria-labelledby="sass-function">
+                    <div class="heading-container">
+                        <h2 class="screen-reader-heading">Sass @function</h2>
+                        <h2 id="sass-function" aria-hidden="true">Sass <code class="inline-code">@function</code></h2><span class="a-container"><a class="a" href="#sass-function" aria-labelledby="sass-function">#</a></span>
+                    </div>
+                    <p class="vertical-spacing">You can use responsify as a Sass <code class="inline-code">@function</code>. <a class="link" href="./public/pages/index/assets/_responsify.scss.zip" download data-fileFormat=".zip" data-fileSize="1,170 bytes">Download <code class="inline-code">_responsify.scss</code></a>, unzip it, and import it to your root Sass file. Usage examples are included in the file.</p>
+                    <p class="vertical-spacing">The advantage of using the Sass <code class="inline-code">@function</code> is that you don't need comments documenting input values. 🙌</p>
+                    <p class="vertical-spacing">Note that at the moment, Sass <code class="inline-code">@function</code> doesn't support <code class="inline-code">ch</code> and <code class="inline-code">rem</code> units. 😞</p>
+                </section>
+                <section class="vertical-spacing-150-percent" aria-describedby="browser-support">
+                    <h2 id="browser-support">Browser support</h2><span class="a-container"><a class="a" href="#browser-support" aria-labelledby="browser-support">#</a></span>
+                    <p class="vertical-spacing">Browser support is very good. In spite of IE having <a class="link" href="https://caniuse.com/calc/" target="_blank" rel="noopener noreferrer">known issues with <code class="inline-code">calc()</code></a> I haven't encountered any. Two of the examples use <code class="inline-code">clamp()</code> and <code class="inline-code">min()</code>, which IE doesn't support. As far as "exotic" 🐠 CSS values go: <code class="inline-code">vw</code> is supported by all browsers and <code class="inline-code">ch</code> is narrower on IE compared to other browsers, so just look out for that.</p>
+                </section>
+                <section class="vertical-spacing-150-percent" aria-describedby="comparison">
+                    <h2 id="comparison">Comparison with CSS locks</h2><span class="a-container"><a class="a" href="#comparison" aria-labelledby="comparison">#</a></span>
+                    <p class="vertical-spacing">CSS locks originated as <a class="link" href="https://tbrown.org/notes/2012/02/03/molten-leading-or-fluid-line-height/" target="_blank" rel="noopener noreferrer">Molten leading</a>. In the article that introduced the concept and in almost every example I came across CSS locks are used for controlling <code class="inline-code">line-height</code> and <code class="inline-code">font-size</code>, even though it works with many CSS properties.</p>
+                    <p class="vertical-spacing">CSS locks and responsify are based on fundamentally the same logic/math and as such share many similarities. They both:</p>
+                    <ul>
+                        <li>work with CSS properties that accept a <code class="inline-code">px</code> value,</li>
+                        <li>don't work with properties that accept keyword value like <code class="inline-code">visibility</code>,</li>
+                        <li>don't work with properties that accept a unitless value like <code class="inline-code">z-index</code>.</li>
+                    </ul>
+                    <p class="vertical-spacing">There are also a few differences, most notable are listed in the following table.</p>
+                    <div class="table-container">
+                        <table class="vertical-spacing">
+                            <caption class="caption">CSS locks vs responsify</caption>
+                            <thead>
+                                <tr>
+                                    <th>Criterion</th>
+                                    <th>CSS locks</th>
+                                    <th>Responsify</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sass</td>
+                                    <!-- TODO: can CSS locks Sass function be used in all of the examples I have?? -->
+                                    <td><a class="link" href="https://codepen.io/andi1984/pen/yJARkv" target="_blank" rel="noopener noreferrer">CSS locks Sass function</a></td>
+                                    <td><a class="link" href="#sass-function">Responsify Sass function</a></td>
+                                </tr>
+                                <tr>
+                                    <td>PostCSS</td>
+                                    <td><a class="link" href="https://github.com/bramstein/postcss-scale" target="_blank" rel="noopener noreferrer"><code class="inline-code">postcss-scale</code></a></td>
+                                    <td>No <span aria-hidden="true">❌</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Web interface</td>
+                                    <td>No <span aria-hidden="true">❌</span></td>
+                                    <td>Yes <span aria-hidden="true">✅</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Since</td>
+                                    <td>2016</td>
+                                    <td>2019</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="vertical-spacing-150-percent" aria-labelledby="resources">
+                    <h2 id="resources">Related resources</h2><span class="a-container"><a class="a" href="#resources" aria-labelledby="resources">#</a></span>
+                    <p class="vertical-spacing">There's a similar tool that can <a class="link" href="https://andersriggelsen.dk/nonlinear/" target="_blank" rel="noopener noreferrer">generate <em>non-linear</em> <code class="inline-code">calc()</code> value</a>.</p>
+                    <p class="vertical-spacing">For more awesomeness, James Gilyead and Trys Mudford created <a class="link" href="https://utopia.fyi/" target="_blank" rel="noopener noreferrer">"Utopia" design system</a> where elements scale proportionally and fluidly. It's an unconventional approach that uses a whole lot of <code class="inline-code">calc()</code>, CSS variables, <code class="inline-code">rem</code> and <code class="inline-code">vw</code> relative units, all tied together with what seems to me as undecipherable math. Fascinating stuff. 🧠</p>
+                </section>
+            </article>
+        </main>
+        <footer class="vertical-spacing-150-percent">
+            <section class="vertical-spacing-150-percent" aria-describedby="privacy">
+                <h2 id="privacy">Privacy policy</h2><span class="a-container"><a class="a" href="#privacy" aria-labelledby="privacy">#</a></span>
+                <p class="vertical-spacing">There is none because no data is collected. No ads 📢, no analytics 📊, no tracking 🕵️, no telemetry 📡, no cookies 🍪, no bullshit 🐂💩.</p>
+            </section>
+            <section class="vertical-spacing-150-percent" aria-describedby="accessibility">
+                <h2 id="accessibility">Accessibility statement</h2><span class="a-container"><a class="a" href="#accessibility" aria-labelledby="accessibility">#</a></span>
+                <p class="vertical-spacing">I try hard to make my work accessible. ♿️ If something isn't working for you please email me at <a class="link" href="mailto:a11y@responsify.dev" id="email">a11y@responsify.dev</a>.</p>
+                <div class="email-dispenser">
+                    <div class="email-enclosure">
+                        <output class="email-notification" id="email-notification" aria-live="polite" role="status"></output>
+                        <button class="button" id="email-button" data-clipboard-target="#email" disabled>Copy email address</button>
+                    </div>
+                </div>
+            </section>
+        </footer>
+        <!-- TODO: this entire div should be generated by unorphan, so that it can be extracted into a separate npm package -->
+        <div class="offscreen" id="offscreen">
+            <div class="offscreen-reveal" id="offscreen-reveal"></div>
+            <div class="offscreen-nowrap" id="offscreen-nowrap"></div>
+        </div>
+    </body>
+</html>
