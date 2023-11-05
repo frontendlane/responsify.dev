@@ -3,7 +3,8 @@
 Source code for https://responsify.dev.
 
 ## Todos
-
+https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/set-browser-ttl/
+https://developers.cloudflare.com/pages/platform/headers
 -   add postinstall format
 
 -   removed `pnpm run zip &&` from build script to make it deployable on cloudflare pages
