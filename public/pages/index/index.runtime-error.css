@@ -1,0 +1,1 @@
+.form :where(.a,.label,.input,.select,.button,.output){pointer-events:revert}
