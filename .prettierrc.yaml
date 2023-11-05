@@ -1,7 +1,0 @@
-semi: false
-singleQuote: true
-htmlWhitespaceSensitivity: "strict"
-
-# these settings are not necessary because they are taken care of by .editorconfig
-# useTabs: true
-# tabWidth: 4
