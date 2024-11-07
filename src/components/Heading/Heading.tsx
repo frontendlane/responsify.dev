@@ -1,37 +1,42 @@
 import { Fragment, type FunctionComponent } from 'react'
 
-import { HeadingLink } from './HeadingLink'
+import { HeadingLink } from './HeadingLink/HeadingLink'
 import classes from './Heading.module.css'
-import { getTextContent } from './getTextContent'
+import { getTextContent } from '../../utils/getTextContent'
+import { generateValidId } from '@/utils/generateValidId'
+import { isPlaintextLike } from '@/utils/isPlaintextLike'
 
-export type HeadingElement = 'h1' | 'h2' | 'h3'
+export type HeadingLevel = 'h1' | 'h2' | 'h3'
 
-type HeadingProps = {
-	element: HeadingElement
+type HeadingProps = React.PropsWithChildren & {
+	level: HeadingLevel
 	id: string
-	/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-	renderContent: () => any
 }
 
-export const Heading: FunctionComponent<HeadingProps> = ({ element: HeadingElement, id, renderContent }) => {
-	const content = renderContent()
-	const isPlaintext = typeof content.props.children === 'string'
-	const plaintext = getTextContent(content.props.children)
+// context:
+// https://axesslab.com/text-splitting/
+// https://www.tpgi.com/using-the-text-role/
+// https://tinytip.co/tips/a11y-voiceover-text-role/
+// https://lab.dotjay.com/tests/screen-readers/voiceover-text-breaks-workarounds/
+export const Heading: FunctionComponent<HeadingProps> = ({ level: HeadingElement, id, children }) => {
+	const noWhitespaceId = generateValidId(id)
 
-	return isPlaintext ? (
+	return isPlaintextLike(children) ? (
 		<>
-			<HeadingElement className={classes.heading} id={id}>
-				{content}
+			<HeadingElement className={classes.heading} id={noWhitespaceId}>
+				{children}
 			</HeadingElement>
-			<HeadingLink id={id} />
+			<HeadingLink id={noWhitespaceId} />
 		</>
 	) : (
 		<div className={classes.headingContainer}>
-			<HeadingElement className={`${classes.heading} ${classes.screenReaderHeading}`}>{plaintext}</HeadingElement>
-			<HeadingElement className={classes.heading} id={id} aria-hidden="true">
-				{content}
+			<HeadingElement className={`${classes.heading} ${classes.screenReaderHeading}`}>
+				{getTextContent(children)}
 			</HeadingElement>
-			<HeadingLink id={id} />
+			<HeadingElement className={classes.heading} id={noWhitespaceId} aria-hidden="true">
+				{children}
+			</HeadingElement>
+			<HeadingLink id={noWhitespaceId} />
 		</div>
 	)
 }
