@@ -1,27 +1,51 @@
 {
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+	"compilerOptions": {
+		// Base options
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"moduleDetection": "force", // ensures every file is treated as a module and not as a global script
+		"esModuleInterop": true, // supports importing CJS in ESM
+		"resolveJsonModule": true,
+		"allowArbitraryExtensions": true,
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"skipLibCheck": true, // skips type checking *.d.ts files (both in source code and in node_modules)
+		"noEmit": true,
+		"target": "ESNext", // would be unnecessary because noEmit === true but to support `1n` bigint syntax "target" has to be "ES2020" or newer
+
+		// Strictness
+		"allowJs": false,
+		"noUnusedLocals": false, // eslint does this better
+		"noUnusedParameters": false, // eslint does this better
+		"strict": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"allowUnusedLabels": false,
+		"allowUnreachableCode": false,
+		"verbatimModuleSyntax": true, // enforces the use of `type` specifier in import statements, either `import type {` or `import { type` syntax. only applies to types, not to values used as types i.e. `typeof someValue`
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedSideEffectImports": true,
+
+		// Developer experience
+		"allowSyntheticDefaultImports": true,
+		"noErrorTruncation": true,
+		"allowImportingTsExtensions": true, // valid only because noEmit === true
+
+		// React
+		"jsx": "preserve",
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		// TODO: investigate if next.js still needs this
+		"incremental": true // would be unnecessary because noEmit === true but next.js needs it for some reasons
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["node_modules"]
 }

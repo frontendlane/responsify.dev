@@ -1,0 +1,193 @@
+:root {
+	--vertical-spacing: calc(1em * var(--line-height));
+	--horizontal-spacing: 2ch;
+	--block-border-radius: 0.5em;
+	--inline-border-radius: 0.25em;
+	--line-height: var(--golden-ratio);
+	--max-z-index: 2147483647;
+}
+
+html {
+	background-color: var(
+		--near-white
+	); /* always set a background color on html for when users scroll beyong the page content, also in cases when the content doesn't cover all of the page */
+	color: var(
+		--dark
+	); /* i forgot why but i remember concluding that it's a good practice to set a color whenever setting a background-color and vice-versa */
+	/* TODO: investigate if this is the best font stack for me */
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+@media (prefers-color-scheme: dark) {
+	html {
+		background-color: var(--dark);
+		color: var(--light);
+	}
+}
+
+body {
+	/* TODO: this is an iOS Safari bug: not recognizing padding-inline with var() value */
+	margin-block: calc(var(--vertical-spacing) * 1.5);
+	margin-block: 2em;
+}
+
+body > *,
+/* https://zellwk.com/blog/overcoming-astro-styling-frustrations/ */
+body > astro-island > * {
+	/* has to target children because of .offscreen */
+	max-inline-size: 75ch; /* always set *some* kind of limit on width - either on body or elsewhere - because text is difficult to read if the lines are too long: https://www.joshwcomeau.com/css/full-bleed/; */
+	margin-inline: auto;
+	/* TODO: this is an iOS Safari bug: not recognizing padding-inline with var() value */
+	padding-inline: var(--horizontal-spacing);
+	padding-inline: 2ch;
+}
+
+/* TODO: think of a way to move these classes to a xxx.module.css file */
+.vertical-spacing {
+	margin-block-start: var(--vertical-spacing);
+}
+
+.vertical-spacing-150-percent {
+	margin-block-start: calc(var(--vertical-spacing) * 1.5);
+}
+
+/* TODO: figure out a way not to duplicate the animation keyframes but just to change the css variable for color */
+@keyframes reveal {
+	0% {
+		/* BEGIN: for the duration of the animation */
+		position: relative;
+		z-index: var(--max-z-index);
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: var(--link-visited-light);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-light);
+		outline: 100vmax solid var(--link-visited-light);
+
+		outline-offset: var(--outline-offset);
+	}
+
+	10% {
+		outline: 100vmax solid var(--link-visited-light);
+	}
+
+	80% {
+		outline: 100vmax solid transparent;
+		outline-offset: 100vmax;
+	}
+
+	100% {
+		/* BEGIN: for the duration of the animation */
+		position: relative;
+		z-index: var(--max-z-index);
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: transparent;
+		box-shadow: 0 0 0 0.5ch transparent;
+
+		/* BEGIN: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
+		outline: 100vmax solid transparent;
+		outline-offset: 100vmax;
+		/* END: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
+	}
+}
+@keyframes revealDark {
+	0% {
+		/* BEGIN: for the duration of the animation */
+		position: relative;
+		z-index: var(--max-z-index);
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: var(--link-visited-dark);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-dark);
+		outline: 100vmax solid var(--link-visited-dark);
+
+		outline-offset: var(--outline-offset);
+	}
+
+	10% {
+		outline: 100vmax solid var(--link-visited-dark);
+	}
+
+	80% {
+		outline: 100vmax solid transparent;
+		outline-offset: 100vmax;
+	}
+
+	100% {
+		/* BEGIN: for the duration of the animation */
+		position: relative;
+		z-index: var(--max-z-index);
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: transparent;
+		box-shadow: 0 0 0 0.5ch transparent;
+
+		/* BEGIN: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
+		outline: 100vmax solid transparent;
+		outline-offset: 100vmax;
+		/* END: persist styles from previous keyframe until the the of the animation because they'd otherwise animate to default values for those properties */
+	}
+}
+
+@keyframes dissipate {
+	0% {
+		/* BEGIN: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: var(--link-visited-light);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-light);
+	}
+
+	100% {
+		/* BEGIN: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: transparent;
+		box-shadow: 0 0 0 0.5ch transparent;
+	}
+}
+@keyframes dissipateDark {
+	0% {
+		/* BEGIN: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: var(--link-visited-dark);
+		box-shadow: 0 0 0 0.5ch var(--link-visited-dark);
+	}
+
+	100% {
+		/* BEGIN: for the duration of the animation */
+		border-radius: var(--block-border-radius);
+		/* END: for the duration of the animation */
+
+		background-color: transparent;
+		box-shadow: 0 0 0 0.5ch transparent;
+	}
+}
+
+/* NOTE: subsequent clicks on the same page anchor link don't highlight the element */
+:target {
+	animation: 2.5s ease-out reveal;
+}
+@media (prefers-color-scheme: dark) {
+	:target {
+		animation-name: revealDark;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	:target {
+		animation: 2.5s ease-out dissipate;
+	}
+}
+@media (prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) {
+	:target {
+		animation: 2.5s ease-out dissipateDark;
+	}
+}

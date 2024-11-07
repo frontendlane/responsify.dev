@@ -1,0 +1,16 @@
+.inlineCode {
+	white-space: pre-wrap; /* ensures there's a white-space at the end of a line if text breaks into multiple lines */
+	border-radius: var(--inline-border-radius);
+	padding-inline: 0.25ch;
+	background-color: var(--code-background-dark);
+	color: var(--code-color-light);
+}
+@media (prefers-color-scheme: dark) {
+	.inlineCode {
+		color: var(--code-color-dark);
+	}
+}
+
+a:hover .inlineCode {
+	background-color: var(--near-black);
+}

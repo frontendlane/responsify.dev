@@ -1,0 +1,118 @@
+///
+/// Prevent abrupt layout shift when users resize their browsers. More at https://responsify.dev
+/// @param {Number} $containerLowerBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at lower bound, in pixels.
+/// @param {Number} $containerUpperBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at upper bound, in pixels.
+/// @param {Number} $elementLowerBound - Size of the target element at lower bound, in $unit.
+/// @param {Number} $elementUpperBound - Size of the target element at upper bound, in $unit.
+/// @param {"px" | "vw" | "%"} $unit ["px"] - unit for $elementLowerBound and $elementUpperBound.
+/// @return {*}
+///
+/// @example #1 Sass input
+///     @media (min-width: 900px) and (max-width: 1023px) {
+///         div {
+///             width: responsify(900, 1024, 90, 40, "%");
+///         }
+///     }
+/// @example #1 CSS output
+///     @media (min-width: 900px) and (max-width: 1023px) {
+///         div {
+///             width: calc(3716.1290322581px - 3.2290322581%);
+///         }
+///     }
+///
+/// @example #2 Sass input
+///     @media (max-width: 1023px) {
+///         body {
+///             padding: responsify(320, 1024, 10, 50);
+///         }
+///     }
+/// @example #2 CSS output
+///     @media (max-width: 1023px) {
+///         body {
+///             padding: calc(-8.1818181818px + 5.6818181818vw);
+///         }
+///     }
+///
+/// @example #3 Sass input
+///     header {
+///         height: responsify(320, 1024, 40, 90);
+///         max-height: 90px;
+///     }
+/// @example #3 CSS output
+///     header {
+///         height: calc(17.2727272727px + 7.1022727273vw);
+///         max-height: 90px;
+///     }
+///
+/// @example #4 Sass input
+///     footer {
+///         margin-top: clamp(20px, responsify(768, 1024, 2.75, 19.53, "vw"), 200px);
+///     }
+/// @example #4 CSS output
+///     footer {
+///         margin-top: clamp(20px, calc(-515.4816px + 69.87vw), 200px);
+///     }
+///
+@function responsify($containerLowerBound, $containerUpperBound, $elementLowerBound, $elementUpperBound, $unit: 'px') {
+	@if $containerLowerBound < 0 {
+		@error "Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at lower bound cannot be negative.";
+	}
+
+	@if $containerUpperBound < 0 {
+		@error "Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at upper bound cannot be negative.";
+	}
+
+	@if $unit != 'px' and $unit != 'vw' and $unit != '%' {
+		@error "$unit must be \"px\", \"vw\", or \"%\".";
+	}
+
+	$elementStartingSize: 0;
+	@if $unit == 'px' {
+		$elementStartingSize: $elementLowerBound;
+	} @else if $unit == 'vw' {
+		$elementStartingSize: $elementLowerBound / 100 * $containerLowerBound;
+	} @else if $unit == '%' {
+		$elementStartingSize: $elementLowerBound / 100 * $containerLowerBound;
+	} @else {
+		@error "Unsupported CSS unit.";
+	}
+
+	$elementEndingSize: 0;
+	@if $unit == 'px' {
+		$elementEndingSize: $elementUpperBound;
+	} @else if $unit == 'vw' {
+		$elementEndingSize: $elementUpperBound / 100 * $containerUpperBound;
+	} @else if $unit == '%' {
+		$elementEndingSize: $elementUpperBound / 100 * $containerUpperBound;
+	} @else {
+		@error "Unsupported CSS unit.";
+	}
+
+	$elementDiff: $elementEndingSize - $elementStartingSize;
+	$containerDiff: $containerUpperBound - $containerLowerBound;
+	$rate: $elementDiff / $containerDiff;
+	$initial: $elementStartingSize - ($containerLowerBound * $rate);
+
+	$sign: 0;
+	@if $rate < 0 {
+		$sign: '-';
+	} @else {
+		$sign: '+';
+	}
+
+	$calcRate: 0;
+	@if $rate < 0 {
+		$calcRate: $rate * -100;
+	} @else {
+		$calcRate: $rate * 100;
+	}
+
+	$rateUnit: 0;
+	@if $unit == '%' {
+		$rateUnit: '%';
+	} @else {
+		$rateUnit: 'vw';
+	}
+
+	@return calc(#{$initial}px #{$sign} #{$calcRate}#{$rateUnit});
+}
