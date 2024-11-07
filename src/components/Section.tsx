@@ -9,7 +9,9 @@ export type SectionProps = ComponentProps<'h1'> & {
 export const Section: FC<SectionProps> = ({ heading, children, ...props }) => {
 	return (
 		<section {...props} aria-labelledby={heading.id}>
-			<Heading element={heading.element} id={heading.id} renderContent={heading.renderContent} />
+			<Heading level={heading.level} id={heading.id}>
+				{heading.content}
+			</Heading>
 			{children}
 		</section>
 	)

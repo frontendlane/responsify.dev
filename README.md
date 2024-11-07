@@ -4,6 +4,8 @@ Source code for https://responsify.dev.
 
 ## Todos
 
+-   go through https://testing-library.com/docs/react-testing-library/intro/
+
 -   404 in next.js?
 -   start a new next.js project with reactCompiler: true in nextConfig
 -   "type": "module", in package.json??

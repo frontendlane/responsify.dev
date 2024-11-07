@@ -22,7 +22,9 @@ export default function Home() {
 		<>
 			<main aria-labelledby={headings.h1.id}>
 				<article aria-labelledby={headings.h1.id}>
-					<Heading element={headings.h1.element} id={headings.h1.id} renderContent={headings.h1.renderContent} />
+					<Heading level={headings.h1.level} id={headings.h1.id}>
+						{headings.h1.content}
+					</Heading>
 					<p
 						style={{
 							fontSize: 'var(--font-size-h2)',
