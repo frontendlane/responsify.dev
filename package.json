@@ -39,20 +39,26 @@
 		"zod": "3.23.8"
 	},
 	"devDependencies": {
-		"concurrently": "9.1.0",
-		"happy-css-modules": "3.2.0",
-		"npm-check-updates": "17.1.10",
+		"@testing-library/dom": "10.4.0",
+		"@testing-library/jest-dom": "6.6.3",
+		"@testing-library/react": "16.0.1",
 		"@types/node": "22",
 		"@types/react": "18",
 		"@types/react-dom": "18",
+		"@vitejs/plugin-react": "4.3.3",
+		"concurrently": "9.1.0",
 		"eslint": "9",
 		"eslint-config-next": "15.0.2",
+		"happy-css-modules": "3.2.0",
+		"jsdom": "25.0.1",
+		"npm-check-updates": "17.1.10",
 		"prettier": "3.3.3",
 		"typescript": "5",
 		"vitest": "2.1.4"
 	},
 	"overrides": {
-		"react": "19.0.0-rc-02c0e824-20241028"
+		"react": "19.0.0-rc-02c0e824-20241028",
+		"react-dom": "19.0.0-rc-02c0e824-20241028"
 	},
 	"private": true
 }
