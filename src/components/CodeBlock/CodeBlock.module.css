@@ -1,0 +1,18 @@
+.preBlock {
+	overflow-x: auto;
+	margin-block-start: var(--vertical-spacing);
+	border-radius: var(--block-border-radius);
+	background-color: var(--code-background-dark);
+	font-family: inherit;
+}
+
+.blockCode {
+	display: inline-block; /* must be inline-block in order to have padding on the right hand side when horizontally scrolling on mobile */
+	padding: calc(var(--vertical-spacing) * 0.75) 0.75em;
+	color: var(--code-color-light);
+}
+@media (prefers-color-scheme: dark) {
+	.blockCode {
+		color: var(--code-color-dark);
+	}
+}

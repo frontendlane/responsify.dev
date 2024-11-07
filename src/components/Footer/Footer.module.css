@@ -1,0 +1,29 @@
+.footer {
+	border-block-start: 2px solid currentColor;
+}
+
+@media (scripting: none) {
+	.emailDispenser {
+		display: none;
+	}
+}
+
+.emailEnclosure {
+	display: inline-block;
+}
+
+.emailNotification {
+	display: block;
+	text-align: center;
+}
+
+.emailNotification:not(:empty) {
+	margin-block-end: calc(var(--vertical-spacing) * -1);
+}
+
+.kbd {
+	padding-inline: 0.25ch;
+	border-radius: var(--inline-border-radius);
+	background-color: var(--code-background-dark);
+	color: yellow;
+}

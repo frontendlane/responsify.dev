@@ -1,0 +1,84 @@
+.ol {
+	--ch-space: 0.4596ch;
+	--ch-period: 0.455ch;
+	--digit-ach: 0.959ch;
+
+	counter-reset: counter-1;
+	margin-block-start: var(--vertical-spacing);
+	/* padding-inline: 25px; this works but doesn't ensure the padding will be good if font size changes */
+	padding-inline-start: calc(var(--digit-ach) + var(--ch-period) + var(--ch-space) * 2);
+}
+
+.ol > .li {
+	counter-increment: counter-1;
+}
+.ol > .li:not(:first-of-type) {
+	margin-block-start: calc(var(--vertical-spacing) / 4);
+}
+.ol > .li::marker {
+	content: counter(counter-1) '.' ' ' ' ';
+}
+
+.ol .ol {
+	counter-reset: counter-2;
+	margin-block-start: calc(var(--vertical-spacing) / 4);
+	padding-inline-start: calc(var(--digit-ach) + var(--ch-period) + var(--ch-space) * 4);
+}
+@media (width >= 75ch) {
+	.ol .ol {
+		padding-inline-start: calc(var(--digit-ach) + var(--ch-period) + var(--ch-space) * 8);
+	}
+}
+
+.ol .ol > .li {
+	counter-increment: counter-2;
+}
+.ol .ol > .li::marker {
+	content: counter(counter-1) '.' counter(counter-2) '.' ' ' ' ';
+}
+
+.ol .ol .ol {
+	counter-reset: counter-3;
+}
+
+.ol .ol .ol > .li {
+	counter-increment: counter-3;
+}
+.ol .ol .ol > .li::marker {
+	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' ' ' ' ';
+}
+
+.ol .ol .ol .ol {
+	counter-reset: counter-4;
+}
+
+.ol .ol .ol .ol > .li {
+	counter-increment: counter-4;
+}
+.ol .ol .ol .ol > .li::marker {
+	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' counter(counter-4) '.' ' ' ' ';
+}
+
+.ol .ol .ol .ol .ol {
+	counter-reset: counter-5;
+}
+
+.ol .ol .ol .ol .ol > .li {
+	counter-increment: counter-5;
+}
+.ol .ol .ol .ol .ol > .li::marker {
+	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' counter(counter-4) '.' counter(counter-5)
+		'.' ' ' ' ';
+}
+
+.ol .ol .ol .ol .ol .ol {
+	counter-reset: counter-6;
+}
+
+.ol .ol .ol .ol .ol .ol > .li {
+	counter-increment: counter-6;
+}
+.ol .ol .ol .ol .ol .ol > .li::marker {
+	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' counter(counter-4) '.' counter(counter-5)
+		'.' counter(counter-6) '.' ' ' ' ';
+}

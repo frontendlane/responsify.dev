@@ -1,0 +1,17 @@
+.offscreen {
+	position: fixed;
+	inset-block-end: 0;
+	inset-inline-end: 0;
+	/* TODO: is there an easier way to express these values that are safely outside the viewport?? */
+	transform: translate3d(calc(100% + 100vw), calc(100% + 100vh), 0);
+}
+
+/* TODO: there's gotta be a better way to handle this hack to increase specificity */
+.offscreenNowrap.offscreenNowrap > * {
+	display: revert !important;
+	white-space: nowrap;
+}
+
+.offscreenReveal.offscreenReveal > * {
+	display: revert !important;
+}

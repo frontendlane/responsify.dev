@@ -1,0 +1,22 @@
+.visually-hidden:not(:focus):not(:active) {
+	inline-size: 1px !important;
+	block-size: 1px !important; /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+	padding: 0 !important;
+	border: 0 !important;
+	overflow: hidden !important;
+	position: absolute !important;
+	white-space: nowrap !important; /* https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe */
+	clip: rect(1px 1px 1px 1px) !important; /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	clip-path: inset(50%) !important;
+}
+
+/* replace [disabled] with :disabled */
+[disabled],
+[disabled] * {
+	cursor: not-allowed !important;
+}
+
+[hidden] {
+	display: none !important;
+}

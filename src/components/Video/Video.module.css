@@ -1,0 +1,16 @@
+.video {
+	max-inline-size: 100%;
+	border-radius: min(
+		calc(0.345px + 0.517vw),
+		5px
+	); /* https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 900px; element lower bound: 2px; element upper bound: 5px; */
+	margin-block-start: var(--vertical-spacing);
+	outline: 1px solid white;
+	inline-size: 100%;
+	aspect-ratio: 2078 / 966;
+}
+@media (prefers-color-scheme: dark) {
+	.video {
+		outline-color: var(--near-black);
+	}
+}

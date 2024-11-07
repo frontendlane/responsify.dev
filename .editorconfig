@@ -1,0 +1,18 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{htm,html,svg,css,scss,pcss,js,mjs,cjs,jsx,tsx,ts,json,json5,md}]
+indent_style = tab
+indent_size = 4
+max_line_length = 125
+
+[*.{svg,json,json5,md}]
+max_line_length = unset
+
+[*.{bat,cmd}]
+end_of_line = crlf
