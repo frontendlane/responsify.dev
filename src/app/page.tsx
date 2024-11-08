@@ -45,7 +45,6 @@ export default function Home() {
 
 					<Examples />
 
-					{/* TODO: use client */}
 					<Form />
 
 					<SassFunction />
@@ -58,7 +57,6 @@ export default function Home() {
 				</article>
 			</main>
 
-			{/* TODO: use client */}
 			<Footer />
 
 			{/* <Unorphan client:only="react" /> */}
