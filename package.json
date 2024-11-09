@@ -1,6 +1,7 @@
 {
 	"name": "responsify-dev",
 	"version": "5.0.0",
+	"type": "module",
 	"author": {
 		"name": "Petar Petrovic",
 		"email": "petar@frontendlane.com",
@@ -46,6 +47,7 @@
 		"@types/react": "18",
 		"@types/react-dom": "18",
 		"@vitejs/plugin-react": "4.3.3",
+		"babel-plugin-react-compiler": "19.0.0-beta-63b359f-20241101",
 		"concurrently": "9.1.0",
 		"eslint": "9",
 		"eslint-config-next": "15.0.2",
