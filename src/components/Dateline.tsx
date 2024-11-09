@@ -9,13 +9,13 @@ export const Dateline: FC = () => {
 		<aside className="vertical-spacing-150-percent">
 			<p>
 				<b>Published</b>:{' '}
-				<time dateTime={publishedDate} data-testId="published">
+				<time dateTime={publishedDate} data-testid="published">
 					{fromIsoDateToHumanDate(publishedDate)}
 				</time>
 			</p>
 			<p>
 				<b>Updated</b>:{' '}
-				<time dateTime={updatedDate} data-testId="updated">
+				<time dateTime={updatedDate} data-testid="updated">
 					{fromIsoDateToHumanDate(updatedDate)}
 				</time>
 			</p>
