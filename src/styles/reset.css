@@ -217,3 +217,7 @@ summary::marker {
 button[disabled] {
 	opacity: 0.3;
 }
+
+ins {
+	text-decoration: none;
+}
