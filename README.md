@@ -7,13 +7,21 @@ Source code for https://responsify.dev.
 -   testing
     -   go through https://testing-library.com/docs/react-testing-library/intro/
     -   https://vitest.dev/guide/browser/
+        -   youtube "lwj: use vitest with browser mode" @31:45
+        -   seems like I can get rid of the testing library as a dependency in this case because vitest (or its preview provider dependencies) will provide me with the building blocks to test the ui
 -   sparkes around magic words: https://www.joshwcomeau.com/react/animated-sparkles-in-react/
+-   go through all prettier options
+    -   quoteProps: there's the same option in stylistic eslint
+    -   ...
 -   format on postinstall
+-   eslint
+    -   @typescript-eslint all rules
 -   pressing reset button after generating css code produces a bug in firefox (bug is in the intersection of following things: my laptop, firefox/safari, and <pre> being inside <output>, preact? vs react?)
 -   tabindex on `<pre>` for chrome
 -   overflowing `<pre>` seem to need tabindex on safari for scrolling
 -   Chrome and Safari differently/incorrectly handle 100% width on ::before pseudo-element
 -   Chrome bug `<input for="datalist">` inside `<li>` inside `<ol>`
+-   replace `<input type="number">` with `<input inputMode="numeric">`??
 -   fix sass function zip including "public" folder
 -   flip the order in the table, put Responsify first. Change the table caption to Responsify vs CSS locks
 -   `:any-link` instead of `a` (this probably only needs fixing in reset.scss and globals.pcss)
@@ -193,6 +201,8 @@ Source code for https://responsify.dev.
     -   postcss-pxtorem??
     -   postcss-line-height-px-to-unitless??
 -   vanilla-extract to replace PostCSS and CSS modules at some point in the future
+    -   how does it work?
+    -   how well can you use css features I like e.g. range for media queries?
 -   didn't have a need for `.gitattributes`, maybe if I were using windows i would have discovered a use case, but for now I'm gonna leave it out
 -   managing a personal project: https://news.ycombinator.com/item?id=38689869
 
