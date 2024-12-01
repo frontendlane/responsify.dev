@@ -16,6 +16,10 @@
 	animation-name: growAndShrink;
 	animation-timing-function: ease-in-out;
 	animation-fill-mode: forwards; /* ensures animation stays in its end state if it ends before cleanup */
+
+	@media (prefers-reduced-motion: reduce) {
+		animation-play-state: paused;
+	}
 }
 
 @keyframes spin {
@@ -29,4 +33,8 @@
 	animation-name: spin;
 	animation-timing-function: linear;
 	animation-fill-mode: forwards; /* ensures animation stays in its end state if it ends before cleanup */
+
+	@media (prefers-reduced-motion: reduce) {
+		animation-play-state: paused;
+	}
 }

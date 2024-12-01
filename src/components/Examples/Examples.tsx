@@ -80,14 +80,14 @@ export const Examples: FC = () => {
 				<p className="vertical-spacing">
 					<em>Without</em> responsify:
 				</p>
-				<Sparkles>
-					<div className={`${styles.exampleDiv} vertical-spacing`}></div>
+				<Sparkles className={`${styles.exampleDivMiddleAligned} vertical-spacing`}>
+					<div className={`${styles.exampleDiv}`}></div>
 				</Sparkles>
 				<p className="vertical-spacing" id="description">
 					<em>With</em> responsify:
 				</p>
 				<div
-					className={`${styles.exampleDiv} vertical-spacing`}
+					className={`${styles.exampleDivMiddleAligned} ${styles.exampleDiv} vertical-spacing`}
 					aria-live="polite"
 					role="status"
 					aria-describedby="description"

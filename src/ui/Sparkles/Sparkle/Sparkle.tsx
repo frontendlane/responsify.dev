@@ -14,6 +14,8 @@ export const Sparkle: React.FC<SparkleProps> = ({ sparkle }) => {
 					insetBlockStart: sparkle.style.top,
 					insetInlineStart: sparkle.style.left,
 					animationDuration: sparkle.style.animationDuration,
+					animationName: sparkle.style.svgContainerAnimationName,
+					animationDelay: sparkle.style.animationDelay,
 				}}
 			>
 				<svg
@@ -22,6 +24,7 @@ export const Sparkle: React.FC<SparkleProps> = ({ sparkle }) => {
 					height={sparkle.size}
 					style={{
 						animationDuration: sparkle.style.animationDuration,
+						animationDelay: sparkle.style.animationDelay,
 					}}
 					viewBox="0 0 160 160"
 					xmlns="http://www.w3.org/2000/svg"

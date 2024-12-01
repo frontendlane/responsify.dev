@@ -5,38 +5,59 @@ import { useRef, useState, type FC, type PropsWithChildren } from 'react'
 import { useRandomInterval } from '@/hooks/useRandomInterval'
 import { generateSparkle } from './Sparkle/generateSparkle'
 import { Sparkle } from './Sparkle/Sparkle'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 export type SparkleConfig = ReturnType<typeof generateSparkle>
 
-type SparklesProps = PropsWithChildren & {}
+type SparklesProps = PropsWithChildren & {
+	className?: string
+}
 
-export const Sparkles: FC<SparklesProps> = ({ children }) => {
-	const [sparkles, setSparkles] = useState<Array<SparkleConfig>>([])
+// heavily borrowed from https://www.joshwcomeau.com/react/animated-sparkles-in-react/
+export const Sparkles: FC<SparklesProps> = ({ className, children }) => {
+	const [sparkles, setSparkles] = useState<Array<SparkleConfig>>([]) // must be empty array to avoid mismatched HTML when using SSG
+	const prefersReducedMotion = usePrefersReducedMotion()
+	const containerRef = useRef<HTMLElement>(null)
 
 	const minimumDelayInMs = 50
 	const maximumDelayInMs = 500
 
 	useRandomInterval(
 		() => {
-			const cleanupCutoffInMs = 1200
-			const now = Date.now()
+			const container = containerRef.current
+			if (!container) {
+				return
+			}
 
-			contentContainerRef.current &&
+			const now = Date.now()
+			const cleanupCutoffInMs = 1200
+
+			if (prefersReducedMotion) {
+				const numberOfMotionlessSparkles = 7
+
+				sparkles.length === 0 &&
+					setSparkles(
+						sparkles.concat(
+							Array.from({ length: numberOfMotionlessSparkles }).map(() =>
+								generateSparkle(container, cleanupCutoffInMs, 'static'),
+							),
+						),
+					)
+			} else {
 				setSparkles(
 					sparkles
 						.filter((sparkle) => now - sparkle.createdAt < cleanupCutoffInMs)
-						.concat(generateSparkle(contentContainerRef.current, cleanupCutoffInMs)),
+						.concat(generateSparkle(container, cleanupCutoffInMs, 'dynamic')),
 				)
+			}
 		},
 		minimumDelayInMs,
 		maximumDelayInMs,
 	)
 
-	const contentContainerRef = useRef<HTMLElement>(null)
-
 	return (
-		<span className={styles.container}>
-			<strong ref={contentContainerRef}>{children}</strong>
+		<span className={`${styles.container} ${className}`}>
+			<strong ref={containerRef}>{children}</strong>
 			{sparkles.map((sparkle) => (
 				<Sparkle key={sparkle.id} sparkle={sparkle} />
 			))}
