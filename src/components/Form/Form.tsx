@@ -5,7 +5,7 @@ import { headings } from '../TableOfContents/TableOfContents'
 import { Code } from '../Code/Code'
 import { DataList } from '../DataList'
 import { Section } from '../Section'
-import classes from './Form.module.css'
+import styles from './Form.module.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -94,13 +94,13 @@ export const Form: FunctionComponent = () => {
 			case 'hidden':
 				return
 			case 'success':
-				return <span className={classes.notification}>Copied</span>
+				return <span className={styles.notification}>Copied</span>
 			case 'error':
 				return (
 					// TODO: verify that all platforms support this way of copying to clipboard. still customize the error message copy
-					<span className={classes.notification}>
+					<span className={styles.notification}>
 						Press{' '}
-						<kbd className={classes.kbd}>
+						<kbd className={styles.kbd}>
 							{/* TODO: if it fails then CMD + C / Control + C won't do anything... */}
 							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
 						</kbd>{' '}
@@ -119,8 +119,8 @@ export const Form: FunctionComponent = () => {
 	const contactEmailAddress = 'petar@responsify.dev'
 
 	return (
-		<Section className={classes.formContainer} heading={headings.h2_4}>
-			<div className={classes.jsError} hidden={!windowError}>
+		<Section className={styles.formContainer} heading={headings.h2_4}>
+			<div className={styles.jsError} hidden={!windowError}>
 				<p>
 					{windowError ? (
 						<Fragment>
@@ -145,7 +145,7 @@ export const Form: FunctionComponent = () => {
 				Bookmark the link next to the form heading above for direct access to this form.
 			</p>
 			<form className='form-element"' aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
-				<noscript className={classes.noscript}>
+				<noscript className={styles.noscript}>
 					<p>
 						<strong>
 							JavaScript needs to be enabled in order to generate a<Code>calc()</Code>
@@ -153,14 +153,14 @@ export const Form: FunctionComponent = () => {
 						</strong>
 					</p>
 				</noscript>
-				<ol className={classes.list}>
-					<li className={classes.listItem}>
-						<div className={classes.stepContainer}>
-							<label className={classes.label} htmlFor="css-property">
+				<ol className={styles.list}>
+					<li className={styles.listItem}>
+						<div className={styles.stepContainer}>
+							<label className={styles.label} htmlFor="css-property">
 								CSS property
 							</label>
 							<input
-								className={`${classes.input} ${classes.cssProperty}`}
+								className={`${styles.input} ${styles.cssProperty}`}
 								{...register('cssProperty')}
 								id="css-property"
 								disabled={isDisabled}
@@ -173,14 +173,14 @@ export const Form: FunctionComponent = () => {
 						</div>
 					</li>
 
-					<li className={classes.listItem}>
-						<div className={classes.stepContainer}>
-							<label className={classes.label} htmlFor="element-lower-bound">
+					<li className={styles.listItem}>
+						<div className={styles.stepContainer}>
+							<label className={styles.label} htmlFor="element-lower-bound">
 								<Code>{cssProperty}</Code> at lower bound
 							</label>
-							<div className={classes.flexWrapJoiner}>
+							<div className={styles.flexWrapJoiner}>
 								<input
-									className={classes.input}
+									className={styles.input}
 									{...register('elementLowerBound')}
 									id="element-lower-bound"
 									disabled={isDisabled}
@@ -194,7 +194,7 @@ export const Form: FunctionComponent = () => {
 								</label>
 								{/* <!-- TODO: height of the select should be the parent height. enhance with js --> */}
 								<select
-									className={classes.select}
+									className={styles.select}
 									id="unit"
 									disabled={isDisabled}
 									defaultValue="px"
@@ -212,14 +212,14 @@ export const Form: FunctionComponent = () => {
 					</li>
 
 					{unit === 'ch' && (
-						<li className={classes.listItem}>
-							<div className={classes.stepContainer}>
-								<label className={classes.label} htmlFor="ch-width-in-px">
+						<li className={styles.listItem}>
+							<div className={styles.stepContainer}>
+								<label className={styles.label} htmlFor="ch-width-in-px">
 									<Code>ch</Code> width
 								</label>
-								<div className={classes.flexWrapJoiner}>
+								<div className={styles.flexWrapJoiner}>
 									<input
-										className={classes.input}
+										className={styles.input}
 										{...register('chWidthInPx')}
 										id="ch-width-in-px"
 										type="number"
@@ -234,14 +234,14 @@ export const Form: FunctionComponent = () => {
 						</li>
 					)}
 
-					<li className={classes.listItem}>
-						<div className={classes.stepContainer}>
-							<label className={classes.label} htmlFor="container-lower-bound">
+					<li className={styles.listItem}>
+						<div className={styles.stepContainer}>
+							<label className={styles.label} htmlFor="container-lower-bound">
 								{container} lower bound
 							</label>
-							<div className={classes.flexWrapJoiner}>
+							<div className={styles.flexWrapJoiner}>
 								<input
-									className={classes.input}
+									className={styles.input}
 									{...register('containerLowerBound')}
 									id="container-lower-bound"
 									disabled={isDisabled}
@@ -256,14 +256,14 @@ export const Form: FunctionComponent = () => {
 						</div>
 					</li>
 
-					<li className={classes.listItem}>
-						<div className={classes.stepContainer}>
-							<label className={classes.label} htmlFor="element-upper-bound">
+					<li className={styles.listItem}>
+						<div className={styles.stepContainer}>
+							<label className={styles.label} htmlFor="element-upper-bound">
 								<Code>{cssProperty}</Code> at upper bound
 							</label>
-							<div className={classes.flexWrapJoiner}>
+							<div className={styles.flexWrapJoiner}>
 								<input
-									className={classes.input}
+									className={styles.input}
 									{...register('elementUpperBound')}
 									id="element-upper-bound"
 									disabled={isDisabled}
@@ -277,14 +277,14 @@ export const Form: FunctionComponent = () => {
 						</div>
 					</li>
 
-					<li className={classes.listItem}>
-						<div className={classes.stepContainer}>
-							<label className={classes.label} htmlFor="container-upper-bound">
+					<li className={styles.listItem}>
+						<div className={styles.stepContainer}>
+							<label className={styles.label} htmlFor="container-upper-bound">
 								{container} upper bound
 							</label>
-							<div className={classes.flexWrapJoiner}>
+							<div className={styles.flexWrapJoiner}>
 								<input
-									className={classes.input}
+									className={styles.input}
 									{...register('containerUpperBound')}
 									id="container-upper-bound"
 									disabled={isDisabled}
@@ -305,11 +305,11 @@ export const Form: FunctionComponent = () => {
 				<Button type="reset" disabled={isDisabled} onClick={() => reset()}>
 					Reset
 				</Button>
-				<output className={classes.output} aria-live="assertive" role="alert">
+				<output className={styles.output} aria-live="assertive" role="alert">
 					{isSubmitted && isDirty && (
 						<Fragment>
 							{renderNotification()}
-							<CodeBlock ref={resultContainer} className={classes.result}>
+							<CodeBlock ref={resultContainer} className={styles.result}>
 								{generateCss(getValues())}
 							</CodeBlock>
 						</Fragment>

@@ -5,7 +5,7 @@ import { Link } from '../Link/Link'
 import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
 import { Fragment, type FC } from 'react'
-import classes from './Footer.module.css'
+import styles from './Footer.module.css'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import { Button } from '../../ui/Button'
 
@@ -30,7 +30,7 @@ export const Footer: FC = () => {
 				return (
 					<Fragment>
 						Press{' '}
-						<kbd className={classes.kbd}>
+						<kbd className={styles.kbd}>
 							{/* TODO: if it fails then CMD + C / Control + C won't do anything... */}
 							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
 						</kbd>{' '}
@@ -55,7 +55,7 @@ export const Footer: FC = () => {
 	const a11yEmailAddress = 'a11y@responsify.dev'
 
 	return (
-		<footer className={`${classes.footer} vertical-spacing-150-percent`}>
+		<footer className={`${styles.footer} vertical-spacing-150-percent`}>
 			<Section className="vertical-spacing-150-percent" heading={headings.h2_9}>
 				<p className="vertical-spacing">
 					There is none because no data is collected. No ads 📢, no analytics 📊, no tracking 🕵️, no telemetry 📡,
@@ -67,10 +67,10 @@ export const Footer: FC = () => {
 					I try hard to make my work accessible. ♿️ If something isn&apos;t working for you please email me at{' '}
 					<Link href={`mailto:${a11yEmailAddress}`}>{a11yEmailAddress}</Link>.
 				</p>
-				<div className={classes.emailDispenser}>
-					<div className={classes.emailEnclosure}>
+				<div className={styles.emailDispenser}>
+					<div className={styles.emailEnclosure}>
 						<output
-							className={classes.emailNotification}
+							className={styles.emailNotification}
 							id="email-notification"
 							aria-live="polite"
 							role="status"

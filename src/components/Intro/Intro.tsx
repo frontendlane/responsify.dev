@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { Section } from '../Section'
 import { Updates } from '../Updates'
-import classes from './Intro.module.css'
+import styles from './Intro.module.css'
 import { Code } from '../Code/Code'
 import { headings } from '../TableOfContents/TableOfContents'
 import { Video } from '../Video/Video'
@@ -28,12 +28,12 @@ export const Intro: FC = () => {
 
 			{/* TODO: neat, but why should I care? users rarely resize their browser, right? */}
 
-			<pre className={classes.preBlock}>
-				<blockquote className={classes.blockquote}>
-					<b className={classes.term}>responsify</b>
+			<pre className={styles.preBlock}>
+				<blockquote className={styles.blockquote}>
+					<b className={styles.term}>responsify</b>
 					{`
     `}
-					<i className={classes.termType}>verb</i>
+					<i className={styles.termType}>verb</i>
 					{`
         `}
 					to make an HTML element fluidly adapt to changes in viewport size

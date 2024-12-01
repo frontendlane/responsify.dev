@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import { Section } from '../Section'
-import classes from './Comparison.module.css'
+import styles from './Comparison.module.css'
 import { Code } from '../Code/Code'
 import { Link } from '../Link/Link'
 import { headings } from '../TableOfContents/TableOfContents'
@@ -20,7 +20,7 @@ export const Comparison: FC = () => {
 				CSS locks and responsify are based on fundamentally the same logic/math and as such share many similarities.
 				They both:
 			</p>
-			<ul className={classes.ul}>
+			<ul className={styles.ul}>
 				<li>
 					work with CSS properties that accept a <Code>px</Code> value,
 				</li>

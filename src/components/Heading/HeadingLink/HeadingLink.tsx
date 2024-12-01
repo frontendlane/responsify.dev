@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import classes from './HeadingLink.module.css'
+import styles from './HeadingLink.module.css'
 
 type HeadingLinkProps = {
 	id: string
@@ -7,7 +7,7 @@ type HeadingLinkProps = {
 
 export const HeadingLink: FC<HeadingLinkProps> = ({ id }) => {
 	return (
-		<a className={classes.anchor} href={`#${id}`} aria-labelledby={id}>
+		<a className={styles.anchor} href={`#${id}`} aria-labelledby={id}>
 			#
 		</a>
 	)

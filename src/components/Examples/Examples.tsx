@@ -1,10 +1,11 @@
+import { Sparkles } from '@/ui/Sparkles/Sparkles'
 import { Code } from '../Code/Code'
 import { CodeBlock } from '../CodeBlock/CodeBlock'
 import { Link } from '../Link/Link'
 import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
 
-import classes from './Examples.module.css'
+import styles from './Examples.module.css'
 import type { FC } from 'react'
 
 export const Examples: FC = () => {
@@ -46,9 +47,9 @@ export const Examples: FC = () => {
 				</CodeBlock>
 				<p className="vertical-spacing">
 					You want to gradually transition between these two values so you reserve, let&apos;s say, the 900px -
-					1024px range to smooth this out. You add another media query with the magic 🪄 <Code>calc()</Code> value
-					that you generate using the <Link href={`#${headings.h2_4.id}`}>responsify form</Link> below and
-					you&apos;re done! 🎉
+					1024px range to smooth this out. You add another media query with the <Sparkles>magic</Sparkles>{' '}
+					<Code>calc()</Code> value that you generate using the{' '}
+					<Link href={`#${headings.h2_4.id}`}>responsify form</Link> below and you&apos;re done! 🎉
 				</p>
 				<CodeBlock>
 					@media (min-width: 900px) and (max-width: 1023px) &#123;
@@ -75,16 +76,18 @@ export const Examples: FC = () => {
 					and as a unique string you can match against when tracking down responsified values.
 				</p>
 				{/* <!-- TODO: optimize screen reader usage --> */}
-				<p className={`vertical-spacing ${classes.resize}`}></p>
+				<p className={`vertical-spacing ${styles.resize}`}></p>
 				<p className="vertical-spacing">
 					<em>Without</em> responsify:
 				</p>
-				<div className={`${classes.exampleDiv} vertical-spacing`}></div>
+				<Sparkles>
+					<div className={`${styles.exampleDiv} vertical-spacing`}></div>
+				</Sparkles>
 				<p className="vertical-spacing" id="description">
 					<em>With</em> responsify:
 				</p>
 				<div
-					className={`${classes.exampleDiv} vertical-spacing`}
+					className={`${styles.exampleDiv} vertical-spacing`}
 					aria-live="polite"
 					role="status"
 					aria-describedby="description"
