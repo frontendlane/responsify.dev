@@ -11,7 +11,6 @@ Source code for https://responsify.dev.
         -   seems like I can get rid of the testing library as a dependency in this case because vitest (or its preview provider dependencies) will provide me with the building blocks to test the ui
 -   sparkes
     -   Sparkles can appear either in front of or behind the children
-    -   Sparkle positioning isn't quite random, I try and pick nice arrangements
     -   You can click sparkly text to disable the effect
     -   Sparkles are only generated when the element's on-screen, using the IntersectionObserver API.
     -   https://github.com/kmjennison/react-sparkle?tab=readme-ov-file

@@ -1,7 +1,8 @@
 declare const styles:
-  & Readonly<{ "exampleDiv": string }>
-  & Readonly<{ "exampleDiv": string }>
-  & Readonly<{ "exampleDiv": string }>
+  & Readonly<{ "exampleDivMiddleAligned": string }>
+  & Readonly<{ "exampleDivMiddleAligned": string }>
+  & Readonly<{ "exampleDivMiddleAligned": string }>
+  & Readonly<{ "exampleDivMiddleAligned": string }>
   & Readonly<{ "exampleDiv": string }>
   & Readonly<{ "exampleDiv": string }>
   & Readonly<{ "exampleDiv": string }>
