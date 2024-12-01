@@ -9,7 +9,13 @@ Source code for https://responsify.dev.
     -   https://vitest.dev/guide/browser/
         -   youtube "lwj: use vitest with browser mode" @31:45
         -   seems like I can get rid of the testing library as a dependency in this case because vitest (or its preview provider dependencies) will provide me with the building blocks to test the ui
--   sparkes around magic words: https://www.joshwcomeau.com/react/animated-sparkles-in-react/
+-   sparkes
+    -   Sparkles can appear either in front of or behind the children
+    -   Sparkle positioning isn't quite random, I try and pick nice arrangements
+    -   You can click sparkly text to disable the effect
+    -   Sparkles are only generated when the element's on-screen, using the IntersectionObserver API.
+    -   https://github.com/kmjennison/react-sparkle?tab=readme-ov-file
+-   https://codepen.io/jh3y/pen/LYJMPBL
 -   go through all prettier options
     -   quoteProps: there's the same option in stylistic eslint
     -   ...

@@ -1,7 +1,7 @@
 import { Fragment, type FunctionComponent } from 'react'
 
 import { HeadingLink } from './HeadingLink/HeadingLink'
-import classes from './Heading.module.css'
+import styles from './Heading.module.css'
 import { getTextContent } from '../../utils/getTextContent'
 import { generateValidId } from '@/utils/generateValidId'
 import { isPlaintextLike } from '@/utils/isPlaintextLike'
@@ -23,17 +23,17 @@ export const Heading: FunctionComponent<HeadingProps> = ({ level: HeadingElement
 
 	return isPlaintextLike(children) ? (
 		<>
-			<HeadingElement className={classes.heading} id={noWhitespaceId}>
+			<HeadingElement className={styles.heading} id={noWhitespaceId}>
 				{children}
 			</HeadingElement>
 			<HeadingLink id={noWhitespaceId} />
 		</>
 	) : (
-		<div className={classes.headingContainer}>
-			<HeadingElement className={`${classes.heading} ${classes.screenReaderHeading}`}>
+		<div className={styles.headingContainer}>
+			<HeadingElement className={`${styles.heading} ${styles.screenReaderHeading}`}>
 				{getTextContent(children)}
 			</HeadingElement>
-			<HeadingElement className={classes.heading} id={noWhitespaceId} aria-hidden="true">
+			<HeadingElement className={styles.heading} id={noWhitespaceId} aria-hidden="true">
 				{children}
 			</HeadingElement>
 			<HeadingLink id={noWhitespaceId} />
