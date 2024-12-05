@@ -62,7 +62,7 @@
 	}
 }
 
-/* TODO: improve the copy for mobile users who cannot resize their browsers */
+/* TODO: improve the copy for mobile users who cannot resize the browser */
 /* TODO: also explain that below is an interactive example */
 .resize::before {
 	content: 'Resize the browser up ⬆️ to see responsify in action.';
