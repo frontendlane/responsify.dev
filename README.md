@@ -18,9 +18,6 @@ Source code for https://responsify.dev.
     -   Sparkles are only generated when the element's on-screen, using the IntersectionObserver API.
     -   https://github.com/kmjennison/react-sparkle?tab=readme-ov-file
 -   https://codepen.io/jh3y/pen/LYJMPBL
--   go through all prettier options
-    -   quoteProps: there's the same option in stylistic eslint
-    -   ...
 -   format on postinstall
 -   eslint
     -   @typescript-eslint all rules
