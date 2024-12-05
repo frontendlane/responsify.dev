@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
 	semi: false,
 	singleQuote: true,
 	htmlWhitespaceSensitivity: 'strict', // only relevant in .html files
@@ -6,3 +6,5 @@ module.exports = {
 	// useTabs: true, // unnecessary because of `indent_style` in .editorconfig
 	// tabWidth: 4, // unnecessary because of `indent_size` in .editorconfig
 }
+
+export default config
