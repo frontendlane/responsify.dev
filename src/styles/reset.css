@@ -1,223 +1,141 @@
-:root {
-	--outline-width: 0.25em;
-	--outline-offset: calc(var(--outline-width) / 2);
-	--scroll-margin-block-start: 0.5em;
-	--scroll-margin-block-end: 1.5em;
-}
-
-* {
-	scroll-margin-block-start: var(--scroll-margin-block-start);
-	scroll-margin-block-end: var(--scroll-margin-block-end);
-}
-
-:not(form):not(:placeholder-shown):invalid {
-	box-shadow: 0 0 0 var(--outline-offset) red;
-}
-
-*,
-::before,
-::after {
-	box-sizing: border-box;
-	margin: 0;
-	word-break: break-word;
-}
-
-/* TODO: figure out a way not to duplicate the animation keyframes but just to change the css variable for color */
-@keyframes zoomAndColor {
-	5% {
-		outline-color: var(--near-black);
+@layer reset {
+	*,
+	::before,
+	::after,
+	::backdrop,
+	::placeholder {
+		box-sizing: border-box;
+		margin: 0; /* removes margin from body, h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, pre, dl, dd, hr, fieldset, input, and textarea */
+		padding: 0; /* removes padding from ul, ol, th, td, fieldset, legend, input, select, option, textarea, and button */
+		overflow-wrap: break-word; /* `word-break: break-word;` is deprecated */
 	}
-	8% {
-		outline-width: calc(var(--outline-width) * 1.5);
-		outline-offset: calc(var(--outline-offset) * 2);
-	}
-	11% {
-		outline-color: var(--near-black);
-	}
-	16% {
-		outline: var(--outline-width) dashed currentColor;
-		outline-offset: var(--outline-offset);
-	}
-}
 
-@keyframes zoomAndColorDark {
-	5% {
-		outline-color: var(--near-white);
+	html {
+		text-size-adjust: 100%;
+		-webkit-font-smoothing: antialiased; /* fixed font smoothing on Chrome and Safari on macOS (no change if www.fontsmoothingadjuster.com had been used) */
 	}
-	8% {
-		outline-width: calc(var(--outline-width) * 1.5);
-		outline-offset: calc(var(--outline-offset) * 2);
+
+	img,
+	picture,
+	video,
+	canvas,
+	svg {
+		display: block;
+		max-inline-size: 100%;
 	}
-	11% {
-		outline-color: var(--near-white);
+
+	input,
+	textarea,
+	button,
+	select {
+		font: inherit;
+		letter-spacing: inherit;
+		word-spacing: inherit;
+		/* TODO: investigate how these reset values behave when `color-scheme: dark light;` is applied */
+		color: inherit;
+		background-color: inherit; /* should it maybe be background: inherit in case some image is used as background or something like that?? */
 	}
-	16% {
-		outline: var(--outline-width) dashed currentColor;
-		outline-offset: var(--outline-offset);
+
+	/* TODO: investigate */
+	/* ul[role='list'],
+	ol[role='list'] {
+		list-style: none;
+	} */
+
+	button:not([disabled]),
+	label[for]:not([for='']),
+	label[for]:not([for='']) *,
+	input[type='checkbox']:not([disabled]),
+	input[type='radio']:not([disabled]),
+	summary,
+	select {
+		cursor: pointer;
 	}
-}
 
-@keyframes color {
-	5% {
-		outline-color: var(--near-black);
+	caption {
+		line-height: 1;
+		/* TODO: replace em with ch */
+		letter-spacing: -0.01em;
+		word-spacing: 0.01em;
 	}
-	11% {
-		outline-color: var(--near-black);
+
+	pre,
+	code,
+	kbd,
+	samp {
+		font-family: monospace, monospace; /* browser default styles make the font-size of these elements smaller. this resets font-size to whatever the browser default font size is (usually 16px). taken from https://csstools.github.io/sanitize.css/latest/sanitize.css */
 	}
-	16% {
-		outline-color: currentColor;
+
+	summary::marker {
+		white-space: normal; /* eliminates white space between arrow and text */
 	}
-}
 
-@keyframes colorDark {
-	5% {
-		outline-color: var(--near-white);
+	ins {
+		text-decoration: none;
 	}
-	11% {
-		outline-color: var(--near-white);
+
+	/* TODO: investigate https://csstools.github.io/sanitize.css/latest/sanitize.css */
+	/* small {
+		font-size: 80%;
+	} */
+	/* iframe {
+		border-style: none;
+	} */
+	/* svg:not([fill]) {
+	fill: currentColor;
+	} */
+	/* table {
+	border-collapse: collapse;
+	} */
+	/* ::-webkit-inner-spin-button,
+	::-webkit-outer-spin-button {
+		height: auto;
 	}
-	16% {
-		outline-color: currentColor;
+
+	::-webkit-input-placeholder {
+		color: inherit;
+		opacity: 0.54;
 	}
-}
 
-:focus-visible {
-	outline: var(--outline-width) dashed currentColor;
-	outline-offset: var(--outline-offset);
-	z-index: 1;
-	animation: zoomAndColor 5s ease-out 3s infinite;
-}
-@media (prefers-color-scheme: dark) {
-	:focus-visible {
-		animation-name: zoomAndColorDark;
+	::-webkit-search-decoration {
+		-webkit-appearance: none;
 	}
-}
-@media (prefers-reduced-motion: reduce) {
-	:focus-visible {
-		animation-name: color;
+
+	::-webkit-file-upload-button {
+		-webkit-appearance: button;
+		font: inherit;
 	}
-}
-@media (prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) {
-	:focus-visible {
-		animation-name: colorDark;
+
+	::-moz-focus-inner {
+		border-style: none;
+		padding: 0;
 	}
-}
 
-input,
-textarea {
-	font-family: inherit;
-	line-height: inherit;
-}
-
-img,
-video {
-	display: block;
-	max-inline-size: 100%;
-}
-
-button:not([disabled]),
-label[for]:not([for='']),
-label[for]:not([for='']) *,
-input[type='checkbox']:not([disabled]),
-input[type='radio']:not([disabled]),
-summary,
-select {
-	cursor: pointer;
-}
-
-body {
-	/* TODO: investigate best ratio: https://graphicdesign.stackexchange.com/questions/9147/optimum-line-height-in-relation-to-font-size, https://betterwebtype.com/triangle/, https://grtcalculator.com/, https://medium.com/@zkareemz/golden-ratio-62b3b6d4282a, https://utopia.fyi/blog/css-modular-scales/ */
-	line-height: var(--golden-ratio);
-	font-size: 1rem;
-	text-size-adjust: 100%;
-}
-
-caption {
-	line-height: 1;
-	/* TODO: replace em with ch */
-	letter-spacing: -0.01em;
-	word-spacing: 0.01em;
-}
-
-button,
-input:not([type]),
-input[type='text'],
-input[type='number'],
-input[type='checkbox'],
-input[type='radio'],
-code,
-kbd,
-select {
-	font-size: 1em;
-}
-
-/* CONTINUE HERE: :hover, :active, [open] and the best code organization for all of them */
-details:not([open]):active,
-details[open] > summary:active,
-button:not([disabled]):active,
-a[href]:not([href='']):active {
-	position: relative; /* it must be this approach, because inline elements cannot be transformed */
-	inset-block-start: 1px;
-	inset-inline-start: 1px;
-}
-
-button {
-	font-family: inherit;
-	background-color: inherit; /* accompanies color */
-	color: inherit; /* fix for button:active on Safari */
-}
-
-details:not([open]):hover,
-details[open] > summary:hover,
-button:not([disabled]):hover,
-input:not([disabled]):hover,
-select:not([disabled]):hover {
-	box-shadow: 0 0 0 1px;
-}
-
-a:link {
-	color: var(--link-unvisited-light);
-}
-a:visited {
-	color: var(--link-visited-light);
-}
-@media (prefers-color-scheme: dark) {
-	a:link {
-		color: var(--link-unvisited-dark);
+	:-moz-focusring {
+		outline: 1px dotted ButtonText;
 	}
-	a:visited {
-		color: var(--link-visited-dark);
-	}
-}
 
-/* TODO: https://css-irl.info/styling-external-links-with-attribute-selectors/ */
-/* TODO: https://blog.pope.tech/2024/01/02/how-to-make-external-links-accessible/ */
-/* TODO: is a[href]:not([href='']) different from :any-link?? */
-a[href]:not([href=''])[target='_blank']::after {
-	content: ' ↗️'; /* Firefox & Safari fallback */
-	content: ' ↗️' / ' external link';
-	font-size: 0.5em;
-	vertical-align: top;
-	white-space: pre; /* ensures ::after doesn't break onto a separate line of its own */
-}
-a[href]:not([href=''])[data-file-format]:not([data-file-format='']):not([data-file-size])[data-file-size='']::after {
-	content: ' (' attr(data-file-format) ')';
-}
-a[href]:not([href=''])[data-file-size]:not([data-file-size='']):not([data-file-format])[data-file-format='']::after {
-	content: ' (' attr(data-file-size) ')';
-}
-a[href]:not([href=''])[data-file-format]:not([data-file-format=''])[data-file-size]:not([data-file-size=''])::after {
-	content: ' (' attr(data-file-format) ', ' attr(data-file-size) ')';
-}
-
-summary::marker {
-	white-space: normal; /* eliminates white space between arrow and text */
-}
-
-button[disabled] {
-	opacity: 0.3;
-}
-
-ins {
-	text-decoration: none;
+	:-moz-ui-invalid {
+		box-shadow: none;
+	} */
+	/* a,
+	area,
+	button,
+	input,
+	label,
+	select,
+	summary,
+	textarea,
+	[tabindex] {
+		touch-action: manipulation;
+	} */
+	/* TODO: investigate https://github.com/mayank99/reset.css/blob/main/package/index.css */
+	/* TODO: investigate https://danburzo.ro/snippets/css-reset/ */
+	/* input, textarea, select {
+		font-size: max(16px, 1em); should ensure that the font-size of all form elemenct is big enough that safari doesn't zoom in https://danburzo.ro/css-safari-zoom-inputs/
+	}	 */
+	/* th, td {
+		text-align: start;
+		vertical-align: top;
+	} */
 }

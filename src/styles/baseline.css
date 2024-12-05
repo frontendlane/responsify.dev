@@ -1,0 +1,156 @@
+/* TODO: would be nice to wrap in its own layer so it's easier to override in other css files BUT the css variables need to be inheritable (does @layer prevent that??), so maybe wrap every selector in :where() */
+html {
+	--outline-width: 0.25em;
+	--outline-offset: calc(var(--outline-width) / 2);
+	--scroll-margin-block-start: 0.5em;
+	--scroll-margin-block-end: 1.5em;
+}
+
+* {
+	scroll-margin-block-start: var(--scroll-margin-block-start);
+	scroll-margin-block-end: var(--scroll-margin-block-end);
+}
+
+:invalid:not(:placeholder-shown):not(form) {
+	box-shadow: 0 0 0 var(--outline-offset) red;
+}
+
+/* TODO: figure out a way not to duplicate the animation keyframes but just to change the css variable for color */
+@keyframes zoomAndColor {
+	5% {
+		outline-color: var(--near-black);
+	}
+	8% {
+		outline-width: calc(var(--outline-width) * 1.5);
+		outline-offset: calc(var(--outline-offset) * 2);
+	}
+	11% {
+		outline-color: var(--near-black);
+	}
+	16% {
+		outline: var(--outline-width) dashed currentColor;
+		outline-offset: var(--outline-offset);
+	}
+}
+
+@keyframes zoomAndColorDark {
+	5% {
+		outline-color: var(--near-white);
+	}
+	8% {
+		outline-width: calc(var(--outline-width) * 1.5);
+		outline-offset: calc(var(--outline-offset) * 2);
+	}
+	11% {
+		outline-color: var(--near-white);
+	}
+	16% {
+		outline: var(--outline-width) dashed currentColor;
+		outline-offset: var(--outline-offset);
+	}
+}
+
+@keyframes color {
+	5% {
+		outline-color: var(--near-black);
+	}
+	11% {
+		outline-color: var(--near-black);
+	}
+	16% {
+		outline-color: currentColor;
+	}
+}
+
+@keyframes colorDark {
+	5% {
+		outline-color: var(--near-white);
+	}
+	11% {
+		outline-color: var(--near-white);
+	}
+	16% {
+		outline-color: currentColor;
+	}
+}
+
+:focus-visible {
+	outline: var(--outline-width) dashed currentColor;
+	outline-offset: var(--outline-offset);
+	z-index: 1;
+	animation: zoomAndColor 5s ease-out 3s infinite;
+}
+@media (prefers-color-scheme: dark) {
+	:focus-visible {
+		animation-name: zoomAndColorDark;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	:focus-visible {
+		animation-name: color;
+	}
+}
+@media (prefers-reduced-motion: reduce) and (prefers-color-scheme: dark) {
+	:focus-visible {
+		animation-name: colorDark;
+	}
+}
+
+/* TODO: :hover, :active, [open] and the best code organization for all of them */
+details:not([open]):active,
+details[open] > summary:active,
+button:not([disabled]):active,
+a[href]:not([href='']):active {
+	position: relative; /* it must be this approach, because inline elements cannot be transformed */
+	inset-block-start: 1px;
+	inset-inline-start: 1px;
+}
+
+:where(
+		details:not([open]):hover,
+		details[open] > summary:hover,
+		button:not([disabled]):hover,
+		input:not([disabled]):hover,
+		select:not([disabled]):hover
+	) {
+	box-shadow: 0 0 0 1px;
+}
+
+a:link {
+	color: var(--link-unvisited-light);
+}
+a:visited {
+	color: var(--link-visited-light);
+}
+@media (prefers-color-scheme: dark) {
+	a:link {
+		color: var(--link-unvisited-dark);
+	}
+	a:visited {
+		color: var(--link-visited-dark);
+	}
+}
+
+/* TODO: https://css-irl.info/styling-external-links-with-attribute-selectors/ */
+/* TODO: https://blog.pope.tech/2024/01/02/how-to-make-external-links-accessible/ */
+/* TODO: is a[href]:not([href='']) different from :any-link?? */
+a[href]:not([href=''])[target='_blank']::after {
+	content: ' ↗️'; /* Firefox & Safari fallback */
+	content: ' ↗️' / ' external link';
+	font-size: 0.5em;
+	vertical-align: top;
+	white-space: pre; /* ensures ::after doesn't break onto a separate line of its own */
+}
+a[href]:not([href=''])[data-file-format]:not([data-file-format='']):not([data-file-size])[data-file-size='']::after {
+	content: ' (' attr(data-file-format) ')';
+}
+a[href]:not([href=''])[data-file-size]:not([data-file-size='']):not([data-file-format])[data-file-format='']::after {
+	content: ' (' attr(data-file-size) ')';
+}
+a[href]:not([href=''])[data-file-format]:not([data-file-format=''])[data-file-size]:not([data-file-size=''])::after {
+	content: ' (' attr(data-file-format) ', ' attr(data-file-size) ')';
+}
+
+button[disabled] {
+	opacity: 0.3;
+}

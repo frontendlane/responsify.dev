@@ -19,8 +19,7 @@ export const usePrefersReducedMotion = () => {
 		if (mediaQueryList.addEventListener) {
 			mediaQueryList.addEventListener('change', listener)
 		} else {
-			// TODO: what browser is this for??
-			mediaQueryList.addListener(listener)
+			mediaQueryList.addListener(listener) // Safari
 		}
 
 		return () => {

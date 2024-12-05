@@ -4,14 +4,17 @@ Source code for https://responsify.dev.
 
 ## Todos
 
+-   eslint ban `:root` css selector and enforce html is used
+    -   html has lower specificity (easier to override)
+    -   :root _could_ apply to SVG elements (more explicit that we are targeting root "html" element)
+    -   css variables declared on both are inherited
 -   testing
     -   go through https://testing-library.com/docs/react-testing-library/intro/
     -   https://vitest.dev/guide/browser/
         -   youtube "lwj: use vitest with browser mode" @31:45
         -   seems like I can get rid of the testing library as a dependency in this case because vitest (or its preview provider dependencies) will provide me with the building blocks to test the ui
 -   sparkes
-    -   Sparkles can appear either in front of or behind the children
-    -   You can click sparkly text to disable the effect
+    -   allow `<Sparkles />` to accept position="background" or position="foreground" prop that would determine zIndex
     -   Sparkles are only generated when the element's on-screen, using the IntersectionObserver API.
     -   https://github.com/kmjennison/react-sparkle?tab=readme-ov-file
 -   https://codepen.io/jh3y/pen/LYJMPBL

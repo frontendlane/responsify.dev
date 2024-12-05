@@ -13,6 +13,7 @@
 		transition: opacity 0.15s;
 	}
 
+	/* TODO: WHY WAS :WHERE() USED AND NOT :IS() */
 	:where(h1, h2, h3):hover + .anchor,
 	.anchor:hover,
 	.anchor:focus-within {
@@ -21,6 +22,7 @@
 	}
 }
 
+/* TODO: WHY WAS :WHERE() USED AND NOT :IS() */
 :where(h1, h2, h3) + .anchor {
 	font-weight: bold;
 	line-height: 1;

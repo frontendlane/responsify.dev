@@ -1,9 +1,10 @@
-// TODO: do this only one.
 // better to ts-expect-error once than to declare module ".css" in globals.d.ts
-// @ts-expect-error TODO: temporary
+// @ts-expect-error TODO: reset should go first. split reset into proper reset.css and baseline.css with variables being imported before baseline
 import '../styles/variables.css'
 // @ts-expect-error TODO: temporary
 import '../styles/reset.css'
+// @ts-expect-error TODO: temporary
+import '../styles/baseline.css'
 // @ts-expect-error TODO: temporary
 import '../styles/pages-index.css'
 // @ts-expect-error TODO: temporary
