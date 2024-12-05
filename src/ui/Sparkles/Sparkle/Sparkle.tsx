@@ -16,9 +16,11 @@ export const Sparkle: React.FC<SparkleProps> = ({ sparkle }) => {
 					animationDuration: sparkle.style.animationDuration,
 					animationName: sparkle.style.svgContainerAnimationName,
 					animationDelay: sparkle.style.animationDelay,
+					zIndex: sparkle.style.zIndex,
 				}}
 			>
 				<svg
+					data-testid="sparkle-svg"
 					className={styles.svg}
 					width={sparkle.size}
 					height={sparkle.size}

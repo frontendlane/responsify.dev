@@ -34,13 +34,14 @@ export const generateSparkle = (
 		style: {
 			top: generateSafeOffset(size, contentHeight),
 			left: generateSafeOffset(size, contentWidth),
+			animationDuration: `${cleanupCutoffInMs}ms` /* ensures animation has time to finish */,
+			zIndex: random(1, 4), // favors being in front (2:1 ratio)
 			...(type === 'static'
 				? {
 						animationDelay: `-${random(0, cleanupCutoffInMs)}ms`,
 						svgContainerAnimationName: 'nonExistentAnimationNameThatPreventsGrowAndShrinkAnimationFromPlaying',
 					}
 				: {}),
-			animationDuration: `${cleanupCutoffInMs}ms` /* ensures animation has time to finish */,
 		},
 	}
 }

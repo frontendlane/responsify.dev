@@ -35,15 +35,19 @@
 .formContainer:focus-within {
 	z-index: 1;
 	background-color: var(--light);
-	box-shadow: 0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--light),
-		0 0 0 var(--horizontal-spacing) var(--dark), 0 0 0 12345vmax #eeeeee80; /* #eeeeee80 === var(--near-white) + alpha */
+	box-shadow:
+		0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--light),
+		0 0 0 var(--horizontal-spacing) var(--dark),
+		0 0 0 12345vmax #eeeeee80; /* #eeeeee80 === var(--near-white) + alpha */
 	border-radius: var(--block-border-radius);
 }
 @media (prefers-color-scheme: dark) {
 	.formContainer:focus-within {
 		background-color: var(--near-black);
-		box-shadow: 0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--near-black),
-			0 0 0 var(--horizontal-spacing) var(--light), 0 0 0 12345vmax #20202080; /* #20202080 === var(--dark) + alpha */
+		box-shadow:
+			0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--near-black),
+			0 0 0 var(--horizontal-spacing) var(--light),
+			0 0 0 12345vmax #20202080; /* #20202080 === var(--dark) + alpha */
 	}
 }
 @media (scripting: none) {
@@ -68,13 +72,11 @@
 
 .input {
 	padding: 0 0.25ch;
-	color: var(--dark);
 	background-color: var(--white);
 	border: 1px solid var(--input-border-light);
 }
 @media (prefers-color-scheme: dark) {
 	.input {
-		color: var(--light);
 		background-color: var(--black);
 		border-color: var(--input-border-dark);
 	}
@@ -132,13 +134,11 @@
 	font-family: monospace;
 	padding-inline: 0.25ch;
 	background-color: var(--white);
-	color: var(--dark);
 	border: 1px solid var(--input-border-light);
 }
 @media (prefers-color-scheme: dark) {
 	.select {
 		background-color: var(--black);
-		color: var(--light);
 		border-color: var(--input-border-dark);
 	}
 }

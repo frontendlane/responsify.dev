@@ -12,7 +12,6 @@
 }
 @media (prefers-color-scheme: dark) {
 	.button {
-		color: var(--light);
 		background-color: var(--black);
 	}
 }

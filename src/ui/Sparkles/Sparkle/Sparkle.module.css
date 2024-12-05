@@ -29,7 +29,7 @@
 }
 
 .svg {
-	display: block; /* makes a difference on content that has display: inline */
+	/* display: block; */ /* uncomment if reset.css didn't change this */
 	animation-name: spin;
 	animation-timing-function: linear;
 	animation-fill-mode: forwards; /* ensures animation stays in its end state if it ends before cleanup */

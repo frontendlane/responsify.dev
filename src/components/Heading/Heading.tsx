@@ -13,7 +13,7 @@ type HeadingProps = React.PropsWithChildren & {
 	id: string
 }
 
-// context:
+// seems like these solutions only work in safari (maybe chrome as well) but not in firefox
 // https://axesslab.com/text-splitting/
 // https://www.tpgi.com/using-the-text-role/
 // https://tinytip.co/tips/a11y-voiceover-text-role/

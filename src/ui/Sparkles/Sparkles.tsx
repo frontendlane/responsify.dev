@@ -15,6 +15,7 @@ type SparklesProps = PropsWithChildren & {
 
 // heavily borrowed from https://www.joshwcomeau.com/react/animated-sparkles-in-react/
 export const Sparkles: FC<SparklesProps> = ({ className, children }) => {
+	const [isSuspended, setIsSuspended] = useState(false)
 	const [sparkles, setSparkles] = useState<Array<SparkleConfig>>([]) // must be empty array to avoid mismatched HTML when using SSG
 	const prefersReducedMotion = usePrefersReducedMotion()
 	const containerRef = useRef<HTMLElement>(null)
@@ -24,6 +25,11 @@ export const Sparkles: FC<SparklesProps> = ({ className, children }) => {
 
 	useRandomInterval(
 		() => {
+			if (isSuspended) {
+				sparkles.length && setSparkles([])
+				return
+			}
+
 			const container = containerRef.current
 			if (!container) {
 				return
@@ -56,11 +62,13 @@ export const Sparkles: FC<SparklesProps> = ({ className, children }) => {
 	)
 
 	return (
-		<span className={`${styles.container} ${className}`}>
-			<strong ref={containerRef}>{children}</strong>
+		<button onClick={() => setIsSuspended(!isSuspended)} className={`${styles.container} ${className}`}>
+			<strong className={styles.strong} ref={containerRef}>
+				{children}
+			</strong>
 			{sparkles.map((sparkle) => (
 				<Sparkle key={sparkle.id} sparkle={sparkle} />
 			))}
-		</span>
+		</button>
 	)
 }
