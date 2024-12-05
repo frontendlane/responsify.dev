@@ -22,10 +22,10 @@
 	"scripts": {
 		"update": "npm install && npx npm-check-updates -u && rm -rf node_modules && rm package-lock.json && npm install",
 		"dev": "npm run zip && ./shell-scripts/dev.sh",
-		"build": "npm run type-check && next build",
+		"build": "npm run types && next build",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"test": "vitest",
-		"type-check": "tsc",
+		"types": "tsc",
 		"start": "next start",
 		"format": "prettier --write .",
 		"lint": "next lint"
