@@ -18,7 +18,7 @@
 		"calc",
 		"@media"
 	],
-	"description": "Responsify: Prevent abrupt layout shift when users resize their browsers",
+	"description": "Responsify: Prevent abrupt layout shifts when users resize the browser",
 	"scripts": {
 		"update": "npm install && npx npm-check-updates -u && rm -rf node_modules && rm package-lock.json && npm install",
 		"dev": "npm run zip && ./shell-scripts/dev.sh",
