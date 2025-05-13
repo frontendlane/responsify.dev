@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import styles from './Unorphan.module.css'
 import { unorphan } from '../../scripts/unorphan'
 
+// https://news.ycombinator.com/item?id=43497719
 export const Unorphan: FC = () => {
 	useEffect(() => {
 		const unorphanOptions = {
