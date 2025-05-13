@@ -1,14 +1,1 @@
-{
-  "version": 3,
-  "sources": [
-    "./Heading.module.css"
-  ],
-  "names": [
-    "headingContainer",
-    "heading",
-    "screenReaderHeading"
-  ],
-  "mappings": "AAAA;AAAA,E,aAAAA,kB,WAAA;AAAA,E,aAcAC,S,WAdA;AAAA,E,aAsCAC,qB,WAtCA;AAAA;AAAA",
-  "file": "Heading.module.d.css.ts",
-  "sourceRoot": ""
-}
+{"version":3,"sources":["./Heading.module.css"],"names":["headingContainer","heading","screenReaderHeading"],"mappings":"AAAA;AAAA,E,aAAAA,kB,WAAA;AAAA,E,aAcAC,S,WAdA;AAAA,E,aAsCAC,qB,WAtCA;AAAA;AAAA","file":"Heading.module.d.css.ts","sourceRoot":""}
