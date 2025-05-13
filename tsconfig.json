@@ -36,7 +36,8 @@
 
 		// React
 		"jsx": "react-jsx",
-		"jsxImportSource": "preact"
+		// TODO:
+		"jsxImportSource": "react"
 	},
 	"include": ["**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]

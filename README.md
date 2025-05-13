@@ -4,7 +4,6 @@ Source code for https://responsify.dev.
 
 ## Todos
 
--   update dependencies
 -   start a new next.js project with reactCompiler: true in nextConfig
 -   turn on --turbo
 
