@@ -18,10 +18,10 @@
 		"calc",
 		"@media"
 	],
-	"description": "Responsify: Prevent abrupt layout shifts when users resize the browser",
+	"description": "Responsify: Prevent abrupt layout shifts when user resizes the browser",
 	"scripts": {
 		"update": "npm install && npx npm-check-updates -u && rm -rf node_modules && rm package-lock.json && npm install",
-		"dev": "npm run zip && ./shell-scripts/dev.sh",
+		"dev": "npm run zip && ./scripts/dev.sh",
 		"build": "npm run types && next build",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"test": "vitest",

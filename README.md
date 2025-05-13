@@ -24,6 +24,7 @@ Source code for https://responsify.dev.
 -   pressing reset button after generating css code produces a bug in firefox (bug is in the intersection of following things: my laptop, firefox/safari, and <pre> being inside <output>, preact? vs react?)
 -   tabindex on `<pre>` for chrome
 -   overflowing `<pre>` seem to need tabindex on safari for scrolling
+-   https://shkspr.mobi/blog/2024/10/using-a-css-cursor-to-show-the-external-links-favicon/
 -   Chrome and Safari differently/incorrectly handle 100% width on ::before pseudo-element
 -   Chrome bug `<input for="datalist">` inside `<li>` inside `<ol>`
 -   replace `<input type="number">` with `<input inputMode="numeric">`??
@@ -36,14 +37,19 @@ Source code for https://responsify.dev.
 -   handle edge case when parent/viewport lower and upper bound are the same
 -   edge case when it's the same percentage value e.g. width: calc(0px + 7.813vw); /_ https://responsify.dev - viewport lower bound: 320px; viewport upper bound: 1024px; element lower bound: 25px; element upper bound: 80px; _/
 -   skip link to the form
+-   skip to top of the page (should focus the generic "skip to content" link, in this case "skip to form" link)
 -   link hover path: .link::before: https://www.stefanjudis.com/today-i-learned/box-decoration-break-helps-to-define-how-elements-should-be-rendered-across/
 -   add diagonal colored background bars on .noscript and .js-error with infinite animation
 -   every section heading should show you how to copy URl to that section, kinda like GitHub does it, but is it the most accessible solution??
 -   if URL contains hash that points to form then focus the first input field??
+-   instead of the code comment, create a custom URL which can be used to extract form values from the URL. that way you only have to save the url as the comment (see `generate.ts`)
+    -   https://aurorascharff.no/posts/managing-advanced-search-param-filtering-next-app-router/
 -   emoji
     -   https://fullystacked.net/using-emoji-on-the-web/
 -   https://www.erikkroes.nl/blog/the-universal-focus-state/#show-me-how
     -   https://daverupert.com/2024/01/focus-visible-love/
+    -   https://benmyers.dev/blog/whcm-outlines/
+    -   https://medienbaecker.com/articles/focus-outlines
 -   help filling out the form (both of these features are called autofill in chrome)
     -   autocomplete: browser offers to complete the form once user starts typing into one of the fields
     -   autofill: browser pre-populating the login form on page load
@@ -141,6 +147,7 @@ Source code for https://responsify.dev.
 -   optimize what google uses as the snippet: https://www.gsqi.com/marketing-blog/how-to-use-data-nosnippet/
 -   prevent link rot: https://remysharp.com/2023/12/04/unrot-that-link
 -   investigate how to ensure hotlink protection
+-   https://www.sjoerdlangkemper.nl/2024/11/27/avoid-hotlinking-images-with-corp-cross-origin-resource-policy/
 -   add csp?? https://www.ctrl.blog/entry/safari-csp-media-controls.html
 -   content: https://documentation.divio.com/
     -   better comparison with css locks:
@@ -162,11 +169,14 @@ Source code for https://responsify.dev.
             *   https://piperhaywood.com/fluid-type-sizes-and-spacing/
             *   https://twitter.com/hovhaDovah/status/1476677678044434435
             -   https://news.ycombinator.com/item?id=39682871
+            -   https://news.ycombinator.com/item?id=43205968
         -   https://github.com/arielsalminen/Molten-Leading
         -   https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
         -   https://www.smashingmagazine.com/2022/08/fluid-sizing-multiple-media-queries/
         -   https://min-max-calculator.9elements.com/
         -   https://tobiasahlin.com/blog/responsive-fluid-css-type-scales/
+        -   https://css-tricks.com/fluid-everything-else/
+        -   landin.gs
         -   royalfig.github.io/fluid-typography-calculator
         -   fluid-type-scale.com
         -   https://www.smashingmagazine.com/2023/11/addressing-accessibility-concerns-fluid-type/
@@ -190,6 +200,7 @@ Source code for https://responsify.dev.
 -   stylelint
     -   https://github.com/eslint/css/pull/2
     -   https://github.com/CSSLint/csslint/wiki/Rules
+    -   only allow some shorthand properties?? https://www.havardbrynjulfsen.design/writing/thoughts/my-issues-with-shorthand-properties/
 -   postcss
     -   https://github.com/eduardoboucas/postcss-cssential
     -   postcss-extract-media-query
