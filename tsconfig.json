@@ -1,7 +1,43 @@
 {
-	"extends": "astro/tsconfigs/strictest",
 	"compilerOptions": {
+		// Base options
+		"module": "ESNext",
+		// TODO: change to Bundler once on Next.js
+		"moduleResolution": "Node10",
+		"moduleDetection": "force", // ensures every file is treated as a module and not as a global script
+		"esModuleInterop": true, // supports importing CJS in ESM
+		"resolveJsonModule": true,
+		"allowArbitraryExtensions": true,
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"skipLibCheck": true, // skips type checking *.d.ts files (both in source code and in node_modules)
+		"noEmit": true,
+		"target": "ESNext", // would be unnecessary because noEmit === true but to support `1n` bigint syntax "target" has to be "ES2020" or newer
+
+		// Strictness
+		"allowJs": false,
+		"noUnusedLocals": false, // eslint does this better
+		"noUnusedParameters": false, // eslint does this better
+		"strict": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"allowUnusedLabels": false,
+		"allowUnreachableCode": false,
+		"verbatimModuleSyntax": true, // enforces the use of `type` specifier in import statements, either `import type {` or `import { type` syntax. only applies to types, not to values used as types i.e. `typeof someValue`
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedSideEffectImports": true,
+
+		// Developer experience
+		"allowSyntheticDefaultImports": true,
+		"noErrorTruncation": true,
+		"allowImportingTsExtensions": true, // valid only because noEmit === true
+
+		// React
 		"jsx": "react-jsx",
 		"jsxImportSource": "preact"
-	}
+	},
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
 }

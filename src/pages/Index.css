@@ -172,6 +172,7 @@ body > astro-island > * {
 	}
 }
 
+/* NOTE: subsequent clicks on the same page anchor link don't highlight the element */
 :target {
 	animation: 2.5s ease-out reveal;
 }

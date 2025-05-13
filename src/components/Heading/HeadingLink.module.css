@@ -1,44 +1,41 @@
-.aContainer {
-	padding-inline: var(--whitespace-width);
+.anchor {
+	margin-inline: var(--whitespace-width);
+	text-decoration-thickness: var(--link-underline-thickness);
+}
+
+.anchor:hover {
+	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
 }
 
 @media (hover: hover) {
-	.aContainer {
+	.anchor {
 		opacity: 0;
 		transition: opacity 0.15s;
 	}
 
-	:where(h1, h2, h3):hover + .aContainer,
-	.aContainer:hover,
-	.aContainer:focus-within {
+	:where(h1, h2, h3):hover + .anchor,
+	.anchor:hover,
+	.anchor:focus-within {
 		opacity: 1;
 		transition: none;
 	}
 }
 
-:where(h1, h2, h3) + .aContainer {
+:where(h1, h2, h3) + .anchor {
 	font-weight: bold;
 	line-height: 1;
 	letter-spacing: -0.01em;
 	word-spacing: 0.01em;
 }
 
-h1 + .aContainer {
+h1 + .anchor {
 	font-size: var(--font-size-h1);
 }
 
-h2 + .aContainer {
+h2 + .anchor {
 	font-size: var(--font-size-h2);
 }
 
-h3 + .aContainer {
+h3 + .anchor {
 	font-size: var(--font-size-h3);
-}
-
-.a {
-	text-decoration-thickness: var(--link-underline-thickness);
-}
-
-.a:hover {
-	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
 }

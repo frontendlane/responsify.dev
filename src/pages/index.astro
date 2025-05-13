@@ -16,11 +16,11 @@ import '../styles/variables.css'
 import '../styles/reset.css'
 import './Index.css'
 import '../styles/overrides.css'
+import { Unorphan } from '../components/Unorphan/Unorphan'
 
 // TODO: inject this into package.json and manifest as well
-const title = 'Responsify: Smooth out layout jumps at breakpoints'
-const pageDescription =
-	'A CSS technique that helps developers avoid ugly layout jumps while users resize their browsers.'
+const title = 'Responsify: Prevent abrupt layout shift when users resize their browsers'
+const pageDescription = 'A CSS technique that helps developers prevent ugly layout jumps when users resize their browsers.'
 // TODO: does this work? where does URL constructor come from??
 // const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 ---
@@ -57,7 +57,7 @@ const pageDescription =
 				<p
 					style="font-size: var(--font-size-h2); letter-spacing: -.01em; line-height: 1; word-spacing: .01em; margin-block-start: 1rem;"
 				>
-					Smooth out layout jumps at breakpoints
+					Prevent abrupt layout shift when users resize their browsers
 				</p>
 
 				<Dateline />

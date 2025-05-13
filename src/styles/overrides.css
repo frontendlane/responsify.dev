@@ -11,6 +11,7 @@
 	clip-path: inset(50%) !important;
 }
 
+/* replace [disabled] with :disabled */
 [disabled],
 [disabled] * {
 	cursor: not-allowed !important;
