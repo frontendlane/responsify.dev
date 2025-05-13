@@ -1,5 +1,5 @@
 ///
-/// Prevent abrupt layout shift when users resize their browsers. More at https://responsify.dev
+/// Prevent abrupt layout shifts when user resizes the browser. More at https://responsify.dev
 /// @param {Number} $containerLowerBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at lower bound, in pixels.
 /// @param {Number} $containerUpperBound - Size of the relative element (i.e. parent, grandparent, ancestor, or viewport) at upper bound, in pixels.
 /// @param {Number} $elementLowerBound - Size of the target element at lower bound, in $unit.

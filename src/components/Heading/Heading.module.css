@@ -1,27 +1,39 @@
-h1,
-h2,
-h3 {
-	line-height: 1;
-	letter-spacing: -0.01em; /* TODO: replace em with ch */
-	word-spacing: 0.01em; /* TODO: replace em with ch */
-	display: inline;
-}
-
-/* TODO: apply utopia font-size or alternatively https://typescale.com/ */
-h1 {
-	font-size: var(--font-size-h1);
-}
-
-h2 {
-	font-size: var(--font-size-h2);
-}
-
-h3 {
-	font-size: var(--font-size-h3);
-}
-
 .headingContainer {
 	position: relative;
+}
+
+/* TODO: move this to reset */
+/* h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		text-wrap: balance;
+	} */
+
+.heading {
+	&h1,
+	&h2,
+	&h3 {
+		line-height: 1; /* TODO: move this to reset */
+		letter-spacing: -0.01em; /* TODO: replace em with ch */ /* TODO: move this to reset */
+		word-spacing: 0.01em; /* TODO: replace em with ch */ /* TODO: move this to reset */
+		display: inline;
+	}
+
+	/* TODO: apply utopia font-size or alternatively https://typescale.com/ */
+	&h1 {
+		font-size: var(--font-size-h1);
+	}
+
+	&h2 {
+		font-size: var(--font-size-h2);
+	}
+
+	&h3 {
+		font-size: var(--font-size-h3);
+	}
 }
 
 .screenReaderHeading {

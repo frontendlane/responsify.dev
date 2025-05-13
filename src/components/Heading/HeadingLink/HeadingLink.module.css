@@ -1,0 +1,43 @@
+.anchor {
+	margin-inline: var(--whitespace-width);
+	text-decoration-thickness: var(--link-underline-thickness);
+}
+
+.anchor:hover {
+	text-decoration-thickness: calc(var(--link-underline-thickness) * 2);
+}
+
+@media (hover: hover) {
+	.anchor {
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+
+	/* TODO: WHY WAS :WHERE() USED AND NOT :IS() */
+	:where(h1, h2, h3):hover + .anchor,
+	.anchor:hover,
+	.anchor:focus-within {
+		opacity: 1;
+		transition: none;
+	}
+}
+
+/* TODO: WHY WAS :WHERE() USED AND NOT :IS() */
+:where(h1, h2, h3) + .anchor {
+	font-weight: bold;
+	line-height: 1;
+	letter-spacing: -0.01em;
+	word-spacing: 0.01em;
+}
+
+h1 + .anchor {
+	font-size: var(--font-size-h1);
+}
+
+h2 + .anchor {
+	font-size: var(--font-size-h2);
+}
+
+h3 + .anchor {
+	font-size: var(--font-size-h3);
+}

@@ -1,9 +1,23 @@
-.exampleDiv {
+.exampleDivMiddleAligned {
 	--width: 90vw;
 
 	inline-size: var(--width);
 	margin-inline-start: calc((var(--width) - 100%) / 2 * -1);
+}
+@media (width >= 900px) {
+	.exampleDivMiddleAligned ~ .exampleDivMiddleAligned {
+		--width: calc(
+			3716.129px - 322.903vw
+		); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90vw; element upper bound: 40vw; */
+	}
+}
+@media (width >= 1024px) {
+	.exampleDivMiddleAligned {
+		--width: 40vw !important;
+	}
+}
 
+.exampleDiv {
 	border-radius: var(--block-border-radius);
 	padding: calc(var(--vertical-spacing) * 2) 0;
 	display: flex;
@@ -21,18 +35,6 @@
 		#000 80px
 	);
 	background-attachment: fixed;
-}
-@media (width >= 900px) {
-	.exampleDiv ~ .exampleDiv {
-		--width: calc(
-			3716.129px - 322.903vw
-		); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90vw; element upper bound: 40vw; */
-	}
-}
-@media (width >= 1024px) {
-	.exampleDiv {
-		--width: 40vw !important;
-	}
 }
 
 .exampleDiv::before {
@@ -60,7 +62,7 @@
 	}
 }
 
-/* TODO: improve the copy for mobile users who cannot resize their browsers */
+/* TODO: improve the copy for mobile users who cannot resize the browser */
 /* TODO: also explain that below is an interactive example */
 .resize::before {
 	content: 'Resize the browser up ⬆️ to see responsify in action.';

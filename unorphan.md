@@ -1,3 +1,4 @@
+-   https://github.com/davidmerfield/Typeset
 -   unorphan
 -   the real solution is to create <Unorphan> component that would wrap whatever content and would wrap the last x works in a span with a class. that span will get white-space: nowrap; and will work with SSG/SSR because it will go through `children` and operate that way, and if the component is set to render in the client as well then it can (optionally) make sure that the last line is not too long (see `areUnorphanedWordsShorterThanHalfParentContentWidth`)
 -   https://cloudfour.com/thinks/responsive-headlines-are-about-to-get-awesome/ + comments

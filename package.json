@@ -1,7 +1,7 @@
 {
 	"name": "responsify-dev",
+	"version": "5.0.0",
 	"type": "module",
-	"version": "4.0.0",
 	"author": {
 		"name": "Petar Petrovic",
 		"email": "petar@frontendlane.com",
@@ -18,41 +18,50 @@
 		"calc",
 		"@media"
 	],
-	"description": "Responsify: Prevent abrupt layout shift when users resize their browsers",
+	"description": "Responsify: Prevent abrupt layout shifts when user resizes the browser",
 	"scripts": {
 		"update": "npm install && npx npm-check-updates -u && rm -rf node_modules && rm package-lock.json && npm install",
-		"dev": "npm run zip && ./shell-scripts/dev.sh",
-		"build": "astro check && tsc && astro build",
+		"dev": "npm run zip && ./scripts/dev.sh",
+		"build": "npm run types && next build",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
-		"preview": "astro preview",
-		"astro": "astro",
 		"test": "vitest",
-		"type-check": "tsc",
-		"format": "prettier --write ."
+		"types": "tsc",
+		"start": "next start",
+		"format": "prettier --write .",
+		"lint": "next lint"
 	},
 	"dependencies": {
-		"@astrojs/react": "3.6.2",
 		"@hookform/resolvers": "3.9.1",
-		"astro": "4.16.10",
 		"clipboard": "2.0.11",
-		"react": "18.3.1",
-		"react-dom": "18.3.1",
+		"next": "15.0.2",
+		"react": "19.0.0-rc-02c0e824-20241028",
+		"react-dom": "19.0.0-rc-02c0e824-20241028",
 		"react-hook-form": "7.53.1",
 		"zod": "3.23.8"
 	},
 	"devDependencies": {
-		"autoprefixer": "10.4.20",
+		"@testing-library/dom": "10.4.0",
+		"@testing-library/jest-dom": "6.6.3",
+		"@testing-library/react": "16.0.1",
+		"@testing-library/user-event": "14.5.2",
+		"@types/node": "22",
+		"@types/react": "18",
+		"@types/react-dom": "18",
+		"@vitejs/plugin-react": "4.3.3",
+		"babel-plugin-react-compiler": "19.0.0-beta-63b359f-20241101",
 		"concurrently": "9.1.0",
-		"cssnano": "7.0.6",
-		"cssnano-preset-default": "7.0.6",
+		"eslint": "9",
+		"eslint-config-next": "15.0.2",
 		"happy-css-modules": "3.2.0",
+		"jsdom": "25.0.1",
 		"npm-check-updates": "17.1.10",
-		"postcss-import": "16.1.0",
-		"postcss-media-minmax": "5.0.0",
 		"prettier": "3.3.3",
-		"prettier-plugin-astro": "0.14.1",
-		"typescript": "5.6.3",
+		"typescript": "5",
 		"vitest": "2.1.4"
+	},
+	"overrides": {
+		"react": "19.0.0-rc-02c0e824-20241028",
+		"react-dom": "19.0.0-rc-02c0e824-20241028"
 	},
 	"private": true
 }

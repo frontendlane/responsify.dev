@@ -1,8 +1,14 @@
 {
+	"editor.linkedEditing": true, // simultaneously change opening and closing JS tags
 	"editor.formatOnSave": true,
 	"editor.formatOnPaste": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"prettier.documentSelectors": ["**/*.astro"], // needed to format *.astro on save
-	"typescript.tsdk": "node_modules/typescript/lib", // this ensures vs code uses the repo version of typescript
-	"typescript.enablePromptUseWorkspaceTsdk": true // will prompt to use typescript version specified in the workspace
+	"typescript.tsdk": "node_modules/typescript/lib", // ensures vs code uses the repo version of typescript rather than vs code's internal typescript version
+	"css.validate": false, // turned off in order not to conflict with stylelint
+	"editor.codeActionsOnSave": {
+		// avoid source.organizeImports because (1) it can't be enforced during CI/CD and (2) it can introduce unnecessary git diffs unless every contributor uses vs code. instead use @ianvs/prettier-plugin-sort-imports
+		// avoid source.addMissingImports because it can import the wrong thing: https://github.com/microsoft/vscode/issues/139131
+		"source.fixAll.eslint": "explicit",
+		"source.fixAll.stylelint": "explicit"
+	}
 }

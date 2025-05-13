@@ -1,1 +1,14 @@
-{"version":3,"sources":["./Unorphan.module.css"],"names":["offscreen","offscreenNowrap","offscreenReveal"],"mappings":"AAAA;AAAA,E,aAAAA,W,WAAA;AAAA,E,aASAC,iB,WATA;AAAA,E,aAcAC,iB,WAdA;AAAA;AAAA","file":"Unorphan.module.d.css.ts","sourceRoot":""}
+{
+  "version": 3,
+  "sources": [
+    "./Unorphan.module.css"
+  ],
+  "names": [
+    "offscreen",
+    "offscreenNowrap",
+    "offscreenReveal"
+  ],
+  "mappings": "AAAA;AAAA,E,aAAAA,W,WAAA;AAAA,E,aASAC,iB,WATA;AAAA,E,aASgBA,iB,WAThB;AAAA,E,aAcAC,iB,WAdA;AAAA,E,aAcgBA,iB,WAdhB;AAAA;AAAA",
+  "file": "Unorphan.module.d.css.ts",
+  "sourceRoot": ""
+}
