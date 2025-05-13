@@ -5,17 +5,17 @@ import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
 
 import classes from './Examples.module.css'
-import type { FunctionalComponent } from 'preact'
+import type { FC } from 'react'
 
-export const Examples: FunctionalComponent = () => {
+export const Examples: FC = () => {
 	return (
-		<Section class="vertical-spacing-150-percent" heading={headings.h2_3}>
-			<p class="vertical-spacing">
+		<Section className="vertical-spacing-150-percent" heading={headings.h2_3}>
+			<p className="vertical-spacing">
 				Examples assume smallest viewport width of 320px, a tablet breakpoint at 768px, and a desktop breakpoint at
 				1024px.
 			</p>
-			<Section class="vertical-spacing-150-percent" heading={headings.h3_1}>
-				<p class="vertical-spacing">
+			<Section className="vertical-spacing-150-percent" heading={headings.h3_1}>
+				<p className="vertical-spacing">
 					Suppose a <Code>&lt;div&gt;</Code> needs to be 90% wide below desktop breakpoint and 40% above that.
 					Because you practice mobile-first approach, you start with:
 				</p>
@@ -28,7 +28,7 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">and for desktop you add:</p>
+				<p className="vertical-spacing">and for desktop you add:</p>
 				<CodeBlock>
 					@media (min-width: 1024px) &#123;
 					{`
@@ -44,7 +44,7 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					You want to gradually transition between these two values so you reserve, let's say, the 900px - 1024px
 					range to smooth this out. You add another media query with the magic 🪄 <Code>calc()</Code> value that
 					you generate using the <Link href={`#${headings.h2_4.id}`}>responsify form</Link> below and you're done!
@@ -66,33 +66,33 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					Note the comment that accompanies <Code>calc()</Code> value. Preserving input values makes it easier to
 					maintain the code.
 				</p>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					The comment also includes <Code>https://responsify.dev</Code> both as a reference for future maintainers
 					and as a unique string you can match against when tracking down responsified values.
 				</p>
 				{/* <!-- TODO: optimize screen reader usage --> */}
-				<p class={`vertical-spacing ${classes.resize}`}></p>
-				<p class="vertical-spacing">
+				<p className={`vertical-spacing ${classes.resize}`}></p>
+				<p className="vertical-spacing">
 					<em>Without</em> responsify:
 				</p>
-				<div class={`${classes.exampleDiv} vertical-spacing`}></div>
-				<p class="vertical-spacing" id="description">
+				<div className={`${classes.exampleDiv} vertical-spacing`}></div>
+				<p className="vertical-spacing" id="description">
 					<em>With</em> responsify:
 				</p>
 				<div
-					class={`${classes.exampleDiv} vertical-spacing`}
+					className={`${classes.exampleDiv} vertical-spacing`}
 					aria-live="polite"
 					role="status"
 					aria-describedby="description"
 				></div>
 			</Section>
 
-			<Section class="vertical-spacing heading-container" heading={headings.h3_2}>
-				<p class="vertical-spacing">
+			<Section className="vertical-spacing heading-container" heading={headings.h3_2}>
+				<p className="vertical-spacing">
 					You want the <Code>&lt;body&gt;</Code>'s <Code>padding</Code> to increase from 10px to 50px, and have it
 					stay at 50px once it hits the desktop breakpoint. For desktop and above you start off with:
 				</p>
@@ -105,7 +105,7 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">and for below desktop you add:</p>
+				<p className="vertical-spacing">and for below desktop you add:</p>
 				<CodeBlock>
 					@media (max-width: 1023px) &#123;
 					{`
@@ -122,14 +122,14 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					I'm not a fan of using a <Code>max-width</Code> media query because it smells of a desktop-first approach
 					👎, but I've included it here for completeness' sake.
 				</p>
 			</Section>
 
-			<Section class="vertical-spacing heading-container" heading={headings.h3_3}>
-				<p class="vertical-spacing">
+			<Section className="vertical-spacing heading-container" heading={headings.h3_3}>
+				<p className="vertical-spacing">
 					You want the <Code>&lt;header&gt;</Code>'s <Code>height</Code> to increase from 40px to 90px, and have it
 					stay at 90px once it hits the desktop breakpoint.
 				</p>
@@ -146,7 +146,7 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					Without the <Code>max-height</Code> the <Code>&lt;header&gt;</Code> would continue to grow in height with
 					increase in viewport width. This approach removes the need for a media query 👍, but is limited to{' '}
 					<Code>width</Code> and <Code>height</Code> as no other property has a corresponding{' '}
@@ -154,8 +154,8 @@ export const Examples: FunctionalComponent = () => {
 				</p>
 			</Section>
 
-			<Section class="vertical-spacing heading-container" heading={headings.h3_4}>
-				<p class="vertical-spacing">
+			<Section className="vertical-spacing heading-container" heading={headings.h3_4}>
+				<p className="vertical-spacing">
 					You want the <Code>&lt;button&gt;</Code>'s <Code>border-width</Code> to increase from 1ch to 2ch, and
 					have it stay at 2ch once it hits the desktop breakpoint. In this example let's say that the average
 					character width is 13.65px.
@@ -171,15 +171,15 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					By using <Code>min()</Code> you can do away with media query <em>and</em> you're not limited to{' '}
 					<Code>width</Code> and <Code>height</Code> like in <Link href={`#${headings.h3_3.id}`}>Example 3</Link>.
 					💯
 				</p>
 			</Section>
 
-			<Section class="vertical-spacing heading-container" heading={headings.h3_5}>
-				<p class="vertical-spacing">
+			<Section className="vertical-spacing heading-container" heading={headings.h3_5}>
+				<p className="vertical-spacing">
 					You want the <Code>&lt;footer&gt;</Code>'s <Code>margin-top</Code> to be 20px below tablet breakpoint,
 					200px above desktop breakpoint, and increase from 2.6vw at tablet breakpoint (0.026 * 768px ≅ 20px) to
 					19.5vw at desktop breakpoint (0.195 * 1024px ≅ 200px).
@@ -195,7 +195,7 @@ export const Examples: FunctionalComponent = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					Responsify + <Code>clamp()</Code> is a powerful combination 💪 that also allows you to do away with media
 					queries and also allows you to mix and match units, something you can't do with responsify alone.
 				</p>

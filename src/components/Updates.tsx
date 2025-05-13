@@ -1,10 +1,10 @@
-import type { FunctionalComponent } from 'preact'
+import type { FC } from 'react'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
 
-export const Updates: FunctionalComponent = () => {
+export const Updates: FC = () => {
 	return (
-		<dl class="vertical-spacing">
+		<dl className="vertical-spacing">
 			<dt>
 				<b>
 					Update: <time dateTime="2021-11-16">November 16, 2021</time>

@@ -1,6 +1,6 @@
 import type { HeadingElement } from '../Heading/Heading'
 import { Link } from '../Link/Link'
-import { Fragment } from 'preact'
+import { Fragment } from 'react'
 import { Code } from '../Code/Code'
 import { Section } from '../Section'
 
@@ -140,58 +140,58 @@ export const headings: Headings = {
 
 export const TableOfContents = () => {
 	return (
-		<Section class="vertical-spacing-150-percent" heading={headings.h2_2}>
-			<ol class={classes.ol}>
-				<li class={classes.li}>
+		<Section className="vertical-spacing-150-percent" heading={headings.h2_2}>
+			<ol className={classes.ol}>
+				<li className={classes.li}>
 					<Link href={`#${headings.h1.id}`}>{headings.h1.renderContent()}</Link>
-					<ol class={classes.ol}>
-						<li class={classes.li}>
+					<ol className={classes.ol}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_1.id}`}>{headings.h2_1.renderContent()}</Link>
 						</li>
-						<li class={classes.li}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_2.id}`}>{headings.h2_2.renderContent()}</Link>
 						</li>
-						<li class={classes.li}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_3.id}`}>{headings.h2_3.renderContent()}</Link>
-							<ol class={classes.ol}>
-								<li class={classes.li}>
+							<ol className={classes.ol}>
+								<li className={classes.li}>
 									<Link href={`#${headings.h3_1.id}`}>{headings.h3_1.renderContent()}</Link>
 								</li>
-								<li class={classes.li}>
+								<li className={classes.li}>
 									<Link href={`#${headings.h3_2.id}`}>{headings.h3_2.renderContent()}</Link>
 								</li>
-								<li class={classes.li}>
+								<li className={classes.li}>
 									<Link href={`#${headings.h3_3.id}`}>{headings.h3_3.renderContent()}</Link>
 								</li>
-								<li class={classes.li}>
+								<li className={classes.li}>
 									<Link href={`#${headings.h3_4.id}`}>{headings.h3_4.renderContent()}</Link>
 								</li>
-								<li class={classes.li}>
+								<li className={classes.li}>
 									<Link href={`#${headings.h3_5.id}`}>{headings.h3_5.renderContent()}</Link>
 								</li>
 							</ol>
 						</li>
-						<li class={classes.li}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_4.id}`}>{headings.h2_4.renderContent()}</Link>
 						</li>
-						<li class={classes.li}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_5.id}`}>{headings.h2_5.renderContent()}</Link>
 						</li>
-						<li class={classes.li}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_6.id}`}>{headings.h2_6.renderContent()}</Link>
 						</li>
-						<li class={classes.li}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_7.id}`}>{headings.h2_7.renderContent()}</Link>
 						</li>
-						<li class={classes.li}>
+						<li className={classes.li}>
 							<Link href={`#${headings.h2_8.id}`}>{headings.h2_8.renderContent()}</Link>
 						</li>
 					</ol>
 				</li>
-				<li class={classes.li}>
+				<li className={classes.li}>
 					<Link href={`#${headings.h2_9.id}`}>{headings.h2_9.renderContent()}</Link>
 				</li>
-				<li class={classes.li}>
+				<li className={classes.li}>
 					<Link href={`#${headings.h2_10.id}`}>{headings.h2_10.renderContent()}</Link>
 				</li>
 			</ol>

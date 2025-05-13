@@ -4,6 +4,10 @@ Source code for https://responsify.dev.
 
 ## Todos
 
+-   update dependencies
+-   start a new next.js project with reactCompiler: true in nextConfig
+-   turn on --turbo
+
 -   make www.responsify.dev canonical
 -   move to Next.js: https://www.youtube.com/watch?v=sIVL4JMqRfc&pp=ygUgc3RhbmRhbG9uZSBuZXh0LmpzIHJvYiBkZXBsb3lpbmc%3D + https://nextjs.org/docs/pages/building-your-application/deploying + https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/
 

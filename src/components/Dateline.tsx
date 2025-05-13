@@ -1,8 +1,8 @@
-import type { FunctionalComponent } from 'preact'
+import type { FC } from 'react'
 
-export const Dateline: FunctionalComponent = () => {
+export const Dateline: FC = () => {
 	return (
-		<aside class="vertical-spacing-150-percent">
+		<aside className="vertical-spacing-150-percent">
 			<p>
 				<b>Published</b>: <time dateTime="2019-09-25">September 25, 2019</time>
 			</p>

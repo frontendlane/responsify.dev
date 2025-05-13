@@ -1,57 +1,57 @@
-import type { FunctionalComponent } from 'preact'
+import type { FC } from 'react'
 
 import classes from './ComparisonTable.module.css'
 import { Code } from '../Code/Code'
 import { Link } from '../Link/Link'
 import { headings } from '../TableOfContents/TableOfContents'
 
-export const ComparisonTable: FunctionalComponent = () => {
+export const ComparisonTable: FC = () => {
 	return (
-		<div class={classes.tableContainer}>
-			<table class={`${classes.table} vertical-spacing`}>
-				<caption class={classes.caption}>CSS locks vs responsify</caption>
-				<thead class={classes.thead}>
-					<tr class={classes.tr}>
-						<th class={classes.th}>Criterion</th>
-						<th class={classes.th}>CSS locks</th>
-						<th class={classes.th}>Responsify</th>
+		<div className={classes.tableContainer}>
+			<table className={`${classes.table} vertical-spacing`}>
+				<caption className={classes.caption}>CSS locks vs responsify</caption>
+				<thead className={classes.thead}>
+					<tr className={classes.tr}>
+						<th className={classes.th}>Criterion</th>
+						<th className={classes.th}>CSS locks</th>
+						<th className={classes.th}>Responsify</th>
 					</tr>
 				</thead>
-				<tbody class={classes.tbody}>
-					<tr class={classes.tr}>
-						<td class={classes.td}>Sass</td>
+				<tbody className={classes.tbody}>
+					<tr className={classes.tr}>
+						<td className={classes.td}>Sass</td>
 						{/* <!-- TODO: can CSS locks Sass function be used in all of the examples I have?? --> */}
-						<td class={classes.td}>
+						<td className={classes.td}>
 							<Link href="https://codepen.io/andi1984/pen/yJARkv">CSS locks Sass function</Link>
 						</td>
-						<td class={classes.td}>
+						<td className={classes.td}>
 							<Link href={`#${headings.h2_5.id}`}>Responsify Sass function</Link>
 						</td>
 					</tr>
-					<tr class={classes.tr}>
-						<td class={classes.td}>PostCSS</td>
-						<td class={classes.td}>
+					<tr className={classes.tr}>
+						<td className={classes.td}>PostCSS</td>
+						<td className={classes.td}>
 							<Link href="https://github.com/bramstein/postcss-scale">
 								<Code>postcss-scale</Code>
 							</Link>
 						</td>
-						<td class={classes.td}>
+						<td className={classes.td}>
 							No <span aria-hidden="true">❌</span>
 						</td>
 					</tr>
-					<tr class={classes.tr}>
-						<td class={classes.td}>Web interface</td>
-						<td class={classes.td}>
+					<tr className={classes.tr}>
+						<td className={classes.td}>Web interface</td>
+						<td className={classes.td}>
 							No <span aria-hidden="true">❌</span>
 						</td>
-						<td class={classes.td}>
+						<td className={classes.td}>
 							Yes <span aria-hidden="true">✅</span>
 						</td>
 					</tr>
-					<tr class={classes.tr}>
-						<td class={classes.td}>Since</td>
-						<td class={classes.td}>2016</td>
-						<td class={classes.td}>2019</td>
+					<tr className={classes.tr}>
+						<td className={classes.td}>Since</td>
+						<td className={classes.td}>2016</td>
+						<td className={classes.td}>2019</td>
 					</tr>
 				</tbody>
 			</table>

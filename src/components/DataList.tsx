@@ -1,10 +1,10 @@
-import type { FunctionalComponent } from 'preact'
+import type { FC } from 'react'
 
 type DataListProps = {
 	id: string
 }
 
-export const DataList: FunctionalComponent<DataListProps> = ({ id }) => {
+export const DataList: FC<DataListProps> = ({ id }) => {
 	// TODO: retrieve the list of css properties and then map over them
 	return (
 		<datalist id={id}>

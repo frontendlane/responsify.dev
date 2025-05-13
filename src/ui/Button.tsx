@@ -1,13 +1,8 @@
-import type { FunctionalComponent } from 'preact'
-import type { JSXInternal } from 'preact/src/jsx'
+import type { ComponentProps, FC } from 'react'
 
 import classes from './Button.module.css'
 
-export const Button: FunctionalComponent<JSXInternal.HTMLAttributes<HTMLButtonElement>> = ({
-	children,
-	class: className,
-	...props
-}) => {
+export const Button: FC<ComponentProps<'button'>> = ({ children, className, ...props }) => {
 	return (
 		<button className={`${classes.button} ${className || ''}`} {...props}>
 			{children}

@@ -1,10 +1,10 @@
-import { Fragment, type FunctionComponent } from 'preact'
+import { Fragment, type FunctionComponent } from 'react'
 import { headings } from '../TableOfContents/TableOfContents'
 import { Code } from '../Code/Code'
 import { DataList } from '../DataList'
 import { Section } from '../Section'
 import classes from './Form.module.css'
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -92,13 +92,13 @@ export const Form: FunctionComponent = () => {
 			case 'hidden':
 				return
 			case 'success':
-				return <span class={classes.notification}>Copied</span>
+				return <span className={classes.notification}>Copied</span>
 			case 'error':
 				return (
 					// TODO: verify that all platforms support this way of copying to clipboard. still customize the error message copy
-					<span class={classes.notification}>
+					<span className={classes.notification}>
 						Press{' '}
-						<kbd class={classes.kbd}>
+						<kbd className={classes.kbd}>
 							{/* TODO: if it fails then CMD + C / Control + C won't do anything... */}
 							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
 						</kbd>{' '}
@@ -117,8 +117,8 @@ export const Form: FunctionComponent = () => {
 	const contactEmailAddress = 'petar@responsify.dev'
 
 	return (
-		<Section class={classes.formContainer} heading={headings.h2_4}>
-			<div class={classes.jsError} hidden={!windowError}>
+		<Section className={classes.formContainer} heading={headings.h2_4}>
+			<div className={classes.jsError} hidden={!windowError}>
 				<p>
 					{windowError ? (
 						<Fragment>
@@ -129,19 +129,21 @@ export const Form: FunctionComponent = () => {
 					)}{' '}
 					😵 You won't be able to generate a <Code>calc()</Code> value.
 				</p>
-				<p class="vertical-spacing">
+				<p className="vertical-spacing">
 					You might be able to resolve the issue by reloading the page. If that doesn't work, update your browser
 					to the latest version and try again. If that doesn't work please email me at{' '}
 					<Link href={`mailto:${contactEmailAddress}`}>{contactEmailAddress}</Link>.
 				</p>
-				<p class="vertical-spacing"> Error stack is logged to the console.</p>
+				<p className="vertical-spacing"> Error stack is logged to the console.</p>
 			</div>
-			<p class="vertical-spacing">
+			<p className="vertical-spacing">
 				Generate responsified <Code>calc()</Code> value using the form below.
 			</p>
-			<p class="vertical-spacing">Bookmark the link next to the form heading above for direct access to this form.</p>
-			<form class='form-element"' aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
-				<noscript class={classes.noscript}>
+			<p className="vertical-spacing">
+				Bookmark the link next to the form heading above for direct access to this form.
+			</p>
+			<form className='form-element"' aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
+				<noscript className={classes.noscript}>
 					<p>
 						<strong>
 							JavaScript needs to be enabled in order to generate a<Code>calc()</Code>
@@ -149,14 +151,14 @@ export const Form: FunctionComponent = () => {
 						</strong>
 					</p>
 				</noscript>
-				<ol class={classes.list}>
-					<li class={classes.listItem}>
-						<div class={classes.stepContainer}>
-							<label class={classes.label} for="css-property">
+				<ol className={classes.list}>
+					<li className={classes.listItem}>
+						<div className={classes.stepContainer}>
+							<label className={classes.label} htmlFor="css-property">
 								CSS property
 							</label>
 							<input
-								class={`${classes.input} ${classes.cssProperty}`}
+								className={`${classes.input} ${classes.cssProperty}`}
 								{...register('cssProperty')}
 								id="css-property"
 								disabled={isDisabled}
@@ -169,14 +171,14 @@ export const Form: FunctionComponent = () => {
 						</div>
 					</li>
 
-					<li class={classes.listItem}>
-						<div class={classes.stepContainer}>
-							<label class={classes.label} for="element-lower-bound">
+					<li className={classes.listItem}>
+						<div className={classes.stepContainer}>
+							<label className={classes.label} htmlFor="element-lower-bound">
 								<Code>{cssProperty}</Code> at lower bound
 							</label>
-							<div class={classes.flexWrapJoiner}>
+							<div className={classes.flexWrapJoiner}>
 								<input
-									class={classes.input}
+									className={classes.input}
 									{...register('elementLowerBound')}
 									id="element-lower-bound"
 									disabled={isDisabled}
@@ -185,12 +187,12 @@ export const Form: FunctionComponent = () => {
 									placeholder="25"
 									required
 								/>
-								<label class="visually-hidden" for="unit">
+								<label className="visually-hidden" htmlFor="unit">
 									<Code>{cssProperty}</Code> unit
 								</label>
 								{/* <!-- TODO: height of the select should be the parent height. enhance with js --> */}
 								<select
-									class={classes.select}
+									className={classes.select}
 									id="unit"
 									disabled={isDisabled}
 									required
@@ -209,14 +211,14 @@ export const Form: FunctionComponent = () => {
 					</li>
 
 					{unit === 'ch' && (
-						<li class={classes.listItem}>
-							<div class={classes.stepContainer}>
-								<label class={classes.label} for="ch-width-in-px">
+						<li className={classes.listItem}>
+							<div className={classes.stepContainer}>
+								<label className={classes.label} htmlFor="ch-width-in-px">
 									<Code>ch</Code> width
 								</label>
-								<div class={classes.flexWrapJoiner}>
+								<div className={classes.flexWrapJoiner}>
 									<input
-										class={classes.input}
+										className={classes.input}
 										{...register('chWidthInPx')}
 										id="ch-width-in-px"
 										type="number"
@@ -231,14 +233,14 @@ export const Form: FunctionComponent = () => {
 						</li>
 					)}
 
-					<li class={classes.listItem}>
-						<div class={classes.stepContainer}>
-							<label class={classes.label} for="container-lower-bound">
+					<li className={classes.listItem}>
+						<div className={classes.stepContainer}>
+							<label className={classes.label} htmlFor="container-lower-bound">
 								{container} lower bound
 							</label>
-							<div class={classes.flexWrapJoiner}>
+							<div className={classes.flexWrapJoiner}>
 								<input
-									class={classes.input}
+									className={classes.input}
 									{...register('containerLowerBound')}
 									id="container-lower-bound"
 									disabled={isDisabled}
@@ -253,14 +255,14 @@ export const Form: FunctionComponent = () => {
 						</div>
 					</li>
 
-					<li class={classes.listItem}>
-						<div class={classes.stepContainer}>
-							<label class={classes.label} for="element-upper-bound">
+					<li className={classes.listItem}>
+						<div className={classes.stepContainer}>
+							<label className={classes.label} htmlFor="element-upper-bound">
 								<Code>{cssProperty}</Code> at upper bound
 							</label>
-							<div class={classes.flexWrapJoiner}>
+							<div className={classes.flexWrapJoiner}>
 								<input
-									class={classes.input}
+									className={classes.input}
 									{...register('elementUpperBound')}
 									id="element-upper-bound"
 									disabled={isDisabled}
@@ -274,14 +276,14 @@ export const Form: FunctionComponent = () => {
 						</div>
 					</li>
 
-					<li class={classes.listItem}>
-						<div class={classes.stepContainer}>
-							<label class={classes.label} for="container-upper-bound">
+					<li className={classes.listItem}>
+						<div className={classes.stepContainer}>
+							<label className={classes.label} htmlFor="container-upper-bound">
 								{container} upper bound
 							</label>
-							<div class={classes.flexWrapJoiner}>
+							<div className={classes.flexWrapJoiner}>
 								<input
-									class={classes.input}
+									className={classes.input}
 									{...register('containerUpperBound')}
 									id="container-upper-bound"
 									disabled={isDisabled}
@@ -302,11 +304,11 @@ export const Form: FunctionComponent = () => {
 				<Button type="reset" disabled={isDisabled} onClick={() => reset()}>
 					Reset
 				</Button>
-				<output class={classes.output} aria-live="assertive" role="alert">
+				<output className={classes.output} aria-live="assertive" role="alert">
 					{isSubmitted && isDirty && (
 						<Fragment>
 							{renderNotification()}
-							<CodeBlock ref={resultContainer} class={classes.result}>
+							<CodeBlock ref={resultContainer} className={classes.result}>
 								{generateCss(getValues())}
 							</CodeBlock>
 						</Fragment>
