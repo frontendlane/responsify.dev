@@ -1,13 +1,16 @@
 import type { FC } from 'react'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
+import { fromIsoDateToHumanDate } from '@/utils/fromIsoDateToHumanDate'
 
 export const Updates: FC = () => {
+	const updateDate = '2021-11-16'
 	return (
 		<dl className="vertical-spacing">
 			<dt>
 				<b>
-					Update: <time dateTime="2021-11-16">November 16, 2021</time>
+					{/* TODO: extract time element to a separate UI component?? */}
+					Update: <time dateTime={updateDate}>{fromIsoDateToHumanDate(updateDate)}</time>
 				</b>
 			</dt>
 			<dd>

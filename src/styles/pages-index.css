@@ -1,19 +1,19 @@
-:root {
+html {
+	/* TODO: investigate best ratio: https://graphicdesign.stackexchange.com/questions/9147/optimum-line-height-in-relation-to-font-size, https://betterwebtype.com/triangle/, https://grtcalculator.com/, https://medium.com/@zkareemz/golden-ratio-62b3b6d4282a, https://utopia.fyi/blog/css-modular-scales/ */
+	--line-height: var(--golden-ratio);
 	--vertical-spacing: calc(1em * var(--line-height));
 	--horizontal-spacing: 2ch;
 	--block-border-radius: 0.5em;
 	--inline-border-radius: 0.25em;
-	--line-height: var(--golden-ratio);
 	--max-z-index: 2147483647;
+	line-height: var(--line-height); /* once best default ratio is determined, move this to reset.css */
 }
 
 html {
 	background-color: var(
 		--near-white
-	); /* always set a background color on html for when users scroll beyong the page content, also in cases when the content doesn't cover all of the page */
-	color: var(
-		--dark
-	); /* i forgot why but i remember concluding that it's a good practice to set a color whenever setting a background-color and vice-versa */
+	); /* always set a background color on html for when users scroll beyond the page content, also in cases when the content doesn't cover all of the page */
+	color: var(--dark); /* it's a good practice to set a color whenever setting a background-color and vice-versa */
 	/* TODO: investigate if this is the best font stack for me */
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
 		'Segoe UI Emoji', 'Segoe UI Symbol';

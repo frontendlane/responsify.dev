@@ -1,41 +1,41 @@
 import { describe, test, expect } from 'vitest'
-import { testableExports } from './unorphan'
+import { testExports } from './unorphan'
 
 describe('isLastSpaceRegularWhiteSpace', () => {
 	test('empty string', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('')).toEqual(false)
+		expect(testExports.isLastSpaceRegularWhiteSpace('')).toEqual(false)
 	})
 	test('single regular whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace(' ')).toEqual(true)
+		expect(testExports.isLastSpaceRegularWhiteSpace(' ')).toEqual(true)
 	})
 	test('multiple regular whitespaces', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(true)
+		expect(testExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(true)
 	})
 	test('single non-breaking whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace(' ')).toEqual(false)
+		expect(testExports.isLastSpaceRegularWhiteSpace(' ')).toEqual(false)
 	})
 	test('multiple non-breaking whitespaces', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(false)
+		expect(testExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(false)
 	})
 	test('regular whitespace, character, regular whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace(' d ')).toEqual(true)
+		expect(testExports.isLastSpaceRegularWhiteSpace(' d ')).toEqual(true)
 	})
 	test('non-breaking whitespace, character, non-breaking whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace(' d ')).toEqual(false)
+		expect(testExports.isLastSpaceRegularWhiteSpace(' d ')).toEqual(false)
 	})
 	test('character, non-breaking whitespace, character', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('d d')).toEqual(false)
+		expect(testExports.isLastSpaceRegularWhiteSpace('d d')).toEqual(false)
 	})
 	test('regular whitespace, non-breaking whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(false)
+		expect(testExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(false)
 	})
 	test('non-breaking whitespace, regular whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(true)
+		expect(testExports.isLastSpaceRegularWhiteSpace('  ')).toEqual(true)
 	})
 	test('regular whitespace, non-breaking whitespace, regular whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('   ')).toEqual(true)
+		expect(testExports.isLastSpaceRegularWhiteSpace('   ')).toEqual(true)
 	})
 	test('non-breaking whitespace, regular whitespace, non-breaking whitespace', () => {
-		expect(testableExports.isLastSpaceRegularWhiteSpace('   ')).toEqual(false)
+		expect(testExports.isLastSpaceRegularWhiteSpace('   ')).toEqual(false)
 	})
 })

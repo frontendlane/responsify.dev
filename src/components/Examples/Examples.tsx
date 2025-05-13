@@ -1,10 +1,11 @@
+import { Sparkles } from '@/ui/Sparkles/Sparkles'
 import { Code } from '../Code/Code'
 import { CodeBlock } from '../CodeBlock/CodeBlock'
 import { Link } from '../Link/Link'
 import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
 
-import classes from './Examples.module.css'
+import styles from './Examples.module.css'
 import type { FC } from 'react'
 
 export const Examples: FC = () => {
@@ -45,10 +46,10 @@ export const Examples: FC = () => {
 					&#125;
 				</CodeBlock>
 				<p className="vertical-spacing">
-					You want to gradually transition between these two values so you reserve, let's say, the 900px - 1024px
-					range to smooth this out. You add another media query with the magic 🪄 <Code>calc()</Code> value that
-					you generate using the <Link href={`#${headings.h2_4.id}`}>responsify form</Link> below and you're done!
-					🎉
+					You want to gradually transition between these two values so you reserve, let&apos;s say, the 900px -
+					1024px range to smooth this out. You add another media query with the <Sparkles>magic</Sparkles>{' '}
+					<Code>calc()</Code> value that you generate using the{' '}
+					<Link href={`#${headings.h2_4.id}`}>responsify form</Link> below and you&apos;re done! 🎉
 				</p>
 				<CodeBlock>
 					@media (min-width: 900px) and (max-width: 1023px) &#123;
@@ -67,6 +68,7 @@ export const Examples: FC = () => {
 					&#125;
 				</CodeBlock>
 				<p className="vertical-spacing">
+					{/* TODO: mention that magic numbers are bad https://css-tricks.com/magic-numbers-in-css/ */}
 					Note the comment that accompanies <Code>calc()</Code> value. Preserving input values makes it easier to
 					maintain the code.
 				</p>
@@ -75,16 +77,18 @@ export const Examples: FC = () => {
 					and as a unique string you can match against when tracking down responsified values.
 				</p>
 				{/* <!-- TODO: optimize screen reader usage --> */}
-				<p className={`vertical-spacing ${classes.resize}`}></p>
+				<p className={`vertical-spacing ${styles.resize}`}></p>
 				<p className="vertical-spacing">
 					<em>Without</em> responsify:
 				</p>
-				<div className={`${classes.exampleDiv} vertical-spacing`}></div>
+				<Sparkles className={`${styles.exampleDivMiddleAligned} vertical-spacing`}>
+					<div className={`${styles.exampleDiv}`}></div>
+				</Sparkles>
 				<p className="vertical-spacing" id="description">
 					<em>With</em> responsify:
 				</p>
 				<div
-					className={`${classes.exampleDiv} vertical-spacing`}
+					className={`${styles.exampleDivMiddleAligned} ${styles.exampleDiv} vertical-spacing`}
 					aria-live="polite"
 					role="status"
 					aria-describedby="description"
@@ -93,8 +97,8 @@ export const Examples: FC = () => {
 
 			<Section className="vertical-spacing heading-container" heading={headings.h3_2}>
 				<p className="vertical-spacing">
-					You want the <Code>&lt;body&gt;</Code>'s <Code>padding</Code> to increase from 10px to 50px, and have it
-					stay at 50px once it hits the desktop breakpoint. For desktop and above you start off with:
+					You want the <Code>&lt;body&gt;</Code>&apos;s <Code>padding</Code> to increase from 10px to 50px, and
+					have it stay at 50px once it hits the desktop breakpoint. For desktop and above you start off with:
 				</p>
 				<CodeBlock>
 					body &#123;
@@ -123,15 +127,15 @@ export const Examples: FC = () => {
 					&#125;
 				</CodeBlock>
 				<p className="vertical-spacing">
-					I'm not a fan of using a <Code>max-width</Code> media query because it smells of a desktop-first approach
-					👎, but I've included it here for completeness' sake.
+					I&apos;m not a fan of using a <Code>max-width</Code> media query because it smells of a desktop-first
+					approach 👎, but I&apos;ve included it here for completeness&apos; sake.
 				</p>
 			</Section>
 
 			<Section className="vertical-spacing heading-container" heading={headings.h3_3}>
 				<p className="vertical-spacing">
-					You want the <Code>&lt;header&gt;</Code>'s <Code>height</Code> to increase from 40px to 90px, and have it
-					stay at 90px once it hits the desktop breakpoint.
+					You want the <Code>&lt;header&gt;</Code>&apos;s <Code>height</Code> to increase from 40px to 90px, and
+					have it stay at 90px once it hits the desktop breakpoint.
 				</p>
 				<CodeBlock>
 					header &#123;
@@ -156,23 +160,23 @@ export const Examples: FC = () => {
 
 			<Section className="vertical-spacing heading-container" heading={headings.h3_4}>
 				<p className="vertical-spacing">
-					You want the <Code>&lt;button&gt;</Code>'s <Code>border-width</Code> to increase from 1ch to 2ch, and
-					have it stay at 2ch once it hits the desktop breakpoint. In this example let's say that the average
-					character width is 13.65px.
+					You want the <Code>&lt;button&gt;</Code>&apos;s <Code>border-width</Code> to increase from 1ch to 2ch,
+					and have it stay at 2ch once it hits the desktop breakpoint. In this example let&apos;s say that the
+					average character width is 13.65px.
 				</p>
 				<CodeBlock>
 					button &#123;
 					{`
 `}
 					{`    `}border-width: min(calc(0.545ch + 1.939vw), 2ch); /* https://responsify.dev - viewport lower
-					bound: 320px; viewport upper bound: 1024px; element lower bound: 1ch; element upper bound: 2ch; "ch"
-					width in pixels: 13.65; */
+					bound: 320px; viewport upper bound: 1024px; element lower bound: 1ch; element upper bound: 2ch;
+					&quot;ch&quot; width in pixels: 13.65; */
 					{`
 `}
 					&#125;
 				</CodeBlock>
 				<p className="vertical-spacing">
-					By using <Code>min()</Code> you can do away with media query <em>and</em> you're not limited to{' '}
+					By using <Code>min()</Code> you can do away with media query <em>and</em> you&apos;re not limited to{' '}
 					<Code>width</Code> and <Code>height</Code> like in <Link href={`#${headings.h3_3.id}`}>Example 3</Link>.
 					💯
 				</p>
@@ -180,9 +184,9 @@ export const Examples: FC = () => {
 
 			<Section className="vertical-spacing heading-container" heading={headings.h3_5}>
 				<p className="vertical-spacing">
-					You want the <Code>&lt;footer&gt;</Code>'s <Code>margin-top</Code> to be 20px below tablet breakpoint,
-					200px above desktop breakpoint, and increase from 2.6vw at tablet breakpoint (0.026 * 768px ≅ 20px) to
-					19.5vw at desktop breakpoint (0.195 * 1024px ≅ 200px).
+					You want the <Code>&lt;footer&gt;</Code>&apos;s <Code>margin-top</Code> to be 20px below tablet
+					breakpoint, 200px above desktop breakpoint, and increase from 2.6vw at tablet breakpoint (0.026 * 768px ≅
+					20px) to 19.5vw at desktop breakpoint (0.195 * 1024px ≅ 200px).
 				</p>
 				<CodeBlock>
 					footer &#123;
@@ -197,7 +201,7 @@ export const Examples: FC = () => {
 				</CodeBlock>
 				<p className="vertical-spacing">
 					Responsify + <Code>clamp()</Code> is a powerful combination 💪 that also allows you to do away with media
-					queries and also allows you to mix and match units, something you can't do with responsify alone.
+					queries and also allows you to mix and match units, something you can&apos;t do with responsify alone.
 				</p>
 			</Section>
 		</Section>

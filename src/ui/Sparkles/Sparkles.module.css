@@ -1,0 +1,14 @@
+.container {
+	display: inline-block;
+	position: relative;
+	border: none;
+
+	&:hover {
+		box-shadow: none;
+	}
+}
+
+.strong {
+	position: relative;
+	z-index: 2;
+}

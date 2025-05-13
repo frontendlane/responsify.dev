@@ -1,15 +1,15 @@
-import type { HeadingElement } from '../Heading/Heading'
+import type { HeadingLevel as HeadingLevel } from '../Heading/Heading'
 import { Link } from '../Link/Link'
 import { Fragment } from 'react'
 import { Code } from '../Code/Code'
 import { Section } from '../Section'
 
-import classes from './TableOfContents.module.css'
+import styles from './TableOfContents.module.css'
 
 export type HeadingShape = {
 	id: string
-	element: HeadingElement
-	renderContent: () => any
+	level: HeadingLevel
+	content: React.ReactNode
 }
 
 type Headings = {
@@ -34,33 +34,33 @@ type Headings = {
 export const headings: Headings = {
 	h1: {
 		id: 'top',
-		element: 'h1',
-		renderContent: () => <Fragment>Responsify</Fragment>,
+		level: 'h1',
+		content: 'Responsify',
 	},
 	h2_1: {
 		id: 'responsify',
-		element: 'h2',
-		renderContent: () => <Fragment>What is responsify?</Fragment>,
+		level: 'h2',
+		content: 'What is responsify?',
 	},
 	h2_2: {
 		id: 'contents',
-		element: 'h2',
-		renderContent: () => <Fragment>Table of contents</Fragment>,
+		level: 'h2',
+		content: 'Table of contents',
 	},
 	h2_3: {
 		id: 'examples',
-		element: 'h2',
-		renderContent: () => <Fragment>How to responsify</Fragment>,
+		level: 'h2',
+		content: 'How to responsify',
 	},
 	h3_1: {
 		id: 'example-1',
-		element: 'h3',
-		renderContent: () => <Fragment>Example 1 featuring two media queries</Fragment>,
+		level: 'h3',
+		content: 'Example 1 featuring two media queries',
 	},
 	h3_2: {
 		id: 'example-2',
-		element: 'h3',
-		renderContent: () => (
+		level: 'h3',
+		content: (
 			<Fragment>
 				Example 2 featuring <Code>max-width</Code> media query
 			</Fragment>
@@ -68,8 +68,8 @@ export const headings: Headings = {
 	},
 	h3_3: {
 		id: 'example-3',
-		element: 'h3',
-		renderContent: () => (
+		level: 'h3',
+		content: (
 			<Fragment>
 				Example 3 featuring <Code>max-height</Code>
 			</Fragment>
@@ -77,8 +77,8 @@ export const headings: Headings = {
 	},
 	h3_4: {
 		id: 'example-4',
-		element: 'h3',
-		renderContent: () => (
+		level: 'h3',
+		content: (
 			<Fragment>
 				Example 4 featuring <Code>ch</Code> and <Code>min()</Code>
 			</Fragment>
@@ -86,8 +86,8 @@ export const headings: Headings = {
 	},
 	h3_5: {
 		id: 'example-5',
-		element: 'h3',
-		renderContent: () => (
+		level: 'h3',
+		content: (
 			<Fragment>
 				Example 5 featuring <Code>clamp()</Code>
 			</Fragment>
@@ -95,8 +95,8 @@ export const headings: Headings = {
 	},
 	h2_4: {
 		id: 'form',
-		element: 'h2',
-		renderContent: () => (
+		level: 'h2',
+		content: (
 			<Fragment>
 				<b>Responsify form</b>
 			</Fragment>
@@ -104,8 +104,8 @@ export const headings: Headings = {
 	},
 	h2_5: {
 		id: 'sass-function',
-		element: 'h2',
-		renderContent: () => (
+		level: 'h2',
+		content: (
 			<Fragment>
 				Sass <Code>@function</Code>
 			</Fragment>
@@ -113,86 +113,86 @@ export const headings: Headings = {
 	},
 	h2_6: {
 		id: 'browser-support',
-		element: 'h2',
-		renderContent: () => <Fragment>Browser support</Fragment>,
+		level: 'h2',
+		content: 'Browser support',
 	},
 	h2_7: {
 		id: 'comparison',
-		element: 'h2',
-		renderContent: () => <Fragment>Comparison with CSS locks</Fragment>,
+		level: 'h2',
+		content: 'Comparison with CSS locks',
 	},
 	h2_8: {
 		id: 'resources',
-		element: 'h2',
-		renderContent: () => <Fragment>Related resources</Fragment>,
+		level: 'h2',
+		content: 'Related resources',
 	},
 	h2_9: {
 		id: 'privacy',
-		element: 'h2',
-		renderContent: () => <Fragment>Privacy policy</Fragment>,
+		level: 'h2',
+		content: 'Privacy policy',
 	},
 	h2_10: {
 		id: 'accessibility',
-		element: 'h2',
-		renderContent: () => <Fragment>Accessibility statement</Fragment>,
+		level: 'h2',
+		content: 'Accessibility statement',
 	},
 }
 
 export const TableOfContents = () => {
 	return (
 		<Section className="vertical-spacing-150-percent" heading={headings.h2_2}>
-			<ol className={classes.ol}>
-				<li className={classes.li}>
-					<Link href={`#${headings.h1.id}`}>{headings.h1.renderContent()}</Link>
-					<ol className={classes.ol}>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_1.id}`}>{headings.h2_1.renderContent()}</Link>
+			<ol className={styles.ol}>
+				<li className={styles.li}>
+					<Link href={`#${headings.h1.id}`}>{headings.h1.content}</Link>
+					<ol className={styles.ol}>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_1.id}`}>{headings.h2_1.content}</Link>
 						</li>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_2.id}`}>{headings.h2_2.renderContent()}</Link>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_2.id}`}>{headings.h2_2.content}</Link>
 						</li>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_3.id}`}>{headings.h2_3.renderContent()}</Link>
-							<ol className={classes.ol}>
-								<li className={classes.li}>
-									<Link href={`#${headings.h3_1.id}`}>{headings.h3_1.renderContent()}</Link>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_3.id}`}>{headings.h2_3.content}</Link>
+							<ol className={styles.ol}>
+								<li className={styles.li}>
+									<Link href={`#${headings.h3_1.id}`}>{headings.h3_1.content}</Link>
 								</li>
-								<li className={classes.li}>
-									<Link href={`#${headings.h3_2.id}`}>{headings.h3_2.renderContent()}</Link>
+								<li className={styles.li}>
+									<Link href={`#${headings.h3_2.id}`}>{headings.h3_2.content}</Link>
 								</li>
-								<li className={classes.li}>
-									<Link href={`#${headings.h3_3.id}`}>{headings.h3_3.renderContent()}</Link>
+								<li className={styles.li}>
+									<Link href={`#${headings.h3_3.id}`}>{headings.h3_3.content}</Link>
 								</li>
-								<li className={classes.li}>
-									<Link href={`#${headings.h3_4.id}`}>{headings.h3_4.renderContent()}</Link>
+								<li className={styles.li}>
+									<Link href={`#${headings.h3_4.id}`}>{headings.h3_4.content}</Link>
 								</li>
-								<li className={classes.li}>
-									<Link href={`#${headings.h3_5.id}`}>{headings.h3_5.renderContent()}</Link>
+								<li className={styles.li}>
+									<Link href={`#${headings.h3_5.id}`}>{headings.h3_5.content}</Link>
 								</li>
 							</ol>
 						</li>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_4.id}`}>{headings.h2_4.renderContent()}</Link>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_4.id}`}>{headings.h2_4.content}</Link>
 						</li>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_5.id}`}>{headings.h2_5.renderContent()}</Link>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_5.id}`}>{headings.h2_5.content}</Link>
 						</li>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_6.id}`}>{headings.h2_6.renderContent()}</Link>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_6.id}`}>{headings.h2_6.content}</Link>
 						</li>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_7.id}`}>{headings.h2_7.renderContent()}</Link>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_7.id}`}>{headings.h2_7.content}</Link>
 						</li>
-						<li className={classes.li}>
-							<Link href={`#${headings.h2_8.id}`}>{headings.h2_8.renderContent()}</Link>
+						<li className={styles.li}>
+							<Link href={`#${headings.h2_8.id}`}>{headings.h2_8.content}</Link>
 						</li>
 					</ol>
 				</li>
-				<li className={classes.li}>
-					<Link href={`#${headings.h2_9.id}`}>{headings.h2_9.renderContent()}</Link>
+				<li className={styles.li}>
+					<Link href={`#${headings.h2_9.id}`}>{headings.h2_9.content}</Link>
 				</li>
-				<li className={classes.li}>
-					<Link href={`#${headings.h2_10.id}`}>{headings.h2_10.renderContent()}</Link>
+				<li className={styles.li}>
+					<Link href={`#${headings.h2_10.id}`}>{headings.h2_10.content}</Link>
 				</li>
 			</ol>
 		</Section>

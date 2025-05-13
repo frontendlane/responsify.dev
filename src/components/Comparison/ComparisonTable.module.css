@@ -13,7 +13,7 @@
 
 .caption {
 	margin-block-end: calc(var(--vertical-spacing) / 2);
-	font-size: calc(var(--golden-ratio) * 1em);
+	font-size: calc(var(--golden-ratio) * 1em); /* TODO: should it maybe be var(--line-height)?? */
 	font-weight: bold;
 }
 

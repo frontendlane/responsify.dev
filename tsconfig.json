@@ -2,8 +2,7 @@
 	"compilerOptions": {
 		// Base options
 		"module": "ESNext",
-		// TODO: change to Bundler once on Next.js
-		"moduleResolution": "Node10",
+		"moduleResolution": "Bundler",
 		"moduleDetection": "force", // ensures every file is treated as a module and not as a global script
 		"esModuleInterop": true, // supports importing CJS in ESM
 		"resolveJsonModule": true,
@@ -35,10 +34,18 @@
 		"allowImportingTsExtensions": true, // valid only because noEmit === true
 
 		// React
-		"jsx": "react-jsx",
-		// TODO:
-		"jsxImportSource": "react"
+		"jsx": "preserve",
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		// TODO: investigate if next.js still needs this
+		"incremental": true // would be unnecessary because noEmit === true but next.js needs it for some reasons
 	},
-	"include": ["**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
 	"exclude": ["node_modules"]
 }
