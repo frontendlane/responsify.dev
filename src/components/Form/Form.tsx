@@ -85,6 +85,8 @@ export const Form: FunctionComponent = () => {
 		window.addEventListener('error', (error) => setWindowError(error.message))
 	}, [])
 
+	// https://www.sarasoueidan.com/blog/accessible-notifications-with-aria-live-regions-part-1/
+	// https://www.sarasoueidan.com/blog/accessible-notifications-with-aria-live-regions-part-2/
 	const renderNotification = () => {
 		switch (notificationStatus) {
 			case 'hidden':

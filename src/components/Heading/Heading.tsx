@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from 'preact'
+import { Fragment, type FunctionComponent } from 'preact'
 
 import { HeadingLink } from './HeadingLink'
 import classes from './Heading.module.css'

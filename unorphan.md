@@ -11,3 +11,10 @@
 https://www.npmjs.com/package/jquery-unorphanize
 https://www.npmjs.com/package/@threespot/unorphanize
 https://www.npmjs.com/package/unorphan
+
+-   july 9 2023 i learned i rediscovered unorphan
+-   https://www.npmjs.com/package/typemate/v/0.7.1
+-   handle this as well??
+    -   https://en.wikipedia.org/wiki/Soft_hyphen
+-   https://www.ctrl.blog/entry/text-wrap-balance.html + https://www.ctrl.blog/entry/text-wrap-balance.html
+-   text-wrap: pretty; (currently only in chrome beta)

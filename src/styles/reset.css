@@ -191,6 +191,7 @@ a:visited {
 }
 
 /* TODO: https://css-irl.info/styling-external-links-with-attribute-selectors/ */
+/* TODO: https://blog.pope.tech/2024/01/02/how-to-make-external-links-accessible/ */
 /* TODO: is a[href]:not([href='']) different from :any-link?? */
 a[href]:not([href=''])[target='_blank']::after {
 	content: ' ↗️'; /* Firefox & Safari fallback */

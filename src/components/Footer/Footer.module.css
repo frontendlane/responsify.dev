@@ -20,3 +20,10 @@
 .emailNotification:not(:empty) {
 	margin-block-end: calc(var(--vertical-spacing) * -1);
 }
+
+.kbd {
+	padding-inline: 0.25ch;
+	border-radius: var(--inline-border-radius);
+	background-color: var(--code-background-dark);
+	color: yellow;
+}

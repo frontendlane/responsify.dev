@@ -3,21 +3,34 @@
 Source code for https://responsify.dev.
 
 ## Todos
+
+-   make www.responsify.dev canonical
+-   move to Next.js: https://www.youtube.com/watch?v=sIVL4JMqRfc&pp=ygUgc3RhbmRhbG9uZSBuZXh0LmpzIHJvYiBkZXBsb3lpbmc%3D + https://nextjs.org/docs/pages/building-your-application/deploying + https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/
+
+https://www.gsqi.com/marketing-blog/how-to-use-data-nosnippet/
+https://news.ycombinator.com/item?id=38689869
+https://remysharp.com/2023/12/04/unrot-that-link
+https://scottjehl.com/posts/using-responsive-video/ + https://scottjehl.com/posts/rwd-video/
+https://www.joshwcomeau.com/react/animated-sparkles-in-react/
+
 https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/set-browser-ttl/
 https://developers.cloudflare.com/pages/platform/headers
+
 -   add postinstall format
 
--   removed `pnpm run zip &&` from build script to make it deployable on cloudflare pages
+-   removed `npm run zip &&` from build script to make it deployable on cloudflare pages
 
--   either replace breakpoint or smooth out the transition...
 -   readme.md should also include the version of the project (ideally the same as in package.json)
 
+-   email obfuscation: https://news.ycombinator.com/item?id=38379397: just don't obfuscate and instead use a catch all email domain
+-   https://documentation.divio.com/
 -   meta tags
 -   favicon
 
 -   accent: https://fullystacked.net/posts/accentcolor/
 -   global store: https://docs.astro.build/en/core-concepts/sharing-state/
 
+-   https://web.dev/articles/adapting-typography-to-user-preferences-with-css
 -   responsify demo page
     -   https://www.freecodecamp.org/news/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862/
 -   pressing reset button after generating css code produces a bug in firefox (bug is in the intersection of following things: my laptop, firefox/safari, and <pre> being inside <output>, preact? vs react?)
@@ -25,6 +38,10 @@ https://developers.cloudflare.com/pages/platform/headers
 -   404 page
 -   flip the order in the table, put Responsify first. Change the table caption to Responsify vs CSS locks
 -   skip link to the form
+-   help filling out the form (both of these features are called autofill in chrome)
+    -   autocomplete: browser offers to complete the form once user starts typing into one of the fields
+    -   autofill: browser pre-populating the login form on page load
+    -   https://github.com/matteobad/detect-autofill + https://medium.com/@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7
 -   `:any-link` instead of `a` (this probably only needs fixing in reset.scss and globals.pcss)
 -   ensure clipboard works on all sorts of devices and that clipboard.js dependency is removed
 -   eslint
@@ -49,12 +66,19 @@ https://developers.cloudflare.com/pages/platform/headers
     -   https://twitter.com/__jakub_g/status/1478847423913107456
     -   https://web.dev/color-scheme/#background
     -   https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
--   hyphenation: https://frontendfoc.us/link/129367/web
+    -   https://css-tricks.com/come-to-the-light-dark-side/
+-   hyphenation
+    -   https://github.com/mnater/Hyphenopoly
+    -   https://frontendfoc.us/link/129367/web
+    -   https://github.com/ytiurin/hyphen
 -   https://cloudfour.com/thinks/responsive-headlines-are-about-to-get-awesome/
 -   overflowing `<pre>` seem to need tabindex on safari for scrolling
 -   https://modern-fluid-typography.vercel.app/
 -   video
 
+    -   https://jakearchibald.com/2024/video-with-transparency/
+    -   https://fullystacked.net/av1/
+    -   https://web.dev/articles/lazy-loading-video
     -   narrate the video?
     -   create a shell script that generates all the formats
     -   record only in dark theme
@@ -100,11 +124,18 @@ https://developers.cloudflare.com/pages/platform/headers
         *   https://typetura.com/
         *   https://piperhaywood.com/fluid-type-sizes-and-spacing/
         *   https://twitter.com/hovhaDovah/status/1476677678044434435
+        -   https://news.ycombinator.com/item?id=39682871
     -   https://github.com/arielsalminen/Molten-Leading
     -   https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
     -   https://www.smashingmagazine.com/2022/08/fluid-sizing-multiple-media-queries/
     -   https://min-max-calculator.9elements.com/
     -   https://tobiasahlin.com/blog/responsive-fluid-css-type-scales/
+    -   royalfig.github.io/fluid-typography-calculator
+    -   fluid-type-scale.com
+    -   https://www.smashingmagazine.com/2023/11/addressing-accessibility-concerns-fluid-type/
+    -   fluid.style
+    -   https://typeculator.alexpaul.me/
+    -   https://wearerequired.github.io/fluidity/
 -   tabindex on `<pre>` for chrome
 -   add postcss plugin that supports vi and vb units
 -   https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/
@@ -135,6 +166,7 @@ https://developers.cloudflare.com/pages/platform/headers
 -   every section heading should show you how to copy URl to that section, kinda like GitHub does it, but is it the most accessible solution??
 -   if URL contains hash that points to form then focus the first input field??
 -   https://www.erikkroes.nl/blog/the-universal-focus-state/#show-me-how
+    -   https://daverupert.com/2024/01/focus-visible-love/
 -   publish postcss as `responsify` or `@fel/responsify` package.json
     -   https://github.com/bramstein/postcss-scale
         -   contribute to the plugin by fixing issues
@@ -150,6 +182,7 @@ https://developers.cloudflare.com/pages/platform/headers
 -   use jest for testing, and inside it use puppeteer, not jsdom
 -   test aria-atomic
 -   update `__responsify.scss` to support `ch`
+    -   https://techhub.iodigital.com/articles/going-beyond-pixels-and-rems-in-css/relative-length-units-based-on-font
 -   add vh unit
 -   add video closed captions
 -   pre-commit hook that blocks commits if there's "TODO" anywhere in the repo
@@ -194,6 +227,9 @@ https://developers.cloudflare.com/pages/platform/headers
 -   code block: http://midasjs.com/
     -   https://shiki.matsu.io/
     -   prism.js
+    -   https://github.com/williamtroup/Syntax.js
+    -   https://github.com/MarketingPipeline/Termino.js
+    -   https://expressive-code.com/
 -   copy to clipboard and other notifications: https://codepen.io/jkantner/pen/XWzePgp
 -   reset.pcss
     https://baymard.com/blog/line-length-readability
@@ -202,54 +238,30 @@ https://developers.cloudflare.com/pages/platform/headers
     https://www.thegoodlineheight.com/
     https://www.trysmudford.com/blog/a-good-reset/
     https://www.joshwcomeau.com/css/custom-css-reset/#digit-tweaking-line-height
+    -   https://jakelazaroff.com/words/my-modern-css-reset/
 
 ## Technologies
 
--   `nvm use` (make sure you're using the correct Node version, cannot be automated as part of package.json script)
--   VS Code (or VS Codium) (extensions, etc.)
--   GitHub
--   TypeScript
 -   PostCSS (postcss language support vs code extension)
     -   `cssnano-preset-default` only does safe transforms
--   CSS modules
--   Axe
--   Percy
--   Cloudflare Registrar
--   Cloudflare Pages
-    -   https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/
-        -   does nvm need to be installed??
-        -   for development I'm fine with using nvm because I'll continue using it in the future. for deployment it's unnecessary to have nvm, I can just install the node version I need, especially if it's being deployed in a CI/CD pipeline that discards the build environment after building the site. more research needed here
--   Google Search Console
 
 vanilla-extract to replace PostCSS and CSS modules at some point in the future
 
-### Node + nvm (via homebrew)
+-   didn't have a need for `.gitattributes`, maybe if I were using windows i would have discovered a use case, but for now I'm gonna leave it out
 
-Version 19.8.1
+### npm
 
-### pnpm
+Another reason why not using pnpm: https://github.com/pnpm/pnpm/issues/6759
 
-Version 7.30.5
+### EditorConfig
 
-_Note: currently using npm instead of pnpm until this issue is resolved: https://github.com/pnpm/pnpm/issues/6759_
+EditorConfig sets [some formatting rules](https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties) for your code editor, such as starting new files with tab indentation. While Prettier can handle most of these rules, using EditorConfig on new files helps avoid unnecessary reformatting by Prettier.
 
 ### Astro
 
 -   add to documentation a note about styling content that will be hydrated or only rendered on the client: https://zellwk.com/blog/overcoming-astro-styling-frustrations/
 
 ### TypeScript
-
-### Preact
-
-Astro + Prettier doesn't handle whitespaces the same way (correct way) compared to how React/Preact + Prettier. Hence, only use Astro components for pages. Do not place any content in Astro components precisely because of the whitespace rendering issues. All content should originate from Preact components.
-
-preact dev tools: https://preactjs.github.io/preact-devtools
-
-Preact is in compat mode because of React hook form.
-
--   React Form Hook
--   Zod
-    IT'S NOT IN PACKAGE.JSON!! THIS IS A BUG??!!
 
 ### 🧞 Commands
 

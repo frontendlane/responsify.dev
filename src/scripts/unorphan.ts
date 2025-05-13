@@ -233,3 +233,7 @@ export const unorphan = (target: Element | Element[] | NodeListOf<Element> | nul
 		window.addEventListener('resize', handleResize)
 	}
 }
+
+export const testableExports = {
+	isLastSpaceRegularWhiteSpace,
+}
