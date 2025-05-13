@@ -16,3 +16,5 @@ max_line_length = unset
 
 [*.{bat,cmd}]
 end_of_line = crlf
+
+# explicit instructions for yml and yaml files are not necessary

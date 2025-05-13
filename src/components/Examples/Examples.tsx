@@ -68,6 +68,7 @@ export const Examples: FC = () => {
 					&#125;
 				</CodeBlock>
 				<p className="vertical-spacing">
+					{/* TODO: mention that magic numbers are bad https://css-tricks.com/magic-numbers-in-css/ */}
 					Note the comment that accompanies <Code>calc()</Code> value. Preserving input values makes it easier to
 					maintain the code.
 				</p>

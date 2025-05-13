@@ -66,8 +66,8 @@ const extractTags = (html: string) => {
 		.forEach(
 			([openingBracketIndex, tag]) =>
 				(textContent = `${textContent.slice(0, +openingBracketIndex)}${textContent.slice(
-					+openingBracketIndex + tag.length
-				)}`)
+					+openingBracketIndex + tag.length,
+				)}`),
 		)
 
 	return { textContent, tags }
@@ -77,7 +77,7 @@ const depositTags = (unorphanedTextContent: string, tags: ITags) => {
 	let innerHTML = unorphanedTextContent
 	Object.entries(tags).forEach(
 		([openingBracketIndex, text]) =>
-			(innerHTML = `${innerHTML.slice(0, +openingBracketIndex)}${text}${innerHTML.slice(+openingBracketIndex)}`)
+			(innerHTML = `${innerHTML.slice(0, +openingBracketIndex)}${text}${innerHTML.slice(+openingBracketIndex)}`),
 	)
 	return innerHTML
 }
@@ -113,7 +113,7 @@ const unorphanChildrenlessHTML = (element: Element) => {
 	const lastWhiteSpacePosition = textContent.lastIndexOf(WHITE_SPACE)
 	const unorphanedTextContent = `${textContent.substring(
 		0,
-		lastWhiteSpacePosition
+		lastWhiteSpacePosition,
 	)}${NON_BREAKING_SPACE}${textContent.substring(lastWhiteSpacePosition + 1)}`
 
 	return {
@@ -234,6 +234,6 @@ export const unorphan = (target: Element | Element[] | NodeListOf<Element> | nul
 	}
 }
 
-export const testableExports = {
+export const testExports = {
 	isLastSpaceRegularWhiteSpace,
 }

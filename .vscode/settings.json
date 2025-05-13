@@ -9,8 +9,6 @@
 		// avoid source.organizeImports because (1) it can't be enforced during CI/CD and (2) it can introduce unnecessary git diffs unless every contributor uses vs code. instead use @ianvs/prettier-plugin-sort-imports
 		// avoid source.addMissingImports because it can import the wrong thing: https://github.com/microsoft/vscode/issues/139131
 		"source.fixAll.eslint": "explicit",
-		"source.fixAll.stylelint": "explicit",
-	},
-	// TODO:
-	"typescript.enablePromptUseWorkspaceTsdk": true // will prompt to use typescript version specified in the workspace
+		"source.fixAll.stylelint": "explicit"
+	}
 }

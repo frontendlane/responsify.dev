@@ -13,8 +13,8 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
 	// TODO: inject this into package.json and manifest as well
-	title: 'Responsify: Prevent abrupt layout shifts when users resize the browser',
-	description: 'A CSS technique that helps developers prevent ugly layout jumps when users resize the browser.',
+	title: 'Responsify: Prevent abrupt layout shifts when user resizes the browser',
+	description: 'A CSS technique that helps developers prevent jarring layout shifts when user resizes the browser.',
 }
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
 							marginBlockStart: '1rem',
 						}}
 					>
-						Prevent abrupt layout shifts when users resize the browser
+						Prevent abrupt layout shifts when user resizes the browser
 					</p>
 
 					<Dateline />

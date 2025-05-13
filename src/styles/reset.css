@@ -12,7 +12,7 @@
 
 	html {
 		text-size-adjust: 100%;
-		-webkit-font-smoothing: antialiased; /* fixed font smoothing on Chrome and Safari on macOS (no change if www.fontsmoothingadjuster.com had been used) */
+		-webkit-font-smoothing: antialiased; /* fixed font smoothing on Chrome and Safari on macOS (no change if www.fontsmoothingadjuster.com had been used). https://dbushell.com/2024/11/05/webkit-font-smoothing/ */
 	}
 
 	img,

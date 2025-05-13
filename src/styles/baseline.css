@@ -1,5 +1,6 @@
 /* TODO: would be nice to wrap in its own layer so it's easier to override in other css files BUT the css variables need to be inheritable (does @layer prevent that??), so maybe wrap every selector in :where() */
 html {
+	/* https://medienbaecker.com/articles/focus-outlines */
 	--outline-width: 0.25em;
 	--outline-offset: calc(var(--outline-width) / 2);
 	--scroll-margin-block-start: 0.5em;
