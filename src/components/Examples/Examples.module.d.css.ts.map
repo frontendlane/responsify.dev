@@ -1,14 +1,1 @@
-{
-  "version": 3,
-  "sources": [
-    "./Examples.module.css"
-  ],
-  "names": [
-    "exampleDivMiddleAligned",
-    "exampleDiv",
-    "resize"
-  ],
-  "mappings": "AAAA;AAAA,E,aAAAA,yB,WAAA;AAAA,E,aAOCA,yB,WAPD;AAAA,E,aAO4BA,yB,WAP5B;AAAA,E,aAcCA,yB,WAdD;AAAA,E,aAmBAC,Y,WAnBA;AAAA,E,aAuCAA,Y,WAvCA;AAAA,E,aAiDCA,Y,WAjDD;AAAA,E,aAsDCA,Y,WAtDD;AAAA,E,aAsDeA,Y,WAtDf;AAAA,E,aA2DCA,Y,WA3DD;AAAA,E,aAkEAC,Q,WAlEA;AAAA,E,aAuECA,Q,WAvED;AAAA,E,aA+ECA,Q,WA/ED;AAAA;AAAA",
-  "file": "Examples.module.d.css.ts",
-  "sourceRoot": ""
-}
+{"version":3,"sources":["./Examples.module.css"],"names":["exampleDivMiddleAligned","exampleDiv","resize"],"mappings":"AAAA;AAAA,E,aAAAA,yB,WAAA;AAAA,E,aAOCA,yB,WAPD;AAAA,E,aAO4BA,yB,WAP5B;AAAA,E,aAcCA,yB,WAdD;AAAA,E,aAmBAC,Y,WAnBA;AAAA,E,aAuCAA,Y,WAvCA;AAAA,E,aAiDCA,Y,WAjDD;AAAA,E,aAsDCA,Y,WAtDD;AAAA,E,aAsDeA,Y,WAtDf;AAAA,E,aA2DCA,Y,WA3DD;AAAA,E,aAkEAC,Q,WAlEA;AAAA,E,aAuECA,Q,WAvED;AAAA,E,aA+ECA,Q,WA/ED;AAAA;AAAA","file":"Examples.module.d.css.ts","sourceRoot":""}
