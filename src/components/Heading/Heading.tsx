@@ -1,4 +1,4 @@
-import { Fragment, type FunctionComponent } from 'preact'
+import { Fragment, type FunctionComponent } from 'react'
 
 import { HeadingLink } from './HeadingLink'
 import classes from './Heading.module.css'
@@ -18,13 +18,13 @@ export const Heading: FunctionComponent<HeadingProps> = ({ element: HeadingEleme
 	const plaintext = getTextContent(content.props.children)
 
 	return isPlaintext ? (
-		<Fragment>
+		<>
 			<HeadingElement id={id}>{content}</HeadingElement>
 			<HeadingLink id={id} />
-		</Fragment>
+		</>
 	) : (
-		<div class={classes.headingContainer}>
-			<HeadingElement class={classes.screenReaderHeading}>{plaintext}</HeadingElement>
+		<div className={classes.headingContainer}>
+			<HeadingElement className={classes.screenReaderHeading}>{plaintext}</HeadingElement>
 			<HeadingElement id={id} aria-hidden="true">
 				{content}
 			</HeadingElement>

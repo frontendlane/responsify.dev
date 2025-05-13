@@ -1,13 +1,13 @@
-import type { FunctionalComponent } from 'preact'
+import type { FC } from 'react'
 import { Code } from './Code/Code'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
 import { Section } from './Section'
 
-export const BrowserSupport: FunctionalComponent = () => {
+export const BrowserSupport: FC = () => {
 	return (
-		<Section class="vertical-spacing-150-percent" heading={headings.h2_6}>
-			<p class="vertical-spacing">
+		<Section className="vertical-spacing-150-percent" heading={headings.h2_6}>
+			<p className="vertical-spacing">
 				Browser support is very good. In spite of IE having{' '}
 				<Link href="https://caniuse.com/calc/">
 					known issues with <Code>calc()</Code>

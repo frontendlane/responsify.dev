@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useState } from 'react'
 import { Link } from '../Link/Link'
 import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
-import { Fragment, type FunctionalComponent } from 'preact'
+import { Fragment, type FC } from 'react'
 import classes from './Footer.module.css'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import { Button } from '../../ui/Button'
 
 type NotificationStatus = 'hidden' | 'success' | 'error'
 
-export const Footer: FunctionalComponent = () => {
+export const Footer: FC = () => {
 	const [notificationStatus, setNotificationStatus] = useState<NotificationStatus>('hidden')
 	const [isFirstRender, setIsFirstRender] = useState(true)
 
@@ -28,7 +28,7 @@ export const Footer: FunctionalComponent = () => {
 				return (
 					<Fragment>
 						Press{' '}
-						<kbd class={classes.kbd}>
+						<kbd className={classes.kbd}>
 							{/* TODO: if it fails then CMD + C / Control + C won't do anything... */}
 							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
 						</kbd>{' '}
@@ -53,21 +53,26 @@ export const Footer: FunctionalComponent = () => {
 	const a11yEmailAddress = 'a11y@responsify.dev'
 
 	return (
-		<footer class={`${classes.footer} vertical-spacing-150-percent`}>
-			<Section class="vertical-spacing-150-percent" heading={headings.h2_9}>
-				<p class="vertical-spacing">
+		<footer className={`${classes.footer} vertical-spacing-150-percent`}>
+			<Section className="vertical-spacing-150-percent" heading={headings.h2_9}>
+				<p className="vertical-spacing">
 					There is none because no data is collected. No ads 📢, no analytics 📊, no tracking 🕵️, no telemetry 📡,
 					no cookies 🍪, no bullshit 🐂💩.
 				</p>
 			</Section>
-			<Section class="vertical-spacing-150-percent" heading={headings.h2_10}>
-				<p class="vertical-spacing">
+			<Section className="vertical-spacing-150-percent" heading={headings.h2_10}>
+				<p className="vertical-spacing">
 					I try hard to make my work accessible. ♿️ If something isn't working for you please email me at{' '}
 					<Link href={`mailto:${a11yEmailAddress}`}>{a11yEmailAddress}</Link>.
 				</p>
-				<div class={classes.emailDispenser}>
-					<div class={classes.emailEnclosure}>
-						<output class={classes.emailNotification} id="email-notification" aria-live="polite" role="status">
+				<div className={classes.emailDispenser}>
+					<div className={classes.emailEnclosure}>
+						<output
+							className={classes.emailNotification}
+							id="email-notification"
+							aria-live="polite"
+							role="status"
+						>
 							{renderNotification()}
 						</output>
 						<Button
