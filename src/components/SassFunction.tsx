@@ -1,10 +1,9 @@
-import type { FC } from 'react'
 import { Section } from './Section'
 import { Code } from './Code/Code'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
 
-export const SassFunction: FC = () => {
+export const SassFunction = () => {
 	return (
 		<Section className="vertical-spacing-150-percent" heading={headings.h2_5}>
 			<p className="vertical-spacing">

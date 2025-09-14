@@ -1,11 +1,9 @@
-import type { FC } from 'react'
-
 import styles from './ComparisonTable.module.css'
 import { Code } from '../Code/Code'
 import { Link } from '../Link/Link'
 import { headings } from '../TableOfContents/TableOfContents'
 
-export const ComparisonTable: FC = () => {
+export const ComparisonTable = () => {
 	return (
 		<div className={styles.tableContainer}>
 			<table className={`${styles.table} vertical-spacing`}>
@@ -30,6 +28,8 @@ export const ComparisonTable: FC = () => {
 					</tr>
 					<tr className={styles.tr}>
 						<td className={styles.td}>PostCSS</td>
+						{/* TODO: temporary, investigate */}
+						{/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
 						<td className={styles.td}>
 							<Link href="https://github.com/bramstein/postcss-scale">
 								<Code>postcss-scale</Code>

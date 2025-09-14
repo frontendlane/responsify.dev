@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './Sparkles.module.css'
-import { useRef, useState, type FC, type PropsWithChildren } from 'react'
+import { useRef, useState, type PropsWithChildren } from 'react'
 import { useRandomInterval } from '@/hooks/useRandomInterval'
 import { generateSparkle } from './Sparkle/generateSparkle'
 import { Sparkle } from './Sparkle/Sparkle'
@@ -13,8 +13,9 @@ type SparklesProps = PropsWithChildren & {
 	className?: string
 }
 
-// heavily borrowed from https://www.joshwcomeau.com/react/animated-sparkles-in-react/
-export const Sparkles: FC<SparklesProps> = ({ className, children }) => {
+// https://www.joshwcomeau.com/react/animated-sparkles-in-react/ + improvements:
+// 1. sparkles are only and evenly distributed across the bounds of the element (in the original implementation the sparkles overflowed on the bottom of the element by as much as 100%). here they overflow 50% in all directions
+export const Sparkles = ({ className, children }: SparklesProps) => {
 	const [isSuspended, setIsSuspended] = useState(false)
 	const [sparkles, setSparkles] = useState<Array<SparkleConfig>>([]) // must be empty array to avoid mismatched HTML when using SSG
 	const prefersReducedMotion = usePrefersReducedMotion()
@@ -26,7 +27,7 @@ export const Sparkles: FC<SparklesProps> = ({ className, children }) => {
 	useRandomInterval(
 		() => {
 			if (isSuspended) {
-				sparkles.length && setSparkles([])
+				sparkles.length > 0 && setSparkles([])
 				return
 			}
 
@@ -62,7 +63,7 @@ export const Sparkles: FC<SparklesProps> = ({ className, children }) => {
 	)
 
 	return (
-		<button onClick={() => setIsSuspended(!isSuspended)} className={`${styles.container} ${className}`}>
+		<button type="button" onClick={() => setIsSuspended(!isSuspended)} className={`${styles.container} ${className}`}>
 			<strong className={styles.strong} ref={containerRef}>
 				{children}
 			</strong>

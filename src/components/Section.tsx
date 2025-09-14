@@ -1,12 +1,12 @@
-import type { ComponentProps, FC } from 'react'
-import { Heading } from './Heading/Heading'
+import type { ComponentProps } from 'react'
 import type { HeadingShape } from './TableOfContents/TableOfContents'
+import { Heading } from './Heading/Heading'
 
 export type SectionProps = ComponentProps<'h1'> & {
 	heading: HeadingShape
 }
 
-export const Section: FC<SectionProps> = ({ heading, children, ...props }) => {
+export const Section = ({ heading, children, ...props }: SectionProps) => {
 	return (
 		<section {...props} aria-labelledby={heading.id}>
 			<Heading level={heading.level} id={heading.id}>

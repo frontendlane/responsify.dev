@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react'
 import { Link } from '../Link/Link'
 import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
-import { Fragment, type FC } from 'react'
 import styles from './Footer.module.css'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import { Button } from '../../ui/Button'
+import { clipboardTimeout } from '@/utils/constants'
 
 type NotificationStatus = 'hidden' | 'success' | 'error'
 
-export const Footer: FC = () => {
+export const Footer = () => {
 	const [notificationStatus, setNotificationStatus] = useState<NotificationStatus>('hidden')
 	const [isFirstRender, setIsFirstRender] = useState(true)
 
@@ -22,20 +22,20 @@ export const Footer: FC = () => {
 	const renderNotification = () => {
 		switch (notificationStatus) {
 			case 'hidden':
-				return
+				return null
 			case 'success':
 				return 'Copied'
 			case 'error':
 				// TODO: verify that all platforms support this way of copying to clipboard. still customize the error message copy
 				return (
-					<Fragment>
+					<>
 						Press{' '}
 						<kbd className={styles.kbd}>
 							{/* TODO: if it fails then CMD + C / Control + C won't do anything... */}
 							{window.navigator.userAgent.toLowerCase().includes('mac') ? '⌘C' : 'Control + C'}
 						</kbd>{' '}
 						to copy
-					</Fragment>
+					</>
 				)
 			default:
 				return assertUnreachable(notificationStatus)
@@ -44,12 +44,12 @@ export const Footer: FC = () => {
 
 	const clipboardSuccess = () => {
 		setNotificationStatus('success')
-		window.setTimeout(() => setNotificationStatus('hidden'), 5000)
+		window.setTimeout(() => setNotificationStatus('hidden'), clipboardTimeout)
 	}
 
 	const clipboardError = () => {
 		setNotificationStatus('error')
-		window.setTimeout(() => setNotificationStatus('hidden'), 5000)
+		window.setTimeout(() => setNotificationStatus('hidden'), clipboardTimeout)
 	}
 
 	const a11yEmailAddress = 'a11y@responsify.dev'
@@ -69,6 +69,8 @@ export const Footer: FC = () => {
 				</p>
 				<div className={styles.emailDispenser}>
 					<div className={styles.emailEnclosure}>
+						{/* TODO: I *think* I read there's a reason to actually keep role="status" even on elements that implicitly have this role, investigate */}
+						{/* eslint-disable-next-line jsx-a11y/no-redundant-roles */}
 						<output
 							className={styles.emailNotification}
 							id="email-notification"
@@ -78,9 +80,10 @@ export const Footer: FC = () => {
 							{renderNotification()}
 						</output>
 						<Button
+							type="button"
 							disabled={isFirstRender}
 							onClick={() =>
-								navigator.clipboard.writeText(a11yEmailAddress).then(clipboardSuccess, clipboardError)
+								window.navigator.clipboard.writeText(a11yEmailAddress).then(clipboardSuccess, clipboardError)
 							}
 						>
 							Copy email address

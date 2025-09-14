@@ -1,10 +1,9 @@
-import type { FC } from 'react'
 import { Code } from './Code/Code'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
 import { Section } from './Section'
 
-export const BrowserSupport: FC = () => {
+export const BrowserSupport = () => {
 	return (
 		<Section className="vertical-spacing-150-percent" heading={headings.h2_6}>
 			<p className="vertical-spacing">

@@ -1,12 +1,11 @@
 'use client'
 
-import { Fragment, type FunctionComponent } from 'react'
 import { headings } from '../TableOfContents/TableOfContents'
 import { Code } from '../Code/Code'
 import { DataList } from '../DataList'
 import { Section } from '../Section'
 import styles from './Form.module.css'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,6 +14,7 @@ import { generateCss } from './generate'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import { Link } from '../Link/Link'
 import { Button } from '../../ui/Button'
+import { clipboardTimeout } from '@/utils/constants'
 
 const longTaskDurationAsDefinedByGoogleWebVitals = 50
 
@@ -31,7 +31,7 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>
 type NotificationStatus = 'hidden' | 'success' | 'error'
 
-export const Form: FunctionComponent = () => {
+export const Form = () => {
 	const resultContainer = useRef<HTMLPreElement>(null)
 	const [windowError, setWindowError] = useState('')
 	const [isFirstRender, setIsFirstRender] = useState(true)
@@ -52,34 +52,37 @@ export const Form: FunctionComponent = () => {
 			elementLowerBound: NaN,
 			containerLowerBound: NaN,
 			containerUpperBound: NaN,
+			unit: 'px',
 		},
 	})
 
 	const cssProperty = watch('cssProperty') || '<css-property>'
-	const unit = watch('unit') || 'px'
+	const unit = watch('unit')
 	const container = unit === '%' ? 'Parent' : 'Viewport'
 
 	const clipboardSuccess = () => {
 		setNotificationStatus('success')
-		window.setTimeout(() => setNotificationStatus('hidden'), 5000)
+		window.setTimeout(() => setNotificationStatus('hidden'), clipboardTimeout)
 	}
 
 	const clipboardError = () => {
 		setNotificationStatus('error')
-		window.setTimeout(() => setNotificationStatus('hidden'), 5000)
+		window.setTimeout(() => setNotificationStatus('hidden'), clipboardTimeout)
 	}
 
 	const focusResult = (interval: number) => {
-		if (resultContainer.current) {
-			resultContainer.current.focus()
-			window.clearInterval(interval)
+		if (!resultContainer.current) {
+			return
 		}
+
+		resultContainer.current.focus()
+		window.clearInterval(interval)
 	}
 
 	const onSubmit = (values: FormValues) => {
 		const interval = window.setInterval(() => focusResult(interval), 0)
 		window.setTimeout(() => window.clearInterval(interval), longTaskDurationAsDefinedByGoogleWebVitals)
-		navigator.clipboard.writeText(generateCss(values)).then(clipboardSuccess, clipboardError)
+		window.navigator.clipboard.writeText(generateCss(values)).then(clipboardSuccess, clipboardError)
 	}
 
 	useEffect(() => {
@@ -92,7 +95,7 @@ export const Form: FunctionComponent = () => {
 	const renderNotification = () => {
 		switch (notificationStatus) {
 			case 'hidden':
-				return
+				return null
 			case 'success':
 				return <span className={styles.notification}>Copied</span>
 			case 'error':
@@ -112,7 +115,7 @@ export const Form: FunctionComponent = () => {
 		}
 	}
 
-	const isDisabled = useMemo(() => isFirstRender || !!windowError, [isFirstRender, windowError])
+	const isDisabled = isFirstRender || Boolean(windowError)
 
 	const dataListId = 'css-properties'
 
@@ -123,17 +126,17 @@ export const Form: FunctionComponent = () => {
 			<div className={styles.jsError} hidden={!windowError}>
 				<p>
 					{windowError ? (
-						<Fragment>
+						<>
 							JavaScript failed to execute with the following error message: <Code>{windowError}</Code>
-						</Fragment>
+						</>
 					) : (
 						'JavaScript failed to execute.'
 					)}{' '}
 					😵 You won&apos;t be able to generate a <Code>calc()</Code> value.
 				</p>
 				<p className="vertical-spacing">
-					You might be able to resolve the issue by reloading the page. If that {"doesn't"} work, update your
-					browser to the latest version and try again. If that {"doesn't"} work please email me at{' '}
+					You might be able to resolve the issue by reloading the page. If that doesn&apos;t work, update your
+					browser to the latest version and try again. If that doesn&apos;t work please email me at{' '}
 					<Link href={`mailto:${contactEmailAddress}`}>{contactEmailAddress}</Link>.
 				</p>
 				<p className="vertical-spacing"> Error stack is logged to the console.</p>
@@ -197,7 +200,6 @@ export const Form: FunctionComponent = () => {
 									className={styles.select}
 									id="unit"
 									disabled={isDisabled}
-									defaultValue="px"
 									required
 									{...register('unit')}
 								>
@@ -307,12 +309,12 @@ export const Form: FunctionComponent = () => {
 				</Button>
 				<output className={styles.output} aria-live="assertive" role="alert">
 					{isSubmitted && isDirty && (
-						<Fragment>
+						<>
 							{renderNotification()}
 							<CodeBlock ref={resultContainer} className={styles.result}>
 								{generateCss(getValues())}
 							</CodeBlock>
-						</Fragment>
+						</>
 					)}
 				</output>
 			</form>

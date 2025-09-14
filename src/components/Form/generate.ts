@@ -1,6 +1,8 @@
+import { hundredPercent } from '@/utils/constants'
 import { REM_SIZE_IN_PX } from '../../scripts/constants'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import type { FormValues } from './Form'
+import { isNullish } from '@/utils/isNullish'
 
 export const generateCss = ({
 	cssProperty,
@@ -12,9 +14,10 @@ export const generateCss = ({
 	chWidthInPx,
 }: FormValues) => {
 	const removeLastCharacter = (word: string) => word.substring(0, word.length - 1)
+	const cssCalcSignificantDecimalPlaces = 3 // can't find the original article that claimed 3 decimal places were sufficient even in calc() operations that would blow up the rounded-off part. but here's a similar article: https://gehrcke.de/2013/02/save-some-css-traffic-round-percentages-with-less
 
 	const trimUnnecessaryDigits = (number: number) => {
-		let numberAsString = number.toFixed(3)
+		let numberAsString = number.toFixed(cssCalcSignificantDecimalPlaces)
 		while (numberAsString.endsWith('0')) {
 			numberAsString = removeLastCharacter(numberAsString)
 		}
@@ -31,10 +34,10 @@ export const generateCss = ({
 				elementStartingSize = elementLowerBound
 				break
 			case 'vw':
-				elementStartingSize = (elementLowerBound / 100) * containerLowerBound
+				elementStartingSize = (elementLowerBound / hundredPercent) * containerLowerBound
 				break
 			case '%':
-				elementStartingSize = (elementLowerBound / 100) * containerLowerBound
+				elementStartingSize = (elementLowerBound / hundredPercent) * containerLowerBound
 				break
 			case 'ch':
 				elementStartingSize = elementLowerBound * (chWidthInPx as number)
@@ -52,10 +55,10 @@ export const generateCss = ({
 				elementEndingSize = elementUpperBound
 				break
 			case 'vw':
-				elementEndingSize = (elementUpperBound / 100) * containerUpperBound
+				elementEndingSize = (elementUpperBound / hundredPercent) * containerUpperBound
 				break
 			case '%':
-				elementEndingSize = (elementUpperBound / 100) * containerUpperBound
+				elementEndingSize = (elementUpperBound / hundredPercent) * containerUpperBound
 				break
 			case 'ch':
 				elementEndingSize = elementUpperBound * (chWidthInPx as number)
@@ -86,17 +89,13 @@ export const generateCss = ({
 		}
 
 		return {
-			containerLowerBound,
-			containerUpperBound,
-			elementLowerBound,
-			elementUpperBound,
 			initial,
 			rate,
 		}
 	}
 
 	const generate = () => {
-		const { containerLowerBound, containerUpperBound, elementLowerBound, elementUpperBound, initial, rate } = calculate()
+		const { initial, rate } = calculate()
 
 		const trimmedInitial = trimUnnecessaryDigits(initial)
 		let initialUnit: string
@@ -111,7 +110,7 @@ export const generateCss = ({
 				initialUnit = 'px'
 		}
 		const sign = rate < 0 ? '-' : '+'
-		const calcRate = trimUnnecessaryDigits(Math.abs(rate) * 100)
+		const calcRate = trimUnnecessaryDigits(Math.abs(rate) * hundredPercent)
 		const rateUnit = unit === '%' ? '%' : 'vw'
 
 		return `${cssProperty}: calc(${trimmedInitial}${initialUnit} ${sign} ${calcRate}${rateUnit});${` /* https://responsify.dev - ${
@@ -119,7 +118,7 @@ export const generateCss = ({
 		} lower bound: ${containerLowerBound}px; ${
 			unit === '%' ? 'parent' : 'viewport'
 		} upper bound: ${containerUpperBound}px; element lower bound: ${elementLowerBound}${unit}; element upper bound: ${elementUpperBound}${unit}; ${
-			chWidthInPx ? `"ch" width in pixels: ${chWidthInPx}; ` : ''
+			isNullish(chWidthInPx) ? '' : `"ch" width in pixels: ${chWidthInPx}; `
 		}*/`}`
 	}
 

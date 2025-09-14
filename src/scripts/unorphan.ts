@@ -1,12 +1,14 @@
+/* eslint-disable */ // TODO: enable eslint
 // https://codepen.io/argyleink/pen/dyQxmYK
+import { isNullish } from '@/utils/isNullish'
 import { WHITE_SPACE, NON_BREAKING_SPACE } from './constants'
 import { setContent, removeContent } from './domInteraction'
+import { objectEntries } from '@/utils/objectEntries'
+import { half } from '@/utils/constants'
 
-interface ITags {
-	[key: number]: string
-}
+type ITags = Record<number, string>
 
-interface IOptions {
+type IOptions = {
 	// get rid of the resize boolean option and just use the resizeThrottleDelay
 	resize?: boolean
 	resizeThrottleDelay?: number
@@ -18,11 +20,14 @@ const isLastSpaceRegularWhiteSpace = (text: string) => text.lastIndexOf(WHITE_SP
 
 const isUnorphanable = (text: string) => {
 	const deserializedText = text.split('')
-	for (let i = 0; i < deserializedText.length - 2; i++) {
+	const secondToLastOffset = 2
+	const plusOneOffset = 1
+	const plusTwoOffset = 2
+	for (let characterIndex = 0; characterIndex < deserializedText.length - secondToLastOffset; characterIndex++) {
 		if (
-			deserializedText[i] !== WHITE_SPACE &&
-			deserializedText[i + 1] == WHITE_SPACE &&
-			deserializedText[i + 2] !== WHITE_SPACE
+			deserializedText[characterIndex] !== WHITE_SPACE &&
+			deserializedText[characterIndex + plusOneOffset] === WHITE_SPACE &&
+			deserializedText[characterIndex + plusTwoOffset] !== WHITE_SPACE
 		) {
 			return true
 		}
@@ -30,55 +35,55 @@ const isUnorphanable = (text: string) => {
 	return false
 }
 
-const cleanupTabsAndWhiteSpaces = (html: string) => {
-	html = html.replaceAll(/\n(\t)*/g, WHITE_SPACE)
-	if (html.endsWith(WHITE_SPACE)) {
-		html = html.substring(0, html.length - 1)
+const normalizeTabsAndWhiteSpaces = (html: string) => {
+	let normalizedHtml = html
+	normalizedHtml = normalizedHtml.replaceAll(/\n(?:\t)*/g, WHITE_SPACE)
+	if (normalizedHtml.endsWith(WHITE_SPACE)) {
+		normalizedHtml = normalizedHtml.substring(0, normalizedHtml.length - 1)
 	}
 	// TODO: this doesn't handle if spaces are used for indenting instead of tabs
-	return html
+	return normalizedHtml
 }
 
 const extractTags = (html: string) => {
-	html = cleanupTabsAndWhiteSpaces(html)
+	let newHtml = html
+	newHtml = normalizeTabsAndWhiteSpaces(newHtml)
 
-	let textContent = html
+	let textContent = newHtml
 	const tags: ITags = {}
-	for (let i = 0; i < html.length; i++) {
-		if (html[i] === '<') {
-			const openingBracketIndex = i
+	for (let characterIndex = 0; characterIndex < newHtml.length; characterIndex++) {
+		if (newHtml[characterIndex] === '<') {
+			const openingBracketIndex = characterIndex
 			let closingBracketIndex: number | undefined
-			for (let j = openingBracketIndex; j < html.length; j++) {
-				if (html[j] === '>') {
+			for (let j = openingBracketIndex; j < newHtml.length; j++) {
+				if (newHtml[j] === '>') {
 					closingBracketIndex = j + 1
 					break
 				}
 			}
-			if (!closingBracketIndex) {
+			if (isNullish(closingBracketIndex)) {
 				throw new Error('Malformed HTML.')
 			}
-			tags[openingBracketIndex] = html.substring(openingBracketIndex, closingBracketIndex)
+			tags[openingBracketIndex] = newHtml.substring(openingBracketIndex, closingBracketIndex)
 		}
 	}
 
-	Object.entries(tags)
-		.reverse()
-		.forEach(
-			([openingBracketIndex, tag]) =>
-				(textContent = `${textContent.slice(0, +openingBracketIndex)}${textContent.slice(
-					+openingBracketIndex + tag.length,
-				)}`),
-		)
+	objectEntries(tags)
+		.toReversed()
+		.forEach(([openingBracketIndex, tag]) => {
+			textContent = `${textContent.slice(0, +openingBracketIndex)}${textContent.slice(
+				+openingBracketIndex + tag.length,
+			)}`
+		})
 
 	return { textContent, tags }
 }
 
 const depositTags = (unorphanedTextContent: string, tags: ITags) => {
 	let innerHTML = unorphanedTextContent
-	Object.entries(tags).forEach(
-		([openingBracketIndex, text]) =>
-			(innerHTML = `${innerHTML.slice(0, +openingBracketIndex)}${text}${innerHTML.slice(+openingBracketIndex)}`),
-	)
+	objectEntries(tags).forEach(([openingBracketIndex, text]) => {
+		innerHTML = `${innerHTML.slice(0, +openingBracketIndex)}${text}${innerHTML.slice(+openingBracketIndex)}`
+	})
 	return innerHTML
 }
 
@@ -87,18 +92,20 @@ const unorphanChildrenfullHTML = (element: Element) => {
 
 	const deserializedTextContent = textContent.split('')
 	let unorphanedTextContent
-	for (let i = deserializedTextContent.length - 1; i >= 0; i--) {
+	const minusOneOffset = 1
+	const minusTwoOffset = 2
+	for (let characterIndex = deserializedTextContent.length - 1; characterIndex >= 0; characterIndex--) {
 		if (
-			deserializedTextContent[i] !== WHITE_SPACE &&
-			deserializedTextContent[i - 1] === WHITE_SPACE &&
-			deserializedTextContent[i - 2] !== WHITE_SPACE
+			deserializedTextContent[characterIndex] !== WHITE_SPACE &&
+			deserializedTextContent[characterIndex - minusOneOffset] === WHITE_SPACE &&
+			deserializedTextContent[characterIndex - minusTwoOffset] !== WHITE_SPACE
 		) {
-			unorphanedTextContent = `${textContent.substring(0, i - 1)}${NON_BREAKING_SPACE}${textContent.substring(i)}`
+			unorphanedTextContent = `${textContent.substring(0, characterIndex - 1)}${NON_BREAKING_SPACE}${textContent.substring(characterIndex)}`
 			break
 		}
 	}
 
-	if (!unorphanedTextContent) {
+	if (isNullish(unorphanedTextContent)) {
 		throw new Error('Could not find where to replace regular white space with non-breaking space.')
 	}
 
@@ -124,8 +131,8 @@ const unorphanChildrenlessHTML = (element: Element) => {
 
 const getWords = (unorphanedTextContent: string) => {
 	const deserializedTextContent = unorphanedTextContent.trim().split(WHITE_SPACE)
-	// TODO: why is || necessary??
-	const unorphanedWords = deserializedTextContent.pop() || ''
+	// TODO: why is ?? necessary??
+	const unorphanedWords = deserializedTextContent.pop() ?? ''
 	const otherWords = deserializedTextContent.join(WHITE_SPACE)
 	return { unorphanedWords, otherWords }
 }
@@ -133,14 +140,14 @@ const getWords = (unorphanedTextContent: string) => {
 const areUnorphanedWordsShorterThanHalfParentContentWidth = (element: Element, unorphanedWords: string) => {
 	const parent = element.cloneNode(true) as Element
 	parent.removeAttribute('id')
-	const parentHtmlElement = parent as HTMLElement
-	if (parentHtmlElement.style) {
+	if ('style' in parent) {
+		const parentHtmlElement = parent as HTMLElement
 		// TODO: do a screen shot comparison with and without and decide then
 		parentHtmlElement.style.width = `${element.getBoundingClientRect().width}px`
 	}
 	setContent(window.document.getElementById('offscreen-reveal'), parent)
-	const paddingLeft = window.getComputedStyle(parent).paddingLeft.split('px')[0]
-	const paddingRight = window.getComputedStyle(parent).paddingLeft.split('px')[0]
+	const [paddingLeft] = window.getComputedStyle(parent).paddingLeft.split('px')
+	const [paddingRight] = window.getComputedStyle(parent).paddingLeft.split('px')
 
 	if (typeof paddingLeft === 'undefined' || typeof paddingRight === 'undefined') {
 		return false
@@ -156,7 +163,7 @@ const areUnorphanedWordsShorterThanHalfParentContentWidth = (element: Element, u
 	const textContainerWidth = textContainer.getBoundingClientRect().width
 	removeContent(window.document.getElementById('offscreen-nowrap'))
 
-	return textContainerWidth < parentContentWidth / 2
+	return textContainerWidth < half(parentContentWidth)
 }
 
 const areUnorphanedWordsShorterThanOtherWords = (unorphanedWords: string, otherWords: string) =>
@@ -166,7 +173,8 @@ const replaceLastWhiteSpaceWithNbsp = (element: Element, options: IOptions) => {
 	const trimmedTextContent = element.textContent?.trim()
 
 	if (
-		trimmedTextContent?.includes(WHITE_SPACE) &&
+		!isNullish(trimmedTextContent) &&
+		trimmedTextContent.includes(WHITE_SPACE) &&
 		isLastSpaceRegularWhiteSpace(trimmedTextContent) &&
 		isUnorphanable(trimmedTextContent)
 	) {
@@ -200,7 +208,10 @@ const defaultOptions = {
 	force: false,
 }
 
-export const unorphan = (target: Element | Element[] | NodeListOf<Element> | null, options: IOptions = defaultOptions) => {
+export const unorphan = (
+	target: Element | Array<Element> | NodeListOf<Element> | null,
+	options: IOptions = defaultOptions,
+) => {
 	if (target === null) {
 		return
 	}
@@ -209,20 +220,21 @@ export const unorphan = (target: Element | Element[] | NodeListOf<Element> | nul
 		replaceLastWhiteSpaceWithNbsp(target, options)
 	} else {
 		Array.from(target)
-			.reverse()
-			.forEach((element) => replaceLastWhiteSpaceWithNbsp(element, options))
+			.toReversed()
+			.forEach((element) => void replaceLastWhiteSpaceWithNbsp(element, options))
 	}
 
 	options.onUnorphan && options.onUnorphan()
 
 	if (options.resize) {
-		const resizeThrottleDelay = options.resizeThrottleDelay || 500
+		const defaultResizeThrottleDelay = 500
+		const resizeThrottleDelay = options.resizeThrottleDelay ?? defaultResizeThrottleDelay
 
 		let lastUnorphaningTimestamp: number | undefined
 		const handleResize = () => {
 			const now = new Date().getTime()
-			if (!lastUnorphaningTimestamp || now - lastUnorphaningTimestamp > resizeThrottleDelay) {
-				const recursiveOptions = Object.assign({}, options)
+			if (isNullish(lastUnorphaningTimestamp) || now - lastUnorphaningTimestamp > resizeThrottleDelay) {
+				const recursiveOptions = { ...options }
 				delete recursiveOptions.resize
 				unorphan(target, recursiveOptions)
 				lastUnorphaningTimestamp = now

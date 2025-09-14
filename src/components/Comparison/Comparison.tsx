@@ -1,4 +1,3 @@
-import type { FC } from 'react'
 import { Section } from '../Section'
 import styles from './Comparison.module.css'
 import { Code } from '../Code/Code'
@@ -6,7 +5,7 @@ import { Link } from '../Link/Link'
 import { headings } from '../TableOfContents/TableOfContents'
 import { ComparisonTable } from './ComparisonTable'
 
-export const Comparison: FC = () => {
+export const Comparison = () => {
 	return (
 		<Section className="vertical-spacing-150-percent" heading={headings.h2_7}>
 			<p className="vertical-spacing">

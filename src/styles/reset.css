@@ -28,7 +28,7 @@
 	textarea,
 	button,
 	select {
-		font: inherit;
+		font: inherit; /* submit button on iphone safari is bolded*/
 		letter-spacing: inherit;
 		word-spacing: inherit;
 		/* TODO: investigate how these reset values behave when `color-scheme: dark light;` is applied */
@@ -139,3 +139,10 @@
 		vertical-align: top;
 	} */
 }
+
+/* prefers-contrast: more
+	make font-weight: bold
+prefers-contrast: less
+	make font-weight: light */
+
+	/* https://www.youtube.com/watch?v=cH8VbLM1958 */
