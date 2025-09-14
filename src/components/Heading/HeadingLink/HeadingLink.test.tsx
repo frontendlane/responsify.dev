@@ -16,6 +16,6 @@ describe('HeadingLink', () => {
 	test('is aria labelled', () => {
 		const id = 'id'
 		render(<HeadingLink id={id} />)
-		expect(screen.getByRole('link').getAttribute('aria-labelledby')).toEqual(id)
+		expect(screen.getByRole('link')).toHaveAttribute('aria-labelledby', id)
 	})
 })

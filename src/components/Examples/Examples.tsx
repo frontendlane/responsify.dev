@@ -6,9 +6,8 @@ import { Section } from '../Section'
 import { headings } from '../TableOfContents/TableOfContents'
 
 import styles from './Examples.module.css'
-import type { FC } from 'react'
 
-export const Examples: FC = () => {
+export const Examples = () => {
 	return (
 		<Section className="vertical-spacing-150-percent" heading={headings.h2_3}>
 			<p className="vertical-spacing">
@@ -77,22 +76,24 @@ export const Examples: FC = () => {
 					and as a unique string you can match against when tracking down responsified values.
 				</p>
 				{/* <!-- TODO: optimize screen reader usage --> */}
-				<p className={`vertical-spacing ${styles.resize}`}></p>
+				<p className={`vertical-spacing ${styles.resize}`} />
 				<p className="vertical-spacing">
 					<em>Without</em> responsify:
 				</p>
 				<Sparkles className={`${styles.exampleDivMiddleAligned} vertical-spacing`}>
-					<div className={`${styles.exampleDiv}`}></div>
+					<div className={`${styles.exampleDiv}`} />
 				</Sparkles>
 				<p className="vertical-spacing" id="description">
 					<em>With</em> responsify:
 				</p>
+				{/* TODO: investigate */}
+				{/* eslint-disable-next-line jsx-a11y/prefer-tag-over-role */}
 				<div
 					className={`${styles.exampleDivMiddleAligned} ${styles.exampleDiv} vertical-spacing`}
 					aria-live="polite"
 					role="status"
 					aria-describedby="description"
-				></div>
+				/>
 			</Section>
 
 			<Section className="vertical-spacing heading-container" heading={headings.h3_2}>

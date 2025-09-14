@@ -1,9 +1,8 @@
-import type { FC } from 'react'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
 import { fromIsoDateToHumanDate } from '@/utils/fromIsoDateToHumanDate'
 
-export const Updates: FC = () => {
+export const Updates = () => {
 	const updateDate = '2021-11-16'
 	return (
 		<dl className="vertical-spacing">

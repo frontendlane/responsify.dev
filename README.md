@@ -4,6 +4,7 @@ Source code for https://responsify.dev.
 
 ## Todos
 
+- eslint rule to ban custom string literal and enforce use of `classNames()`
 -   eslint ban `:root` css selector and enforce html is used
     -   html has lower specificity (easier to override)
     -   :root _could_ apply to SVG elements (more explicit that we are targeting root "html" element)
@@ -30,6 +31,7 @@ Source code for https://responsify.dev.
 -   replace `<input type="number">` with `<input inputMode="numeric">`??
 -   fix sass function zip including "public" folder
 -   flip the order in the table, put Responsify first. Change the table caption to Responsify vs CSS locks
+- round borders on the table
 -   `:any-link` instead of `a` (this probably only needs fixing in reset.scss and globals.pcss)
 -   :hover on interactives needs to be perceivable: box-shadow maybe??
     -   joshwcomeau.com/shadow-palette/
@@ -78,6 +80,7 @@ Source code for https://responsify.dev.
     -   https://www.joshwcomeau.com/css/custom-css-reset/#digit-tweaking-line-height
     -   https://jakelazaroff.com/words/my-modern-css-reset/
 -   video
+	- border-radius on video changes video colors??
     -   https://scottjehl.com/posts/using-responsive-video/ + https://scottjehl.com/posts/rwd-video/
     -   https://jakearchibald.com/2024/video-with-transparency/
     -   https://fullystacked.net/av1/
@@ -109,6 +112,7 @@ Source code for https://responsify.dev.
     -   Safari doesn't support media attribute on `<source>` inside `<video>`
     -   add video closed captions
 -   meta tags
+- https://thirty-five.com/overengineered-anchoring
 -   favicon
 -   color schemes:
     -   input, select, checkbox border color is not standardized
@@ -135,14 +139,14 @@ Source code for https://responsify.dev.
     -   https://github.com/mnater/Hyphenopoly
     -   https://frontendfoc.us/link/129367/web
     -   https://github.com/ytiurin/hyphen
+- preserving values on reload does not work
 -   differentiate between soft and hard reload using service worker (response 200 vs 304)
-    -   clear the form on hard reload
+	-   clear the form on hard reload
     -   state of details open vs close should be kept in sessionStorage??
 -   put/use trailing slash in URLs
 -   disable next.js telemetry
 -   deploying Next.js: https://www.youtube.com/watch?v=sIVL4JMqRfc&pp=ygUgc3RhbmRhbG9uZSBuZXh0LmpzIHJvYiBkZXBsb3lpbmc%3D + https://nextjs.org/docs/pages/building-your-application/deploying + https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/
 -   // TODO: ship source map in production as well https://www.ctrl.blog/entry/deploy-javascript-source-maps.html
--   caching: https://developers.cloudflare.com/cache/how-to/edge-browser-cache-ttl/set-browser-ttl/
 -   make www.responsify.dev canonical
 -   optimize what google uses as the snippet: https://www.gsqi.com/marketing-blog/how-to-use-data-nosnippet/
 -   prevent link rot: https://remysharp.com/2023/12/04/unrot-that-link
@@ -187,6 +191,7 @@ Source code for https://responsify.dev.
 -   accessibility and privacy as separate pages??
 -   automatically generate table of contents
     -   https://css-tricks.com/a-perfect-table-of-contents-with-html-css/
+	- Scroll down button on responsify.dev "Drop the sales pitch, take me to table of contents"
 -   optimize the page for reader view
 -   email obfuscation: https://news.ycombinator.com/item?id=38379397: just don't obfuscate and instead use a catch all email domain especially with all the AI that could be used to harvest email addresses
 -   compare and pick the smallest minified css out of the list: https://github.com/GoalSmashers/css-minification-benchmark

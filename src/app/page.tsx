@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 	description: 'A CSS technique that helps developers prevent jarring layout shifts when user resizes the browser.',
 }
 
-export default function Home() {
+const Home = () => {
 	return (
 		<>
 			<main aria-labelledby={headings.h1.id}>
@@ -63,3 +63,5 @@ export default function Home() {
 		</>
 	)
 }
+
+export default Home

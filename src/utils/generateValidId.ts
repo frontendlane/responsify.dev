@@ -6,5 +6,5 @@ export const generateValidId = (string: string) => {
 		.replace(/[^a-zA-Z0-9_-]/g, HYPHEN)
 		.replace(/-+/g, HYPHEN)
 	const slug = sanitized === EMPTY_STRING || sanitized === HYPHEN ? crypto.randomUUID() : sanitized
-	return /^[a-zA-Z_]/.test(slug) ? slug : 'id-' + slug
+	return /^[a-zA-Z_]/.test(slug) ? slug : `id-${slug}`
 }

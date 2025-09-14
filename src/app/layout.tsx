@@ -9,12 +9,11 @@ import '../styles/baseline.css'
 import '../styles/pages-index.css'
 // @ts-expect-error TODO: temporary
 import './../styles/overrides.css'
+import type { PropsWithChildren } from 'react'
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode
-}>) {
+type RootLayoutProps = PropsWithChildren
+
+const RootLayout = ({ children }: RootLayoutProps) => {
 	return (
 		<html lang="en-US">
 			<head>
@@ -41,3 +40,5 @@ export default function RootLayout({
 		</html>
 	)
 }
+
+export default RootLayout

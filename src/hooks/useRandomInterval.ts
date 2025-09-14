@@ -1,5 +1,6 @@
+import { isNullish } from '@/utils/isNullish'
 import { random } from '@/utils/random'
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect } from 'react'
 
 export const useRandomInterval = (callback: () => void, minDelay: number, maxDelay: number) => {
 	const timeoutId = useRef<number | null>(null)
@@ -26,13 +27,11 @@ export const useRandomInterval = (callback: () => void, minDelay: number, maxDel
 		}
 
 		return () => {
-			timeoutId.current && window.clearTimeout(timeoutId.current)
+			!isNullish(timeoutId.current) && window.clearTimeout(timeoutId.current)
 		}
 	}, [minDelay, maxDelay])
 
-	const cancel = useCallback(function () {
-		timeoutId.current && window.clearTimeout(timeoutId.current)
-	}, [])
+	const cancel = () => !isNullish(timeoutId.current) && window.clearTimeout(timeoutId.current)
 
 	return cancel
 }

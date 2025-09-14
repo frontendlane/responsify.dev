@@ -1,10 +1,9 @@
-import type { FC } from 'react'
 import { Section } from './Section'
 import { Code } from './Code/Code'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
 
-export const Related: FC = () => {
+export const Related = () => {
 	return (
 		<Section className="vertical-spacing-150-percent" heading={headings.h2_8}>
 			<p className="vertical-spacing">

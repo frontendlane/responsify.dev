@@ -16,18 +16,10 @@ export const usePrefersReducedMotion = () => {
 
 		const listener = (event: MediaQueryListEvent) => setPrefersReducedMotion(!event.matches)
 
-		if (mediaQueryList.addEventListener) {
-			mediaQueryList.addEventListener('change', listener)
-		} else {
-			mediaQueryList.addListener(listener) // Safari
-		}
+		mediaQueryList.addEventListener('change', listener)
 
 		return () => {
-			if (mediaQueryList.removeEventListener) {
-				mediaQueryList.removeEventListener('change', listener)
-			} else {
-				mediaQueryList.removeListener(listener)
-			}
+			mediaQueryList.removeEventListener('change', listener)
 		}
 	}, [])
 

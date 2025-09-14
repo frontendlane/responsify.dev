@@ -1,10 +1,9 @@
 import { screen, render, waitFor, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, test, vi, type Mock } from 'vitest'
-import { Sparkles } from './Sparkles'
-import type { generateSparkle } from './Sparkle/generateSparkle'
+import { describe, expect, test, vi } from 'vitest'
+import type { Sparkle } from './Sparkle/generateSparkle'
 
-const mockReturnValue: ReturnType<typeof generateSparkle> = {
+const mockReturnValue: Sparkle = {
 	id: crypto.randomUUID(),
 	createdAt: Date.now(),
 	color: 'whatever',
@@ -18,7 +17,9 @@ const mockReturnValue: ReturnType<typeof generateSparkle> = {
 }
 
 describe('Sparkles', () => {
+	// TODO: separate tests by prefers-reduced-motion
 	test('removes sparkles when animation is suspended', async () => {
+		const { Sparkles } = await import('./Sparkles')
 		render(<Sparkles />)
 
 		await waitFor(() => screen.getByTestId('sparkle-svg'))
@@ -27,8 +28,8 @@ describe('Sparkles', () => {
 	})
 	test('does NOT generate sparkles when animation is suspended', async () => {
 		vi.resetModules()
-		vi.doMock('./Sparkle/generateSparkle', async (generateSparkle) => ({
-			...(await generateSparkle()),
+		vi.doMock('./Sparkle/generateSparkle', async (fileExports) => ({
+			...(await fileExports()),
 			generateSparkle: vi.fn().mockReturnValueOnce(mockReturnValue),
 		}))
 
@@ -41,9 +42,10 @@ describe('Sparkles', () => {
 		expect(generateSparkle).toHaveBeenCalledOnce()
 		await act(() => userEvent.click(screen.getByRole('button')))
 		await act(async () => {
-			await new Promise((resolve) => setTimeout(resolve, 1000))
+			const arbitraryWaitTimeInMs = 1000
+			await new Promise((resolve) => void setTimeout(resolve, arbitraryWaitTimeInMs))
 		})
-		expect(screen.queryByTestId('sparkle.svg')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('sparkle-svg')).not.toBeInTheDocument()
 		expect(generateSparkle).toHaveBeenCalledOnce()
 	})
 })

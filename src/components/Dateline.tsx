@@ -1,7 +1,6 @@
 import { fromIsoDateToHumanDate } from '@/utils/fromIsoDateToHumanDate'
-import type { FC } from 'react'
 
-export const Dateline: FC = () => {
+export const Dateline = () => {
 	const publishedDate = '2019-09-25'
 	const updatedDate = '2024-11-08'
 

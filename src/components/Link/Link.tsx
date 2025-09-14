@@ -1,4 +1,4 @@
-import type { ComponentProps, FC } from 'react'
+import type { ComponentProps } from 'react'
 import styles from './Link.module.css'
 
 type Href = `#${string}` | string
@@ -8,13 +8,13 @@ export type LinkProps = Omit<ComponentProps<'a'>, 'href'> & {
 }
 
 // <!-- TODO: add classNames devDependency -->
-export const Link: FC<LinkProps> = ({ className, href, children, ...props }) => {
+export const Link = ({ className = '', href, children, ...props }: LinkProps) => {
 	const isExternalLink = href.startsWith('http') || href.startsWith('//')
 	return (
 		<a
 			{...props}
 			href={href}
-			className={`${className || ''} ${styles.link}`}
+			className={`${className} ${styles.link}`}
 			{...(isExternalLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
 		>
 			{children}

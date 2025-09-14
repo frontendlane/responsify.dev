@@ -1,21 +1,25 @@
-import { isPlaintextLike, type PlaintextLikeNode } from '@/utils/isPlaintextLike'
+import { isPlaintextLike } from '@/utils/isPlaintextLike'
+import { isNullish } from './isNullish'
 
-export const getTextContent = (children: Exclude<React.ReactNode, PlaintextLikeNode>): string => {
-	// TODO: replace with a better check for null
-	if (!children) {
+// checks if the value is an array, set, or map
+const isIterable = (value: React.ReactNode): value is Iterable<React.ReactNode> =>
+	/* eslint-disable-next-line @typescript-eslint/no-explicit-any */ // TODO: can't figure out a way to not do a type casting to `any`
+	!isNullish(value) && typeof (value as any)[Symbol.iterator] === 'function'
+
+export const getTextContent = async (children: React.ReactNode): Promise<string> => {
+	if (isNullish(children) || typeof children === 'boolean') {
 		return ''
-		// TODO: doesn't handle nested number or boolean
 	} else if (isPlaintextLike(children)) {
-		return children
-	} else if (Array.isArray(children)) {
-		return children.reduce<string>(
-			(accumulator, next) => `${accumulator}${isPlaintextLike(next) ? next : getTextContent(next.props.children)}`,
-			'',
-		)
-	} else if (typeof children === 'object' && 'props' in children) {
-		return getTextContent(children.props.children)
+		return String(children)
+	} else if ('props' in children) {
+		if (typeof children.props === 'object' && !isNullish(children.props) && 'children' in children.props) {
+			return await getTextContent(children.props.children as React.ReactNode)
+		} else {
+			throw new Error('TODO:')
+		}
+	} else if (isIterable(children)) {
+		return (await Promise.all(Array.from(children).map(async (child) => await getTextContent(child)))).join('')
 	} else {
-		// TODO: handle bigint and function
-		return ''
+		return getTextContent(await children)
 	}
 }

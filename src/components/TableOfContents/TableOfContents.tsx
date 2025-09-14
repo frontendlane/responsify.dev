@@ -1,6 +1,5 @@
-import type { HeadingLevel as HeadingLevel } from '../Heading/Heading'
+import type { HeadingLevel } from '../Heading/Heading'
 import { Link } from '../Link/Link'
-import { Fragment } from 'react'
 import { Code } from '../Code/Code'
 import { Section } from '../Section'
 
@@ -61,54 +60,50 @@ export const headings: Headings = {
 		id: 'example-2',
 		level: 'h3',
 		content: (
-			<Fragment>
+			<>
 				Example 2 featuring <Code>max-width</Code> media query
-			</Fragment>
+			</>
 		),
 	},
 	h3_3: {
 		id: 'example-3',
 		level: 'h3',
 		content: (
-			<Fragment>
+			<>
 				Example 3 featuring <Code>max-height</Code>
-			</Fragment>
+			</>
 		),
 	},
 	h3_4: {
 		id: 'example-4',
 		level: 'h3',
 		content: (
-			<Fragment>
+			<>
 				Example 4 featuring <Code>ch</Code> and <Code>min()</Code>
-			</Fragment>
+			</>
 		),
 	},
 	h3_5: {
 		id: 'example-5',
 		level: 'h3',
 		content: (
-			<Fragment>
+			<>
 				Example 5 featuring <Code>clamp()</Code>
-			</Fragment>
+			</>
 		),
 	},
 	h2_4: {
 		id: 'form',
 		level: 'h2',
-		content: (
-			<Fragment>
-				<b>Responsify form</b>
-			</Fragment>
-		),
+		content: <b>Responsify form</b>,
 	},
 	h2_5: {
 		id: 'sass-function',
 		level: 'h2',
 		content: (
-			<Fragment>
+			<>
 				Sass <Code>@function</Code>
-			</Fragment>
+			</>
 		),
 	},
 	h2_6: {

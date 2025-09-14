@@ -1,4 +1,3 @@
-import type { FC } from 'react'
 import { Section } from '../Section'
 import { Updates } from '../Updates'
 import styles from './Intro.module.css'
@@ -7,7 +6,7 @@ import { headings } from '../TableOfContents/TableOfContents'
 import { Video } from '../Video/Video'
 import { CodeBlock } from '../CodeBlock/CodeBlock'
 
-export const Intro: FC = () => {
+export const Intro = () => {
 	return (
 		<Section className="vertical-spacing-150-percent" heading={headings.h2_1}>
 			<CodeBlock>window.on(&quot;resize&quot;, preventAbruptLayoutShift)</CodeBlock>

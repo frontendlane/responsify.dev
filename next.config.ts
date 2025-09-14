@@ -1,11 +1,10 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-	eslint: {
-		dirs: ['.'], // https://stackoverflow.com/a/71284119
-	},
+	reactStrictMode: true,
+	output: 'standalone',
 	experimental: {
-		reactCompiler: true,
+		reactCompiler: false, // compiler disabled until https://github.com/react-hook-form/react-hook-form/issues/12298 is resolved
 	},
 }
 
