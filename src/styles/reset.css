@@ -11,7 +11,7 @@
 	}
 
 	html {
-		text-size-adjust: 100%;
+		text-size-adjust: 100%; /* makes font-size on mobile the same as on desktop TODO: verify e.g. on iphone safari landscape the font-size of button is 10px instead of 12px on desktop */
 		-webkit-font-smoothing: antialiased; /* fixed font smoothing on Chrome and Safari on macOS (no change if www.fontsmoothingadjuster.com had been used). https://dbushell.com/2024/11/05/webkit-font-smoothing/ */
 	}
 
@@ -28,7 +28,7 @@
 	textarea,
 	button,
 	select {
-		font: inherit; /* submit button on iphone safari is bolded*/
+		font: inherit; /* submit button on iphone safari is bolded */
 		letter-spacing: inherit;
 		word-spacing: inherit;
 		/* TODO: investigate how these reset values behave when `color-scheme: dark light;` is applied */
@@ -63,7 +63,8 @@
 	code,
 	kbd,
 	samp {
-		font-family: monospace, monospace; /* browser default styles make the font-size of these elements smaller. this resets font-size to whatever the browser default font size is (usually 16px). taken from https://csstools.github.io/sanitize.css/latest/sanitize.css */
+		font-family:
+			monospace, monospace; /* browser default styles make the font-size of these elements smaller. this resets font-size to whatever the browser default font size is (usually 16px). taken from https://csstools.github.io/sanitize.css/latest/sanitize.css */
 	}
 
 	summary::marker {
@@ -140,9 +141,10 @@
 	} */
 }
 
+/* https://muffinman.io/blog/font-weight-based-on-dpi/ */
 /* prefers-contrast: more
 	make font-weight: bold
 prefers-contrast: less
 	make font-weight: light */
 
-	/* https://www.youtube.com/watch?v=cH8VbLM1958 */
+/* https://www.youtube.com/watch?v=cH8VbLM1958 */

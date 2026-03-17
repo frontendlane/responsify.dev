@@ -19,3 +19,6 @@ https://www.npmjs.com/package/unorphan
     -   https://en.wikipedia.org/wiki/Soft_hyphen
 -   https://www.ctrl.blog/entry/text-wrap-balance.html + https://www.ctrl.blog/entry/text-wrap-balance.html
 -   text-wrap: pretty; (currently only in chrome beta)
+- unorphan browser extension
+
+- https://type.today/en/journal/spaces

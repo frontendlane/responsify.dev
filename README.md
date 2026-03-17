@@ -4,6 +4,10 @@ Source code for https://responsify.dev.
 
 ## Todos
 
+- separate pages for examples
+- todos aren't for doing https://news.ycombinator.com/item?id=44646801
+- https://alexwlchan.net/2024/scheduled-screenshots/
+- https://www.linkedin.com/posts/matyasmih%C3%A1lka_applifting-frontend-playbook-activity-7406328847295651840-pSmC
 - eslint rule to ban custom string literal and enforce use of `classNames()`
 -   eslint ban `:root` css selector and enforce html is used
     -   html has lower specificity (easier to override)
@@ -80,6 +84,7 @@ Source code for https://responsify.dev.
     -   https://www.joshwcomeau.com/css/custom-css-reset/#digit-tweaking-line-height
     -   https://jakelazaroff.com/words/my-modern-css-reset/
 -   video
+    - https://gist.github.com/arch1t3cht/b5b9552633567fa7658deee5aec60453/#user-content-fn-ass-5ae4f867675ddd38c3a1acb16289c946
 	- border-radius on video changes video colors??
     -   https://scottjehl.com/posts/using-responsive-video/ + https://scottjehl.com/posts/rwd-video/
     -   https://jakearchibald.com/2024/video-with-transparency/
@@ -139,6 +144,7 @@ Source code for https://responsify.dev.
     -   https://github.com/mnater/Hyphenopoly
     -   https://frontendfoc.us/link/129367/web
     -   https://github.com/ytiurin/hyphen
+	- https://www.htmhell.dev/adventcalendar/2025/15/
 - preserving values on reload does not work
 -   differentiate between soft and hard reload using service worker (response 200 vs 304)
 	-   clear the form on hard reload
@@ -146,7 +152,184 @@ Source code for https://responsify.dev.
 -   put/use trailing slash in URLs
 -   disable next.js telemetry
 -   deploying Next.js: https://www.youtube.com/watch?v=sIVL4JMqRfc&pp=ygUgc3RhbmRhbG9uZSBuZXh0LmpzIHJvYiBkZXBsb3lpbmc%3D + https://nextjs.org/docs/pages/building-your-application/deploying + https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/
+	- https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/
+	- https://nextjs.org/docs/app/guides/static-exports
+	- https://nextjs.org/docs/app/api-reference/config/next-config-js/output
+	- ⚙️ 1. Configure Next.js for static output
+In your next.config.ts (or .js), set:
+tsCopy codeimport type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: "export",
+  images: {
+    unoptimized: true, // Cloudflare Pages can’t run Next.js’ image optimizer
+  },
+  // Optional: If you want to catch mistakes
+  experimental: {
+    // Ensures static rendering where possible
+    typedRoutes: true,
+  },
+};
+
+export default nextConfig;
+
+What this does:
+
+
+output: "export" → enables static export mode (next export behavior).
+
+
+images.unoptimized → disables dynamic image optimization API.
+
+
+You’ll get a /out directory ready for Cloudflare Pages.
+
+
+
+⚡ 2. Make sure all routes are static
+Static export doesn’t support any dynamic server logic, so check for:
+❌ Not allowed in static export:
+
+
+fetch() calls without { cache: 'force-cache' } or { next: { revalidate: ... } }
+
+
+cookies(), headers(), or any server-only runtime
+
+
+Dynamic route segments without generateStaticParams()
+
+
+Using generateMetadata() that depends on dynamic data
+
+
+Route handlers (route.ts or route.js files)
+
+
+✅ Allowed / works fine:
+
+
+generateStaticParams() for static dynamic routes
+
+
+Static fetch() with cached data
+
+
+Static assets in /public
+
+
+All React Server Components that don’t rely on runtime data
+
+
+
+🧱 3. Example static app directory setup
+tsxCopy code// app/page.tsx
+export default function Home() {
+  return (
+    <main>
+      <h1>Hello Cloudflare Pages 👋</h1>
+      <p>This site is statically exported from Next.js 15!</p>
+    </main>
+  );
+}
+
+tsxCopy code// app/about/page.tsx
+export default function About() {
+  return <h1>About Us</h1>;
+}
+
+✅ After running npm run build, you’ll get:
+bashCopy code/out
+  index.html
+  /about/index.html
+  /_next/static/
+
+
+🧱 4. Update your package.json scripts
+Make sure your build command looks like this:
+jsonCopy code{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  }
+}
+
+You do not need a separate next export command — next build will automatically do the export when output: "export" is set.
+
+🚀 5. Deploy to Cloudflare Pages
+Option 1: Dashboard (recommended)
+
+
+Go to Cloudflare Pages.
+
+
+Click Create a new project → connect your GitHub repo.
+
+
+Configure:
+
+
+Framework preset: Next.js
+
+
+Build command: npm run build
+
+
+Build output directory: out
+
+
+
+
+Click Deploy — done 🎉
+
+
+Cloudflare will:
+
+
+Install dependencies
+
+
+Run npm run build
+
+
+Serve your /out folder as static HTML + assets globally
+
+
+
+Option 2: Manual deploy with Wrangler
+If you prefer CLI deploys:
+bashCopy codenpx wrangler pages deploy ./out --project-name=my-nextjs15-static
+
+This uploads your /out directory directly to Cloudflare Pages.
+
+🧠 6. Common gotchas
+ProblemCauseFixBuild fails with “Dynamic server usage”A route uses fetch() without cachingUse fetch(url, { cache: 'force-cache' }) or prebuild dataImages not showingNext.js image optimization disabledUse <img> tags or next/image with unoptimizedDynamic routes missingYou didn’t define generateStaticParams()Add that in each dynamic segment folder404 for some routesMissing trailing slashes in exportSet trailingSlash: true in next.config.ts if needed
+
+✅ 7. Example minimal configuration (ready-to-deploy)
+next.config.ts
+tsCopy codeimport type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
+  trailingSlash: true,
+};
+
+export default nextConfig;
+
+app/page.tsx
+tsxCopy codeexport default function Page() {
+  return <h1>Deployed on Cloudflare Pages 🚀</h1>;
+}
+
+Deploy steps:
+bashCopy codenpm run build
+npx wrangler pages deploy ./out
 -   // TODO: ship source map in production as well https://www.ctrl.blog/entry/deploy-javascript-source-maps.html
+	- https://news.ycombinator.com/item?id=45812000
 -   make www.responsify.dev canonical
 -   optimize what google uses as the snippet: https://www.gsqi.com/marketing-blog/how-to-use-data-nosnippet/
 -   prevent link rot: https://remysharp.com/2023/12/04/unrot-that-link
@@ -187,6 +370,7 @@ Source code for https://responsify.dev.
         -   fluid.style
         -   https://typeculator.alexpaul.me/
         -   https://wearerequired.github.io/fluidity/
+		-   https://electricmagicfactory.com/articles/interactive-fluid-typography/
 -   graphical input: two-axis graph with x axis from 320 to maximum supported viewport with dropdown to select vw or %, left y axis from -100 to +100 with dropdown to select unit and right y axis with a different unit that spans the same distance as the left one (actually those two are in sync, if one changes the other changes as well). and you can add points, move them around. you can also select your target browser support list so that certain options are excluded from the generated code e.g. instead of clamp() @media query is used
 -   accessibility and privacy as separate pages??
 -   automatically generate table of contents
@@ -234,7 +418,7 @@ Source code for https://responsify.dev.
 ## Technologies
 
 -   PostCSS (postcss language support vs code extension)
-    -   `cssnano-preset-default` only does safe transforms
+    -   `cssnano-preset-default` only does safe transforms / https://news.ycombinator.com/item?id=41550262
 
 ### npm
 

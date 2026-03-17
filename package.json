@@ -1,32 +1,14 @@
 {
-	"name": "responsify-dev",
-	"version": "5.0.0",
+	"private": true,
 	"type": "module",
-	"author": {
-		"name": "Petar Petrovic",
-		"email": "petar@frontendlane.com",
-		"url": "https://frontendlane.com/about/"
-	},
-	"homepage": "https://responsify.dev",
-	"repository": "https://github.com/frontendlane/responsify/",
-	"bugs": "https://github.com/frontendlane/responsify/issues",
-	"license": "ISC",
-	"keywords": [
-		"responsive",
-		"css",
-		"scss",
-		"calc",
-		"@media"
-	],
-	"description": "Responsify: Prevent abrupt layout shifts when user resizes the browser",
 	"scripts": {
 		"postinstall": "./scripts/postinstall.sh",
 		"update": "./scripts/update.sh",
 		"dev": "npm run zip && ./scripts/dev.sh",
-		"build": "npm run types && next build",
+		"build": "npm run type-check && next build",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"test": "npx vitest",
-		"types": "npx tsc",
+		"type-check": "npx tsc",
 		"start": "npx next start",
 		"format": "npx prettier --write .",
 		"lint": "npx next lint"
@@ -73,6 +55,5 @@
 		"eslint": "9.26.0",
 		"react": "19.1.0",
 		"react-dom": "19.1.0"
-	},
-	"private": true
+	}
 }
