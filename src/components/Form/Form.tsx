@@ -20,12 +20,12 @@ const longTaskDurationAsDefinedByGoogleWebVitals = 50
 
 const formSchema = z.object({
 	cssProperty: z.string(),
-	elementLowerBound: z.coerce.number(),
+	elementLowerBound: z.number(),
 	unit: z.union([z.literal('px'), z.literal('vw'), z.literal('%'), z.literal('ch'), z.literal('rem')]),
-	chWidthInPx: z.optional(z.coerce.number()),
-	containerLowerBound: z.coerce.number(),
-	elementUpperBound: z.coerce.number(),
-	containerUpperBound: z.coerce.number(),
+	chWidthInPx: z.optional(z.number()),
+	containerLowerBound: z.number(),
+	elementUpperBound: z.number(),
+	containerUpperBound: z.number(),
 })
 
 export type FormValues = z.infer<typeof formSchema>
@@ -43,13 +43,12 @@ export const Form = () => {
 		register,
 		handleSubmit,
 		formState: { isSubmitted, isDirty },
-	} = useForm<FormValues>({
+	} = useForm({
 		resolver: zodResolver(formSchema),
-		// TODO: defaultValues pros and cons
-		// TODO: on page reload some inputs preserve value and others don't... why?
-		//  TODO: well, default values fix this ^ issue, won't they??
-		defaultValues: {
+		values: {
+			cssProperty: '',
 			elementLowerBound: NaN,
+			elementUpperBound: NaN,
 			containerLowerBound: NaN,
 			containerUpperBound: NaN,
 			unit: 'px',
@@ -147,7 +146,7 @@ export const Form = () => {
 			<p className="vertical-spacing">
 				Bookmark the link next to the form heading above for direct access to this form.
 			</p>
-			<form className='form-element"' aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
+			<form aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
 				<noscript className={styles.noscript}>
 					<p>
 						<strong>
@@ -184,7 +183,7 @@ export const Form = () => {
 							<div className={styles.flexWrapJoiner}>
 								<input
 									className={styles.input}
-									{...register('elementLowerBound')}
+									{...register('elementLowerBound', { valueAsNumber: true })}
 									id="element-lower-bound"
 									disabled={isDisabled}
 									type="number"
@@ -222,7 +221,7 @@ export const Form = () => {
 								<div className={styles.flexWrapJoiner}>
 									<input
 										className={styles.input}
-										{...register('chWidthInPx')}
+										{...register('chWidthInPx', { valueAsNumber: true })}
 										id="ch-width-in-px"
 										type="number"
 										step="0.01"
@@ -244,7 +243,7 @@ export const Form = () => {
 							<div className={styles.flexWrapJoiner}>
 								<input
 									className={styles.input}
-									{...register('containerLowerBound')}
+									{...register('containerLowerBound', { valueAsNumber: true })}
 									id="container-lower-bound"
 									disabled={isDisabled}
 									type="number"
@@ -266,7 +265,7 @@ export const Form = () => {
 							<div className={styles.flexWrapJoiner}>
 								<input
 									className={styles.input}
-									{...register('elementUpperBound')}
+									{...register('elementUpperBound', { valueAsNumber: true })}
 									id="element-upper-bound"
 									disabled={isDisabled}
 									type="number"
@@ -287,7 +286,7 @@ export const Form = () => {
 							<div className={styles.flexWrapJoiner}>
 								<input
 									className={styles.input}
-									{...register('containerUpperBound')}
+									{...register('containerUpperBound', { valueAsNumber: true })}
 									id="container-upper-bound"
 									disabled={isDisabled}
 									type="number"

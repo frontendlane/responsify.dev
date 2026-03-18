@@ -1,3 +1,4 @@
+// @ts-expect-error doesn't have types 😭
 import shopifyPlugin from '@shopify/eslint-plugin'
 import typescriptPlugin from '@typescript-eslint/eslint-plugin'
 import parser from '@typescript-eslint/parser'
@@ -6,12 +7,13 @@ import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
 import reactPlugin from 'eslint-plugin-react'
 import reactCompilerPlugin from 'eslint-plugin-react-compiler'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
+// @ts-expect-error doesn't have types 😭
 import regexPlugin from 'eslint-plugin-regex'
 import unusedImportsPlugin from 'eslint-plugin-unused-imports'
 
-import { restrictedGlobals } from './eslint/restrictedGlobals.mjs'
+import { restrictedGlobals } from './eslint/restrictedGlobals.ts'
 
-export default [
+const eslintConfig = [
 	{
 		ignores: ['.next/', '**/*.js', '**/*.mjs', '**/*.cjs', '**/*.module.d.css.ts'], // "ignores" must be in a separate configuration object
 	},
@@ -687,6 +689,7 @@ export default [
 	},
 	{
 		files: [
+			'eslint.config.ts',
 			'next.config.ts',
 			'src/app/**/layout.tsx',
 			'src/app/**/page.tsx',
@@ -721,3 +724,5 @@ export default [
 		},
 	},
 ]
+
+export default eslintConfig
