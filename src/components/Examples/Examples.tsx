@@ -9,13 +9,13 @@ import styles from './Examples.module.css'
 
 export const Examples = () => {
 	return (
-		<Section className="vertical-spacing-150-percent" heading={headings.h2_3}>
-			<p className="vertical-spacing">
+		<Section className="verticalSpacing150Percent" heading={headings.h2_3}>
+			<p className="verticalSpacing">
 				Examples assume smallest viewport width of 320px, a tablet breakpoint at 768px, and a desktop breakpoint at
 				1024px.
 			</p>
-			<Section className="vertical-spacing-150-percent" heading={headings.h3_1}>
-				<p className="vertical-spacing">
+			<Section className="verticalSpacing150Percent" heading={headings.h3_1}>
+				<p className="verticalSpacing">
 					Suppose a <Code>&lt;div&gt;</Code> needs to be 90% wide below desktop breakpoint and 40% above that.
 					Because you practice mobile-first approach, you start with:
 				</p>
@@ -28,7 +28,7 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">and for desktop you add:</p>
+				<p className="verticalSpacing">and for desktop you add:</p>
 				<CodeBlock>
 					@media (min-width: 1024px) &#123;
 					{`
@@ -44,7 +44,7 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					You want to gradually transition between these two values so you reserve, let&apos;s say, the 900px -
 					1024px range to smooth this out. You add another media query with the <Sparkles>magic</Sparkles>{' '}
 					<Code>calc()</Code> value that you generate using the{' '}
@@ -66,38 +66,38 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					{/* TODO: mention that magic numbers are bad https://css-tricks.com/magic-numbers-in-css/ */}
 					Note the comment that accompanies <Code>calc()</Code> value. Preserving input values makes it easier to
 					maintain the code.
 				</p>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					The comment also includes <Code>https://responsify.dev</Code> both as a reference for future maintainers
 					and as a unique string you can match against when tracking down responsified values.
 				</p>
 				{/* <!-- TODO: optimize screen reader usage --> */}
-				<p className={`vertical-spacing ${styles.resize}`} />
-				<p className="vertical-spacing">
+				<p className={`verticalSpacing ${styles.resize}`} />
+				<p className="verticalSpacing">
 					<em>Without</em> responsify:
 				</p>
-				<Sparkles className={`${styles.exampleDivMiddleAligned} vertical-spacing`}>
+				<Sparkles className={`${styles.exampleDivMiddleAligned} verticalSpacing`}>
 					<div className={`${styles.exampleDiv}`} />
 				</Sparkles>
-				<p className="vertical-spacing" id="description">
+				<p className="verticalSpacing" id="description">
 					<em>With</em> responsify:
 				</p>
 				{/* TODO: investigate */}
 				{/* eslint-disable-next-line jsx-a11y/prefer-tag-over-role */}
 				<div
-					className={`${styles.exampleDivMiddleAligned} ${styles.exampleDiv} vertical-spacing`}
+					className={`${styles.exampleDivMiddleAligned} ${styles.exampleDiv} verticalSpacing`}
 					aria-live="polite"
 					role="status"
 					aria-describedby="description"
 				/>
 			</Section>
 
-			<Section className="vertical-spacing heading-container" heading={headings.h3_2}>
-				<p className="vertical-spacing">
+			<Section className="verticalSpacing heading-container" heading={headings.h3_2}>
+				<p className="verticalSpacing">
 					You want the <Code>&lt;body&gt;</Code>&apos;s <Code>padding</Code> to increase from 10px to 50px, and
 					have it stay at 50px once it hits the desktop breakpoint. For desktop and above you start off with:
 				</p>
@@ -110,7 +110,7 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">and for below desktop you add:</p>
+				<p className="verticalSpacing">and for below desktop you add:</p>
 				<CodeBlock>
 					@media (max-width: 1023px) &#123;
 					{`
@@ -127,14 +127,14 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					I&apos;m not a fan of using a <Code>max-width</Code> media query because it smells of a desktop-first
 					approach 👎, but I&apos;ve included it here for completeness&apos; sake.
 				</p>
 			</Section>
 
-			<Section className="vertical-spacing heading-container" heading={headings.h3_3}>
-				<p className="vertical-spacing">
+			<Section className="verticalSpacing heading-container" heading={headings.h3_3}>
+				<p className="verticalSpacing">
 					You want the <Code>&lt;header&gt;</Code>&apos;s <Code>height</Code> to increase from 40px to 90px, and
 					have it stay at 90px once it hits the desktop breakpoint.
 				</p>
@@ -151,7 +151,7 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					Without the <Code>max-height</Code> the <Code>&lt;header&gt;</Code> would continue to grow in height with
 					increase in viewport width. This approach removes the need for a media query 👍, but is limited to{' '}
 					<Code>width</Code> and <Code>height</Code> as no other property has a corresponding{' '}
@@ -159,8 +159,8 @@ export const Examples = () => {
 				</p>
 			</Section>
 
-			<Section className="vertical-spacing heading-container" heading={headings.h3_4}>
-				<p className="vertical-spacing">
+			<Section className="verticalSpacing heading-container" heading={headings.h3_4}>
+				<p className="verticalSpacing">
 					You want the <Code>&lt;button&gt;</Code>&apos;s <Code>border-width</Code> to increase from 1ch to 2ch,
 					and have it stay at 2ch once it hits the desktop breakpoint. In this example let&apos;s say that the
 					average character width is 13.65px.
@@ -176,15 +176,15 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					By using <Code>min()</Code> you can do away with media query <em>and</em> you&apos;re not limited to{' '}
 					<Code>width</Code> and <Code>height</Code> like in <Link href={`#${headings.h3_3.id}`}>Example 3</Link>.
 					💯
 				</p>
 			</Section>
 
-			<Section className="vertical-spacing heading-container" heading={headings.h3_5}>
-				<p className="vertical-spacing">
+			<Section className="verticalSpacing heading-container" heading={headings.h3_5}>
+				<p className="verticalSpacing">
 					You want the <Code>&lt;footer&gt;</Code>&apos;s <Code>margin-top</Code> to be 20px below tablet
 					breakpoint, 200px above desktop breakpoint, and increase from 2.6vw at tablet breakpoint (0.026 * 768px ≅
 					20px) to 19.5vw at desktop breakpoint (0.195 * 1024px ≅ 200px).
@@ -200,7 +200,7 @@ export const Examples = () => {
 `}
 					&#125;
 				</CodeBlock>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					Responsify + <Code>clamp()</Code> is a powerful combination 💪 that also allows you to do away with media
 					queries and also allows you to mix and match units, something you can&apos;t do with responsify alone.
 				</p>

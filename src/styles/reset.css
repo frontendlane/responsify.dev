@@ -27,8 +27,9 @@
 	input,
 	textarea,
 	button,
-	select {
-		font: inherit; /* submit button on iphone safari is bolded */
+	select,
+	code {
+		font: inherit; /* resets default font-size to 16px, submit button on iphone safari is bolded, etc. */
 		letter-spacing: inherit;
 		word-spacing: inherit;
 		/* TODO: investigate how these reset values behave when `color-scheme: dark light;` is applied */
@@ -63,8 +64,7 @@
 	code,
 	kbd,
 	samp {
-		font-family:
-			monospace, monospace; /* browser default styles make the font-size of these elements smaller. this resets font-size to whatever the browser default font size is (usually 16px). taken from https://csstools.github.io/sanitize.css/latest/sanitize.css */
+		font-family: monospace;
 	}
 
 	summary::marker {

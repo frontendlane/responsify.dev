@@ -13,7 +13,7 @@
 
 .caption {
 	margin-block-end: calc(var(--vertical-spacing) / 2);
-	font-size: calc(var(--golden-ratio) * 1em); /* TODO: should it maybe be var(--line-height)?? */
+	font-size: calc(var(--golden-ratio) * 1rem); /* TODO: replace with a css variable that points to h3 font size */
 	font-weight: bold;
 }
 
@@ -36,11 +36,11 @@
 }
 
 .tbody > .tr:nth-of-type(2n + 1) {
-	background-color: rgba(0 0 0 / 0.1);
+	background-color: rgb(0 0 0 / 10%);
 }
 @media (prefers-color-scheme: dark) {
 	.tbody > .tr:nth-of-type(2n + 1) {
-		background-color: rgba(0 0 0 / 0.25);
+		background-color: rgb(0 0 0 / 25%);
 	}
 }
 

@@ -5,7 +5,7 @@ export const Dateline = () => {
 	const updatedDate = '2024-11-08'
 
 	return (
-		<aside className="vertical-spacing-150-percent">
+		<aside className="verticalSpacing150Percent">
 			<p>
 				<b>Published</b>:{' '}
 				<time dateTime={publishedDate} data-testid="published">

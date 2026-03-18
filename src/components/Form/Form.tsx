@@ -133,17 +133,17 @@ export const Form = () => {
 					)}{' '}
 					😵 You won&apos;t be able to generate a <Code>calc()</Code> value.
 				</p>
-				<p className="vertical-spacing">
+				<p className="verticalSpacing">
 					You might be able to resolve the issue by reloading the page. If that doesn&apos;t work, update your
 					browser to the latest version and try again. If that doesn&apos;t work please email me at{' '}
 					<Link href={`mailto:${contactEmailAddress}`}>{contactEmailAddress}</Link>.
 				</p>
-				<p className="vertical-spacing"> Error stack is logged to the console.</p>
+				<p className="verticalSpacing"> Error stack is logged to the console.</p>
 			</div>
-			<p className="vertical-spacing">
+			<p className="verticalSpacing">
 				Generate responsified <Code>calc()</Code> value using the form below.
 			</p>
-			<p className="vertical-spacing">
+			<p className="verticalSpacing">
 				Bookmark the link next to the form heading above for direct access to this form.
 			</p>
 			<form className={styles.formElement} aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
@@ -191,7 +191,7 @@ export const Form = () => {
 									placeholder="25"
 									required
 								/>
-								<label className="visually-hidden" htmlFor="unit">
+								<label className="visuallyHidden" htmlFor="unit">
 									<Code>{cssProperty}</Code> unit
 								</label>
 								{/* <!-- TODO: height of the select should be the parent height. enhance with js --> */}

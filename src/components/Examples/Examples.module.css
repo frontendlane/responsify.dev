@@ -1,5 +1,5 @@
 .exampleDivMiddleAligned {
-	--width: 90vw;
+	--width: 90dvw;
 
 	inline-size: var(--width);
 	margin-inline-start: calc((var(--width) - 100%) / 2 * -1);
@@ -7,13 +7,13 @@
 @media (width >= 900px) {
 	.exampleDivMiddleAligned ~ .exampleDivMiddleAligned {
 		--width: calc(
-			3716.129px - 322.903vw
+			3716.129px - 322.903dvw
 		); /* https://responsify.dev - parent lower bound: 900px; parent upper bound: 1024px; element lower bound: 90vw; element upper bound: 40vw; */
 	}
 }
 @media (width >= 1024px) {
 	.exampleDivMiddleAligned {
-		--width: 40vw !important;
+		--width: 40dvw !important;
 	}
 }
 
@@ -25,14 +25,14 @@
 
 	background-image: repeating-linear-gradient(
 		45deg,
-		#fff 0,
-		#fff 20px,
-		#aaa 20px,
-		#aaa 40px,
-		#555 40px,
-		#555 60px,
-		#000 60px,
-		#000 80px
+		var(--white) 0,
+		var(--white) 20px,
+		rgb(170 170 170) 20px,
+		rgb(170 170 170) 40px,
+		rgb(85 85 85) 40px,
+		rgb(85 85 85) 60px,
+		var(--pitch-black) 60px,
+		var(--pitch-black) 80px
 	);
 	background-attachment: fixed;
 }
@@ -65,12 +65,14 @@
 /* TODO: improve the copy for mobile users who cannot resize the browser */
 /* TODO: also explain that below is an interactive example */
 .resize::before {
+	/* stylelint-disable-next-line declaration-block-no-duplicate-properties -- TODO: it was some kind of fallback, investigate */
 	content: 'Resize the browser up ⬆️ to see responsify in action.';
 	content: 'Resize the browser up ⬆️ to see responsify in action.' / 'Resize the browser up to see responsify in action.';
 }
 @media (width >= 900px) {
 	.resize::before {
 		/* TODO: handle this with postcss */
+		/* stylelint-disable-next-line declaration-block-no-duplicate-properties -- TODO: it was some kind of fallback, investigate */
 		content: 'Resize the browser to see responsify in action. 🦄';
 		content: 'Resize the browser to see responsify in action. 🦄' / 'Resize the browser to see responsify in action.';
 		white-space: pre-wrap;
@@ -78,6 +80,7 @@
 }
 @media (width >= 1024px) {
 	.resize::before {
+		/* stylelint-disable-next-line declaration-block-no-duplicate-properties -- TODO: it was some kind of fallback, investigate */
 		content: 'Resize the browser down ⬇️ to see responsify in action.';
 		content: 'Resize the browser down ⬇️ to see responsify in action.' /
 			'Resize the browser down to see responsify in action.';

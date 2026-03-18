@@ -38,7 +38,8 @@
 	box-shadow:
 		0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--light),
 		0 0 0 var(--horizontal-spacing) var(--dark),
-		0 0 0 12345vmax #eeeeee80; /* #eeeeee80 === var(--near-white) + alpha */
+		0 0 0 12345dvmax rgb(238 238 238 / 50%); /* TODO: var(--near-white) + alpha */
+
 	border-radius: var(--block-border-radius);
 }
 @media (prefers-color-scheme: dark) {
@@ -47,7 +48,7 @@
 		box-shadow:
 			0 0 0 calc(var(--horizontal-spacing) - var(--outline-width)) var(--near-black),
 			0 0 0 var(--horizontal-spacing) var(--light),
-			0 0 0 12345vmax #20202080; /* #20202080 === var(--dark) + alpha */
+			0 0 0 12345dvmax rgb(32 32 32 / 50%); /* #20202080 === var(--dark) + alpha */
 	}
 }
 @media (scripting: none) {
@@ -81,28 +82,31 @@
 		border-color: var(--input-border-dark);
 	}
 }
+
 .input[disabled] {
 	border-color: var(--black);
-	opacity: 0.15;
+	opacity: 15%;
 }
 @media (prefers-color-scheme: dark) {
 	.input[disabled] {
 		border-color: revert;
-		opacity: 0.3;
+		opacity: 30%;
 	}
 }
+
 .input::placeholder {
 	color: inherit;
-	opacity: 0.15;
+	opacity: 15%;
 	font-style: italic;
 }
 @media (prefers-color-scheme: dark) {
 	.input::placeholder {
-		opacity: 0.3;
+		opacity: 30%;
 	}
 }
+
 .input[disabled]::placeholder {
-	opacity: 1;
+	opacity: 100%;
 }
 
 .cssProperty {
@@ -144,7 +148,7 @@
 }
 
 .select[disabled] {
-	opacity: 0.3;
+	opacity: 30%;
 	border-color: revert;
 }
 
@@ -171,7 +175,7 @@
 	--arrow-pedestal: 0.25em;
 
 	position: absolute;
-	border-block-end: var(--arrow-pedestal) solid currentColor;
+	border-block-end: var(--arrow-pedestal) solid currentcolor;
 	padding: 0 0.5ch;
 	inset-block-start: 0;
 	inset-inline-start: 50%;
@@ -189,7 +193,7 @@
 	inset-block-end: calc(var(--arrow-pedestal) * -1);
 	inset-inline-start: 50%;
 	transform: translate3d(-50%, 100%, 0);
-	background-color: currentColor;
+	background-color: currentcolor;
 	inline-size: var(--arrow-size);
 	block-size: var(--arrow-size);
 	clip-path: polygon(0 0, 100% 0, 50% 50%);
@@ -203,5 +207,5 @@
 }
 
 .result > code {
-	font-size: 1.5em;
+	font-size: 1.5rem;
 }

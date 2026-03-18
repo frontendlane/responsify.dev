@@ -1,5 +1,5 @@
 html {
-	--whitespace-width: 0.458671ch;
+	--whitespace-width: 0.459ch;
 	--golden-ratio: 1.597;
 	--mobile-multiplier: calc(1 / 1.5); /* TODO: should be 1 / 1.125 */
 	/* TODO: https://codepen.io/mikemai2awesome/pen/qBygNwq */
@@ -8,23 +8,24 @@ html {
 	--font-size-h3: calc(1rem * var(--golden-ratio) * var(--mobile-multiplier));
 	--link-underline-thickness: 0.06em;
 
-	--white: #fff;
-	--pitch-black: #080808;
-	--black: #080808;
-	--near-black: #181818;
-	--dark: #202020;
-	--light: #e0e0e0;
-	--near-white: #eee;
-	--code-background-dark: #2a2d2e;
-	--code-color-light: #ffa26b;
-	--code-color-dark: #ff9359;
-	--link-unvisited-light: #00e;
-	--link-visited-light: #551a8b;
-	--link-unvisited-dark: #59f;
-	--link-visited-dark: #9fa9ff;
+	--white: white;
+	/* TODO: review pitch-black vs black */
+	--pitch-black: black;
+	--black: rgb(8 8 8);
+	--near-black: rgb(24 24 24);
+	--dark: rgb(32 32 32);
+	--light: rgb(224 224 224);
+	--near-white: rgb(238 238 238);
+	--code-background-dark: rgb(42 45 46);
+	--code-color-light: rgb(255 162 107);
+	--code-color-dark: rgb(255 147 89);
+	--link-unvisited-light: rgb(0 0 238);
+	--link-visited-light: rgb(85 26 139);
+	--link-unvisited-dark: rgb(85 153 255);
+	--link-visited-dark: rgb(159 169 255);
 	--yellow: yellow;
-	--input-border-light: #dadada;
-	--input-border-dark: #4d4d4d;
+	--input-border-light: rgb(218 218 218);
+	--input-border-dark: rgb(77 77 77);
 }
 
 @media (width >= 1024px) {

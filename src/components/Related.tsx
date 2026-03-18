@@ -5,15 +5,15 @@ import { headings } from './TableOfContents/TableOfContents'
 
 export const Related = () => {
 	return (
-		<Section className="vertical-spacing-150-percent" heading={headings.h2_8}>
-			<p className="vertical-spacing">
+		<Section className="verticalSpacing150Percent" heading={headings.h2_8}>
+			<p className="verticalSpacing">
 				There&apos;s a similar tool that can{' '}
 				<Link href="https://andersriggelsen.dk/nonlinear/">
 					generate <em>non-linear</em> <Code>calc()</Code> value
 				</Link>
 				.
 			</p>
-			<p className="vertical-spacing">
+			<p className="verticalSpacing">
 				For more awesomeness, James Gilyead and Trys Mudford created{' '}
 				<Link href="https://utopia.fyi/">&quot;Utopia&quot; design system</Link> where elements scale proportionally
 				and fluidly. It&apos;s an awesome and somewhat unconventional approach that uses a whole lot of{' '}

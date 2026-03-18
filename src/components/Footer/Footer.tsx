@@ -55,15 +55,15 @@ export const Footer = () => {
 	const a11yEmailAddress = 'a11y@responsify.dev'
 
 	return (
-		<footer className={`${styles.footer} vertical-spacing-150-percent`}>
-			<Section className="vertical-spacing-150-percent" heading={headings.h2_9}>
-				<p className="vertical-spacing">
+		<footer className={`${styles.footer} verticalSpacing150Percent`}>
+			<Section className="verticalSpacing150Percent" heading={headings.h2_9}>
+				<p className="verticalSpacing">
 					There is none because no data is collected. No ads 📢, no analytics 📊, no tracking 🕵️, no telemetry 📡,
 					no cookies 🍪, no bullshit 🐂💩.
 				</p>
 			</Section>
-			<Section className="vertical-spacing-150-percent" heading={headings.h2_10}>
-				<p className="vertical-spacing">
+			<Section className="verticalSpacing150Percent" heading={headings.h2_10}>
+				<p className="verticalSpacing">
 					I try hard to make my work accessible. ♿️ If something isn&apos;t working for you please email me at{' '}
 					<Link href={`mailto:${a11yEmailAddress}`}>{a11yEmailAddress}</Link>.
 				</p>

@@ -5,11 +5,11 @@ import { Section } from './Section'
 
 export const BrowserSupport = () => {
 	return (
-		<Section className="vertical-spacing-150-percent" heading={headings.h2_6}>
-			<p className="vertical-spacing">
+		<Section className="verticalSpacing150Percent" heading={headings.h2_6}>
+			<p className="verticalSpacing">
 				Browser support for calc() is <del>very good</del> <ins>practically universal</ins>.
 			</p>
-			<p className="vertical-spacing">
+			<p className="verticalSpacing">
 				<s>
 					In spite of IE having{' '}
 					<Link href="https://caniuse.com/calc/">
@@ -21,7 +21,7 @@ export const BrowserSupport = () => {
 					browsers, so just look out for that.
 				</s>{' '}
 			</p>
-			<p className="vertical-spacing">IE should really be irrelevant in {new Date().getFullYear()}. 🪦</p>
+			<p className="verticalSpacing">IE should really be irrelevant in {new Date().getFullYear()}. 🪦</p>
 		</Section>
 	)
 }

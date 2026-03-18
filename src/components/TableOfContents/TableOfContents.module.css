@@ -1,5 +1,5 @@
 .ol {
-	--ch-space: 0.4596ch;
+	--ch-space: 0.46ch;
 	--ch-period: 0.455ch;
 	--digit-ach: 0.959ch;
 
@@ -12,9 +12,11 @@
 .ol > .li {
 	counter-increment: counter-1;
 }
+
 .ol > .li:not(:first-of-type) {
 	margin-block-start: calc(var(--vertical-spacing) / 4);
 }
+
 .ol > .li::marker {
 	content: counter(counter-1) '.' ' ' ' ';
 }
@@ -33,6 +35,7 @@
 .ol .ol > .li {
 	counter-increment: counter-2;
 }
+
 .ol .ol > .li::marker {
 	content: counter(counter-1) '.' counter(counter-2) '.' ' ' ' ';
 }
@@ -44,6 +47,7 @@
 .ol .ol .ol > .li {
 	counter-increment: counter-3;
 }
+
 .ol .ol .ol > .li::marker {
 	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' ' ' ' ';
 }
@@ -55,6 +59,7 @@
 .ol .ol .ol .ol > .li {
 	counter-increment: counter-4;
 }
+
 .ol .ol .ol .ol > .li::marker {
 	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' counter(counter-4) '.' ' ' ' ';
 }
@@ -66,6 +71,7 @@
 .ol .ol .ol .ol .ol > .li {
 	counter-increment: counter-5;
 }
+
 .ol .ol .ol .ol .ol > .li::marker {
 	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' counter(counter-4) '.' counter(counter-5)
 		'.' ' ' ' ';
@@ -78,6 +84,7 @@
 .ol .ol .ol .ol .ol .ol > .li {
 	counter-increment: counter-6;
 }
+
 .ol .ol .ol .ol .ol .ol > .li::marker {
 	content: counter(counter-1) '.' counter(counter-2) '.' counter(counter-3) '.' counter(counter-4) '.' counter(counter-5)
 		'.' counter(counter-6) '.' ' ' ' ';

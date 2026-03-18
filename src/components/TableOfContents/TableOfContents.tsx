@@ -135,7 +135,7 @@ export const headings: Headings = {
 
 export const TableOfContents = () => {
 	return (
-		<Section className="vertical-spacing-150-percent" heading={headings.h2_2}>
+		<Section className="verticalSpacing150Percent" heading={headings.h2_2}>
 			<ol className={styles.ol}>
 				<li className={styles.li}>
 					<Link href={`#${headings.h1.id}`}>{headings.h1.content}</Link>

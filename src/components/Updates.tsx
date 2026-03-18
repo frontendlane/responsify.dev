@@ -5,7 +5,7 @@ import { headings } from './TableOfContents/TableOfContents'
 export const Updates = () => {
 	const updateDate = '2021-11-16'
 	return (
-		<dl className="vertical-spacing">
+		<dl className="verticalSpacing">
 			<dt>
 				<b>
 					{/* TODO: extract time element to a separate UI component?? */}

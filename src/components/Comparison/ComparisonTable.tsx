@@ -6,7 +6,7 @@ import { headings } from '../TableOfContents/TableOfContents'
 export const ComparisonTable = () => {
 	return (
 		<div className={styles.tableContainer}>
-			<table className={`${styles.table} vertical-spacing`}>
+			<table className={`${styles.table} verticalSpacing`}>
 				<caption className={styles.caption}>CSS locks vs responsify</caption>
 				<thead className={styles.thead}>
 					<tr className={styles.tr}>

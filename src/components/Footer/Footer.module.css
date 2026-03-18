@@ -1,5 +1,5 @@
 .footer {
-	border-block-start: 2px solid currentColor;
+	border-block-start: 2px solid currentcolor;
 }
 
 @media (scripting: none) {

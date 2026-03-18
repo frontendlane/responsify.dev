@@ -11,6 +11,7 @@
 		"type-check": "./scripts/type-check.sh",
 		"start": "npx next start",
 		"format-check": "npx prettier . --check",
+		"style-lint-check": "npx stylelint '**/*.css'",
 		"script-lint-check": "npx eslint --flag unstable_native_nodejs_ts_config --max-warnings 0 ."
 	},
 	"dependencies": {
@@ -52,6 +53,7 @@
 		"jsdom": "29.0.0",
 		"npm-check-updates": "19.6.5",
 		"prettier": "3.8.1",
+		"stylelint": "17.4.0",
 		"typescript": "5.9.3",
 		"vitest": "4.1.0"
 	}
