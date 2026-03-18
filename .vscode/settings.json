@@ -4,11 +4,25 @@
 	"editor.formatOnPaste": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"typescript.tsdk": "node_modules/typescript/lib", // ensures vs code uses the repo version of typescript rather than vs code's internal typescript version
+	// TODO: is it important to set ESLint node version??
+	"eslint.runtime": "/Users/contri/.nvm/versions/node/v24.5.0/bin/node",
+	// TODO: leaving here in case somehow magically it starts working in the future
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"css"
+	],
 	"css.validate": false, // turned off in order not to conflict with stylelint
 	"editor.codeActionsOnSave": {
 		// avoid source.organizeImports because (1) it can't be enforced during CI/CD and (2) it can introduce unnecessary git diffs unless every contributor uses vs code. instead use @ianvs/prettier-plugin-sort-imports
 		// avoid source.addMissingImports because it can import the wrong thing: https://github.com/microsoft/vscode/issues/139131
 		"source.fixAll.eslint": "explicit",
 		"source.fixAll.stylelint": "explicit"
-	}
+	},
+	"search.exclude": { "**/*.module.d.css.ts": true },
+	"json.schemas": [
+		{ "fileMatch": ["*.jsonc"], "schema": { "allowTrailingCommas": true } }
+	]
 }

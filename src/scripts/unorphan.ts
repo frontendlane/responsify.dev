@@ -1,10 +1,10 @@
 /* eslint-disable */ // TODO: enable eslint
 // https://codepen.io/argyleink/pen/dyQxmYK
-import { isNullish } from '@/utils/isNullish'
+import { half } from '../utils/constants'
+import { isNullish } from '../utils/isNullish'
+import { objectEntries } from '../utils/objectEntries'
 import { WHITE_SPACE, NON_BREAKING_SPACE } from './constants'
 import { setContent, removeContent } from './domInteraction'
-import { objectEntries } from '@/utils/objectEntries'
-import { half } from '@/utils/constants'
 
 type ITags = Record<number, string>
 

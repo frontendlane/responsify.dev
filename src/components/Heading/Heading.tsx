@@ -1,9 +1,9 @@
 import { HeadingLink } from './HeadingLink/HeadingLink'
 import styles from './Heading.module.css'
 import { getTextContent } from '../../utils/getTextContent'
-import { generateValidId } from '@/utils/generateValidId'
-import { isPlaintextLike } from '@/utils/isPlaintextLike'
-import { isNullish } from '@/utils/isNullish'
+import { generateValidId } from '../../utils/generateValidId'
+import { isNullish } from '../../utils/isNullish'
+import { isPlaintextLike } from '../../utils/isPlaintextLike'
 
 export type HeadingLevel = 'h1' | 'h2' | 'h3'
 

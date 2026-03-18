@@ -2,10 +2,10 @@
 
 import styles from './Sparkles.module.css'
 import { useRef, useState, type PropsWithChildren } from 'react'
-import { useRandomInterval } from '@/hooks/useRandomInterval'
 import { generateSparkle } from './Sparkle/generateSparkle'
 import { Sparkle } from './Sparkle/Sparkle'
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { useRandomInterval } from '../../hooks/useRandomInterval'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 export type SparkleConfig = ReturnType<typeof generateSparkle>
 

@@ -1,6 +1,6 @@
-import { isNullish } from '@/utils/isNullish'
-import { random } from '@/utils/random'
 import { useRef, useEffect } from 'react'
+import { isNullish } from '../utils/isNullish'
+import { random } from '../utils/random'
 
 export const useRandomInterval = (callback: () => void, minDelay: number, maxDelay: number) => {
 	const timeoutId = useRef<number | null>(null)

@@ -4,11 +4,11 @@
 	"scripts": {
 		"postinstall": "./scripts/postinstall.sh",
 		"update": "./scripts/update.sh",
-		"dev": "npm run zip && ./scripts/dev.sh",
+		"dev": "./scripts/dev.sh",
 		"build": "./scripts/build.sh",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"test": "npx vitest",
-		"type-check": "npx tsc",
+		"type-check": "./scripts/type-check.sh",
 		"start": "npx next start",
 		"format-check": "npx prettier . --check",
 		"script-lint-check": "npx eslint --flag unstable_native_nodejs_ts_config --max-warnings 0 ."
@@ -23,6 +23,9 @@
 		"zod": "4.3.6"
 	},
 	"devDependencies": {
+		"@css-modules-kit/codegen": "0.10.0",
+		"@css-modules-kit/eslint-plugin": "0.10.0",
+		"@eslint/css": "1.0.0",
 		"@shopify/eslint-plugin": "50.0.0",
 		"@testing-library/dom": "10.4.1",
 		"@testing-library/jest-dom": "6.9.1",
@@ -37,7 +40,7 @@
 		"@vitejs/plugin-react": "6.0.1",
 		"babel-plugin-react-compiler": "1.0.0",
 		"concurrently": "9.2.1",
-		"eslint": "9.39.2",
+		"eslint": "9.39.4",
 		"eslint-plugin-jest-dom": "5.5.0",
 		"eslint-plugin-jsx-a11y": "6.10.2",
 		"eslint-plugin-react": "7.37.5",
@@ -45,7 +48,7 @@
 		"eslint-plugin-react-hooks": "7.0.1",
 		"eslint-plugin-regex": "1.10.0",
 		"eslint-plugin-unused-imports": "4.4.1",
-		"happy-css-modules": "4.0.0",
+		"jiti": "2.6.1",
 		"jsdom": "29.0.0",
 		"npm-check-updates": "19.6.5",
 		"prettier": "3.8.1",

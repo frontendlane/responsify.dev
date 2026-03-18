@@ -42,9 +42,8 @@
 			background-color: var(--near-black);
 		}
 	}
-	.link[href^="/"]:not([href^="//"])::before,
-    .link[href^="/"]:not([href^="//"])::before
-	{
+	.link[href^='/']:not([href^='//'])::before,
+	.link[href^='/']:not([href^='//'])::before {
 		content: 'https://responsify.dev' attr(href); /* Firefox & Safari fallback */
 		content: 'https://responsify.dev' attr(href) / '';
 	}

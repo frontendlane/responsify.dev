@@ -7,7 +7,7 @@ import { headings } from '../TableOfContents/TableOfContents'
 import styles from './Footer.module.css'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import { Button } from '../../ui/Button'
-import { clipboardTimeout } from '@/utils/constants'
+import { clipboardTimeout } from '../../utils/constants'
 
 type NotificationStatus = 'hidden' | 'success' | 'error'
 

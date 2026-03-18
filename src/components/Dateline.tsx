@@ -1,4 +1,4 @@
-import { fromIsoDateToHumanDate } from '@/utils/fromIsoDateToHumanDate'
+import { fromIsoDateToHumanDate } from '../utils/fromIsoDateToHumanDate'
 
 export const Dateline = () => {
 	const publishedDate = '2019-09-25'

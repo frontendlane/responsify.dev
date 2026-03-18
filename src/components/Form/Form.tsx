@@ -14,7 +14,7 @@ import { generateCss } from './generate'
 import { assertUnreachable } from '../../utils/assertUnreachable'
 import { Link } from '../Link/Link'
 import { Button } from '../../ui/Button'
-import { clipboardTimeout } from '@/utils/constants'
+import { clipboardTimeout } from '../../utils/constants'
 
 const longTaskDurationAsDefinedByGoogleWebVitals = 50
 
@@ -146,7 +146,7 @@ export const Form = () => {
 			<p className="vertical-spacing">
 				Bookmark the link next to the form heading above for direct access to this form.
 			</p>
-			<form aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
+			<form className={styles.formElement} aria-labelledby={headings.h2_4.id} onSubmit={handleSubmit(onSubmit)}>
 				<noscript className={styles.noscript}>
 					<p>
 						<strong>

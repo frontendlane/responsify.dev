@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { Dateline } from './Dateline'
 import { describe, expect, test } from 'vitest'
-import { fromIsoDateToHumanDate } from '@/utils/fromIsoDateToHumanDate'
-import { isNullish } from '@/utils/isNullish'
+import { isNullish } from '../utils/isNullish'
+import { fromIsoDateToHumanDate } from '../utils/fromIsoDateToHumanDate'
 
 describe('Dateline datetime attribute matches rendered date', () => {
 	test('published date', () => {

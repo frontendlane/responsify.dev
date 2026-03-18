@@ -1,5 +1,5 @@
-import { hundredPercent } from '@/utils/constants'
-import { random } from '@/utils/random'
+import { hundredPercent } from '../../../utils/constants'
+import { random } from '../../../utils/random'
 
 const defaultColor = 'hsl(50deg, 100%, 50%)'
 const smallestSparkleSizeInPx = 4

@@ -108,12 +108,12 @@ a[href]:not([href='']):active {
 }
 
 :where(
-		details:not([open]):hover,
-		details[open] > summary:hover,
-		button:not([disabled]):hover,
-		input:not([disabled]):hover,
-		select:not([disabled]):hover
-	) {
+	details:not([open]):hover,
+	details[open] > summary:hover,
+	button:not([disabled]):hover,
+	input:not([disabled]):hover,
+	select:not([disabled]):hover
+) {
 	box-shadow: 0 0 0 1px;
 }
 

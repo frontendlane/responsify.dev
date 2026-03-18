@@ -1,6 +1,6 @@
-import { isPlaintextLike } from '@/utils/isPlaintextLike'
 import { isNullish } from './isNullish'
 import { isValidElement } from 'react'
+import { isPlaintextLike } from './isPlaintextLike'
 
 // checks if the value is an array, set, or map
 const isIterable = (value: React.ReactNode): value is Iterable<React.ReactNode> =>

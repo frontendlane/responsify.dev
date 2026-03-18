@@ -10,6 +10,8 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks'
 // @ts-expect-error doesn't have types 😭
 import regexPlugin from 'eslint-plugin-regex'
 import unusedImportsPlugin from 'eslint-plugin-unused-imports'
+import cssPlugin from '@eslint/css'
+import cssModulesKit from '@css-modules-kit/eslint-plugin'
 
 import { restrictedGlobals } from './eslint/restrictedGlobals.ts'
 
@@ -28,7 +30,7 @@ const eslintConfig = [
 			'@shopify-eslint-plugin': shopifyPlugin,
 			regex: regexPlugin,
 		},
-		files: ['**/*.ts', '**/*.tsx'],
+		files: ['**/*.ts', '**/*.tsx', 'eslint.config.ts'],
 		linterOptions: { reportUnusedDisableDirectives: 'error' },
 		languageOptions: {
 			parser, // needed for *.ts and *.tsx files
@@ -311,12 +313,6 @@ const eslintConfig = [
 					selector: "[openingElement.name.property.name='Provider']",
 					message:
 						'Starting with react 19 <MyCustomContext.Provider value={...}> has been replaced with <MyCustomContext value={...}>.',
-				},
-				// kysely
-				{
-					selector: "CallExpression[callee.property.name='executeTakeFirstOrThrow']",
-					message:
-						'.executeTakeFirstOrThrow() is banned because it obscures the possibility that the function may throw. Use .executeTakeFirst() instead and explicitly handle missing row.',
 				},
 				// zod
 				{
@@ -721,6 +717,21 @@ const eslintConfig = [
 			'jest-dom/prefer-to-have-style': 'error',
 			'jest-dom/prefer-to-have-text-content': 'error',
 			'jest-dom/prefer-to-have-value': 'error',
+		},
+	},
+	{
+		plugins: {
+			css: cssPlugin,
+			'css-modules-kit': cssModulesKit,
+		},
+		files: ['**/*.css'],
+		language: 'css/css',
+		languageOptions: {
+			tolerant: true, // Required if you use `@value` rule or `composes` property
+		},
+		rules: {
+			'css-modules-kit/no-unused-class-names': 'error',
+			'css-modules-kit/no-missing-component-file': 'error',
 		},
 	},
 ]

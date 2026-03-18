@@ -4,9 +4,12 @@ Source code for https://responsify.dev.
 
 ## Todos
 
-- delete npm run start
-- css-modules-kit
 - stylelint
+- delete npm run start
+- https://github.com/react-hook-form/react-hook-form/issues/12298
+- jiti was only needed to make the eslint vs code extension work
+- css-modules-kit
+    - stylelint instead of eslint for linting css files??
 - separate pages for examples
 - todos aren't for doing https://news.ycombinator.com/item?id=44646801
 - https://alexwlchan.net/2024/scheduled-screenshots/

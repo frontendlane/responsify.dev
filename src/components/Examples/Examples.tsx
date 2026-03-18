@@ -1,4 +1,4 @@
-import { Sparkles } from '@/ui/Sparkles/Sparkles'
+import { Sparkles } from '../../ui/Sparkles/Sparkles'
 import { Code } from '../Code/Code'
 import { CodeBlock } from '../CodeBlock/CodeBlock'
 import { Link } from '../Link/Link'

@@ -1,8 +1,8 @@
-import { hundredPercent } from '@/utils/constants'
 import { REM_SIZE_IN_PX } from '../../scripts/constants'
 import { assertUnreachable } from '../../utils/assertUnreachable'
+import { hundredPercent } from '../../utils/constants'
+import { isNullish } from '../../utils/isNullish'
 import type { FormValues } from './Form'
-import { isNullish } from '@/utils/isNullish'
 
 export const generateCss = ({
 	cssProperty,

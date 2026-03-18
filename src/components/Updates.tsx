@@ -1,6 +1,6 @@
+import { fromIsoDateToHumanDate } from '../utils/fromIsoDateToHumanDate'
 import { Link } from './Link/Link'
 import { headings } from './TableOfContents/TableOfContents'
-import { fromIsoDateToHumanDate } from '@/utils/fromIsoDateToHumanDate'
 
 export const Updates = () => {
 	const updateDate = '2021-11-16'

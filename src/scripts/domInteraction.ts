@@ -1,5 +1,5 @@
-import { isNullish } from '@/utils/isNullish'
-import { objectEntries } from '@/utils/objectEntries'
+import { isNullish } from '../utils/isNullish'
+import { objectEntries } from '../utils/objectEntries'
 
 export const removeContent = (element: Element | null) => {
 	while (element?.firstChild) {

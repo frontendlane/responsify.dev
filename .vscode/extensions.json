@@ -5,6 +5,7 @@
 		"dbaeumer.vscode-eslint",
 		"csstools.postcss", // adds/improves syntax highlighting for new CSS features
 		"stylelint.vscode-stylelint",
-		"redhat.vscode-yaml", // flags indentation errors in *.yaml/*.yml files and replaces double quotes with single quotes
+		"redhat.vscode-yaml",
+		"mizdra.css-modules-kit-vscode" // flags indentation errors in *.yaml/*.yml files and replaces double quotes with single quotes
 	]
 }
