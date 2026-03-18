@@ -5,6 +5,6 @@ set -e
 
 npx next telemetry disable
 npm run type-check
-npm run lint
+npm run script-lint-check
 npm run test -- --watch=false
-
+npm run format-check

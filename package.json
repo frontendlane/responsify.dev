@@ -5,13 +5,13 @@
 		"postinstall": "./scripts/postinstall.sh",
 		"update": "./scripts/update.sh",
 		"dev": "npm run zip && ./scripts/dev.sh",
-		"build": "npm run type-check && next build",
+		"build": "./scripts/build.sh",
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"test": "npx vitest",
 		"type-check": "npx tsc",
 		"start": "npx next start",
-		"format": "npx prettier --write .",
-		"lint": "npx eslint --flag unstable_native_nodejs_ts_config --max-warnings 0 ."
+		"format-check": "npx prettier . --check",
+		"script-lint-check": "npx eslint --flag unstable_native_nodejs_ts_config --max-warnings 0 ."
 	},
 	"dependencies": {
 		"@hookform/resolvers": "5.2.2",
