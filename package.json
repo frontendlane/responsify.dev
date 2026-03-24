@@ -9,7 +9,6 @@
 		"zip": "zip public/_responsify.scss.zip public/_responsify.scss",
 		"test": "npx vitest",
 		"type-check": "./scripts/type-check.sh",
-		"start": "npx next start",
 		"format-check": "npx prettier . --check",
 		"style-lint-check": "npx stylelint '**/*.css'",
 		"script-lint-check": "npx eslint --flag unstable_native_nodejs_ts_config --max-warnings 0 ."
