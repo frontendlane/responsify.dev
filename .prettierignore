@@ -1,2 +1,3 @@
 *.d.css.ts
-cache/config.json # generated as part of cloudflare deployment
+# generated as part of cloudflare deployment
+cache/config.json
