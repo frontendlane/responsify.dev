@@ -28,6 +28,7 @@
 		"allowUnusedLabels": false,
 		"allowUnreachableCode": false,
 		"verbatimModuleSyntax": true, // enforces the use of `type` specifier in import statements, either `import type {` or `import { type` syntax. only applies to types, not to values used as types (`typeof someValue`)
+		// "isolatedModules": true, // unnecessary because verbatimModuleSyntax === true
 		"erasableSyntaxOnly": true, // bans the use of typescript features that incur a runtime code change e.g. enums
 		"noUncheckedIndexedAccess": true, // https://www.youtube.com/watch?v=JwZaP3pY7Zo
 		"exactOptionalPropertyTypes": true,
@@ -39,6 +40,7 @@
 		"allowSyntheticDefaultImports": true,
 		"noErrorTruncation": true,
 		"allowImportingTsExtensions": true, // valid only if noEmit === true
+		"forceConsistentCasingInFileNames": true, // at the time of writing `true` is the default value
 
 		// React and Next.js
 		"jsx": "react-jsx",
@@ -47,9 +49,6 @@
 
 		// "paths": {}, // don't use import aliases: https://paularmstrong.dev/blog/2023/08/29/import-path-aliasing-is-a-crutch-for-poor-architecture/
 		// "baseUrl": "", // don't use "baseUrl" because it breaks vitest
-
-		// "forceConsistentCasingInFileNames": true, // unnecessary because default value is true
-		// "isolatedModules": true, // unnecessary because verbatimModuleSyntax === true
 	},
 	// css-modules-kit options
 	"cmkOptions": {
