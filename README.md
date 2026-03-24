@@ -4,8 +4,8 @@ Source code for https://responsify.dev.
 
 ## Todos
 
-- stylelint
-- delete npm run start
+- deploy to cloudflare
+- delete npm run start??
 - https://github.com/react-hook-form/react-hook-form/issues/12298
 - jiti was only needed to make the eslint vs code extension work
 - css-modules-kit

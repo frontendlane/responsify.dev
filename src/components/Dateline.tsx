@@ -2,7 +2,7 @@ import { fromIsoDateToHumanDate } from '../utils/fromIsoDateToHumanDate'
 
 export const Dateline = () => {
 	const publishedDate = '2019-09-25'
-	const updatedDate = '2024-11-08'
+	const updatedDate = '2026-03-24'
 
 	return (
 		<aside className="verticalSpacing150Percent">
